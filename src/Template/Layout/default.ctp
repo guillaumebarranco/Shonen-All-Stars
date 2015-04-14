@@ -53,8 +53,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <?= $this->fetch('content') ?>
             </div>
         </div>
-        <footer>
-        </footer>
+        
     </div>
+
+    <footer>
+
+    </footer>
+
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="js/main.js"></script>
+
 </body>
 </html>
