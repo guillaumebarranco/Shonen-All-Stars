@@ -32,7 +32,7 @@
 	}
 
 	.ennemy {
-		height: 250px;
+		height: 200px;
 		width: 700px;
 		top: 0;
 		left: 0;
@@ -40,7 +40,12 @@
 
 	.ennemy .picture {
 		float: right;
-		text-align: right;
+		position: relative;
+	}
+
+	.ennemy .picture img {
+		position: absolute;
+		right: 20px;
 	}
 
 	.choose {
@@ -82,10 +87,6 @@
 		color: white;
 	}
 
-	.button_attack {
-		display: none;
-	}
-
 </style>
 
 <div class="battle">
@@ -94,6 +95,8 @@
 
 		<div class="infos_battle">
 			<div class="status">
+				<div class="name"></div>
+
 				<div class="life">
 					<b>Life</b> <span><strong>100</strong></span>
 				</div>
@@ -120,6 +123,8 @@
 
 		<div class="infos_battle">
 			<div class="status">
+				<div class="name"></div>
+
 				<div class="life">
 					<b>Life</b> <span><strong>100</strong></span>
 				</div>
@@ -130,14 +135,19 @@
 			</div>
 			<ul class="choose">
 				<li><button class="button_depart make_attack">Attack</button></li><!--
-				--><li><button class="button_depart">Tool</button></li><!--
+				--><li><button class="button_depart use_tools">Tools</button></li><!--
 				--><li><button class="button_depart">Defense</button></li><!--
 				--><li><button class="button_depart">Get out</button></li>
 
-				<li><button class="button_attack button_attack1">Attack</button></li><!--
-				--><li><button class="button_attack button_attack2">Tool</button></li><!--
-				--><li><button class="button_attack button_attack3">Defense</button></li><!--
-				--><li><button class="button_attack button_attack4">Get out</button></li>
+				<li><button class="button_attack button_attack1"></button></li><!--
+				--><li><button class="button_attack button_attack2"></button></li><!--
+				--><li><button class="button_attack button_attack3"></button></li><!--
+				--><li><button class="button_attack button_attack4"></button></li>
+
+				<li><button class="button_tools button_life_potion">Life Potion</button></li><!--
+				--><li><button class="button_tools button_pp_potion">PP Potion</button></li><!--
+				--><li><button class="button_tools">UNDEFINED</button></li><!--
+				--><li><button class="button_tools">UNDEFINED</button></li>
 			</ul>
 		</div>
 

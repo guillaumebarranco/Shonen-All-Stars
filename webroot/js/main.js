@@ -6,19 +6,32 @@ $(document).ready(function() {
 	var winner;
 	var _this = this;
 
+	var al = $('.ally .status .life');
+	var el = $('.ennemy .status .life');
+	var ap = $('.ally .status .pp');
+	var ep = $('.ennemy .status .pp');
+
 	$.ajax({
 		type : "POST",
 		url : "battle/getPersos",
 		success: function(response) {
 
-			response[0].side = 'ally';
-			response[0].side = 'ennemy';
+			console.log(response);
+
+			var random_ally = rand(1,response.length -1);
+			var random_ennemy = rand(1,response.length -1);
+
+			response[random_ally].side = 'ally';
+			response[random_ennemy].side = 'ennemy';
 			
-			ally = response[0];
-			ennemy = response[1];
+			ally = response[random_ally];
+			ennemy = response[random_ennemy];
 
 			$('.ally').find('img').attr('src', 'img/persos/'+ally.img_back);
 			$('.ennemy').find('img').attr('src', 'img/persos/'+ennemy.img_front);
+
+			$('.ally .status .name').text(ally.name);
+			$('.ennemy .status .name').text(ennemy.name);
 
 			$('.choose .button_attack1').text(ally.attack_1.name);
 			$('.choose .button_attack2').text(ally.attack_2.name);
@@ -34,6 +47,15 @@ $(document).ready(function() {
 			$('.choose .button_attack2').attr('data-requis', ally.attack_2.requis);
 			$('.choose .button_attack3').attr('data-requis', ally.attack_3.requis);
 			$('.choose .button_attack4').attr('data-requis', ally.attack_4.requis);
+
+			$('.choose .button_attack1').attr('data-type', ally.attack_1.type);
+			$('.choose .button_attack2').attr('data-type', ally.attack_2.type);
+			$('.choose .button_attack3').attr('data-type', ally.attack_3.type);
+			$('.choose .button_attack4').attr('data-type', ally.attack_4.type);
+
+			if(ennemy.vit >= ally.vit) {
+				ennemyTurn();
+			}
 		},
 
 		error: function(){
@@ -41,16 +63,62 @@ $(document).ready(function() {
         }
 	});
 
+	/*****************************/
+	/* 	  GESTION DES CLICKS	 */
+	/*****************************/
+
+	$('.choose .button_attack').parent().hide();
+	$('.choose .button_tools').parent().hide();
+
 	$('.make_attack').on('click', function() {
 		$('.choose .button_depart').parent().hide();
-		$('.choose .button_attack').show();
+		$('.choose .button_attack').parent().show();
+	});
+
+	$('.use_tools').on('click', function() {
+		$('.choose .button_depart').parent().hide();
+		$('.choose .button_tools').parent().show();
+	});
+
+	$('.button_life_potion').on('click', function() {
+		updateLife();
+	});
+
+	$('.button_pp_potion').on('click', function() {
+		updatePP();
 	});
 
 	$('.button_attack').on('click', function() {
-
 		attack('ally', $(this));
-
 	});
+
+	/*****************************/
+	/* 	  FONCTIONS GENERIQUES	 */
+	/*****************************/
+
+	function updateLife() {
+
+		if(parseInt(al.find('strong').text()) <= 50) {
+			al.find('strong').text(parseInt(al.find('strong').text()) + 50);
+			al.find('span').width(al.find('span').width() + 50*3);
+			ennemyTurn();
+
+		} else {
+			alert('You have too much life to use it');
+		}
+	}
+
+	function updatePP() {
+
+		if(parseInt(ap.find('strong').text()) <= 50) {
+			ap.find('strong').text(parseInt(ap.find('strong').text()) + 50);
+			ap.find('span').width(ap.find('span').width() + 50*3);
+			ennemyTurn();
+
+		} else {
+			alert('You have too much PP to use it');
+		}
+	}
 
 	function chat(txt) {
 		$('.chat').append('<p>'+txt+'</p>');
@@ -64,9 +132,11 @@ $(document).ready(function() {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
+	/*****************************/
+	/* 	 FONCTIONS FIN DU JEU  	 */
+	/*****************************/
+
 	function checkWin() {
-		var al = $('.ally .status .life');
-		var el = $('.ennemy .status .life');
 
 		if(parseInt(al.find('strong').text()) <= 0) {
 			winner = 'ennemy';
@@ -82,6 +152,9 @@ $(document).ready(function() {
 	}
 
 	function endGame() {
+		$('.choose .button_attack').parent().hide();
+		$('.choose .button_tools').parent().hide();
+		$('.choose .button_depart').parent().hide();
 		emptyChat();
 
 		if(winner === 'ally') {
@@ -93,13 +166,58 @@ $(document).ready(function() {
 		}
 	}
 
+	/*****************************/
+	/* 	    FONCTIONS COMBAT  	 */
+	/*****************************/
+
+	function calculForce(power, type, who) {
+
+		if(type === 'physic') {
+
+			if(who === 'ally') {
+				if(ally.atk >= ennemy.def) {
+					power = power + 5;
+				} else {
+					power = power - 5;
+				}
+
+			} else if(who === 'ennemy') {
+				if(ennemy.atk >= ally.def) {
+					power = power + 5;
+				} else {
+					power = power - 5;
+				}
+			}
+
+		} else if(type === 'special') {
+
+			if(who === 'ally') {
+				if(ally.atk_spe >= ennemy.def_spe) {
+					power = power + 5;
+				} else {
+					power = power - 5;
+				}
+
+			} else if(who === 'ennemy') {
+				if(ennemy.atk_spe >= ally.def_spe) {
+					power = power + 5;
+				} else {
+					power = power - 5;
+				}
+			}
+		}
+
+		return power;
+	}
+
 	function ennemyTurn() {
-		console.log('ennemyturn');
+		$('.choose .button_attack').parent().hide();
+		$('.choose .button_tools').parent().hide();
+		$('.choose .button_depart').parent().hide();
 
 		setTimeout(function() {
 
 			var random = rand(1,4);
-			console.log('random', random);
 			var ennemy_attack;
 
 			switch(random) {
@@ -127,67 +245,95 @@ $(document).ready(function() {
 
 		if(who === 'ally') {
 
-			var name_attack = that.text();
-			var power_attack = parseInt(that.attr('data-power'));
-			var requis_attack = that.attr('data-requis');
+			if(parseInt(ap.find('strong').text()) >= parseInt(that.attr('data-requis'))) {
 
-			emptyChat();
+				var name_attack = that.text();
+				var power_attack = parseInt(that.attr('data-power'));
+				var requis_attack = that.attr('data-requis');
+				var type_attack = that.attr('data-type');
 
-			chat('Vous avez attaqué l\'adversaire avec '+name_attack);
-			chat('L\'adversaire a perdu '+power_attack+' points de vie');
-			chat('Vous avez perdu '+requis_attack+' points de pouvoir');
+				emptyChat();
 
-			// Mise à jour des PP
+				power_attack = calculForce(power_attack, type_attack, 'ally');
 
-			var ap = $('.ally .status .pp');
-			ap.find('span').width(ap.find('span').width() - requis_attack*3);
-			ap.find('strong').text(parseInt(ap.find('strong').text()) - requis_attack);
+				var check_critik = rand(1,10)
 
-			// Mise à jour de la vie de l'adversaire
+				if(check_critik === 8) {
+					power_attack = power_attack + 15;
+					chat('Coup critique !');
+				}
 
-			var el = $('.ennemy .status .life');
-			el.find('span').width(el.find('span').width() - power_attack*3);
-			el.find('strong').text(parseInt(el.find('strong').text()) - power_attack);
+				chat('Vous avez attaqué l\'adversaire avec '+name_attack);
+				chat('L\'adversaire a perdu '+power_attack+' points de vie');
+				chat('Vous avez perdu '+requis_attack+' points de pouvoir');
 
-			if(!checkWin()) {
-				ennemyTurn();
+				// Mise à jour des PP
+
+				ap.find('span').width(ap.find('span').width() - requis_attack*3);
+				ap.find('strong').text(parseInt(ap.find('strong').text()) - requis_attack);
+
+				// Mise à jour de la vie de l'adversaire
+
+				el.find('span').width(el.find('span').width() - power_attack*3);
+				el.find('strong').text(parseInt(el.find('strong').text()) - power_attack);
+
+				if(!checkWin()) {
+					ennemyTurn();
+				} else {
+					endGame();
+				}
 			} else {
-				endGame();
-			}
-			
+				alert('not enough pp');
+			}	
 
-		} else {
+		} else if(who === 'ennemy') {
 
-			console.log(that);
+			if(parseInt(ep.find('strong').text()) > parseInt(that.requis)) {
 
-			var name_attack = that.name;
-			var power_attack = that.power;
-			var requis_attack = that.requis;
+				var name_attack = that.name;
+				var power_attack = that.power;
+				var requis_attack = that.requis;
+				var type_attack = that.type;
 
-			emptyChat();
+				emptyChat();
 
-			chat('L\'adversaire vous a attaqué avec '+name_attack);
-			chat('Vous avez perdu '+power_attack+' points de vie');
-			chat('L\'adversaire a perdu '+requis_attack+' points de pouvoir');
+				// Mise à jour des PP
 
-			// Mise à jour des PP
+				ep.find('span').width(ep.find('span').width() - requis_attack*3);
+				ep.find('strong').text(parseInt(ep.find('strong').text()) - requis_attack);
 
-			var ep = $('.ennemy .status .pp');
-			ep.find('span').width(ep.find('span').width() - requis_attack*3);
-			ep.find('strong').text(parseInt(ep.find('strong').text()) - requis_attack);
+				// Mise à jour de la vie de l'adversaire
 
-			// Mise à jour de la vie de l'adversaire
+				power_attack = calculForce(power_attack, type_attack, 'ennemy');
 
-			console.log('power_attack', power_attack);
+				var check_critik = rand(1,10)
 
-			var al = $('.ally .status .life');
-			al.find('span').width(al.find('span').width() - power_attack*3);
-			al.find('strong').text(parseInt(al.find('strong').text()) - power_attack);
+				if(check_critik === 8) {
+					power_attack = power_attack + 15;
+					chat('Coup critique !');
+				}
 
-			if(!checkWin()) {
-				ennemyTurn();
+				chat('L\'adversaire vous a attaqué avec '+name_attack);
+				chat('Vous avez perdu '+power_attack+' points de vie');
+				chat('L\'adversaire a perdu '+requis_attack+' points de pouvoir');
+
+				al.find('span').width(al.find('span').width() - power_attack*3);
+				al.find('strong').text(parseInt(al.find('strong').text()) - power_attack);
+
+				if(checkWin()) {
+					endGame();
+				} else {
+					$('.choose .button_depart').parent().show();
+				}
 			} else {
-				endGame();
+
+				if(parseInt(ep.find('strong').text() < 50)) {
+					alert('IA regenerate mana');
+					ep.find('strong').text(parseInt(ep.find('strong').text()) + 50);
+					ep.find('span').width(ep.find('span').width() + 50*3);
+				} else {
+					ennemyTurn();
+				}
 			}
 		}
 	}

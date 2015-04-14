@@ -17,7 +17,7 @@ class HomeController extends AppController
         $persos = $query->find('all', array(
             'conditions' => array(
             ),
-            'limit' => 5
+            'limit' => 10
         ))->toArray();
 
         // debug($persos);
