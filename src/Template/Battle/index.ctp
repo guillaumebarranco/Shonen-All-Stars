@@ -60,6 +60,8 @@
 		width: 170px;
 		margin: 0;
 		padding: 20px;
+		border: solid 1px black;
+		box-sizing: border-box;
 	}
 
 	.status div {
