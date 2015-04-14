@@ -17,8 +17,8 @@
             <li>
             	<p>
             		<?= $perso['name'] ?> <br />
-            		<img src="img/persos/<?=$perso['img_back']?>" alt="" /><br />
-            		<img src="img/persos/<?=$perso['img_front']?>" alt="" /><br />
+            		<!-- <img src="img/persos/<?=$perso['img_back']?>" alt="" /><br />
+            		<img src="img/persos/<?=$perso['img_front']?>" alt="" /><br /> -->
 	            	Manga : <?= $perso['manga_name'] ?><br />
 	            	Attack 1 : <?= $perso['attack_1']['name'] ?><br />
 	            	Attack 2 : <?= $perso['attack_2']['name'] ?><br />
@@ -46,6 +46,8 @@
     		<label for="manga_name">Manga</label>
     		<input type="text" name="manga_name" />
     	</div>
+		
+		<!-- ATTACK 1 -->
 
     	<div class="style_input">
     		<label for="attack_1">Attack 1</label>
@@ -53,19 +55,67 @@
     	</div>
 
     	<div class="style_input">
-    		<label for="attack_2">Attack 1</label>
+    		<label for="attack_1_power">Attack 1 Power</label>
+    		<input type="text" name="attack_1_power" />
+    	</div>
+
+    	<div class="style_input">
+    		<label for="attack_1_requis">Attack 1 requis</label>
+    		<input type="text" name="attack_1_requis" />
+    	</div>
+
+    	<!-- ATTACK 2 -->
+
+    	<div class="style_input">
+    		<label for="attack_2">Attack 2</label>
     		<input type="text" name="attack_2" />
     	</div>
 
     	<div class="style_input">
-    		<label for="attack_3">Attack 1</label>
+    		<label for="attack_2_power">Attack 2 Power</label>
+    		<input type="text" name="attack_2_power" />
+    	</div>
+
+    	<div class="style_input">
+    		<label for="attack_2_requis">Attack 2 requis</label>
+    		<input type="text" name="attack_2_requis" />
+    	</div>
+
+    	<!-- ATTACK 3 -->
+
+    	<div class="style_input">
+    		<label for="attack_3">Attack 3</label>
     		<input type="text" name="attack_3" />
     	</div>
 
     	<div class="style_input">
-    		<label for="attack_4">Attack 1</label>
+    		<label for="attack_3_power">Attack 3 Power</label>
+    		<input type="text" name="attack_3_power" />
+    	</div>
+
+    	<div class="style_input">
+    		<label for="attack_3_requis">Attack 3 requis</label>
+    		<input type="text" name="attack_3_requis" />
+    	</div>
+
+    	<!-- ATTACK 4 -->
+
+    	<div class="style_input">
+    		<label for="attack_4">Attack 4</label>
     		<input type="text" name="attack_4" />
     	</div>
+
+    	<div class="style_input">
+    		<label for="attack_4_power">Attack 4 Power</label>
+    		<input type="text" name="attack_4_power" />
+    	</div>
+
+    	<div class="style_input">
+    		<label for="attack_4_requis">Attack 4 requis</label>
+    		<input type="text" name="attack_4_requis" />
+    	</div>
+
+    	<!-- Stats -->
 
     	<div class="style_input">
     		<label for="vit">Vitesse</label>

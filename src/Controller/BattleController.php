@@ -18,13 +18,17 @@ class BattleController extends AppController
     public function getPersos() {
         
         $this->loadComponent('RequestHandler');
-        
+
         $this->layout = null;
         $this->RequestHandler->renderAs($this, 'json');
 
         $query = TableRegistry::get('Persos');
 
-        $persos = $query->find('all')->toArray();
+        $persos = $query->find('all', array(
+            'conditions' => array(
+            ),
+            'limit' => 2
+        ))->toArray();
 
         $query2 = TableRegistry::get('Attacks');
 
@@ -41,7 +45,7 @@ class BattleController extends AppController
                         $persos[$v]['attack_'.$i] = array();
                         $persos[$v]['attack_'.$i]['name'] = $attack['name'];
                         $persos[$v]['attack_'.$i]['power'] = $attack['power'];
-                        $persos[$v]['attack_'.$i]['require'] = $attack['require'];
+                        $persos[$v]['attack_'.$i]['requis'] = $attack['requis'];
                     }
                 }
             }

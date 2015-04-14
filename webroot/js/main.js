@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+	var turn;
+
 	$.ajax({
 		type : "POST",
 		url : "battle/getPersos",
@@ -24,10 +26,10 @@ $(document).ready(function() {
 			$('.choose .button_attack3').attr('data-power', ally.attack_3.power);
 			$('.choose .button_attack4').attr('data-power', ally.attack_4.power);
 
-			$('.choose .button_attack1').attr('data-require', ally.attack_1.require);
-			$('.choose .button_attack2').attr('data-require', ally.attack_2.require);
-			$('.choose .button_attack3').attr('data-require', ally.attack_3.require);
-			$('.choose .button_attack4').attr('data-require', ally.attack_4.require);
+			$('.choose .button_attack1').attr('data-requis', ally.attack_1.requis);
+			$('.choose .button_attack2').attr('data-requis', ally.attack_2.requis);
+			$('.choose .button_attack3').attr('data-requis', ally.attack_3.requis);
+			$('.choose .button_attack4').attr('data-requis', ally.attack_4.requis);
 		},
 
 		error: function(){
@@ -43,7 +45,7 @@ $(document).ready(function() {
 	$('.button_attack').on('click', function() {
 		var name_attack = $(this).text();
 		var power_attack = parseInt($(this).attr('data-power'));
-		var require_attack = $(this).attr('data-require');
+		var requis_attack = $(this).attr('data-requis');
 
 		chat('Vous avez attaqué l\'adversaire avec '+name_attack);
 
@@ -57,12 +59,16 @@ $(document).ready(function() {
 		el.find('span').width(el.find('span').width() - power_attack*3);
 		el.find('strong').text(parseInt(el.find('strong').text()) - power_attack);
 
-		
+		ennemyTurn();
 
 	});
 
 	function chat(txt) {
 		$('.chat').append('<p>'+txt+'</p>');
+	}
+
+	function ennemyTurn() {
+
 	}
 
 });
