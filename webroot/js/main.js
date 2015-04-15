@@ -6,6 +6,7 @@ $(document).ready(function() {
 	var winner;
 	var _this = this;
 	var user;
+	this.response;
 
 	var al = $('.ally .status .life');
 	var el = $('.ennemy .status .life');
@@ -23,31 +24,29 @@ $(document).ready(function() {
 
 		if(pseudo != null && pseudo != '') {
 
-			$.ajax({
-				type : "POST",
-				url : "battle/"+$(this).attr('class'),
-				data: {
-					pseudo : pseudo
-				},
-				success: function(response) {
+			var data = {};
+			data['pseudo'] = pseudo;
 
-					if(response.check === 'OK') {
-						console.log(response);
-						user = response.user[0];
+			// Fonction AJAX
+			makeAjax('POST', "battle/"+$(this).attr('class'), data, function() {
 
-						$('.pseudo').text(user.pseudo);
-						$('.pseudo').show();
-						$('.sign_log_in').hide();
-						getAllPersos();
-					} else {
-						alert('pseudo déjà pris ou bug');
-					}
-				},
+				console.log('log_sign_in', _this.response);
 
-				error: function(){
-					console.log('error');
-		        }
+				if(_this.response.check = 'OK') {
+
+					console.log(_this.response);
+					user = _this.response.user[0];
+
+					$('.pseudo').text(user.pseudo);
+					$('.pseudo').show();
+					$('.sign_log_in').hide();
+					getAllPersos();
+					
+				} else {
+					alert('pseudo déjà pris ou bug');
+				}
 			});
+			
 
 		} else {
 			alert('veuillez entrer un pseudo');
@@ -58,80 +57,69 @@ $(document).ready(function() {
 
 	function getAllPersos() {
 
-		$.ajax({
-			type : "GET",
-			url : "battle/getPersos",
-			success: function(response) {
+		makeAjax('GET', 'battle/getPersos', '', function() {
 
-				//console.log(response);
+			console.log('getPersos', _this.response);
 
-				$('.before_battle h2').show();
+			$('.before_battle h2').show();
 
-				for (var p = 0; p < response.length; p++) {
+			for (var p = 0; p < _this.response.length; p++) {
 
-					var li_append =
-						'<li data-id="'+p+'">'+
-							'<img src="img/persos/'+response[p].img_front+'"/>'+
-						'</li>'
-					;
-					$('.choose_perso').append(li_append);
+				var li_append =
+					'<li data-id="'+p+'">'+
+						'<img src="img/persos/'+_this.response[p].img_front+'"/>'+
+					'</li>'
+				;
+				$('.choose_perso').append(li_append);
+			}
+
+			$(document).on('click', '.choose_perso li img', function() {
+				var id_chosen = $(this).parent().attr('data-id');
+				console.log(id_chosen);
+				var random_ennemy = rand(1,_this.response.length -1);
+
+				_this.response[id_chosen].side = 'ally';
+				_this.response[random_ennemy].side = 'ennemy';
+				
+				ally = _this.response[id_chosen];
+				ennemy = _this.response[random_ennemy];
+
+				$('.ally').find('img').attr('src', 'img/persos/'+ally.img_back);
+				$('.ennemy').find('img').attr('src', 'img/persos/'+ennemy.img_front);
+
+				$('.ally .status .name').text(ally.name);
+				$('.ennemy .status .name').text(ennemy.name);
+
+				$('.choose .button_attack1').text(ally.attack_1.name);
+				$('.choose .button_attack2').text(ally.attack_2.name);
+				$('.choose .button_attack3').text(ally.attack_3.name);
+				$('.choose .button_attack4').text(ally.attack_4.name);
+
+				$('.choose .button_attack1').attr('data-power', ally.attack_1.power);
+				$('.choose .button_attack2').attr('data-power', ally.attack_2.power);
+				$('.choose .button_attack3').attr('data-power', ally.attack_3.power);
+				$('.choose .button_attack4').attr('data-power', ally.attack_4.power);
+
+				$('.choose .button_attack1').attr('data-requis', ally.attack_1.requis);
+				$('.choose .button_attack2').attr('data-requis', ally.attack_2.requis);
+				$('.choose .button_attack3').attr('data-requis', ally.attack_3.requis);
+				$('.choose .button_attack4').attr('data-requis', ally.attack_4.requis);
+
+				$('.choose .button_attack1').attr('data-type', ally.attack_1.type);
+				$('.choose .button_attack2').attr('data-type', ally.attack_2.type);
+				$('.choose .button_attack3').attr('data-type', ally.attack_3.type);
+				$('.choose .button_attack4').attr('data-type', ally.attack_4.type);
+
+				$('.battle').show();
+				$('.before_battle').hide();
+
+				if(ennemy.vit >= ally.vit) {
+					ennemyTurn();
 				}
 
-				$(document).on('click', '.choose_perso li img', function() {
-					var id_chosen = $(this).parent().attr('data-id');
-					console.log(id_chosen);
-					var random_ennemy = rand(1,response.length -1);
-
-					response[id_chosen].side = 'ally';
-					response[random_ennemy].side = 'ennemy';
-					
-					ally = response[id_chosen];
-					ennemy = response[random_ennemy];
-
-					$('.ally').find('img').attr('src', 'img/persos/'+ally.img_back);
-					$('.ennemy').find('img').attr('src', 'img/persos/'+ennemy.img_front);
-
-					$('.ally .status .name').text(ally.name);
-					$('.ennemy .status .name').text(ennemy.name);
-
-					$('.choose .button_attack1').text(ally.attack_1.name);
-					$('.choose .button_attack2').text(ally.attack_2.name);
-					$('.choose .button_attack3').text(ally.attack_3.name);
-					$('.choose .button_attack4').text(ally.attack_4.name);
-
-					$('.choose .button_attack1').attr('data-power', ally.attack_1.power);
-					$('.choose .button_attack2').attr('data-power', ally.attack_2.power);
-					$('.choose .button_attack3').attr('data-power', ally.attack_3.power);
-					$('.choose .button_attack4').attr('data-power', ally.attack_4.power);
-
-					$('.choose .button_attack1').attr('data-requis', ally.attack_1.requis);
-					$('.choose .button_attack2').attr('data-requis', ally.attack_2.requis);
-					$('.choose .button_attack3').attr('data-requis', ally.attack_3.requis);
-					$('.choose .button_attack4').attr('data-requis', ally.attack_4.requis);
-
-					$('.choose .button_attack1').attr('data-type', ally.attack_1.type);
-					$('.choose .button_attack2').attr('data-type', ally.attack_2.type);
-					$('.choose .button_attack3').attr('data-type', ally.attack_3.type);
-					$('.choose .button_attack4').attr('data-type', ally.attack_4.type);
-
-					$('.battle').show();
-					$('.before_battle').hide();
-
-					if(ennemy.vit >= ally.vit) {
-						ennemyTurn();
-					}
-
-				});
-
-			},
-
-			error: function(){
-				console.log('error');
-	        }
+			});
 		});
 	}
-
-	
 
 	
 
@@ -169,6 +157,23 @@ $(document).ready(function() {
 	/*****************************/
 	/* 	  FONCTIONS GENERIQUES	 */
 	/*****************************/
+
+	makeAjax = function(type, url, data, callback) {
+
+		$.ajax({
+			type : type,
+			url : url,
+			data : data,
+			success: function(response_get) {
+				_this.response = response_get;
+				callback();
+			},
+			
+			error: function(){
+				console.log('error', url);
+	        }
+		});
+	}
 
 	function updateLife() {
 
@@ -225,33 +230,32 @@ $(document).ready(function() {
 		return false;
 	}
 
+	function updateUser(type) {
+
+		var data = {};
+		data['type'] = type;
+		data['pseudo'] = user.pseudo;
+
+		makeAjax('POST', 'battle/updateUser', data, function() {
+			console.log('updateUser', _this.response);
+		});
+	}
+
 	function endGame() {
+		
 		$('.choose .button_attack').parent().hide();
 		$('.choose .button_tools').parent().hide();
 		$('.choose .button_depart').parent().hide();
+
 		emptyChat();
 
 		if(winner === 'ally') {
-			
-			$.ajax({
-			type : "POST",
-			url : "battle/updateUser",
-			data : {
-				type : 'win',
-				pseudo : user.pseudo
-			},
-			success: function(response) {
-				console.log(response);
-
-			},
-
-			error: function(){
-				console.log('error');
-	        }
-		});
+			updateUser('win');
 			chat('Les points de vie de votre adversaire sont tombé à zéro.');
 			chat('Vous avez <span style="color:red;text-transform:uppercase;">gagné</span> !');
+
 		} else if(winner === 'ennemy') {
+			updateUser('lost');
 			chat('Vos points de vie sont tombé à zéro.');
 			chat('Vous avez <span style="color:red;text-transform:uppercase;">perdu</span> !');
 		}
@@ -419,11 +423,13 @@ $(document).ready(function() {
 
 			} else {
 
+				// Si les PP adverses sont inférieurs à la moitié on les régénère
 				if(parseInt(ep.find('strong').text()) < 50) {
-					alert('IA regenerate mana');
 					ep.find('strong').text(parseInt(ep.find('strong').text()) + 50);
 					ep.find('span').width(ep.find('span').width() + 50*3);
 					$('.choose .button_depart').parent().show();
+
+				// Sinon, il lance une nouvelle attaque
 				} else {
 					ennemyTurn();
 				}

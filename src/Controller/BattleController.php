@@ -130,25 +130,30 @@ class BattleController extends AppController
 
             $user = $user[0];
 
+            $usersTable = TableRegistry::get('Users');
+            $the_user = $usersTable->get($user['id']);
 
-            switch ($data['type']) {
-                case 'win':
-                    $usersTable = TableRegistry::get('Users');
-                    $the_user = $usersTable->get($user['id']);
-                    $the_user->win = $user['win'] + 1;
-                    $usersTable->save($the_user);
+            if(isset($data['type'])) {
 
-                    $check = 'OK';
-                break;
+                    switch ($data['type']) {
 
-                case 'lost':
-                break;
+                    case 'win':
+                        $the_user->win = $user['win'] + 1;
+                    break;
 
-                case 'arcade':
-                break;
+                    case 'lost':
+                        $the_user->lost = $user['lost'] + 1;
+                    break;
+
+                    case 'arcade':
+                        $the_user->arcades = $user['arcades'] + 1;
+                    break;
+                }
+
+                $usersTable->save($the_user);
+                $check = 'OK';
             }
         }
-
 
         $response = array();
         $response['check'] = $check;
