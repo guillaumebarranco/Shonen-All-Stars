@@ -1,8 +1,11 @@
 <?= $this->Html->css('battle') ?>
 
 <h1>Battle</h1>
+<p>
+	
+</p>
 
-<a href="home">Home</a>
+<a href="<?= $this->request->base ?>/home">Home</a>
 
 <h3 class="pseudo"></h3>
 

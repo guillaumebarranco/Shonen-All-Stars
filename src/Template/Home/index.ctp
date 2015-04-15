@@ -9,35 +9,39 @@
 <div class="wrapper" style="margin-bottom: 100px;">
     <h1>Homepage</h1>
 
-    <a href="battle">Battle</a>
+    <a href="<?= $this->request->base ?>/battle">Home</a>
 
     <h2>Persos</h2>
 
-    <ul>
-        <?php foreach ($persos as $key => $perso) { ?>
+    <details>
+        <ul>
+            <?php foreach ($persos as $key => $perso) { ?>
 
-            <li>
-            	<p>
-            		<?= $perso['name'] ?> <br />
-            		<!-- <img src="img/persos/<?=$perso['img_back']?>" alt="" /><br />
-            		<img src="img/persos/<?=$perso['img_front']?>" alt="" /><br /> -->
-	            	Manga : <?= $perso['manga_name'] ?><br />
-	            	Attack 1 : <?= $perso['attack_1']['name'] ?><br />
-	            	Attack 2 : <?= $perso['attack_2']['name'] ?><br />
-	            	Attack 3 : <?= $perso['attack_3']['name'] ?><br />
-	            	Attack 4 : <?= $perso['attack_4']['name'] ?><br />
-	            	Vitesse : <?= $perso['vit'] ?><br />
-	            	Attaque : <?= $perso['atk'] ?><br />
-	            	Défense : <?= $perso['def'] ?><br />
-	            	Attaque spéciale : <?= $perso['atk_spe'] ?><br />
-	            	Défense spéciale : <?= $perso['def_spe'] ?><br />
-	            </p>
-            </li>
+                <li>
+                    <p>
+                        <?= $perso['name'] ?> <br />
+                        <!-- <img src="img/persos/<?=$perso['img_back']?>" alt="" /><br />
+                        <img src="img/persos/<?=$perso['img_front']?>" alt="" /><br /> -->
+                        Manga : <?= $perso['manga_name'] ?><br />
+                        Attack 1 : <?= $perso['attack_1']['name'] ?><br />
+                        Attack 2 : <?= $perso['attack_2']['name'] ?><br />
+                        Attack 3 : <?= $perso['attack_3']['name'] ?><br />
+                        Attack 4 : <?= $perso['attack_4']['name'] ?><br />
+                        Vitesse : <?= $perso['vit'] ?><br />
+                        Attaque : <?= $perso['atk'] ?><br />
+                        Défense : <?= $perso['def'] ?><br />
+                        Attaque spéciale : <?= $perso['atk_spe'] ?><br />
+                        Défense spéciale : <?= $perso['def_spe'] ?><br />
+                    </p>
+                </li>
 
-        <?php } ?>
-    </ul>
+            <?php } ?>
+        </ul>
+    </details>
 
-    <form action="home/addPerso" method="post" style="width: 500px;margin: 0 auto;">
+    
+
+    <form action="<?= $this->request->base ?>/home/addPerso" method="post" style="width: 500px;margin: 0 auto;">
 
     	<div class="style_input">
     		<label for="name">Name</label>

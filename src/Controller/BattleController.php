@@ -51,7 +51,13 @@ class BattleController extends AppController
             $v++;
         }
 
-        echo json_encode($persos);
+        // debug(json_encode($persos););
+        // die;
+
+        $this->set(array(
+            'persos' => $persos,
+            '_serialize' => array('persos')
+        ));
     }
 
     public function signIn() {
@@ -187,7 +193,9 @@ class BattleController extends AppController
                 if($fight) {
                     $check = 'OK';   
                 }
-            }            
+            }
+
+            
         }
 
         $response = array();

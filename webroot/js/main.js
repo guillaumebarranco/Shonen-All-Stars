@@ -89,9 +89,11 @@ $(document).ready(function() {
 
 	function getAllPersos() {
 
-		makeAjax('GET', 'battle/getPersos', '', function() {
+		makeAjax('POST', 'battle/getPersos', '', function() {
 
 			console.log('getPersos', _this.response);
+
+			_this.response = _this.response.persos;
 
 			$('.before_battle h2').show();
 
