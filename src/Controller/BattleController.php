@@ -109,7 +109,49 @@ class BattleController extends AppController
 
         $response = array();
         $response['check'] = $check;
-        $response['pseudo'] = $data['pseudo'];
+        $response['user'] = $user;
+
+        echo json_encode($response);
+    }
+
+    public function updateUser() {
+        $this->layout = null;
+        $this->RequestHandler->renderAs($this, 'json');
+
+        $check = 'KO';
+
+        if(isset($this->request->data)) {
+
+            $data = $this->request->data;
+
+            $user = $this->Users->find()->where(
+                array('Users.pseudo' => $data['pseudo'])
+            )->toArray();
+
+            $user = $user[0];
+
+
+            switch ($data['type']) {
+                case 'win':
+                    $usersTable = TableRegistry::get('Users');
+                    $the_user = $usersTable->get($user['id']);
+                    $the_user->win = $user['win'] + 1;
+                    $usersTable->save($the_user);
+
+                    $check = 'OK';
+                break;
+
+                case 'lost':
+                break;
+
+                case 'arcade':
+                break;
+            }
+        }
+
+
+        $response = array();
+        $response['check'] = $check;
 
         echo json_encode($response);
     }

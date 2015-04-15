@@ -5,6 +5,7 @@ $(document).ready(function() {
 	var ennemy;
 	var winner;
 	var _this = this;
+	var user;
 
 	var al = $('.ally .status .life');
 	var el = $('.ennemy .status .life');
@@ -13,6 +14,7 @@ $(document).ready(function() {
 
 	$('.battle').hide();
 	$('.before_battle h2').hide();
+	$('.pseudo').hide();
 
 	$('.sign_log_in form').on('submit', function(e) {
 		e.preventDefault();
@@ -20,6 +22,7 @@ $(document).ready(function() {
 		var pseudo = $(this).find('input[name=pseudo]').val();
 
 		if(pseudo != null && pseudo != '') {
+
 			$.ajax({
 				type : "POST",
 				url : "battle/"+$(this).attr('class'),
@@ -29,6 +32,11 @@ $(document).ready(function() {
 				success: function(response) {
 
 					if(response.check === 'OK') {
+						console.log(response);
+						user = response.user[0];
+
+						$('.pseudo').text(user.pseudo);
+						$('.pseudo').show();
 						$('.sign_log_in').hide();
 						getAllPersos();
 					} else {
@@ -40,11 +48,11 @@ $(document).ready(function() {
 					console.log('error');
 		        }
 			});
-			} else {
-				alert('veuillez entrer un pseudo');
-			}
 
-		
+		} else {
+			alert('veuillez entrer un pseudo');
+		}
+
 	});
 
 
@@ -55,7 +63,7 @@ $(document).ready(function() {
 			url : "battle/getPersos",
 			success: function(response) {
 
-				console.log(response);
+				//console.log(response);
 
 				$('.before_battle h2').show();
 
@@ -224,6 +232,23 @@ $(document).ready(function() {
 		emptyChat();
 
 		if(winner === 'ally') {
+			
+			$.ajax({
+			type : "POST",
+			url : "battle/updateUser",
+			data : {
+				type : 'win',
+				pseudo : user.pseudo
+			},
+			success: function(response) {
+				console.log(response);
+
+			},
+
+			error: function(){
+				console.log('error');
+	        }
+		});
 			chat('Les points de vie de votre adversaire sont tombé à zéro.');
 			chat('Vous avez <span style="color:red;text-transform:uppercase;">gagné</span> !');
 		} else if(winner === 'ennemy') {

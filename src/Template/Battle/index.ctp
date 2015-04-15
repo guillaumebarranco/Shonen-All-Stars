@@ -4,6 +4,8 @@
 
 <a href="home">Home</a>
 
+<h3 class="pseudo"></h3>
+
 <div class="before_battle">
 
 	<div class="sign_log_in">
@@ -28,7 +30,6 @@
 	<h2>Choisissez votre personnage</h2>
 	<ul class="choose_perso"></ul>
 </div>
-
 
 <div class="battle">
 
