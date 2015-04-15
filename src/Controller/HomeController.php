@@ -7,38 +7,30 @@ use Cake\Network\Exception\NotFoundException;
 use Cake\View\Exception\MissingTemplateException;
 use Cake\ORM\TableRegistry;
 
-class HomeController extends AppController
-{
+class HomeController extends AppController {
+
+    public function initialize() {
+        parent::initialize();
+        $this->loadModel('Persos');
+        $this->loadModel('Attacks');
+    }
 
     public function index() {
 
-        $query = TableRegistry::get('Persos');
-
-        $persos = $query->find('all', array(
-            'conditions' => array(
-            ),
-            'limit' => 10
-        ))->toArray();
-
-        // debug($persos);
-        // die;
-
-        $query2 = TableRegistry::get('Attacks');
-
-        $attacks = $query2->find('all')->toArray();
+        $persos = $this->Persos->find()->toArray();
+        $attacks = $this->Attacks->find()->toArray();
 
         $v = 0;
 
         foreach ($persos as $key => $perso) {
             foreach ($attacks as $key => $attack) {
 
+                // On fait une boucle pour les quatres attaques de chaque personnage
                 for ($i=1; $i < 5; $i++) { 
 
                     if($attack['id'] == $perso['attack_'.$i]) {
                         $persos[$v]['attack_'.$i] = array();
                         $persos[$v]['attack_'.$i]['name'] = $attack['name'];
-                        $persos[$v]['attack_'.$i]['power'] = $attack['power'];
-                        $persos[$v]['attack_'.$i]['requis'] = $attack['requis'];
                     }
                 }
             }
@@ -80,11 +72,6 @@ class HomeController extends AppController
                     $id_attack[$a] = $attack->id;
                 }
             }
-
-            
-
-        
-
 
             /*
             *   ADD PERSO

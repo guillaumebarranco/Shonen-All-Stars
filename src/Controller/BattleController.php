@@ -11,30 +11,32 @@ use Cake\Controller\Component\RequestHandlerComponent;
 class BattleController extends AppController
 {
 
+     public function initialize() {
+        parent::initialize();
+        $this->loadModel('Persos');
+        $this->loadModel('Attacks');
+        $this->loadComponent('RequestHandler');
+    }
+
     public function index() {
 
     }
 
+
     public function getPersos() {
         
-        $this->loadComponent('RequestHandler');
-
         $this->layout = null;
         $this->RequestHandler->renderAs($this, 'json');
 
-        $query = TableRegistry::get('Persos');
-
-        $persos = $query->find('all')->toArray();
-
-        $query2 = TableRegistry::get('Attacks');
-
-        $attacks = $query2->find('all')->toArray();
+        $persos = $this->Persos->find()->toArray();
+        $attacks = $this->Attacks->find()->toArray();
 
         $v = 0;
 
         foreach ($persos as $key => $perso) {
             foreach ($attacks as $key => $attack) {
 
+                // On fait une boucle pour les quatres attaques de chaque personnage
                 for ($i=1; $i < 5; $i++) { 
 
                     if($attack['id'] == $perso['attack_'.$i]) {

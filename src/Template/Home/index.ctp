@@ -9,6 +9,8 @@
 <div class="wrapper" style="margin-bottom: 100px;">
     <h1>Homepage</h1>
 
+    <a href="battle">Battle</a>
+
     <h2>Persos</h2>
 
     <ul>
@@ -17,8 +19,8 @@
             <li>
             	<p>
             		<?= $perso['name'] ?> <br />
-            		<img src="img/persos/<?=$perso['img_back']?>" alt="" /><br />
-            		<img src="img/persos/<?=$perso['img_front']?>" alt="" /><br />
+            		<!-- <img src="img/persos/<?=$perso['img_back']?>" alt="" /><br />
+            		<img src="img/persos/<?=$perso['img_front']?>" alt="" /><br /> -->
 	            	Manga : <?= $perso['manga_name'] ?><br />
 	            	Attack 1 : <?= $perso['attack_1']['name'] ?><br />
 	            	Attack 2 : <?= $perso['attack_2']['name'] ?><br />

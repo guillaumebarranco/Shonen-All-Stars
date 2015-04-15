@@ -11,6 +11,8 @@ $(document).ready(function() {
 	var ap = $('.ally .status .pp');
 	var ep = $('.ennemy .status .pp');
 
+	$('.battle').hide();
+
 	$.ajax({
 		type : "POST",
 		url : "battle/getPersos",
@@ -18,50 +20,72 @@ $(document).ready(function() {
 
 			console.log(response);
 
-			var random_ally = rand(1,response.length -1);
-			var random_ennemy = rand(1,response.length -1);
+			for (var p = 0; p < response.length; p++) {
 
-			response[random_ally].side = 'ally';
-			response[random_ennemy].side = 'ennemy';
-			
-			ally = response[random_ally];
-			ennemy = response[random_ennemy];
-
-			$('.ally').find('img').attr('src', 'img/persos/'+ally.img_back);
-			$('.ennemy').find('img').attr('src', 'img/persos/'+ennemy.img_front);
-
-			$('.ally .status .name').text(ally.name);
-			$('.ennemy .status .name').text(ennemy.name);
-
-			$('.choose .button_attack1').text(ally.attack_1.name);
-			$('.choose .button_attack2').text(ally.attack_2.name);
-			$('.choose .button_attack3').text(ally.attack_3.name);
-			$('.choose .button_attack4').text(ally.attack_4.name);
-
-			$('.choose .button_attack1').attr('data-power', ally.attack_1.power);
-			$('.choose .button_attack2').attr('data-power', ally.attack_2.power);
-			$('.choose .button_attack3').attr('data-power', ally.attack_3.power);
-			$('.choose .button_attack4').attr('data-power', ally.attack_4.power);
-
-			$('.choose .button_attack1').attr('data-requis', ally.attack_1.requis);
-			$('.choose .button_attack2').attr('data-requis', ally.attack_2.requis);
-			$('.choose .button_attack3').attr('data-requis', ally.attack_3.requis);
-			$('.choose .button_attack4').attr('data-requis', ally.attack_4.requis);
-
-			$('.choose .button_attack1').attr('data-type', ally.attack_1.type);
-			$('.choose .button_attack2').attr('data-type', ally.attack_2.type);
-			$('.choose .button_attack3').attr('data-type', ally.attack_3.type);
-			$('.choose .button_attack4').attr('data-type', ally.attack_4.type);
-
-			if(ennemy.vit >= ally.vit) {
-				ennemyTurn();
+				var li_append =
+					'<li data-id="'+p+'">'+
+						'<img src="img/persos/'+response[p].img_front+'"/>'+
+					'</li>'
+				;
+				$('.choose_perso').append(li_append);
 			}
+
+			$(document).on('click', '.choose_perso li img', function() {
+				var id_chosen = $(this).parent().attr('data-id');
+				console.log(id_chosen);
+				var random_ennemy = rand(1,response.length -1);
+
+				response[id_chosen].side = 'ally';
+				response[random_ennemy].side = 'ennemy';
+				
+				ally = response[id_chosen];
+				ennemy = response[random_ennemy];
+
+				$('.ally').find('img').attr('src', 'img/persos/'+ally.img_back);
+				$('.ennemy').find('img').attr('src', 'img/persos/'+ennemy.img_front);
+
+				$('.ally .status .name').text(ally.name);
+				$('.ennemy .status .name').text(ennemy.name);
+
+				$('.choose .button_attack1').text(ally.attack_1.name);
+				$('.choose .button_attack2').text(ally.attack_2.name);
+				$('.choose .button_attack3').text(ally.attack_3.name);
+				$('.choose .button_attack4').text(ally.attack_4.name);
+
+				$('.choose .button_attack1').attr('data-power', ally.attack_1.power);
+				$('.choose .button_attack2').attr('data-power', ally.attack_2.power);
+				$('.choose .button_attack3').attr('data-power', ally.attack_3.power);
+				$('.choose .button_attack4').attr('data-power', ally.attack_4.power);
+
+				$('.choose .button_attack1').attr('data-requis', ally.attack_1.requis);
+				$('.choose .button_attack2').attr('data-requis', ally.attack_2.requis);
+				$('.choose .button_attack3').attr('data-requis', ally.attack_3.requis);
+				$('.choose .button_attack4').attr('data-requis', ally.attack_4.requis);
+
+				$('.choose .button_attack1').attr('data-type', ally.attack_1.type);
+				$('.choose .button_attack2').attr('data-type', ally.attack_2.type);
+				$('.choose .button_attack3').attr('data-type', ally.attack_3.type);
+				$('.choose .button_attack4').attr('data-type', ally.attack_4.type);
+
+				$('.battle').show();
+				$('.before_battle').hide();
+
+				if(ennemy.vit >= ally.vit) {
+					ennemyTurn();
+				}
+
+			});
+
 		},
 
 		error: function(){
 			console.log('error');
         }
 	});
+
+	
+
+	
 
 	/*****************************/
 	/* 	  GESTION DES CLICKS	 */
@@ -325,12 +349,14 @@ $(document).ready(function() {
 				} else {
 					$('.choose .button_depart').parent().show();
 				}
+
 			} else {
 
-				if(parseInt(ep.find('strong').text() < 50)) {
+				if(parseInt(ep.find('strong').text()) < 50) {
 					alert('IA regenerate mana');
 					ep.find('strong').text(parseInt(ep.find('strong').text()) + 50);
 					ep.find('span').width(ep.find('span').width() + 50*3);
+					$('.choose .button_depart').parent().show();
 				} else {
 					ennemyTurn();
 				}
