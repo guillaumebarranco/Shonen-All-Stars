@@ -7,6 +7,12 @@
 <h3 class="pseudo"></h3>
 
 <div class="before_battle">
+	
+	<div class="buttons_sign_log_in">
+		<button class="show_signIn">Sign In</button>
+		<button class="show_logIn">Log In</button>
+	</div>
+	
 
 	<div class="sign_log_in">
 

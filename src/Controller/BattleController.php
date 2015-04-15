@@ -16,6 +16,7 @@ class BattleController extends AppController
         $this->loadModel('Persos');
         $this->loadModel('Attacks');
         $this->loadModel('Users');
+        $this->loadModel('Fights');
         $this->loadComponent('RequestHandler');
     }
 
@@ -81,7 +82,7 @@ class BattleController extends AppController
 
         $response = array();
         $response['check'] = $check;
-        $response['pseudo'] = $data['pseudo'];
+        $response['user'] = $user;
 
         echo json_encode($response);
     }
@@ -153,6 +154,40 @@ class BattleController extends AppController
                 $usersTable->save($the_user);
                 $check = 'OK';
             }
+        }
+
+        $response = array();
+        $response['check'] = $check;
+
+        echo json_encode($response);
+    }
+
+    public function recordFight() {
+        $this->layout = null;
+        $this->RequestHandler->renderAs($this, 'json');
+
+        $check = 'KO';
+
+        if(isset($this->request->data)) {
+
+            $data = $this->request->data;
+
+            if(isset($data['user']) && $data['user'] != null && $data['user'] != '') {
+                $fights = TableRegistry::get('Fights');
+                $fight = $fights->newEntity();
+
+                $fight->user = $data['user'];
+                $fight->ally = $data['ally'];
+                $fight->ennemy = $data['ennemy'];
+                $fight->result = $data['result'];
+                $fight->created = time();
+
+                $fights->save($fight);
+
+                if($fight) {
+                    $check = 'OK';   
+                }
+            }            
         }
 
         $response = array();

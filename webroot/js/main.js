@@ -1,12 +1,17 @@
 $(document).ready(function() {
 
+	/*****************************/
+	/* 	       VARIABLES      	 */
+	/*****************************/
+
 	var turn;
 	var ally;
 	var ennemy;
 	var winner;
 	var _this = this;
 	var user;
-	this.response;
+	this.response = '';
+	this.all_persos = '';
 
 	var al = $('.ally .status .life');
 	var el = $('.ennemy .status .life');
@@ -16,6 +21,26 @@ $(document).ready(function() {
 	$('.battle').hide();
 	$('.before_battle h2').hide();
 	$('.pseudo').hide();
+	$('.sign_log_in form').hide();
+
+	/*****************************/
+	/* 	   LOG IN / SIGN IN      */
+	/*****************************/
+
+	$('.buttons_sign_log_in button').on('click', function() {
+
+		$(this).parent().hide();
+
+		var show_what = $(this).attr('class');
+
+		if(show_what === 'show_signIn') {
+			$('.sign_log_in form.signIn').show();
+
+		} else if(show_what === 'show_logIn') {
+			$('.sign_log_in form.logIn').show();
+		}
+
+	});
 
 	$('.sign_log_in form').on('submit', function(e) {
 		e.preventDefault();
@@ -25,17 +50,22 @@ $(document).ready(function() {
 		if(pseudo != null && pseudo != '') {
 
 			var data = {};
-			data['pseudo'] = pseudo;
+			data.pseudo = pseudo;
 
 			// Fonction AJAX
 			makeAjax('POST', "battle/"+$(this).attr('class'), data, function() {
 
 				console.log('log_sign_in', _this.response);
 
-				if(_this.response.check = 'OK') {
+				if(_this.response.check === 'OK') {
 
 					console.log(_this.response);
-					user = _this.response.user[0];
+
+					if(_this.response.user[0] != undefined) {
+						user = _this.response.user[0];
+					} else {
+						user = _this.response.user;
+					}
 
 					$('.pseudo').text(user.pseudo);
 					$('.pseudo').show();
@@ -46,7 +76,6 @@ $(document).ready(function() {
 					alert('pseudo déjà pris ou bug');
 				}
 			});
-			
 
 		} else {
 			alert('veuillez entrer un pseudo');
@@ -54,6 +83,9 @@ $(document).ready(function() {
 
 	});
 
+	/*****************************/
+	/* 	       GET PERSOS      	 */
+	/*****************************/
 
 	function getAllPersos() {
 
@@ -74,8 +106,10 @@ $(document).ready(function() {
 			}
 
 			$(document).on('click', '.choose_perso li img', function() {
+
+				_this.all_persos = _this.response;
+
 				var id_chosen = $(this).parent().attr('data-id');
-				console.log(id_chosen);
 				var random_ennemy = rand(1,_this.response.length -1);
 
 				_this.response[id_chosen].side = 'ally';
@@ -121,9 +155,6 @@ $(document).ready(function() {
 		});
 	}
 
-	
-
-	
 
 	/*****************************/
 	/* 	  GESTION DES CLICKS	 */
@@ -158,7 +189,7 @@ $(document).ready(function() {
 	/* 	  FONCTIONS GENERIQUES	 */
 	/*****************************/
 
-	makeAjax = function(type, url, data, callback) {
+	function makeAjax(type, url, data, callback) {
 
 		$.ajax({
 			type : type,
@@ -233,8 +264,8 @@ $(document).ready(function() {
 	function updateUser(type) {
 
 		var data = {};
-		data['type'] = type;
-		data['pseudo'] = user.pseudo;
+		data.type = type;
+		data.pseudo = user.pseudo;
 
 		makeAjax('POST', 'battle/updateUser', data, function() {
 			console.log('updateUser', _this.response);
@@ -242,22 +273,67 @@ $(document).ready(function() {
 	}
 
 	function endGame() {
-		
+
 		$('.choose .button_attack').parent().hide();
 		$('.choose .button_tools').parent().hide();
 		$('.choose .button_depart').parent().hide();
 
 		emptyChat();
 
+		recordFight();
+
 		if(winner === 'ally') {
 			updateUser('win');
 			chat('Les points de vie de votre adversaire sont tombé à zéro.');
 			chat('Vous avez <span style="color:red;text-transform:uppercase;">gagné</span> !');
 
+			setTimeout(function() {
+				newFight();
+			}, 2000);
+
 		} else if(winner === 'ennemy') {
 			updateUser('lost');
 			chat('Vos points de vie sont tombé à zéro.');
 			chat('Vous avez <span style="color:red;text-transform:uppercase;">perdu</span> !');
+		}
+
+
+	}
+
+	function recordFight() {
+
+		data = {};
+		data['user'] = user.pseudo;
+		data.ally = ally.name;
+		data.ennemy = ennemy.name;
+		data.result = 'lost';
+
+		if(winner === 'ally') {
+			data.result = 'win';
+		}
+
+		makeAjax('POST', 'battle/recordFight', data, function() {
+			console.log('recordFight', _this.response);
+		});
+	}
+
+	function newFight() {
+
+		emptyChat();
+
+		$('.status span').width(300);
+		$('.status strong').text('100');
+
+		var random_ennemy = rand(1,_this.all_persos.length -1);
+
+		_this.all_persos[random_ennemy].side = 'ennemy';
+
+		ennemy = _this.all_persos[random_ennemy];
+
+		$('.ennemy').find('img').attr('src', 'img/persos/'+ennemy.img_front);
+
+		if(ennemy.vit >= ally.vit) {
+			ennemyTurn();
 		}
 	}
 
@@ -350,8 +426,7 @@ $(document).ready(function() {
 				emptyChat();
 
 				power_attack = calculForce(power_attack, type_attack, 'ally');
-
-				var check_critik = rand(1,10)
+				var check_critik = rand(1,10);
 
 				if(check_critik === 8) {
 					power_attack = power_attack + 15;
@@ -400,8 +475,7 @@ $(document).ready(function() {
 				// Mise à jour de la vie de l'adversaire
 
 				power_attack = calculForce(power_attack, type_attack, 'ennemy');
-
-				var check_critik = rand(1,10)
+				var check_critik = rand(1,10);
 
 				if(check_critik === 8) {
 					power_attack = power_attack + 15;
