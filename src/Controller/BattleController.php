@@ -15,6 +15,7 @@ class BattleController extends AppController
         parent::initialize();
         $this->loadModel('Persos');
         $this->loadModel('Attacks');
+        $this->loadModel('Users');
         $this->loadComponent('RequestHandler');
     }
 
@@ -22,9 +23,7 @@ class BattleController extends AppController
 
     }
 
-
     public function getPersos() {
-        
         $this->layout = null;
         $this->RequestHandler->renderAs($this, 'json');
 
@@ -52,5 +51,66 @@ class BattleController extends AppController
         }
 
         echo json_encode($persos);
+    }
+
+    public function signIn() {
+        $this->layout = null;
+        $this->RequestHandler->renderAs($this, 'json');
+
+        $check = 'KO';
+
+        if(isset($this->request->data)) {
+            $data = $this->request->data;
+
+            $check_user = $this->Users->find()->where(
+                array('Users.pseudo' => $data['pseudo'])
+            )->toArray();
+
+            if(!$check_user) {
+                $users = TableRegistry::get('Users');
+                $user = $users->newEntity();
+
+                $user->pseudo = $data['pseudo'];
+                $user->created = time();
+
+                $users->save($user);
+
+                $check = 'OK';
+            }            
+        }
+
+        $response = array();
+        $response['check'] = $check;
+        $response['pseudo'] = $data['pseudo'];
+
+        echo json_encode($response);
+    }
+
+    public function logIn() {
+        $this->layout = null;
+        $this->RequestHandler->renderAs($this, 'json');
+
+        $check = 'KO';
+
+        if(isset($this->request->data)) {
+            $data = $this->request->data;
+
+            if(isset($data['pseudo']) && $data['pseudo'] != '') {
+
+                $user = $this->Users->find()->where(
+                    array('Users.pseudo' => $data['pseudo'])
+                )->toArray();
+
+                if($user) {
+                    $check = 'OK';
+                }
+            }
+        }
+
+        $response = array();
+        $response['check'] = $check;
+        $response['pseudo'] = $data['pseudo'];
+
+        echo json_encode($response);
     }
 }

@@ -5,6 +5,26 @@
 <a href="home">Home</a>
 
 <div class="before_battle">
+
+	<div class="sign_log_in">
+
+		<form class="logIn" action="" method="post">
+			<div class="style_input">
+				<label for="pseudo">Log In</label>
+				<input type="text" name="pseudo" />
+				<input type="submit" value="Valider">
+			</div>
+		</form>
+
+		<form class="signIn" action="" method="post">
+			<div class="style_input">
+				<label for="pseudo">Sign in</label>
+				<input type="text" name="pseudo" />
+				<input type="submit" value="Valider">
+			</div>
+		</form>
+	</div>
+
 	<h2>Choisissez votre personnage</h2>
 	<ul class="choose_perso"></ul>
 </div>

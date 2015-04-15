@@ -12,76 +12,118 @@ $(document).ready(function() {
 	var ep = $('.ennemy .status .pp');
 
 	$('.battle').hide();
+	$('.before_battle h2').hide();
 
-	$.ajax({
-		type : "POST",
-		url : "battle/getPersos",
-		success: function(response) {
+	$('.sign_log_in form').on('submit', function(e) {
+		e.preventDefault();
 
-			console.log(response);
+		var pseudo = $(this).find('input[name=pseudo]').val();
 
-			for (var p = 0; p < response.length; p++) {
+		if(pseudo != null && pseudo != '') {
+			$.ajax({
+				type : "POST",
+				url : "battle/"+$(this).attr('class'),
+				data: {
+					pseudo : pseudo
+				},
+				success: function(response) {
 
-				var li_append =
-					'<li data-id="'+p+'">'+
-						'<img src="img/persos/'+response[p].img_front+'"/>'+
-					'</li>'
-				;
-				$('.choose_perso').append(li_append);
+					if(response.check === 'OK') {
+						$('.sign_log_in').hide();
+						getAllPersos();
+					} else {
+						alert('pseudo déjà pris ou bug');
+					}
+				},
+
+				error: function(){
+					console.log('error');
+		        }
+			});
+			} else {
+				alert('veuillez entrer un pseudo');
 			}
 
-			$(document).on('click', '.choose_perso li img', function() {
-				var id_chosen = $(this).parent().attr('data-id');
-				console.log(id_chosen);
-				var random_ennemy = rand(1,response.length -1);
+		
+	});
 
-				response[id_chosen].side = 'ally';
-				response[random_ennemy].side = 'ennemy';
-				
-				ally = response[id_chosen];
-				ennemy = response[random_ennemy];
 
-				$('.ally').find('img').attr('src', 'img/persos/'+ally.img_back);
-				$('.ennemy').find('img').attr('src', 'img/persos/'+ennemy.img_front);
+	function getAllPersos() {
 
-				$('.ally .status .name').text(ally.name);
-				$('.ennemy .status .name').text(ennemy.name);
+		$.ajax({
+			type : "GET",
+			url : "battle/getPersos",
+			success: function(response) {
 
-				$('.choose .button_attack1').text(ally.attack_1.name);
-				$('.choose .button_attack2').text(ally.attack_2.name);
-				$('.choose .button_attack3').text(ally.attack_3.name);
-				$('.choose .button_attack4').text(ally.attack_4.name);
+				console.log(response);
 
-				$('.choose .button_attack1').attr('data-power', ally.attack_1.power);
-				$('.choose .button_attack2').attr('data-power', ally.attack_2.power);
-				$('.choose .button_attack3').attr('data-power', ally.attack_3.power);
-				$('.choose .button_attack4').attr('data-power', ally.attack_4.power);
+				$('.before_battle h2').show();
 
-				$('.choose .button_attack1').attr('data-requis', ally.attack_1.requis);
-				$('.choose .button_attack2').attr('data-requis', ally.attack_2.requis);
-				$('.choose .button_attack3').attr('data-requis', ally.attack_3.requis);
-				$('.choose .button_attack4').attr('data-requis', ally.attack_4.requis);
+				for (var p = 0; p < response.length; p++) {
 
-				$('.choose .button_attack1').attr('data-type', ally.attack_1.type);
-				$('.choose .button_attack2').attr('data-type', ally.attack_2.type);
-				$('.choose .button_attack3').attr('data-type', ally.attack_3.type);
-				$('.choose .button_attack4').attr('data-type', ally.attack_4.type);
-
-				$('.battle').show();
-				$('.before_battle').hide();
-
-				if(ennemy.vit >= ally.vit) {
-					ennemyTurn();
+					var li_append =
+						'<li data-id="'+p+'">'+
+							'<img src="img/persos/'+response[p].img_front+'"/>'+
+						'</li>'
+					;
+					$('.choose_perso').append(li_append);
 				}
 
-			});
+				$(document).on('click', '.choose_perso li img', function() {
+					var id_chosen = $(this).parent().attr('data-id');
+					console.log(id_chosen);
+					var random_ennemy = rand(1,response.length -1);
 
-		},
+					response[id_chosen].side = 'ally';
+					response[random_ennemy].side = 'ennemy';
+					
+					ally = response[id_chosen];
+					ennemy = response[random_ennemy];
 
-		error: function(){
-			console.log('error');
-        }
-	});
+					$('.ally').find('img').attr('src', 'img/persos/'+ally.img_back);
+					$('.ennemy').find('img').attr('src', 'img/persos/'+ennemy.img_front);
+
+					$('.ally .status .name').text(ally.name);
+					$('.ennemy .status .name').text(ennemy.name);
+
+					$('.choose .button_attack1').text(ally.attack_1.name);
+					$('.choose .button_attack2').text(ally.attack_2.name);
+					$('.choose .button_attack3').text(ally.attack_3.name);
+					$('.choose .button_attack4').text(ally.attack_4.name);
+
+					$('.choose .button_attack1').attr('data-power', ally.attack_1.power);
+					$('.choose .button_attack2').attr('data-power', ally.attack_2.power);
+					$('.choose .button_attack3').attr('data-power', ally.attack_3.power);
+					$('.choose .button_attack4').attr('data-power', ally.attack_4.power);
+
+					$('.choose .button_attack1').attr('data-requis', ally.attack_1.requis);
+					$('.choose .button_attack2').attr('data-requis', ally.attack_2.requis);
+					$('.choose .button_attack3').attr('data-requis', ally.attack_3.requis);
+					$('.choose .button_attack4').attr('data-requis', ally.attack_4.requis);
+
+					$('.choose .button_attack1').attr('data-type', ally.attack_1.type);
+					$('.choose .button_attack2').attr('data-type', ally.attack_2.type);
+					$('.choose .button_attack3').attr('data-type', ally.attack_3.type);
+					$('.choose .button_attack4').attr('data-type', ally.attack_4.type);
+
+					$('.battle').show();
+					$('.before_battle').hide();
+
+					if(ennemy.vit >= ally.vit) {
+						ennemyTurn();
+					}
+
+				});
+
+			},
+
+			error: function(){
+				console.log('error');
+	        }
+		});
+	}
+
+	
 
 	
 
