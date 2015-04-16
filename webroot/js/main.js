@@ -332,10 +332,15 @@ $(document).ready(function() {
 
 		ennemy = _this.all_persos[random_ennemy];
 
+		console.log('ennemy fight 2', ennemy);
+
 		$('.ennemy').find('img').attr('src', 'img/persos/'+ennemy.img_front);
 
 		if(ennemy.vit >= ally.vit) {
+			console.log('ennemy turn 2');
 			ennemyTurn();
+		} else {
+			$('.choose .button_depart').parent().show();
 		}
 	}
 
