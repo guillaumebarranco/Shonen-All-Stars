@@ -58,10 +58,11 @@
 			</div>
 		</div>
 
-		
+		<div class="anim">
+		</div>
 
 		<div class="picture">
-			<img src="" alt="" />
+			<img src="" class="" alt="" />
 		</div>
 		
 	</div>
@@ -84,21 +85,22 @@
 					<b>PP</b> <span><strong>100</strong></span>
 				</div>
 			</div>
+			<a href="#" class="button_return">Retour</a>
 			<ul class="choose">
 				<li><button class="button_depart make_attack">Attack</button></li><!--
 				--><li><button class="button_depart use_tools">Tools</button></li><!--
-				--><li><button class="button_depart">Defense</button></li><!--
-				--><li><button class="button_depart">Get out</button></li>
+				--><li><button class="button_depart">Attack + 20</button></li><!--
+				--><li><button class="button_depart">Defense + 20</button></li>
 
 				<li><button class="button_attack button_attack1"></button></li><!--
 				--><li><button class="button_attack button_attack2"></button></li><!--
 				--><li><button class="button_attack button_attack3"></button></li><!--
 				--><li><button class="button_attack button_attack4"></button></li>
 
-				<li><button class="button_tools button_life_potion">Life Potion</button></li><!--
-				--><li><button class="button_tools button_pp_potion">PP Potion</button></li><!--
-				--><li><button class="button_tools">UNDEFINED</button></li><!--
-				--><li><button class="button_tools">UNDEFINED</button></li>
+				<li><button class="button_tools button_life_potion"><span>PV + 50</span>Life Potion</button></li><!--
+				--><li><button class="button_tools button_pp_potion"><span>PP + 50</span>PP Potion</button></li><!--
+				--><li><button class="button_tools  button_life_pp_potion"><span>PV + 25 / PP + 25</span>Recovery Potion</button></li><!--
+				--><li><button class="button_tools button_shosinsui"><span>PV 100% / PP - 50</span>Shosinsui</button></li>
 			</ul>
 		</div>
 

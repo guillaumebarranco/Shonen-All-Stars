@@ -22,6 +22,7 @@ $(document).ready(function() {
 	$('.before_battle h2').hide();
 	$('.pseudo').hide();
 	$('.sign_log_in form').hide();
+	$('.anim').hide();
 
 	/*****************************/
 	/* 	   LOG IN / SIGN IN      */
@@ -107,53 +108,8 @@ $(document).ready(function() {
 				$('.choose_perso').append(li_append);
 			}
 
-			$(document).on('click', '.choose_perso li img', function() {
+			_this.all_persos = _this.response;
 
-				_this.all_persos = _this.response;
-
-				var id_chosen = $(this).parent().attr('data-id');
-				var random_ennemy = rand(1,_this.response.length -1);
-
-				_this.response[id_chosen].side = 'ally';
-				_this.response[random_ennemy].side = 'ennemy';
-				
-				ally = _this.response[id_chosen];
-				ennemy = _this.response[random_ennemy];
-
-				$('.ally').find('img').attr('src', 'img/persos/'+ally.img_back);
-				$('.ennemy').find('img').attr('src', 'img/persos/'+ennemy.img_front);
-
-				$('.ally .status .name').text(ally.name);
-				$('.ennemy .status .name').text(ennemy.name);
-
-				$('.choose .button_attack1').text(ally.attack_1.name);
-				$('.choose .button_attack2').text(ally.attack_2.name);
-				$('.choose .button_attack3').text(ally.attack_3.name);
-				$('.choose .button_attack4').text(ally.attack_4.name);
-
-				$('.choose .button_attack1').attr('data-power', ally.attack_1.power);
-				$('.choose .button_attack2').attr('data-power', ally.attack_2.power);
-				$('.choose .button_attack3').attr('data-power', ally.attack_3.power);
-				$('.choose .button_attack4').attr('data-power', ally.attack_4.power);
-
-				$('.choose .button_attack1').attr('data-requis', ally.attack_1.requis);
-				$('.choose .button_attack2').attr('data-requis', ally.attack_2.requis);
-				$('.choose .button_attack3').attr('data-requis', ally.attack_3.requis);
-				$('.choose .button_attack4').attr('data-requis', ally.attack_4.requis);
-
-				$('.choose .button_attack1').attr('data-type', ally.attack_1.type);
-				$('.choose .button_attack2').attr('data-type', ally.attack_2.type);
-				$('.choose .button_attack3').attr('data-type', ally.attack_3.type);
-				$('.choose .button_attack4').attr('data-type', ally.attack_4.type);
-
-				$('.battle').show();
-				$('.before_battle').hide();
-
-				if(ennemy.vit >= ally.vit) {
-					ennemyTurn();
-				}
-
-			});
 		});
 	}
 
@@ -161,6 +117,67 @@ $(document).ready(function() {
 	/*****************************/
 	/* 	  GESTION DES CLICKS	 */
 	/*****************************/
+
+	$(document).on('click', '.choose_perso li img', function() {
+
+		var id_chosen = $(this).parent().attr('data-id');
+		var random_ennemy = rand(1,_this.all_persos.length -1);
+
+		_this.all_persos[id_chosen].side = 'ally';
+		_this.all_persos[random_ennemy].side = 'ennemy';
+		
+		ally = _this.all_persos[id_chosen];
+		ennemy = _this.all_persos[random_ennemy];
+
+		$('.ally').find('.picture img').attr('src', 'img/persos/'+ally.img_back);
+		$('.ennemy').find('.picture img').attr('src', 'img/persos/'+ennemy.img_front);
+
+		$('.ally .status .name').text(ally.name);
+		$('.ennemy .status .name').text(ennemy.name);
+
+		$('.choose .button_attack1').html('<span>'+ally.attack_1.requis+' PP</span>'+'<em>'+ally.attack_1.name+'<em>');
+		$('.choose .button_attack2').html('<span>'+ally.attack_2.requis+' PP</span>'+'<em>'+ally.attack_2.name+'<em>');
+		$('.choose .button_attack3').html('<span>'+ally.attack_3.requis+' PP</span>'+'<em>'+ally.attack_3.name+'<em>');
+		$('.choose .button_attack4').html('<span>'+ally.attack_4.requis+' PP</span>'+'<em>'+ally.attack_4.name+'<em>');
+
+		$('.choose .button_attack1').attr('data-power', ally.attack_1.power);
+		$('.choose .button_attack2').attr('data-power', ally.attack_2.power);
+		$('.choose .button_attack3').attr('data-power', ally.attack_3.power);
+		$('.choose .button_attack4').attr('data-power', ally.attack_4.power);
+
+		$('.choose .button_attack1').attr('data-requis', ally.attack_1.requis);
+		$('.choose .button_attack2').attr('data-requis', ally.attack_2.requis);
+		$('.choose .button_attack3').attr('data-requis', ally.attack_3.requis);
+		$('.choose .button_attack4').attr('data-requis', ally.attack_4.requis);
+
+		$('.choose .button_attack1').attr('data-type', ally.attack_1.type);
+		$('.choose .button_attack2').attr('data-type', ally.attack_2.type);
+		$('.choose .button_attack3').attr('data-type', ally.attack_3.type);
+		$('.choose .button_attack4').attr('data-type', ally.attack_4.type);
+
+		$('.choose .button_attack1').attr('data-anim', ally.attack_1.anim);
+		$('.choose .button_attack2').attr('data-anim', ally.attack_2.anim);
+		$('.choose .button_attack3').attr('data-anim', ally.attack_3.anim);
+		$('.choose .button_attack4').attr('data-anim', ally.attack_4.anim);
+
+		$('.battle').show();
+		$('.choose_perso').hide();
+		$('.before_battle h2').hide();
+
+		if(ennemy.vit >= ally.vit) {
+			ennemyTurn();
+		} else {
+			$('.choose .button_depart').parent().show();
+		}
+
+	});
+
+	$('.button_return').on('click', function(e) {
+		e.preventDefault();
+		$('.choose .button_attack').parent().hide();
+		$('.choose .button_tools').parent().hide();
+		$('.choose .button_depart').parent().show();
+	});
 
 	$('.choose .button_attack').parent().hide();
 	$('.choose .button_tools').parent().hide();
@@ -183,10 +200,23 @@ $(document).ready(function() {
 		updatePP();
 	});
 
+	$('.button_life_pp_potion').on('click', function() {
+		updateLifePP();
+	});
+
+	$('.button_shosinsui').on('click', function() {
+		shosinsui();
+	});
+	
 	$('.button_attack').on('click', function() {
 		attack('ally', $(this));
 	});
 
+	$(document).off('click', '.play_again');
+	$(document).on('click', '.play_again', function() {
+		playAgain();
+	});
+ 
 	/*****************************/
 	/* 	  FONCTIONS GENERIQUES	 */
 	/*****************************/
@@ -229,6 +259,34 @@ $(document).ready(function() {
 
 		} else {
 			alert('You have too much PP to use it');
+		}
+	}
+
+	function updateLifePP() {
+
+		if(parseInt(ap.find('strong').text()) <= 75 && parseInt(al.find('strong').text()) <= 75) {
+			ap.find('strong').text(parseInt(ap.find('strong').text()) + 25);
+			ap.find('span').width(ap.find('span').width() + 25*3);
+			al.find('strong').text(parseInt(al.find('strong').text()) + 25);
+			al.find('span').width(al.find('span').width() + 25*3);
+			ennemyTurn();
+
+		} else {
+			alert('You have too much PP or Life to use it');
+		}
+	}
+
+	function shosinsui() {
+
+		if(parseInt(ap.find('strong').text()) >= 50) {
+			ap.find('strong').text(parseInt(ap.find('strong').text()) - 50);
+			ap.find('span').width(ap.find('span').width() - 50*3);
+			al.find('strong').text('100');
+			al.find('span').width(300);
+			ennemyTurn();
+
+		} else {
+			alert('You have not enough PP to use it');
 		}
 	}
 
@@ -280,7 +338,7 @@ $(document).ready(function() {
 		$('.choose .button_tools').parent().hide();
 		$('.choose .button_depart').parent().hide();
 
-		emptyChat();
+		//emptyChat();
 
 		recordFight();
 
@@ -297,9 +355,8 @@ $(document).ready(function() {
 			updateUser('lost');
 			chat('Vos points de vie sont tombé à zéro.');
 			chat('Vous avez <span style="color:red;text-transform:uppercase;">perdu</span> !');
+			chat('<button class="play_again">Rejouer</button>');
 		}
-
-
 	}
 
 	function recordFight() {
@@ -332,6 +389,8 @@ $(document).ready(function() {
 
 		ennemy = _this.all_persos[random_ennemy];
 
+		$('.ennemy .status .name').text(ennemy.name);
+
 		console.log('ennemy fight 2', ennemy);
 
 		$('.ennemy').find('img').attr('src', 'img/persos/'+ennemy.img_front);
@@ -342,6 +401,26 @@ $(document).ready(function() {
 		} else {
 			$('.choose .button_depart').parent().show();
 		}
+	}
+
+	function playAgain() {
+		emptyChat();
+		$('.battle').hide();
+
+		ap.find('strong').text('100');
+		ap.find('span').width(300);
+		al.find('strong').text('100');
+		al.find('span').width(300);
+
+		ep.find('strong').text('100');
+		ep.find('span').width(300);
+		el.find('strong').text('100');
+		el.find('span').width(300);
+
+		$('.choose_perso').empty();
+		$('.choose_perso').show();
+
+		getAllPersos();
 	}
 
 	/*****************************/
@@ -392,6 +471,7 @@ $(document).ready(function() {
 		$('.choose .button_attack').parent().hide();
 		$('.choose .button_tools').parent().hide();
 		$('.choose .button_depart').parent().hide();
+		console.log('ennemyTurn');
 
 		setTimeout(function() {
 
@@ -422,13 +502,15 @@ $(document).ready(function() {
 	function attack(who, that) {
 
 		if(who === 'ally') {
+			console.log('attack ally');
 
 			if(parseInt(ap.find('strong').text()) >= parseInt(that.attr('data-requis'))) {
 
-				var name_attack = that.text();
+				var name_attack = that.find('em').text();
 				var power_attack = parseInt(that.attr('data-power'));
 				var requis_attack = that.attr('data-requis');
 				var type_attack = that.attr('data-type');
+				var anim_attack = that.attr('data-anim');
 
 				emptyChat();
 
@@ -439,6 +521,14 @@ $(document).ready(function() {
 					power_attack = power_attack + 15;
 					chat('Coup critique !');
 				}
+
+				$('.ennemy .anim').append('<div class="anim_'+anim_attack+'"></div>');
+				$('.ennemy .anim').show();
+
+				setTimeout(function() {
+					$('.ennemy .anim').hide();
+					$('.ennemy .anim div').remove();
+				}, 1000);
 
 				chat('Vous avez attaqué l\'adversaire avec '+name_attack);
 				chat('L\'adversaire a perdu '+power_attack+' points de vie');
@@ -454,6 +544,7 @@ $(document).ready(function() {
 				el.find('span').width(el.find('span').width() - power_attack*3);
 				el.find('strong').text(parseInt(el.find('strong').text()) - power_attack);
 
+
 				if(!checkWin()) {
 					ennemyTurn();
 				} else {
@@ -464,6 +555,7 @@ $(document).ready(function() {
 			}	
 
 		} else if(who === 'ennemy') {
+			console.log('attack ennemy');
 
 			if(parseInt(ep.find('strong').text()) > parseInt(that.requis)) {
 

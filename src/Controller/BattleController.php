@@ -45,6 +45,7 @@ class BattleController extends AppController
                         $persos[$v]['attack_'.$i]['power'] = $attack['power'];
                         $persos[$v]['attack_'.$i]['requis'] = $attack['requis'];
                         $persos[$v]['attack_'.$i]['type'] = $attack['type'];
+                        $persos[$v]['attack_'.$i]['anim'] = $attack['anim'];
                     }
                 }
             }
