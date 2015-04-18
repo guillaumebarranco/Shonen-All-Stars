@@ -6,16 +6,24 @@
 </p>
 
 <a href="<?= $this->request->base ?>/home">Home</a>
-
-<h3 class="pseudo"></h3>
-
-<div class="before_battle">
 	
+<?php 
+
+$session = $this->request->session();
+$user = $session->read('user');
+
+if(!isset($user)) { ?>
+
+	<h3 class="pseudo"></h3>
+
+	<div class="before_battle">
+
+	<a href="#" class="return_sign_log_in">Retour</a>
+
 	<div class="buttons_sign_log_in">
 		<button class="show_signIn">Sign In</button>
 		<button class="show_logIn">Log In</button>
 	</div>
-	
 
 	<div class="sign_log_in">
 
@@ -35,6 +43,22 @@
 			</div>
 		</form>
 	</div>
+
+<?php } else { ?>
+	
+	<h3 class="pseudo">
+		<?=$user[0]->pseudo?>
+		<span class="nb_win">Win <em><?=$user[0]->win?></em></span>
+		<span class="nb_lost">Lost <em><?=$user[0]->lost?></em></span>
+		<span class="nb_arcade">Arcades <em><?=$user[0]->arcades?></em></span>
+	</h3>
+
+	<div class="launch_direct"></div>
+
+	<div class="before_battle">
+
+<?php } ?>
+	
 
 	<h2>Choisissez votre personnage</h2>
 	<ul class="choose_perso"></ul>
@@ -112,3 +136,12 @@
 <div class="chat">
 	
 </div>
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+
+
+
+<script>
+	
+</script>
+<script src="js/authentification.js"></script>
+<script src="js/main.js"></script>

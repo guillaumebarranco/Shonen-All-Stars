@@ -15,6 +15,11 @@
 	left: 0;
 }
 
+.pseudo span {
+	font-size: 16px;
+	margin-left: 15px;
+}
+
 .picture, .infos_battle {
 	display: inline-block;
 	width: 340px;

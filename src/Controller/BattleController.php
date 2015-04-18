@@ -24,6 +24,28 @@ class BattleController extends AppController
 
     }
 
+    public function getConnectedUser() {
+        $this->layout = null;
+        $this->RequestHandler->renderAs($this, 'json');
+
+        $session = $this->request->session();
+        $connected_user = $session->read('user');
+
+        $user = $this->Users->find()->where(
+            array('Users.pseudo' => $connected_user[0]->pseudo)
+        )->toArray();
+
+        if($user) {
+            $check = 'OK';
+        }
+
+        $response = array();
+        $response['check'] = $check;
+        $response['user'] = $user;
+
+        echo json_encode($response);
+    }
+
     public function getPersos() {
         $this->layout = null;
         $this->RequestHandler->renderAs($this, 'json');
@@ -87,6 +109,9 @@ class BattleController extends AppController
             }            
         }
 
+        $session = $this->request->session();
+        $session->write('user', $user);
+
         $response = array();
         $response['check'] = $check;
         $response['user'] = $user;
@@ -114,6 +139,9 @@ class BattleController extends AppController
                 }
             }
         }
+
+        $session = $this->request->session();
+        $session->write('user', $user);
 
         $response = array();
         $response['check'] = $check;

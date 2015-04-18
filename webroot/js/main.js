@@ -12,6 +12,7 @@ $(document).ready(function() {
 	var user;
 	this.response = '';
 	this.all_persos = '';
+	var arcade = 0;
 
 	var al = $('.ally .status .life');
 	var el = $('.ennemy .status .life');
@@ -23,14 +24,28 @@ $(document).ready(function() {
 	$('.pseudo').hide();
 	$('.sign_log_in form').hide();
 	$('.anim').hide();
+	$('.return_sign_log_in').hide();
+
+	if($('.launch_direct').length != 0) {
+		$('.pseudo').show();
+		getConnectedUser();
+	}
 
 	/*****************************/
 	/* 	   LOG IN / SIGN IN      */
 	/*****************************/
 
+	$('.return_sign_log_in').on('click', function(e) {
+		e.preventDefault();
+		$(this).hide();
+		$('.sign_log_in form.logIn, .sign_log_in form.signIn').hide();
+		$('.buttons_sign_log_in').show();
+	});
+
 	$('.buttons_sign_log_in button').on('click', function() {
 
 		$(this).parent().hide();
+		$('.return_sign_log_in').show();
 
 		var show_what = $(this).attr('class');
 
@@ -68,7 +83,14 @@ $(document).ready(function() {
 						user = _this.response.user;
 					}
 
-					$('.pseudo').text(user.pseudo);
+					var txt_pseudo = 
+						user.pseudo +
+						'<span class="nb_win">Win <em>'+user.win+'</em></span>'+
+						'<span class="nb_lost">Lost <em>'+user.lost+'</em></span>'+
+						'<span class="nb_arcade">Arcades <em>'+user.arcades+'</em></span>'
+					;
+
+					$('.pseudo').html(txt_pseudo);
 					$('.pseudo').show();
 					$('.sign_log_in').hide();
 					getAllPersos();
@@ -85,8 +107,30 @@ $(document).ready(function() {
 	});
 
 	/*****************************/
-	/* 	       GET PERSOS      	 */
+	/* 	  GET PERSOS AND USER  	 */
 	/*****************************/
+
+	function getConnectedUser() {
+
+		makeAjax('POST', 'battle/getConnectedUser', '', function() {
+
+			if(_this.response.check === 'OK') {
+
+				console.log('connected user', _this.response);
+
+				if(_this.response.user[0] != undefined) {
+					user = _this.response.user[0];
+				} else {
+					user = _this.response.user;
+				}
+
+				getAllPersos();
+
+			}
+			
+		});
+
+	}
 
 	function getAllPersos() {
 
@@ -347,8 +391,18 @@ $(document).ready(function() {
 			chat('Les points de vie de votre adversaire sont tombé à zéro.');
 			chat('Vous avez <span style="color:red;text-transform:uppercase;">gagné</span> !');
 
+			$('.nb_win em').text(parseInt($('.nb_win em').text()) + 1);
+
+			arcade++;
+
 			setTimeout(function() {
-				newFight();
+
+				if(arcade < 5) {
+					newFight();
+				} else {
+					endArcade();
+				}
+				
 			}, 2000);
 
 		} else if(winner === 'ennemy') {
@@ -356,6 +410,7 @@ $(document).ready(function() {
 			chat('Vos points de vie sont tombé à zéro.');
 			chat('Vous avez <span style="color:red;text-transform:uppercase;">perdu</span> !');
 			chat('<button class="play_again">Rejouer</button>');
+			$('.nb_lost em').text(parseInt($('.nb_lost em').text()) + 1);
 		}
 	}
 
@@ -374,6 +429,16 @@ $(document).ready(function() {
 		makeAjax('POST', 'battle/recordFight', data, function() {
 			console.log('recordFight', _this.response);
 		});
+	}
+
+	function endArcade() {
+		emptyChat();
+		chat('FELICITATIONS ! VOUS AVEZ TERMINE UNE ARCADE');
+		chat('<button class="play_again">Rejouer</button>');
+
+		$('.nb_arcade em').text(parseInt($('.nb_arcade em').text()) + 1);
+
+		updateUser('arcade');
 	}
 
 	function newFight() {
