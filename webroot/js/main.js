@@ -587,34 +587,29 @@ $(document).ready(function() {
 					chat('Coup critique !');
 				}
 
-				$('.ennemy .anim').append('<div class="anim_'+anim_attack+'"></div>');
-				$('.ennemy .anim').show();
+				makeAnimation(anim_attack, function() {
+					chat('Vous avez attaqué l\'adversaire avec '+name_attack);
+					chat('L\'adversaire a perdu '+power_attack+' points de vie');
+					chat('Vous avez perdu '+requis_attack+' points de pouvoir');
 
-				setTimeout(function() {
-					$('.ennemy .anim').hide();
-					$('.ennemy .anim div').remove();
-				}, 1000);
+					// Mise à jour des PP
 
-				chat('Vous avez attaqué l\'adversaire avec '+name_attack);
-				chat('L\'adversaire a perdu '+power_attack+' points de vie');
-				chat('Vous avez perdu '+requis_attack+' points de pouvoir');
+					ap.find('span').width(ap.find('span').width() - requis_attack*3);
+					ap.find('strong').text(parseInt(ap.find('strong').text()) - requis_attack);
 
-				// Mise à jour des PP
+					// Mise à jour de la vie de l'adversaire
 
-				ap.find('span').width(ap.find('span').width() - requis_attack*3);
-				ap.find('strong').text(parseInt(ap.find('strong').text()) - requis_attack);
-
-				// Mise à jour de la vie de l'adversaire
-
-				el.find('span').width(el.find('span').width() - power_attack*3);
-				el.find('strong').text(parseInt(el.find('strong').text()) - power_attack);
+					el.find('span').width(el.find('span').width() - power_attack*3);
+					el.find('strong').text(parseInt(el.find('strong').text()) - power_attack);
 
 
-				if(!checkWin()) {
-					ennemyTurn();
-				} else {
-					endGame();
-				}
+					if(!checkWin()) {
+						ennemyTurn();
+					} else {
+						endGame();
+					}
+				});
+				
 			} else {
 				alert('not enough pp');
 			}	
@@ -673,6 +668,19 @@ $(document).ready(function() {
 				}
 			}
 		}
+	}
+
+	function makeAnimation(anim_attack, callback) {
+
+		$('.ennemy .anim').append('<div class="anim_'+anim_attack+'"></div>');
+		$('.ennemy .anim').show();
+
+		setTimeout(function() {
+			$('.ennemy .anim').hide();
+			$('.ennemy .anim div').remove();
+		}, 1000);		
+
+		callback();
 	}
 
 });
