@@ -35,7 +35,7 @@ if(!isset($user)) { ?>
 
 			<div class="style_input">
 				<label for="password">Password</label>
-				<input type="text" name="password" type="password" />
+				<input name="password" type="password" />
 			</div>
 
 			<input type="submit" value="Valider">
@@ -51,7 +51,7 @@ if(!isset($user)) { ?>
 
 			<div class="style_input">
 				<label for="password">Password</label>
-				<input type="text" name="password" type="password" />
+				<input name="password" type="password" />
 			</div>
 
 			<input type="submit" value="Valider">
@@ -152,10 +152,5 @@ if(!isset($user)) { ?>
 </div>
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 
-
-
-<script>
-	
-</script>
 <script src="js/authentification.js"></script>
 <script src="js/main.js"></script>

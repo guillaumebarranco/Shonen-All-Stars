@@ -186,6 +186,14 @@ class BattleController extends AppController
                 }
 
                 $usersTable->save($the_user);
+
+                $user = $this->Users->find()->where(
+                    array('Users.pseudo' => $data['pseudo'])
+                )->toArray();
+
+                $session = $this->request->session();
+                $session->write('user', $user);
+                        
                 $check = 'OK';
             }
         }

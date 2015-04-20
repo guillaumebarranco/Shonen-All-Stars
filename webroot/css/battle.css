@@ -48,6 +48,33 @@
 	left: 0;
 }
 
+.ennemy.injured img, .ally.injured img {
+	-webkit-animation-name: injured;
+	-webkit-animation-duration: 0.4s;
+	-webkit-animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes injured {
+	15% {
+		opacity: 0;
+	}
+	30% {
+		opacity: 1;
+	}
+	45% {
+		opacity: 0;
+	}
+	60% {
+		opacity: 1;
+	}
+	75% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
 .ennemy .picture {
 	float: right;
 	position: relative;
@@ -324,10 +351,6 @@
 	width: 100%;
 	height: 100%;
 	border-radius: 100%;
-	height: 50px;
-    width: 50px;
-    top: 230px;
-    left: -400px;
 	position: absolute;
 	background: radial-gradient(circle at bottom, #81e8f6, #76deef 10%, #055194 80%, #062745 100%); 
 	opacity: 0.8;
@@ -393,6 +416,10 @@
 @-webkit-keyframes bubble {
 
 	0% {
+		height: 50px;
+	    width: 50px;
+	    top: 230px;
+	    left: -400px;
 		-webkit-transform: scale(1);
 	}
 
@@ -548,6 +575,66 @@
 }
 
 /*
+*	FIREBALL
+*/
+
+
+.anim_fireball {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	border-radius: 50%;
+	position: absolute;
+	-webkit-transform-style: preserve-3d;
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(248,80,50,1)), color-stop(50%,rgba(241,111,92,1)), color-stop(51%,rgba(246,41,12,1)), color-stop(71%,rgba(240,47,23,1)), color-stop(100%,rgba(231,56,39,1))); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(248,80,50,1) 0%,rgba(241,111,92,1) 50%,rgba(246,41,12,1) 51%,rgba(240,47,23,1) 71%,rgba(231,56,39,1) 100%); /* Chrome10+,Safari5.1+ */
+	-webkit-animation-name: fireball;
+	-webkit-animation-duration: 1.3s;
+	-webkit-animation-timing-function: ease-in-out;
+}
+
+.anim_fireball:before {
+  content: "";
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.anim_fireball:after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  -webkit-filter: blur(0);
+  opacity: 0.3;
+  //background: radial-gradient(circle at 50% 80%, #81e8f6, #76deef 10%, #055194 66%, #062745 100%);
+}
+
+@-webkit-keyframes fireball {
+	0% {
+	    height: 50px;
+	    width: 50px;
+	    top: 230px;
+	    left: -400px;
+	}
+	
+	100% {
+	    width: 150px;
+	    height: 150px;
+	    top: -5px;
+	    left: -54px;
+	}
+}
+
+/*
 *	KAMEHAMEHA
 */
 
@@ -600,8 +687,8 @@
 	border-radius: 50%;
 	position: absolute;
 	-webkit-transform-style: preserve-3d;
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#fffcfc), color-stop(60%,#c49f4a), color-stop(100%,#ffffff));
-	background: -webkit-radial-gradient(center, ellipse cover, #fffcfc 0%,#c49f4a 60%,#ffffff 100%);
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(252,234,187,1)), color-stop(50%,rgba(252,205,77,1)), color-stop(51%,rgba(248,181,0,1)), color-stop(75%,rgba(249,221,149,1)), color-stop(100%,rgba(251,223,147,1))); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(252,234,187,1) 0%,rgba(252,205,77,1) 50%,rgba(248,181,0,1) 51%,rgba(249,221,149,1) 75%,rgba(251,223,147,1) 100%);
 	-webkit-animation-name: ultimate;
 	-webkit-animation-duration: 2.5s;
 	-webkit-animation-timing-function: ease-in-out;
@@ -660,5 +747,7 @@
 	}
 
 	100% {
+		background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(243,197,189,1)), color-stop(50%,rgba(232,108,87,1)), color-stop(51%,rgba(234,40,3,1)), color-stop(75%,rgba(255,102,0,1)), color-stop(100%,rgba(199,34,0,1)));
+		background: -webkit-radial-gradient(center, ellipse cover, rgba(243,197,189,1) 0%,rgba(232,108,87,1) 50%,rgba(234,40,3,1) 51%,rgba(255,102,0,1) 75%,rgba(199,34,0,1) 100%);
 	}
 }

@@ -619,12 +619,13 @@ $(document).ready(function() {
 				power_attack = calculForce(power_attack, type_attack, 'ally');
 				var check_critik = rand(1,10);
 
-				if(check_critik === 8) {
-					power_attack = power_attack + 15;
-					chat('Coup critique !');
-				}
+				makeAnimation('ally', anim_attack, function() {
 
-				makeAnimation(anim_attack, function() {
+					if(check_critik === 8) {
+						power_attack = power_attack + 15;
+						chat('Coup critique !');
+					}
+
 					chat('Vous avez attaqué l\'adversaire avec '+name_attack);
 					chat('L\'adversaire a perdu '+power_attack+' points de vie');
 					chat('Vous avez perdu '+requis_attack+' points de pouvoir');
@@ -672,23 +673,26 @@ $(document).ready(function() {
 				power_attack = calculForce(power_attack, type_attack, 'ennemy');
 				var check_critik = rand(1,10);
 
-				if(check_critik === 8) {
-					power_attack = power_attack + 15;
-					chat('Coup critique !');
-				}
+				makeAnimation('ennemy', '', function() {
 
-				chat('L\'adversaire vous a attaqué avec '+name_attack);
-				chat('Vous avez perdu '+power_attack+' points de vie');
-				chat('L\'adversaire a perdu '+requis_attack+' points de pouvoir');
+					if(check_critik === 8) {
+						power_attack = power_attack + 15;
+						chat('Coup critique !');
+					}
 
-				al.find('span').width(al.find('span').width() - power_attack*3);
-				al.find('strong').text(parseInt(al.find('strong').text()) - power_attack);
+					chat('L\'adversaire vous a attaqué avec '+name_attack);
+					chat('Vous avez perdu '+power_attack+' points de vie');
+					chat('L\'adversaire a perdu '+requis_attack+' points de pouvoir');
 
-				if(checkWin()) {
-					endGame();
-				} else {
-					$('.choose .button_depart').parent().show();
-				}
+					al.find('span').width(al.find('span').width() - power_attack*3);
+					al.find('strong').text(parseInt(al.find('strong').text()) - power_attack);
+
+					if(checkWin()) {
+						endGame();
+					} else {
+						$('.choose .button_depart').parent().show();
+					}
+				});
 
 			} else {
 
@@ -707,25 +711,56 @@ $(document).ready(function() {
 	}
 
 	// Fonction pour mettre en place les animations relatives au attaques (les animations étant créées en CSS3)
-	function makeAnimation(anim_attack, callback) {
+	function makeAnimation(who_attack, anim_attack, callback) {
 
-		if(anim_attack == 'ultimate') {
-			$('html, body').css('overflow', 'hidden');
+		if(who_attack === 'ally') {
+
+			if(anim_attack == 'ultimate') {
+				$('html, body').css('overflow', 'hidden');
+			}
+
+			$('.ennemy .anim').append('<div class="anim_'+anim_attack+'"></div>');
+			$('.ennemy .anim').show();
+
+			// Animation duration from the CSS given to the setTimeout function
+			var duration = $('.anim_'+anim_attack).css('-webkit-animation-duration');
+
+			if(duration.length == 2) {
+				duration = duration.substr(0,1);
+				duration = parseInt(duration) * 1000;
+			} else {
+				duration = duration.substr(0,3);
+				duration = parseFloat(duration) * 1000;
+			}
+
+
+			setTimeout(function() {
+
+				$('.ennemy .anim').hide();
+				$('.ennemy .anim div').remove();
+				$('html, body').css('overflow', 'auto');
+				$('.ennemy').addClass('injured');
+
+				setTimeout(function() {
+					$('.ennemy').removeClass('injured');
+					callback();
+				}, 1000);
+
+			}, duration);
+
+		} else if(who_attack === 'ennemy') {
+
+			setTimeout(function() {
+
+				$('.ally').addClass('injured');
+
+				setTimeout(function() {
+					$('.ally').removeClass('injured');
+					callback();
+				}, 1000);
+
+			}, 1000);
 		}
-
-		$('.ennemy .anim').append('<div class="anim_'+anim_attack+'"></div>');
-		$('.ennemy .anim').show();
-
-		// Animation duration from the CSS given to the setTimeout function
-		var duration = parseInt($('.anim_'+anim_attack).css('-webkit-animation-duration').substr(0,1)) * 1000;
-
-		setTimeout(function() {
-			$('.ennemy .anim').hide();
-			$('.ennemy .anim div').remove();
-			$('html, body').css('overflow', 'auto');
-		}, duration);		
-
-		callback();
 	}
 
 });
