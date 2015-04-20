@@ -38,21 +38,19 @@ class HomeController extends AppController {
         }
 
         $this->set(array(
-            'persos' => $persos,
-            '_serialize' => array('persos')
+            'persos' => $persos
         ));
     }
 
     public function addPerso() {
+
         if(isset($this->request)) {
+
             $data = $this->request->data;
 
             /*
             *   ADD ATTACKS
             */
-
-            // debug($data);
-            // die;
 
             if(isset($data['attack_1']) && $data['attack_1'] != null && $data['attack_1'] != '') {
                 $id_attack = array();
@@ -82,12 +80,14 @@ class HomeController extends AppController {
 
             $perso->name = $data['name'];
             $perso->manga_name = $data['manga_name'];
+
             if(isset($data['attack_1']) && $data['attack_1'] != null && $data['attack_1'] != '') {
                 $perso->attack_1 = $id_attack[1];
                 $perso->attack_2 = $id_attack[2];
                 $perso->attack_3 = $id_attack[3];
                 $perso->attack_4 = $id_attack[4];
             }
+
             $perso->vit = $data['vit'];
             $perso->atk = $data['atk'];
             $perso->def = $data['def'];

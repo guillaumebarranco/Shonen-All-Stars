@@ -28,19 +28,36 @@ if(!isset($user)) { ?>
 	<div class="sign_log_in">
 
 		<form class="logIn" action="" method="post">
+			
+			<div>Log in</div>
+
 			<div class="style_input">
-				<label for="pseudo">Log In</label>
+				<label for="pseudo">Pseudo</label>
 				<input type="text" name="pseudo" />
-				<input type="submit" value="Valider">
 			</div>
+
+			<div class="style_input">
+				<label for="password">Password</label>
+				<input type="text" name="password" type="password" />
+			</div>
+
+			<input type="submit" value="Valider">
 		</form>
 
 		<form class="signIn" action="" method="post">
+			
+			<div>Sign in</div>
 			<div class="style_input">
-				<label for="pseudo">Sign in</label>
+				<label for="pseudo">Pseudo</label>
 				<input type="text" name="pseudo" />
-				<input type="submit" value="Valider">
 			</div>
+
+			<div class="style_input">
+				<label for="password">Password</label>
+				<input type="text" name="password" type="password" />
+			</div>
+
+			<input type="submit" value="Valider">
 		</form>
 	</div>
 
@@ -48,9 +65,9 @@ if(!isset($user)) { ?>
 	
 	<h3 class="pseudo">
 		<?=$user[0]->pseudo?>
-		<span class="nb_win">Win <em><?=$user[0]->win?></em></span>
-		<span class="nb_lost">Lost <em><?=$user[0]->lost?></em></span>
-		<span class="nb_arcade">Arcades <em><?=$user[0]->arcades?></em></span>
+		<span class="nb_win">Win <em><?php if(isset($user[0]->win)) echo $user[0]->win; else echo 0; ?></em></span>
+		<span class="nb_lost">Lost <em><?php if(isset($user[0]->lost)) echo $user[0]->lost; else echo 0; ?></em></span>
+		<span class="nb_arcade">Arcades <em><?php if(isset($user[0]->arcades)) echo $user[0]->arcades; else echo 0; ?></em></span>
 	</h3>
 
 	<div class="launch_direct"></div>

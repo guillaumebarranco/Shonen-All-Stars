@@ -38,118 +38,40 @@
             <?php } ?>
         </ul>
     </details>
-
     
+    <?php
+        echo $this->Form->create(null, [
+            'url' => ['controller' => 'Home', 'action' => 'addPerso']
+        ]);
 
-    <form action="<?= $this->request->base ?>/home/addPerso" method="post" style="width: 500px;margin: 0 auto;">
+        echo $this->Form->input('name');
+        echo $this->Form->input('manga_name');
 
-    	<div class="style_input">
-    		<label for="name">Name</label>
-    		<input type="text" name="name" />
-    	</div>
+        echo $this->Form->input('attack_1');
+        echo $this->Form->input('attack_1_power');
+        echo $this->Form->input('attack_1_requis');
+        echo $this->Form->input('attack_2');
+        echo $this->Form->input('attack_2_power');
+        echo $this->Form->input('attack_2_requis');
 
-    	<div class="style_input">
-    		<label for="manga_name">Manga</label>
-    		<input type="text" name="manga_name" />
-    	</div>
-		
-		<!-- ATTACK 1 -->
+        echo $this->Form->input('attack_3');
+        echo $this->Form->input('attack_3_power');
+        echo $this->Form->input('attack_3_requis');
 
-    	<div class="style_input">
-    		<label for="attack_1">Attack 1</label>
-    		<input type="text" name="attack_1" />
-    	</div>
+        echo $this->Form->input('attack_4');
+        echo $this->Form->input('attack_4_power');
+        echo $this->Form->input('attack_4_requis');
 
-    	<div class="style_input">
-    		<label for="attack_1_power">Attack 1 Power</label>
-    		<input type="text" name="attack_1_power" />
-    	</div>
+        echo $this->Form->input('vit');
+        echo $this->Form->input('atk');
+        echo $this->Form->input('def');
+        echo $this->Form->input('atk_spe');
+        echo $this->Form->input('def_spe');
 
-    	<div class="style_input">
-    		<label for="attack_1_requis">Attack 1 requis</label>
-    		<input type="text" name="attack_1_requis" />
-    	</div>
+        echo $this->Form->button('Ajouter');
 
-    	<!-- ATTACK 2 -->
+        echo $this->Form->end(); 
+    ?>
 
-    	<div class="style_input">
-    		<label for="attack_2">Attack 2</label>
-    		<input type="text" name="attack_2" />
-    	</div>
-
-    	<div class="style_input">
-    		<label for="attack_2_power">Attack 2 Power</label>
-    		<input type="text" name="attack_2_power" />
-    	</div>
-
-    	<div class="style_input">
-    		<label for="attack_2_requis">Attack 2 requis</label>
-    		<input type="text" name="attack_2_requis" />
-    	</div>
-
-    	<!-- ATTACK 3 -->
-
-    	<div class="style_input">
-    		<label for="attack_3">Attack 3</label>
-    		<input type="text" name="attack_3" />
-    	</div>
-
-    	<div class="style_input">
-    		<label for="attack_3_power">Attack 3 Power</label>
-    		<input type="text" name="attack_3_power" />
-    	</div>
-
-    	<div class="style_input">
-    		<label for="attack_3_requis">Attack 3 requis</label>
-    		<input type="text" name="attack_3_requis" />
-    	</div>
-
-    	<!-- ATTACK 4 -->
-
-    	<div class="style_input">
-    		<label for="attack_4">Attack 4</label>
-    		<input type="text" name="attack_4" />
-    	</div>
-
-    	<div class="style_input">
-    		<label for="attack_4_power">Attack 4 Power</label>
-    		<input type="text" name="attack_4_power" />
-    	</div>
-
-    	<div class="style_input">
-    		<label for="attack_4_requis">Attack 4 requis</label>
-    		<input type="text" name="attack_4_requis" />
-    	</div>
-
-    	<!-- Stats -->
-
-    	<div class="style_input">
-    		<label for="vit">Vitesse</label>
-    		<input type="text" name="vit" />
-    	</div>
-
-    	<div class="style_input">
-    		<label for="atk">Attaque</label>
-    		<input type="text" name="atk" />
-    	</div>
-
-    	<div class="style_input">
-    		<label for="def">Défense</label>
-    		<input type="text" name="def" />
-    	</div>
-
-    	<div class="style_input">
-    		<label for="atk_spe">Attaque spéciale</label>
-    		<input type="text" name="atk_spe" />
-    	</div>
-
-    	<div class="style_input">
-    		<label for="def_spe">Défense spéciale</label>
-    		<input type="text" name="def_spe" />
-    	</div>
-    	
-    	<input type="submit" value="Valider" />
-    </form>
-   
 
 </div>

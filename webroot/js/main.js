@@ -26,6 +26,9 @@ $(document).ready(function() {
 	$('.anim').hide();
 	$('.return_sign_log_in').hide();
 
+	$('.choose .button_attack').parent().hide();
+	$('.choose .button_tools').parent().hide();
+
 	if($('.launch_direct').length != 0) {
 		$('.pseudo').show();
 		getConnectedUser();
@@ -59,17 +62,22 @@ $(document).ready(function() {
 	});
 
 	$('.sign_log_in form').on('submit', function(e) {
+
 		e.preventDefault();
 
 		var pseudo = $(this).find('input[name=pseudo]').val();
+		var password = $(this).find('input[name=password]').val();
+		var what_form = $(this).attr('class');
 
 		if(pseudo != null && pseudo != '') {
 
 			var data = {};
 			data.pseudo = pseudo;
+			data.password = password;
+			data.what_form = what_form;
 
 			// Fonction AJAX
-			makeAjax('POST', "battle/"+$(this).attr('class'), data, function() {
+			makeAjax('POST', "battle/signLogIn", data, function() {
 
 				console.log('log_sign_in', _this.response);
 
@@ -81,6 +89,10 @@ $(document).ready(function() {
 						user = _this.response.user[0];
 					} else {
 						user = _this.response.user;
+					}
+
+					if(what_form === 'signIn') {
+						user.win = user.lost = user.arcades = 0;
 					}
 
 					var txt_pseudo = 
@@ -96,12 +108,12 @@ $(document).ready(function() {
 					getAllPersos();
 					
 				} else {
-					alert('pseudo déjà pris ou bug');
+					alert('Pseudo déjà pris ou bug.');
 				}
 			});
 
 		} else {
-			alert('veuillez entrer un pseudo');
+			alert('Veuillez entrer un pseudo et un mot de passe.');
 		}
 
 	});
@@ -109,6 +121,8 @@ $(document).ready(function() {
 	/*****************************/
 	/* 	  GET PERSOS AND USER  	 */
 	/*****************************/
+
+	// Fonction appellée quand la $_SESSION récupère un utilisateur connecté
 
 	function getConnectedUser() {
 
@@ -127,10 +141,10 @@ $(document).ready(function() {
 				getAllPersos();
 
 			}
-			
 		});
-
 	}
+
+	// Fonction AJAX qui récupère tous les personnages et leurs attaques pour que l'utilisateur choisisse son personnage
 
 	function getAllPersos() {
 
@@ -208,14 +222,16 @@ $(document).ready(function() {
 		$('.choose_perso').hide();
 		$('.before_battle h2').hide();
 
-		if(ennemy.vit >= ally.vit) {
+		// Si la vitesse de l'adversaire est supérieure au personnage de l'utilisateur, l'ennemi attaque en premier
+		if(ennemy.vit >= ally.vit) { 
 			ennemyTurn();
 		} else {
 			$('.choose .button_depart').parent().show();
 		}
 
 	});
-
+	
+	// Bouton de retour dans le jeu (pour quitter les attaques et revenir sur les objets par exemple)
 	$('.button_return').on('click', function(e) {
 		e.preventDefault();
 		$('.choose .button_attack').parent().hide();
@@ -223,39 +239,44 @@ $(document).ready(function() {
 		$('.choose .button_depart').parent().show();
 	});
 
-	$('.choose .button_attack').parent().hide();
-	$('.choose .button_tools').parent().hide();
-
+	// Au click sur le bouton Attack, on affiche les 4 attaques
 	$('.make_attack').on('click', function() {
 		$('.choose .button_depart').parent().hide();
 		$('.choose .button_attack').parent().show();
 	});
 
+	// Au click sur le bouton Tools, on affiche les 4 objets
 	$('.use_tools').on('click', function() {
 		$('.choose .button_depart').parent().hide();
 		$('.choose .button_tools').parent().show();
 	});
 
+	// Au clic sur l'objet Potion de Vie
 	$('.button_life_potion').on('click', function() {
 		updateLife();
 	});
 
+	// Au clic sur l'objet Potion de PP
 	$('.button_pp_potion').on('click', function() {
 		updatePP();
 	});
 
+	// Au clic sur l'objet Recovery Potion
 	$('.button_life_pp_potion').on('click', function() {
 		updateLifePP();
 	});
 
+	// Au clic sur l'objet Shosinsui
 	$('.button_shosinsui').on('click', function() {
 		shosinsui();
 	});
 	
+	// Au clic sur une attaque
 	$('.button_attack').on('click', function() {
 		attack('ally', $(this));
 	});
 
+	// Au clic sur le bouton "Rejouer" après avoir perdu un combat ou gagné une arcade
 	$(document).off('click', '.play_again');
 	$(document).on('click', '.play_again', function() {
 		playAgain();
@@ -265,6 +286,7 @@ $(document).ready(function() {
 	/* 	  FONCTIONS GENERIQUES	 */
 	/*****************************/
 
+	// Fonction simplifiant l'AJAX
 	function makeAjax(type, url, data, callback) {
 
 		$.ajax({
@@ -272,16 +294,17 @@ $(document).ready(function() {
 			url : url,
 			data : data,
 			success: function(response_get) {
+				// La variable globale de reponse est remplacée à chaque requête AJAX
 				_this.response = response_get;
 				callback();
 			},
-			
 			error: function(){
 				console.log('error', url);
 	        }
 		});
 	}
 
+	// Action de la Potion de Vie
 	function updateLife() {
 
 		if(parseInt(al.find('strong').text()) <= 50) {
@@ -294,6 +317,7 @@ $(document).ready(function() {
 		}
 	}
 
+	// Action de la Potion de PP
 	function updatePP() {
 
 		if(parseInt(ap.find('strong').text()) <= 50) {
@@ -306,6 +330,7 @@ $(document).ready(function() {
 		}
 	}
 
+	// Action de la Recovery Potion
 	function updateLifePP() {
 
 		if(parseInt(ap.find('strong').text()) <= 75 && parseInt(al.find('strong').text()) <= 75) {
@@ -320,6 +345,7 @@ $(document).ready(function() {
 		}
 	}
 
+	// Action de la Shosinsui
 	function shosinsui() {
 
 		if(parseInt(ap.find('strong').text()) >= 50) {
@@ -334,14 +360,18 @@ $(document).ready(function() {
 		}
 	}
 
+
+	// Fonction pour écrire dans la zone de texte
 	function chat(txt) {
 		$('.chat').append('<p>'+txt+'</p>');
 	}
 
+	// Fonction pour vider la zone de texte
 	function emptyChat() {
 		$('.chat').empty();
 	}
 
+	// Fonction pour générer un nombre aléatoire
 	function rand(min, max) {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
@@ -350,6 +380,7 @@ $(document).ready(function() {
 	/* 	 FONCTIONS FIN DU JEU  	 */
 	/*****************************/
 
+	// Après chaque attaque, on vérifie si un personnage a ses PV à 0
 	function checkWin() {
 
 		if(parseInt(al.find('strong').text()) <= 0) {
@@ -365,6 +396,7 @@ $(document).ready(function() {
 		return false;
 	}
 
+	// Fonction pour updater en temps réel les données de l'utilisateur (A chaque victoire, défaite, ou arcade remportée)
 	function updateUser(type) {
 
 		var data = {};
@@ -376,6 +408,8 @@ $(document).ready(function() {
 		});
 	}
 
+
+	// Fonction annonçant la fin du jeu
 	function endGame() {
 
 		$('.choose .button_attack').parent().hide();
@@ -414,10 +448,11 @@ $(document).ready(function() {
 		}
 	}
 
+	// Fonction pour enregistrer les données du combat en BDD
 	function recordFight() {
 
 		data = {};
-		data['user'] = user.pseudo;
+		data.user = user.pseudo;
 		data.ally = ally.name;
 		data.ennemy = ennemy.name;
 		data.result = 'lost';
@@ -431,6 +466,7 @@ $(document).ready(function() {
 		});
 	}
 
+	// Fonction appellée une fois une Arcade remportée
 	function endArcade() {
 		emptyChat();
 		chat('FELICITATIONS ! VOUS AVEZ TERMINE UNE ARCADE');
@@ -441,10 +477,12 @@ $(document).ready(function() {
 		updateUser('arcade');
 	}
 
+	// Fonction utilisée pour démarrer un nouveau combat (après une victoire de l'utilisateur)
 	function newFight() {
 
 		emptyChat();
 
+		// On régénère les PV et PP des deux personnages
 		$('.status span').width(300);
 		$('.status strong').text('100');
 
@@ -455,19 +493,16 @@ $(document).ready(function() {
 		ennemy = _this.all_persos[random_ennemy];
 
 		$('.ennemy .status .name').text(ennemy.name);
-
-		console.log('ennemy fight 2', ennemy);
-
 		$('.ennemy').find('img').attr('src', 'img/persos/'+ennemy.img_front);
 
 		if(ennemy.vit >= ally.vit) {
-			console.log('ennemy turn 2');
 			ennemyTurn();
 		} else {
 			$('.choose .button_depart').parent().show();
 		}
 	}
 
+	// Fonction pour rejouer après une défaite ou la fin d'une arcade
 	function playAgain() {
 		emptyChat();
 		$('.battle').hide();
@@ -492,6 +527,7 @@ $(document).ready(function() {
 	/* 	    FONCTIONS COMBAT  	 */
 	/*****************************/
 
+	// Fonction pour calculer les dégâts en fonction des caractéristiques de chaque personnage
 	function calculForce(power, type, who) {
 
 		if(type === 'physic') {
@@ -532,11 +568,11 @@ $(document).ready(function() {
 		return power;
 	}
 
+	// Fonction lancée pour lancer le tour de l'ennemi et simuler l'IA
 	function ennemyTurn() {
 		$('.choose .button_attack').parent().hide();
 		$('.choose .button_tools').parent().hide();
 		$('.choose .button_depart').parent().hide();
-		console.log('ennemyTurn');
 
 		setTimeout(function() {
 
@@ -564,10 +600,11 @@ $(document).ready(function() {
 
 	}
 
+
+	// Fonction qui va lancer l'attaque et effectuer les actions relatives à la pré-attaque et la post-attaque
 	function attack(who, that) {
 
 		if(who === 'ally') {
-			console.log('attack ally');
 
 			if(parseInt(ap.find('strong').text()) >= parseInt(that.attr('data-requis'))) {
 
@@ -615,7 +652,6 @@ $(document).ready(function() {
 			}	
 
 		} else if(who === 'ennemy') {
-			console.log('attack ennemy');
 
 			if(parseInt(ep.find('strong').text()) > parseInt(that.requis)) {
 
@@ -670,6 +706,7 @@ $(document).ready(function() {
 		}
 	}
 
+	// Fonction pour mettre en place les animations relatives au attaques (les animations étant créées en CSS3)
 	function makeAnimation(anim_attack, callback) {
 
 		$('.ennemy .anim').append('<div class="anim_'+anim_attack+'"></div>');

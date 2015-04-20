@@ -25,6 +25,8 @@ class BattleController extends AppController
     }
 
     public function getConnectedUser() {
+
+        $this->autoRender = false;
         $this->layout = null;
         $this->RequestHandler->renderAs($this, 'json');
 
@@ -47,6 +49,7 @@ class BattleController extends AppController
     }
 
     public function getPersos() {
+
         $this->layout = null;
         $this->RequestHandler->renderAs($this, 'json');
 
@@ -74,74 +77,67 @@ class BattleController extends AppController
             $v++;
         }
 
-        // debug(json_encode($persos););
-        // die;
-
         $this->set(array(
             'persos' => $persos,
             '_serialize' => array('persos')
         ));
     }
 
-    public function signIn() {
+    public function signLogIn() {
+
+        $this->autoRender = false;
         $this->layout = null;
         $this->RequestHandler->renderAs($this, 'json');
 
         $check = 'KO';
+        $user = null;
 
         if(isset($this->request->data)) {
             $data = $this->request->data;
 
-            $check_user = $this->Users->find()->where(
-                array('Users.pseudo' => $data['pseudo'])
-            )->toArray();
+            if(isset($data['pseudo']) && isset($data['password'])) {
 
-            if(!$check_user) {
-                $users = TableRegistry::get('Users');
-                $user = $users->newEntity();
+                $check_user = $this->Users->find()->where(
+                    array(
+                        'Users.pseudo' => $data['pseudo'],
+                        'Users.password' => md5($data['password'])
+                    ))->toArray();
 
-                $user->pseudo = $data['pseudo'];
-                $user->created = time();
+                if($data['what_form'] == 'signIn') {
 
-                $users->save($user);
+                    if(!$check_user) {
+                        $users = TableRegistry::get('Users');
+                        $new_user = $users->newEntity();
 
-                $check = 'OK';
-            }            
-        }
+                        $new_user->pseudo = $data['pseudo'];
+                        $new_user->password = md5($data['password']);
+                        $new_user->created = time();
 
-        $session = $this->request->session();
-        $session->write('user', $user);
+                        $users->save($new_user);
 
-        $response = array();
-        $response['check'] = $check;
-        $response['user'] = $user;
+                        $user = $this->Users->find()->where(
+                            array('Users.pseudo' => $data['pseudo'])
+                        )->toArray();
 
-        echo json_encode($response);
-    }
+                        $session = $this->request->session();
+                        $session->write('user', $user);
 
-    public function logIn() {
-        $this->layout = null;
-        $this->RequestHandler->renderAs($this, 'json');
+                        $check = 'OK';
+                    }
 
-        $check = 'KO';
+                } elseif($data['what_form'] == 'logIn') {
 
-        if(isset($this->request->data)) {
-            $data = $this->request->data;
+                    if($check_user) {
+                        $user = $check_user;
 
-            if(isset($data['pseudo']) && $data['pseudo'] != '') {
+                        $session = $this->request->session();
+                        $session->write('user', $user);
 
-                $user = $this->Users->find()->where(
-                    array('Users.pseudo' => $data['pseudo'])
-                )->toArray();
-
-                if($user) {
-                    $check = 'OK';
+                        $check = 'OK';
+                    }
                 }
             }
         }
-
-        $session = $this->request->session();
-        $session->write('user', $user);
 
         $response = array();
         $response['check'] = $check;
@@ -151,6 +147,8 @@ class BattleController extends AppController
     }
 
     public function updateUser() {
+
+        $this->autoRender = false;
         $this->layout = null;
         $this->RequestHandler->renderAs($this, 'json');
 
@@ -171,7 +169,7 @@ class BattleController extends AppController
 
             if(isset($data['type'])) {
 
-                    switch ($data['type']) {
+                switch ($data['type']) {
 
                     case 'win':
                         $the_user->win = $user['win'] + 1;
@@ -198,6 +196,8 @@ class BattleController extends AppController
     }
 
     public function recordFight() {
+
+        $this->autoRender = false;
         $this->layout = null;
         $this->RequestHandler->renderAs($this, 'json');
 
@@ -208,6 +208,11 @@ class BattleController extends AppController
             $data = $this->request->data;
 
             if(isset($data['user']) && $data['user'] != null && $data['user'] != '') {
+
+                /*
+                *   ON ENREGISTRE LE COMBAT
+                */
+
                 $fights = TableRegistry::get('Fights');
                 $fight = $fights->newEntity();
 
@@ -223,8 +228,6 @@ class BattleController extends AppController
                     $check = 'OK';   
                 }
             }
-
-            
         }
 
         $response = array();
