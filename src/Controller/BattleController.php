@@ -101,7 +101,8 @@ class BattleController extends AppController
                     array(
                         'Users.pseudo' => $data['pseudo'],
                         'Users.password' => md5($data['password'])
-                    ))->toArray();
+                    ))
+                ->toArray();
 
                 if($data['what_form'] == 'signIn') {
 

@@ -4,14 +4,26 @@
 		width: 300px;
 		vertical-align: top;
 	}
+    form {
+        width: 500px;
+        margin: 0 auto;
+    }
+    .wrapper {
+        margin-bottom: 100px;
+    }
 </style>
+<?= $this->Html->css('battle') ?>
+<div class="wrapper">
 
-<div class="wrapper" style="margin-bottom: 100px;">
+    
+
     <h1>Homepage</h1>
 
     <a href="<?= $this->request->base ?>/battle">Home</a>
 
     <h2>Persos</h2>
+
+
 
     <details>
         <ul>
@@ -38,6 +50,18 @@
             <?php } ?>
         </ul>
     </details>
+    <!-- <div class="test" style="position:relative; left: 200px;margin-top: 100px;margin-bottom:100px;">
+        <div class="anim">
+            <div class="anim_cut"></div>
+        </div>
+    </div>-->
+
+    <div  style="position:relative; left: 200px;margin-top: 100px;margin-bottom:100px;">
+        <div class="anim">
+            <div class="anim_ultimate"></div>
+        </div>
+    </div>
+    
     
     <?php
         echo $this->Form->create(null, [
@@ -72,6 +96,5 @@
 
         echo $this->Form->end(); 
     ?>
-
 
 </div>

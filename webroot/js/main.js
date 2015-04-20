@@ -709,13 +709,21 @@ $(document).ready(function() {
 	// Fonction pour mettre en place les animations relatives au attaques (les animations étant créées en CSS3)
 	function makeAnimation(anim_attack, callback) {
 
+		if(anim_attack == 'ultimate') {
+			$('html, body').css('overflow', 'hidden');
+		}
+
 		$('.ennemy .anim').append('<div class="anim_'+anim_attack+'"></div>');
 		$('.ennemy .anim').show();
+
+		// Animation duration from the CSS given to the setTimeout function
+		var duration = parseInt($('.anim_'+anim_attack).css('-webkit-animation-duration').substr(0,1)) * 1000;
 
 		setTimeout(function() {
 			$('.ennemy .anim').hide();
 			$('.ennemy .anim div').remove();
-		}, 1000);		
+			$('html, body').css('overflow', 'auto');
+		}, duration);		
 
 		callback();
 	}
