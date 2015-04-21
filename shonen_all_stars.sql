@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 21 Avril 2015 à 10:49
+-- Généré le :  Mar 21 Avril 2015 à 18:40
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `attacks` (
 INSERT INTO `attacks` (`id`, `name`, `power`, `requis`, `type`, `anim`) VALUES
 (1, 'Kamehameha', 30, 10, 'special', 'kamehameha'),
 (2, 'Poing du Dragon', 40, 20, 'physic', 'physic'),
-(3, 'Super Saiyen', 50, 35, 'special', 'saiyan'),
+(3, 'Explosion d''énergie', 50, 35, 'special', 'saiyan'),
 (4, 'Genkidama', 85, 60, 'special', 'genkidama'),
 (5, 'Gomu Gomu No Pistol', 20, 5, 'physic', 'physic'),
 (6, 'Gomu Gomu no Bazooka', 40, 15, 'physic', 'physic2'),
@@ -51,15 +51,15 @@ INSERT INTO `attacks` (`id`, `name`, `power`, `requis`, `type`, `anim`) VALUES
 (8, 'Gomu Gomu no Grizzly Magnum', 70, 45, 'physic', 'magnum'),
 (46, 'Coup d''épée', 10, 1, 'physic', 'cut'),
 (47, 'Flèche du Dragon', 25, 10, 'physic', 'cut'),
-(48, 'Le Dragon Ascendant', 40, 15, 'physic', 'cut'),
+(48, 'Le Dragon Ascendant', 40, 15, 'physic', 'cut_bas'),
 (49, 'Le Dragon Divin', 75, 55, 'physic', 'ultimate'),
-(54, 'Rasengan', 25, 20, 'special', 'rasengan'),
-(55, 'Rasenshuriken', 45, 40, 'special', 'rasengan'),
-(56, 'Kyubi fusion', 65, 90, 'special', 'ultimate'),
-(57, 'Coup de poing', 10, 1, 'physic', 'physic'),
+(54, 'Multi-clonage', 15, 20, 'special', 'gatling'),
+(55, 'Rasengan', 35, 40, 'special', 'rasengan'),
+(56, 'Chakra de Kyubi', 40, 60, 'special', 'chakra'),
+(57, 'Mini Rasen-shuriken', 65, 85, 'physic', 'ultimate'),
 (58, 'Cours Forest !', 10, 1, 'physic', 'physic'),
 (59, 'Devil Bat Ghost', 25, 10, 'physic', 'physic'),
-(60, '4s 20', 40, 50, 'special', 'physic'),
+(60, '4s 20', 40, 50, 'special', 'gatling'),
 (61, 'Devil 4D', 65, 70, 'special', 'ultimate'),
 (62, 'Money And Intelligence', 20, 30, 'special', 'physic'),
 (63, 'Trap', 35, 40, 'special', 'physic'),
@@ -71,12 +71,12 @@ INSERT INTO `attacks` (`id`, `name`, `power`, `requis`, `type`, `anim`) VALUES
 (69, 'Transformation cheloue', 70, 95, 'special', 'ultimate'),
 (70, 'Fourchette', 15, 5, 'physic', 'cut'),
 (71, 'Jambe Couteau', 30, 20, 'physic', 'cut'),
-(72, 'Poingpilon', 55, 60, 'physic', 'gatling'),
+(72, 'Poing-pilon', 55, 60, 'physic', 'gatling'),
 (73, 'Itada Kimasu', 75, 90, 'special', 'ultimate'),
 (74, 'Ugo', 25, 20, 'physic', 'physic'),
 (75, 'Boule de feu', 35, 25, 'special', 'fireball'),
 (76, 'Water magic', 50, 55, 'special', 'bubble'),
-(77, 'Volonté de Salomon', 70, 70, 'special', 'ultimate');
+(77, 'Sagesse de Salomon', 70, 70, 'special', 'ultimate');
 
 -- --------------------------------------------------------
 
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `fights` (
   `result` varchar(255) NOT NULL,
   `created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=80 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=118 ;
 
 --
 -- Contenu de la table `fights`
@@ -177,7 +177,45 @@ INSERT INTO `fights` (`id`, `user`, `ally`, `ennemy`, `result`, `created`) VALUE
 (76, 'Gear', 'Aladdin', 'Gon', 'win', '2015-04-20 16:27:07'),
 (77, 'Gear', 'Sangoku', 'Aladdin', 'lost', '2015-04-21 08:20:06'),
 (78, 'Gear', 'Sangoku', 'Aladdin', 'lost', '2015-04-21 08:26:15'),
-(79, 'Gear', 'Luffy', 'Kenshin', 'win', '2015-04-21 08:43:43');
+(79, 'Gear', 'Luffy', 'Kenshin', 'win', '2015-04-21 08:43:43'),
+(80, 'Gear', 'Sangoku', 'Luffy', 'lost', '2015-04-21 09:00:02'),
+(81, 'Gear', 'Sangoku', 'Luffy', 'lost', '2015-04-21 09:05:13'),
+(82, 'Gear', 'Kenshin', 'Ashirogi', 'win', '2015-04-21 11:08:21'),
+(83, 'Gear', 'Kenshin', 'Kenshin', 'lost', '2015-04-21 11:09:09'),
+(84, 'Gear', 'Kenshin', 'Eyeshield', 'lost', '2015-04-21 11:09:31'),
+(85, 'Gear', 'Ashirogi', 'Gon', 'lost', '2015-04-21 13:01:36'),
+(86, 'Gear', 'Sangoku', 'Ashirogi', 'win', '2015-04-21 13:02:34'),
+(87, 'Gear', 'Eyeshield', 'Gon', 'lost', '2015-04-21 13:04:58'),
+(88, 'Gear', 'Ashirogi', 'Gon', 'lost', '2015-04-21 13:22:23'),
+(89, 'Gear', 'Ashirogi', 'Toriko', 'lost', '2015-04-21 13:23:06'),
+(90, 'Gear', 'Kenshin', 'Gon', 'lost', '2015-04-21 13:23:35'),
+(91, 'Gear', 'Gon', 'Eyeshield', 'win', '2015-04-21 13:24:05'),
+(92, 'Gear', 'Gon', 'Luffy', 'lost', '2015-04-21 13:24:27'),
+(93, 'Gear', 'Sangoku', 'Ashirogi', 'win', '2015-04-21 13:48:48'),
+(94, 'Gear', 'Sangoku', 'Toriko', 'win', '2015-04-21 13:49:00'),
+(95, 'Gear', 'Sangoku', 'Ashirogi', 'win', '2015-04-21 13:51:37'),
+(96, 'Gear', 'Aladdin', 'Gon', 'win', '2015-04-21 13:52:26'),
+(97, 'Gear', 'Kenshin', 'Luffy', 'lost', '2015-04-21 14:18:49'),
+(98, 'Gear', 'Sangoku', 'Luffy', 'win', '2015-04-21 14:19:08'),
+(99, 'Gear', 'Sangoku', 'Naruto', 'win', '2015-04-21 14:19:31'),
+(100, 'Gear', 'Sangoku', 'Luffy', 'lost', '2015-04-21 14:19:46'),
+(101, 'Gear', 'Aladdin', 'Gon', 'win', '2015-04-21 14:20:07'),
+(102, 'Gear', 'Kenshin', 'Toriko', 'lost', '2015-04-21 14:24:09'),
+(103, 'Gear', 'Eyeshield', 'Aladdin', 'lost', '2015-04-21 14:25:10'),
+(104, 'Gear', 'Naruto', 'Gon', 'win', '2015-04-21 14:26:06'),
+(105, 'Gear', 'Naruto', 'Ashirogi', 'lost', '2015-04-21 14:26:29'),
+(106, 'Gear', 'Sangoku', 'Aladdin', 'lost', '2015-04-21 14:31:08'),
+(107, 'Gear', 'Sangoku', 'Kenshin', 'win', '2015-04-21 14:31:28'),
+(108, 'Gear', 'Sangoku', 'Aladdin', 'win', '2015-04-21 14:33:23'),
+(109, 'Gear', 'Sangoku', 'Toriko', 'win', '2015-04-21 14:37:33'),
+(110, 'Gear', 'Sangoku', 'Toriko', 'win', '2015-04-21 14:37:59'),
+(111, 'Gear', 'Sangoku', 'Aladdin', 'win', '2015-04-21 14:38:05'),
+(112, 'Gear', 'Luffy', 'Ashirogi', 'win', '2015-04-21 14:38:54'),
+(113, 'Gear', 'Luffy', 'Eyeshield', 'win', '2015-04-21 14:39:09'),
+(114, 'Gear', 'Luffy', 'Gon', 'win', '2015-04-21 14:39:23'),
+(115, 'Gear', 'Luffy', 'Luffy', 'win', '2015-04-21 14:39:55'),
+(116, 'Gear', 'Kenshin', 'Luffy', 'lost', '2015-04-21 15:16:26'),
+(117, 'Gear', 'Luffy', 'Toriko', 'win', '2015-04-21 15:18:00');
 
 -- --------------------------------------------------------
 
@@ -240,8 +278,37 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `pseudo`, `password`, `created`, `win`, `lost`, `arcades`) VALUES
-(4, 'Gear', '7df4459c049c3ef550317f4bd737df5f', '2015-04-15 10:09:47', 58, 31, 2),
+(4, 'Gear', '7df4459c049c3ef550317f4bd737df5f', '2015-04-15 10:09:47', 79, 48, 2),
 (20, 'test', '05a671c66aefea124cc08b76ea6d30bb', '2015-04-20 10:03:33', 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `user_persos`
+--
+
+CREATE TABLE IF NOT EXISTS `user_persos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
+  `id_perso` int(11) NOT NULL,
+  `unlocked` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+
+--
+-- Contenu de la table `user_persos`
+--
+
+INSERT INTO `user_persos` (`id`, `id_user`, `id_perso`, `unlocked`) VALUES
+(11, 4, 1, 0),
+(12, 4, 4, 0),
+(13, 4, 12, 0),
+(14, 4, 15, 1),
+(15, 4, 16, 1),
+(16, 4, 19, 1),
+(17, 4, 22, 1),
+(18, 4, 25, 0),
+(19, 4, 26, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
