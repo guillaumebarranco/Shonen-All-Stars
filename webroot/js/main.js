@@ -723,6 +723,7 @@ $(document).ready(function() {
 			$('.ennemy .anim').show();
 
 			// Animation duration from the CSS given to the setTimeout function
+			console.log($('.anim_'+anim_attack));
 			var duration = $('.anim_'+anim_attack).css('-webkit-animation-duration');
 			console.log(duration);
 
