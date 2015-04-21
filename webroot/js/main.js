@@ -724,10 +724,14 @@ $(document).ready(function() {
 
 			// Animation duration from the CSS given to the setTimeout function
 			var duration = $('.anim_'+anim_attack).css('-webkit-animation-duration');
+			console.log(duration);
 
 			if(duration.length == 2) {
+				console.log(duration);
 				duration = duration.substr(0,1);
+				console.log(duration);
 				duration = parseInt(duration) * 1000;
+				console.log(duration);
 			} else {
 				duration = duration.substr(0,3);
 				duration = parseFloat(duration) * 1000;
