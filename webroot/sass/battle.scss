@@ -37,12 +37,10 @@
 	vertical-align: top;
 } 
 
-
-
 .ennemy.injured img, .ally.injured img {
-	-webkit-animation-name: injured;
-	-webkit-animation-duration: 0.4s;
-	-webkit-animation-timing-function: ease-in-out;
+	animation-name: injured;
+	animation-duration: 0.4s;
+	animation-timing-function: ease-in-out;
 }
 
 .ally {
@@ -131,7 +129,12 @@
 			max-width: 100px;
 			border: solid 1px black;
 			margin: 10px;
-			cursor: pointer;
+			filter: grayscale(100%); 
+
+			&.unlocked {
+				cursor: pointer;
+				filter: grayscale(0%); 
+			}
 		}
 	}
 }
@@ -175,9 +178,9 @@ $top : -20px;
 	position: absolute;
 	background-image: url('../img/anim/punch.png');
 	background-repeat: no-repeat;
-	-webkit-animation-name: physic;
-	-webkit-animation-duration: 1s;
-	-webkit-animation-timing-function: ease-in-out;
+	animation-name: physic;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
 }
 
 .ally .anim_physic {
@@ -187,7 +190,7 @@ $top : -20px;
 	left: $left_ennemy;
 }
 
-@-webkit-keyframes physic {
+@keyframes physic {
 	0% {
 		opacity: 0;
 	}
@@ -206,9 +209,9 @@ $top : -20px;
 	position: absolute;
 	background-image: url('../img/anim/magnum.png');
 	background-repeat: no-repeat;
-	-webkit-animation-name: magnum;
-	-webkit-animation-duration: 1s;
-	-webkit-animation-timing-function: ease-in-out;
+	animation-name: magnum;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
 }
 
 .ally .anim_magnum {
@@ -218,7 +221,7 @@ $top : -20px;
 	left: $left_ennemy - 50px;
 }
 
-@-webkit-keyframes magnum {
+@keyframes magnum {
 	0% {
 		opacity: 0;
 	}
@@ -237,9 +240,9 @@ $top : -20px;
 	position: absolute;
 	background-image: url('../img/anim/physic2.png');
 	background-repeat: no-repeat;
-	-webkit-animation-name: physic2;
-	-webkit-animation-duration: 1s;
-	-webkit-animation-timing-function: ease-in-out;
+	animation-name: physic2;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
 }
 
 .ally .anim_physic2 {
@@ -249,7 +252,7 @@ $top : -20px;
 	left: $left_ennemy - 50px;
 }
 
-@-webkit-keyframes physic2 {
+@keyframes physic2 {
 	0% {
 		opacity: 0;
 	}
@@ -270,10 +273,10 @@ $top : -20px;
 	position: absolute;
 	left: 62px;
 	top: -47px;
-	-webkit-transform: rotate(41deg);
-	-webkit-animation-name: cut;
-	-webkit-animation-duration: 1s;
-  	-webkit-transform-origin: 0% 0%;
+	transform: rotate(41deg);
+	animation-name: cut;
+	animation-duration: 1s;
+  	transform-origin: 0% 0%;
 }
 
 .ally .anim_cut {
@@ -283,7 +286,7 @@ $top : -20px;
 	left: $left_ennemy + 112px;
 }
 
-@-webkit-keyframes cut {
+@keyframes cut {
 	0% {
 		height: 1px;
 	}
@@ -302,19 +305,19 @@ $top : -20px;
 	height: 0;
 	background-color: black;
 	position: absolute;
-	-webkit-transform: rotate(41deg);
-	-webkit-animation-name: cut_bas;
-	-webkit-animation-duration: 1s;
+	transform: rotate(41deg);
+	animation-name: cut_bas;
+	animation-duration: 1s;
 }
 
 .ally .anim_cut_bas {
-	-webkit-animation-name: receive_cut_bas;
+	animation-name: receive_cut_bas;
 }
 .ennemy .anim_cut_bas {
-	-webkit-animation-name: cut_bas;
+	animation-name: cut_bas;
 }
 
-@-webkit-keyframes cut_bas {
+@keyframes cut_bas {
 	0% {
 		left: $left_ennemy - 35px;
 		top: $top + 123px;
@@ -327,7 +330,7 @@ $top : -20px;
 	}
 }
 
-@-webkit-keyframes receive_cut_bas {
+@keyframes receive_cut_bas {
 	0% {
 		left: $left_ally + 35px;
 		top: $top - 123px;
@@ -350,18 +353,18 @@ $top : -20px;
 	position: absolute;
 	background-image: url('../img/anim/punch.png');
 	background-repeat: no-repeat;
-	-webkit-animation-duration: 2s;
-	-webkit-animation-timing-function: ease-in-out;
+	animation-duration: 2s;
+	animation-timing-function: ease-in-out;
 }
 
 .ally .anim_gatling {
-	-webkit-animation-name: receive_gatling;
+	animation-name: receive_gatling;
 }
 .ennemy .anim_gatling {
-	-webkit-animation-name: gatling;
+	animation-name: gatling;
 }
 
-@-webkit-keyframes gatling {
+@keyframes gatling {
 	0% {
 		opacity: 1;
 		left: $left_ennemy;
@@ -449,7 +452,7 @@ $top : -20px;
 	}
 }
 
-@-webkit-keyframes receive_gatling {
+@keyframes receive_gatling {
 	0% {
 		opacity: 1;
 		left: $left_ally;
@@ -549,9 +552,9 @@ $top : -20px;
 	position: absolute;
 	background: radial-gradient(circle at bottom, #81e8f6, #76deef 10%, #055194 80%, #062745 100%); 
 	opacity: 0.8;
-	-webkit-animation-name: bubble;
-	-webkit-animation-duration: 1.7s;
-	-webkit-animation-timing-function: ease-in-out;
+	animation-name: bubble;
+	animation-duration: 1.7s;
+	animation-timing-function: ease-in-out;
 
 	&:before, &:after {
 		display: none; 
@@ -566,7 +569,7 @@ $top : -20px;
 		height: 90%;
 		border-radius: 100%;
 		background: radial-gradient(circle at top, white, rgba(255, 255, 255, 0) 58%);
-		-webkit-filter: blur(5px);
+		filter: blur(5px);
 		z-index: 2;
 	}
 
@@ -579,9 +582,9 @@ $top : -20px;
 		width: 80%;
 		height: 80%;
 		border-radius: 100%;
-		-webkit-filter: blur(1px);
+		filter: blur(1px);
 		z-index: 2;
-		-webkit-transform: rotateZ(-30deg); 
+		transform: rotateZ(-30deg); 
 	}
 
 	.shadow {
@@ -589,7 +592,7 @@ $top : -20px;
 		width: 100%;
 		height: 100%;
 		background: radial-gradient(circle, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0) 50%);
-		-webkit-transform: rotateX(90deg) translateZ(-160px);
+		transform: rotateX(90deg) translateZ(-160px);
 		z-index: 1; 
 	}
 
@@ -601,15 +604,16 @@ $top : -20px;
 		}
 	}
 
+
 	&.bubble {
 		background: radial-gradient(circle at 50% 55%, rgba(240, 245, 255, 0.9), rgba(240, 245, 255, 0.9) 40%, rgba(225, 238, 255, 0.8) 60%, rgba(43, 130, 255, 0.4));
 
 		&:before {
-			-webkit-filter: blur(0);
+			filter: blur(0);
 			height: 80%;
 			width: 40%;
 			background: radial-gradient(circle at 130% 130%, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0) 46%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.8) 58%, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0) 100%);
-			-webkit-transform: translateX(131%) translateY(58%) rotateZ(168deg) rotateX(10deg);
+			transform: translateX(131%) translateY(58%) rotateZ(168deg) rotateX(10deg);
 		}
 
 		&:after {
@@ -620,40 +624,40 @@ $top : -20px;
 }
 
 .ally .anim_bubble {
-	-webkit-animation-name: receive_bubble;
+	animation-name: receive_bubble;
 }
 .ennemy .anim_bubble {
-	-webkit-animation-name: bubble;
+	animation-name: bubble;
 }
 
-@-webkit-keyframes bubble {
+@keyframes bubble {
 
 	0% {
 		height: 50px;
 	    width: 50px;
 	    top: $top + 230px;
 	    left: $left_ennemy - 350px;
-		-webkit-transform: scale(1);
+		transform: scale(1);
 	}
 
 	20% {
-		-webkit-transform: scaleY(0.95) scaleX(1.05);
+		transform: scaleY(0.95) scaleX(1.05);
 	}
 
 	48% {
-		-webkit-transform: scaleY(1.1) scaleX(0.9);
+		transform: scaleY(1.1) scaleX(0.9);
 	}
 
 	68% {
-		-webkit-transform: scaleY(0.98) scaleX(1.02);
+		transform: scaleY(0.98) scaleX(1.02);
 	}
 
 	80% {
-		-webkit-transform: scaleY(1.02) scaleX(0.98);
+		transform: scaleY(1.02) scaleX(0.98);
 	}
 
 	97%, 100% {
-		-webkit-transform: scale(1);
+		transform: scale(1);
 	}
 
 	100% {
@@ -664,34 +668,34 @@ $top : -20px;
 	}
 }
 
-@-webkit-keyframes receive_bubble {
+@keyframes receive_bubble {
 
 	0% {
 		height: 50px;
 	    width: 50px;
 	    top: $top - 230px;
 	    left: $left_ally + 350px;
-		-webkit-transform: scale(1);
+		transform: scale(1);
 	}
 
 	20% {
-		-webkit-transform: scaleY(0.95) scaleX(1.05);
+		transform: scaleY(0.95) scaleX(1.05);
 	}
 
 	48% {
-		-webkit-transform: scaleY(1.1) scaleX(0.9);
+		transform: scaleY(1.1) scaleX(0.9);
 	}
 
 	68% {
-		-webkit-transform: scaleY(0.98) scaleX(1.02);
+		transform: scaleY(0.98) scaleX(1.02);
 	}
 
 	80% {
-		-webkit-transform: scaleY(1.02) scaleX(0.98);
+		transform: scaleY(1.02) scaleX(0.98);
 	}
 
 	97%, 100% {
-		-webkit-transform: scale(1);
+		transform: scale(1);
 	}
 
 	100% {
@@ -714,11 +718,11 @@ $top : -20px;
 	margin: 0;
 	border-radius: 50%;
 	position: absolute;
-	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
 	background: url('../img/anim/rasengan.png') repeat-x;
 	background-size: auto 100%;
-	-webkit-animation-duration: 1.3s;
-	-webkit-animation-timing-function: ease-in-out;
+	animation-duration: 1.3s;
+	animation-timing-function: ease-in-out;
 }
 
 .anim_rasengan:before {
@@ -740,19 +744,19 @@ $top : -20px;
   height: 100%;
   top: 0;
   left: 0;
-  -webkit-filter: blur(0);
+  filter: blur(0);
   opacity: 0.3;
   background: radial-gradient(circle at 50% 80%, #81e8f6, #76deef 10%, #055194 66%, #062745 100%);
 }
 
 .ally .anim_rasengan {
-	-webkit-animation-name: receive_rasengan;
+	animation-name: receive_rasengan;
 }
 .ennemy .anim_rasengan {
-	-webkit-animation-name: rasengan;
+	animation-name: rasengan;
 }
 
-@-webkit-keyframes rasengan {
+@keyframes rasengan {
 	0% {
 	    background-position: 0 0; 
 	    height: 50px;
@@ -770,7 +774,7 @@ $top : -20px;
 	}
 }
 
-@-webkit-keyframes receive_rasengan {
+@keyframes receive_rasengan {
 	0% {
 	    background-position: 0 0; 
 	    height: 50px;
@@ -800,11 +804,11 @@ $top : -20px;
 	margin: 0;
 	border-radius: 50%;
 	position: absolute;
-	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
 	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#fff9f9), color-stop(60%,#7db9e8), color-stop(100%,#ffffff));
 	background: -webkit-radial-gradient(center, ellipse cover, #fff9f9 0%,#7db9e8 60%,#ffffff 100%);
-	-webkit-animation-duration: 1.3s;
-	-webkit-animation-timing-function: ease-in-out;
+	animation-duration: 1.3s;
+	animation-timing-function: ease-in-out;
 }
 
 .anim_genkidama:before {
@@ -826,18 +830,18 @@ $top : -20px;
   height: 100%;
   top: 0;
   left: 0;
-  -webkit-filter: blur(0);
+  filter: blur(0);
   opacity: 0.3;
 }
 
 .ally .anim_genkidama {
-	-webkit-animation-name: receive_genkidama;
+	animation-name: receive_genkidama;
 }
 .ennemy .anim_genkidama {
-	-webkit-animation-name: genkidama;
+	animation-name: genkidama;
 }
 
-@-webkit-keyframes genkidama {
+@keyframes genkidama {
 
 	0% {
 		height: 50px;
@@ -854,7 +858,7 @@ $top : -20px;
 	}
 }
 
-@-webkit-keyframes receive_genkidama {
+@keyframes receive_genkidama {
 
 	0% {
 		height: 50px;
@@ -882,11 +886,11 @@ $top : -20px;
 	margin: 0;
 	border-radius: 50%;
 	position: absolute;
-	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
 	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(248,80,50,1)), color-stop(50%,rgba(241,111,92,1)), color-stop(51%,rgba(246,41,12,1)), color-stop(71%,rgba(240,47,23,1)), color-stop(100%,rgba(231,56,39,1))); /* Chrome,Safari4+ */
 	background: -webkit-radial-gradient(center, ellipse cover, rgba(248,80,50,1) 0%,rgba(241,111,92,1) 50%,rgba(246,41,12,1) 51%,rgba(240,47,23,1) 71%,rgba(231,56,39,1) 100%); /* Chrome10+,Safari5.1+ */
-	-webkit-animation-duration: 1.3s;
-	-webkit-animation-timing-function: ease-in-out;
+	animation-duration: 1.3s;
+	animation-timing-function: ease-in-out;
 }
 
 .anim_fireball:before {
@@ -908,18 +912,18 @@ $top : -20px;
   height: 100%;
   top: 0;
   left: 0;
-  -webkit-filter: blur(0);
+  filter: blur(0);
   opacity: 0.3;
 }
 
 .ally .anim_fireball {
-	-webkit-animation-name: receive_fireball;
+	animation-name: receive_fireball;
 }
 .ennemy .anim_fireball {
-	-webkit-animation-name: fireball;
+	animation-name: fireball;
 }
 
-@-webkit-keyframes fireball {
+@keyframes fireball {
 
 	0% {
 		height: 50px;
@@ -936,7 +940,7 @@ $top : -20px;
 	}
 }
 
-@-webkit-keyframes receive_fireball {
+@keyframes receive_fireball {
 
 	0% {
 		height: 50px;
@@ -962,8 +966,8 @@ $top : -20px;
 	height: 2px;
 	position: absolute;
 	background-color: blue;
-	-webkit-animation-duration: 1.3s;
-	-webkit-animation-timing-function: linear;
+	animation-duration: 1.3s;
+	animation-timing-function: linear;
 
 	&:after {
 		content: '';
@@ -976,8 +980,8 @@ $top : -20px;
 }
 
 .ally .anim_kamehameha {
-	-webkit-animation-name: receive_kamehameha;
-	-webkit-transform: rotate(-32deg);
+	animation-name: receive_kamehameha;
+	transform: rotate(-32deg);
 
 	&:after {
 		top: 10px;
@@ -986,8 +990,8 @@ $top : -20px;
 }
 
 .ennemy .anim_kamehameha {
-	-webkit-animation-name: kamehameha;
-	-webkit-transform: rotate(58deg);
+	animation-name: kamehameha;
+	transform: rotate(58deg);
 
 	&:after {
 		top: -10px;
@@ -995,7 +999,7 @@ $top : -20px;
 	}
 }
 
-@-webkit-keyframes kamehameha {
+@keyframes kamehameha {
 	0% {
 	    height: 0px;
 	    top: $top + 275px;
@@ -1010,7 +1014,7 @@ $top : -20px;
 	}
 }
 
-@-webkit-keyframes receive_kamehameha {
+@keyframes receive_kamehameha {
 	0% {
 	    height: 0px;
 	    top: $top - 275px;
@@ -1030,23 +1034,23 @@ $top : -20px;
 */
 
 .anim_saiyan {
-	-webkit-box-shadow: inset 0px 25px 87px 10px #ffc702;
+	box-shadow: inset 0px 25px 87px 10px #ffc702;
 	position: absolute;
-	-webkit-animation-name: saiyan;
-	-webkit-animation-duration: 3s;
+	animation-name: saiyan;
+	animation-duration: 3s;
 	width: 0;
 	height: 0;
 }
 
 .ally .anim_saiyan {
-	-webkit-animation-name: receive_saiyan;
+	animation-name: receive_saiyan;
 }
 
 .ennemy .anim_saiyan {
-	-webkit-animation-name: saiyan;
+	animation-name: saiyan;
 }
 
-@-webkit-keyframes saiyan {
+@keyframes saiyan {
 	0% {
 		width: 210px;
 		height: 190px;
@@ -1123,7 +1127,7 @@ $top : -20px;
 	}
 }
 
-@-webkit-keyframes receive_saiyan {
+@keyframes receive_saiyan {
 	0% {
 		width: 210px;
 		height: 190px;
@@ -1210,12 +1214,12 @@ $top : -20px;
 	margin: 0;
 	border-radius: 50%;
 	position: absolute;
-	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
 	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(252,234,187,1)), color-stop(50%,rgba(252,205,77,1)), color-stop(51%,rgba(248,181,0,1)), color-stop(75%,rgba(249,221,149,1)), color-stop(100%,rgba(251,223,147,1))); /* Chrome,Safari4+ */
 	background: -webkit-radial-gradient(center, ellipse cover, rgba(252,234,187,1) 0%,rgba(252,205,77,1) 50%,rgba(248,181,0,1) 51%,rgba(249,221,149,1) 75%,rgba(251,223,147,1) 100%);
-	-webkit-animation-name: ultimate;
-	-webkit-animation-duration: 2.5s;
-	-webkit-animation-timing-function: ease-in-out;
+	animation-name: ultimate;
+	animation-duration: 2.5s;
+	animation-timing-function: ease-in-out;
 
 	&:before {
 	  content: "";
@@ -1241,14 +1245,14 @@ $top : -20px;
 }
 
 .ally .anim_ultimate {
-	-webkit-animation-name: receive_ultimate;
+	animation-name: receive_ultimate;
 }
 
 .ennemy .anim_ultimate {
-	-webkit-animation-name: ultimate;
+	animation-name: ultimate;
 }
 
-@-webkit-keyframes ultimate {
+@keyframes ultimate {
 	0% {
 	    height: 50px;
 	    width: 50px;
@@ -1284,7 +1288,7 @@ $top : -20px;
 	}
 }
 
-@-webkit-keyframes receive_ultimate {
+@keyframes receive_ultimate {
 	0% {
 	    height: 50px;
 	    width: 50px;
@@ -1320,7 +1324,7 @@ $top : -20px;
 	}
 }
 
-@-webkit-keyframes injured {
+@keyframes injured {
 	15% {
 		opacity: 0;
 	}

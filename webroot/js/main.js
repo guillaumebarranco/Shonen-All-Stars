@@ -13,6 +13,9 @@ $(document).ready(function() {
 	this.response = '';
 	this.all_persos = '';
 	var arcade = 0;
+	var attack_ended = 1;
+
+	updateUserPerso();
 
 	var al = $('.ally .status .life');
 	var el = $('.ennemy .status .life');
@@ -158,11 +161,23 @@ $(document).ready(function() {
 
 			for (var p = 0; p < _this.response.length; p++) {
 
-				var li_append =
-					'<li data-id="'+p+'">'+
-						'<img src="img/persos/'+_this.response[p].img_front+'"/>'+
-					'</li>'
-				;
+				// Si le personnage a été débloqué
+				if(_this.response[p].unlocked == 1) {
+
+					var li_append =
+						'<li data-id="'+p+'">'+
+							'<img class="unlocked" src="img/persos/'+_this.response[p].img_front+'"/>'+
+						'</li>'
+					;
+				} else {
+
+					var li_append =
+						'<li data-id="'+p+'">'+
+							'<img src="img/persos/'+_this.response[p].img_front+'"/>'+
+						'</li>'
+					;
+				}
+				
 				$('.choose_perso').append(li_append);
 			}
 
@@ -171,12 +186,11 @@ $(document).ready(function() {
 		});
 	}
 
-
 	/*****************************/
 	/* 	  GESTION DES CLICKS	 */
 	/*****************************/
 
-	$(document).on('click', '.choose_perso li img', function() {
+	$(document).on('click', '.choose_perso li img.unlocked', function() {
 
 		var id_chosen = $(this).parent().attr('data-id');
 		var random_ennemy = rand(1,_this.all_persos.length -1);
@@ -408,6 +422,16 @@ $(document).ready(function() {
 		});
 	}
 
+	function updateUserPerso(id_perso) {
+
+		var data = {};
+		data.id_perso = id_perso;
+
+		makeAjax('POST', 'battle/updateUserPerso', data, function() {
+			console.log('updateUserPerso', _this.response);
+		});
+	}
+
 
 	// Fonction annonçant la fin du jeu
 	function endGame() {
@@ -475,6 +499,25 @@ $(document).ready(function() {
 		$('.nb_arcade em').text(parseInt($('.nb_arcade em').text()) + 1);
 
 		updateUser('arcade');
+
+		var arcades_now = parseInt($('.nb_arcade em').text();
+
+		if(arcades_now === 1) {
+			// Aladdin est débloqué
+			updateUserPerso(26);
+
+		} else if(arcades_now === 3) {
+			// Kenshin est débloqué
+			updateUserPerso(12);
+
+		} else if(arcades_now === 5) {
+			// Toriko est débloqué
+			updateUserPerso(25);
+		}
+
+		updateUserPerso(id_perso);
+
+
 	}
 
 	// Fonction utilisée pour démarrer un nouveau combat (après une victoire de l'utilisateur)
@@ -604,111 +647,122 @@ $(document).ready(function() {
 	// Fonction qui va lancer l'attaque et effectuer les actions relatives à la pré-attaque et la post-attaque
 	function attack(who, that) {
 
-		if(who === 'ally') {
+		if(attack_ended === 1) {
 
-			if(parseInt(ap.find('strong').text()) >= parseInt(that.attr('data-requis'))) {
+			attack_ended = 0;
 
-				var name_attack = that.find('em').text();
-				var power_attack = parseInt(that.attr('data-power'));
-				var requis_attack = that.attr('data-requis');
-				var type_attack = that.attr('data-type');
-				var anim_attack = that.attr('data-anim');
+			if(who === 'ally') {
 
-				emptyChat();
+				if(parseInt(ap.find('strong').text()) >= parseInt(that.attr('data-requis'))) {
 
-				power_attack = calculForce(power_attack, type_attack, 'ally');
-				var check_critik = rand(1,10);
+					var name_attack = that.find('em').text();
+					var power_attack = parseInt(that.attr('data-power'));
+					var requis_attack = that.attr('data-requis');
+					var type_attack = that.attr('data-type');
+					var anim_attack = that.attr('data-anim');
 
-				makeAnimation('ally', anim_attack, function() {
+					emptyChat();
 
-					if(check_critik === 8) {
-						power_attack = power_attack + 15;
-						chat('Coup critique !');
-					}
+					power_attack = calculForce(power_attack, type_attack, 'ally');
+					var check_critik = rand(1,10);
 
-					chat('Vous avez attaqué l\'adversaire avec '+name_attack);
-					chat('L\'adversaire a perdu '+power_attack+' points de vie');
-					chat('Vous avez perdu '+requis_attack+' points de pouvoir');
+					makeAnimation('ally', anim_attack, function() {
+
+						if(check_critik === 8) {
+							power_attack = power_attack + 15;
+							chat('Coup critique !');
+						}
+
+						chat('Vous avez attaqué l\'adversaire avec '+name_attack);
+						chat('L\'adversaire a perdu '+power_attack+' points de vie');
+						chat('Vous avez perdu '+requis_attack+' points de pouvoir');
+
+						// Mise à jour des PP
+
+						ap.find('span').width(ap.find('span').width() - requis_attack*3);
+						ap.find('strong').text(parseInt(ap.find('strong').text()) - requis_attack);
+
+						// Mise à jour de la vie de l'adversaire
+
+						el.find('span').width(el.find('span').width() - power_attack*3);
+						el.find('strong').text(parseInt(el.find('strong').text()) - power_attack);
+
+						attack_ended = 1;
+
+
+						if(!checkWin()) {
+							ennemyTurn();
+						} else {
+							endGame();
+						}
+					});
+					
+				} else {
+					alert('not enough pp');
+				}	
+
+			} else if(who === 'ennemy') {
+
+				if(parseInt(ep.find('strong').text()) > parseInt(that.requis)) {
+
+					var name_attack = that.name;
+					var power_attack = that.power;
+					var requis_attack = that.requis;
+					var type_attack = that.type;
+					var anim_attack = that.anim;
+
+					emptyChat();
 
 					// Mise à jour des PP
 
-					ap.find('span').width(ap.find('span').width() - requis_attack*3);
-					ap.find('strong').text(parseInt(ap.find('strong').text()) - requis_attack);
+					ep.find('span').width(ep.find('span').width() - requis_attack*3);
+					ep.find('strong').text(parseInt(ep.find('strong').text()) - requis_attack);
 
 					// Mise à jour de la vie de l'adversaire
 
-					el.find('span').width(el.find('span').width() - power_attack*3);
-					el.find('strong').text(parseInt(el.find('strong').text()) - power_attack);
+					power_attack = calculForce(power_attack, type_attack, 'ennemy');
+					var check_critik = rand(1,10);
 
+					makeAnimation('ennemy', anim_attack, function() {
 
-					if(!checkWin()) {
-						ennemyTurn();
-					} else {
-						endGame();
-					}
-				});
-				
-			} else {
-				alert('not enough pp');
-			}	
+						if(check_critik === 8) {
+							power_attack = power_attack + 15;
+							chat('Coup critique !');
+						}
 
-		} else if(who === 'ennemy') {
+						chat('L\'adversaire vous a attaqué avec '+name_attack);
+						chat('Vous avez perdu '+power_attack+' points de vie');
+						chat('L\'adversaire a perdu '+requis_attack+' points de pouvoir');
 
-			if(parseInt(ep.find('strong').text()) > parseInt(that.requis)) {
+						al.find('span').width(al.find('span').width() - power_attack*3);
+						al.find('strong').text(parseInt(al.find('strong').text()) - power_attack);
 
-				var name_attack = that.name;
-				var power_attack = that.power;
-				var requis_attack = that.requis;
-				var type_attack = that.type;
-				var anim_attack = that.anim;
+						attack_ended = 1;
 
-				emptyChat();
+						if(checkWin()) {
+							endGame();
+						} else {
+							$('.choose .button_depart').parent().show();
+						}
+					});
 
-				// Mise à jour des PP
-
-				ep.find('span').width(ep.find('span').width() - requis_attack*3);
-				ep.find('strong').text(parseInt(ep.find('strong').text()) - requis_attack);
-
-				// Mise à jour de la vie de l'adversaire
-
-				power_attack = calculForce(power_attack, type_attack, 'ennemy');
-				var check_critik = rand(1,10);
-
-				makeAnimation('ennemy', anim_attack, function() {
-
-					if(check_critik === 8) {
-						power_attack = power_attack + 15;
-						chat('Coup critique !');
-					}
-
-					chat('L\'adversaire vous a attaqué avec '+name_attack);
-					chat('Vous avez perdu '+power_attack+' points de vie');
-					chat('L\'adversaire a perdu '+requis_attack+' points de pouvoir');
-
-					al.find('span').width(al.find('span').width() - power_attack*3);
-					al.find('strong').text(parseInt(al.find('strong').text()) - power_attack);
-
-					if(checkWin()) {
-						endGame();
-					} else {
-						$('.choose .button_depart').parent().show();
-					}
-				});
-
-			} else {
-
-				// Si les PP adverses sont inférieurs à la moitié on les régénère
-				if(parseInt(ep.find('strong').text()) < 50) {
-					ep.find('strong').text(parseInt(ep.find('strong').text()) + 50);
-					ep.find('span').width(ep.find('span').width() + 50*3);
-					$('.choose .button_depart').parent().show();
-
-				// Sinon, il lance une nouvelle attaque
 				} else {
-					ennemyTurn();
+
+					// Si les PP adverses sont inférieurs à la moitié on les régénère
+					if(parseInt(ep.find('strong').text()) < 50) {
+						ep.find('strong').text(parseInt(ep.find('strong').text()) + 50);
+						ep.find('span').width(ep.find('span').width() + 50*3);
+						$('.choose .button_depart').parent().show();
+
+					// Sinon, il lance une nouvelle attaque
+					} else {
+						ennemyTurn();
+					}
 				}
 			}
 		}
+
+		
 	}
 
 	// Fonction pour mettre en place les animations relatives au attaques (les animations étant créées en CSS3)

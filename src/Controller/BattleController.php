@@ -17,6 +17,7 @@ class BattleController extends AppController
         $this->loadModel('Attacks');
         $this->loadModel('Users');
         $this->loadModel('Fights');
+        $this->loadModel('UserPersos');
         $this->loadComponent('RequestHandler');
     }
 
@@ -55,6 +56,7 @@ class BattleController extends AppController
 
         $persos = $this->Persos->find()->toArray();
         $attacks = $this->Attacks->find()->toArray();
+        $user_persos = $this->UserPersos->find()->toArray();
 
         $v = 0;
 
@@ -74,6 +76,14 @@ class BattleController extends AppController
                     }
                 }
             }
+
+            foreach ($user_persos as $key => $user_perso) {
+                if($user_perso['id_perso'] == $perso['id'] && $user_perso['unlocked'] == 1) {
+                    $persos[$v]['unlocked'] = 1;
+                } 
+            }
+
+            
             $v++;
         }
 
@@ -81,6 +91,91 @@ class BattleController extends AppController
             'persos' => $persos,
             '_serialize' => array('persos')
         ));
+    }
+
+    public function getUserPersos() {
+
+        $this->layout = null;
+        $session = $this->request->session();
+        $connected_user = $session->read('user')[0];
+
+        $user_persos = null;
+
+        if($connected_user) {
+
+            $user_persos = $this->UserPersos->find()->where(
+                array('UserPersos.id_user' => $connected_user['id'])
+            )->toArray();
+
+            if(!$user_persos) {
+
+                $persos = $this->Persos->find()->toArray();
+
+                $userPersos = TableRegistry::get('UserPersos');
+                
+                foreach ($persos as $key => $perso) {
+                    
+                    $new_user_perso = $userPersos->newEntity();
+
+                    $new_user_perso->id_user = $connected_user['id'];
+                    $new_user_perso->id_perso = $perso['id'];
+
+                    // On donne au joueur 4 personnages parmi les plus faibles (bah ouais)
+                    if($perso['id'] == 15 || $perso['id'] == 16 || $perso['id'] == 19 || $perso['id'] == 22) {
+                        $new_user_perso->unlocked = 1;
+                   } else {
+                        $new_user_perso->unlocked = 0;
+                   }
+                    
+                    $userPersos->save($new_user_perso);
+
+                }
+
+                echo 'ok';
+                die;
+            }
+        }
+
+        $this->set(array(
+            'user_persos' => $user_persos,
+            '_serialize' => array('user_persos')
+        ));
+    }
+
+    public function updateUserPerso() {
+
+        $this->autoRender = false;
+        $this->layout = null;
+        $this->RequestHandler->renderAs($this, 'json');
+
+        $session = $this->request->session();
+        $connected_user = $session->read('user')[0];
+
+        $check = 'KO';
+
+        if(isset($this->request->data) && $connected_user) {
+
+            $data = $this->request->data;
+
+            if(isset($data['id_perso']) && $data['id_perso'] != null) {
+
+                $userPersosTable = TableRegistry::get('UserPersos');
+                $query = $userPersosTable->query();
+
+                $query->update()
+                ->set(['unlocked' => 1])
+                ->where(['id_user' => $connected_user['id']])
+                ->where(['id_perso' => intval($data['id_perso'])])
+                ->execute();
+
+                $check = 'OK';   
+            }
+        }
+
+        $response = array();
+        $response['check'] = $check;
+
+        echo json_encode($response);
     }
 
     public function signLogIn() {
