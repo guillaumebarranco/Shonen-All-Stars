@@ -107,6 +107,9 @@ if(!isset($user)) { ?>
 
 	<div class="ally">
 
+		<div class="anim">
+		</div>
+
 		<div class="picture">
 			<img src="" alt="" />
 		</div>

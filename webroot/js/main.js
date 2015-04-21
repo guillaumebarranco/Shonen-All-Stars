@@ -660,6 +660,7 @@ $(document).ready(function() {
 				var power_attack = that.power;
 				var requis_attack = that.requis;
 				var type_attack = that.type;
+				var anim_attack = that.anim;
 
 				emptyChat();
 
@@ -673,7 +674,7 @@ $(document).ready(function() {
 				power_attack = calculForce(power_attack, type_attack, 'ennemy');
 				var check_critik = rand(1,10);
 
-				makeAnimation('ennemy', '', function() {
+				makeAnimation('ennemy', anim_attack, function() {
 
 					if(check_critik === 8) {
 						power_attack = power_attack + 15;
@@ -713,61 +714,47 @@ $(document).ready(function() {
 	// Fonction pour mettre en place les animations relatives au attaques (les animations étant créées en CSS3)
 	function makeAnimation(who_attack, anim_attack, callback) {
 
+		var who_receive;
+
 		if(who_attack === 'ally') {
-
-			if(anim_attack == 'ultimate') {
-				$('html, body').css('overflow', 'hidden');
-			}
-
-			$('.ennemy .anim').append('<div class="anim_'+anim_attack+'"></div>');
-			$('.ennemy .anim').show();
-
-			// Animation duration from the CSS given to the setTimeout function
-			console.log($('.anim_'+anim_attack));
-			var duration = $('.anim_'+anim_attack).css('-webkit-animation-duration');
-			console.log(duration);
-
-			if(duration.length == 2) {
-				console.log(duration);
-				duration = duration.substr(0,1);
-				console.log(duration);
-				duration = parseInt(duration) * 1000;
-				console.log(duration);
-			} else {
-				duration = duration.substr(0,3);
-				duration = parseFloat(duration) * 1000;
-			}
-
-			console.log(duration);
-
-
-			setTimeout(function() {
-
-				$('.ennemy .anim').hide();
-				$('.ennemy .anim div').remove();
-				$('html, body').css('overflow', 'auto');
-				$('.ennemy').addClass('injured');
-
-				setTimeout(function() {
-					$('.ennemy').removeClass('injured');
-					callback();
-				}, 1000);
-
-			}, duration);
-
+			who_receive = 'ennemy';
 		} else if(who_attack === 'ennemy') {
+			who_receive = 'ally';
+		}
+
+		if(anim_attack == 'ultimate') {
+			$('html, body').css('overflow', 'hidden');
+		}
+
+		console.log($('.'+who_receive+' .anim'));
+
+		$('.'+who_receive+' .anim').append('<div class="anim_'+anim_attack+'"></div>');
+		$('.'+who_receive+' .anim').show();
+
+		// Animation duration from the CSS given to the setTimeout function
+		var duration = $('.anim_'+anim_attack).css('-webkit-animation-duration');
+
+		if(duration.length == 2) {
+			duration = duration.substr(0,1);
+			duration = parseInt(duration) * 1000;
+		} else {
+			duration = duration.substr(0,3);
+			duration = parseFloat(duration) * 1000;
+		}
+
+		setTimeout(function() {
+
+			$('.'+who_receive+' .anim').hide();
+			$('.'+who_receive+' .anim div').remove();
+			$('html, body').css('overflow', 'auto');
+			$('.'+who_receive+'').addClass('injured');
 
 			setTimeout(function() {
-
-				$('.ally').addClass('injured');
-
-				setTimeout(function() {
-					$('.ally').removeClass('injured');
-					callback();
-				}, 1000);
-
+				$('.'+who_receive+'').removeClass('injured');
+				callback();
 			}, 1000);
-		}
+
+		}, duration);
 	}
 
 });
