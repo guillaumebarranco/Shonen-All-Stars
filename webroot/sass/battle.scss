@@ -160,9 +160,9 @@
 /*	  ANIMATIONS	*/
 /********************/
 
-$left_ally : -520px;
-$left_ennemy : -50px;
-
+$left_ally : -540px;
+$left_ennemy : -70px;
+$top : -20px;
 
 
 /*
@@ -307,15 +307,35 @@ $left_ennemy : -50px;
 	-webkit-animation-duration: 1s;
 }
 
+.ally .anim_cut_bas {
+	-webkit-animation-name: receive_cut_bas;
+}
+.ennemy .anim_cut_bas {
+	-webkit-animation-name: cut_bas;
+}
+
 @-webkit-keyframes cut_bas {
 	0% {
-		left: -85px;
+		left: $left_ennemy - 35px;
+		top: $top + 123px;
 		height: 1px;
-		top: 123px;
 	}
 	100% {
-		left: -20px;
-		top: -52px;
+		left: $left_ennemy + 30px;
+		top: $top - 52px;
+		height: 200px;
+	}
+}
+
+@-webkit-keyframes receive_cut_bas {
+	0% {
+		left: $left_ally + 35px;
+		top: $top - 123px;
+		height: 1px;
+	}
+	100% {
+		left: $left_ally - 30px;
+		top: $top + 52px;
 		height: 200px;
 	}
 }
@@ -324,103 +344,196 @@ $left_ennemy : -50px;
 *	GATLING
 */
 
-.ennemy .anim_gatling {
+.anim_gatling {
 	width: 80px;
 	height: 87px;
 	position: absolute;
 	background-image: url('../img/anim/punch.png');
 	background-repeat: no-repeat;
-	-webkit-animation-name: gatling;
 	-webkit-animation-duration: 2s;
 	-webkit-animation-timing-function: ease-in-out;
 }
 
+.ally .anim_gatling {
+	-webkit-animation-name: receive_gatling;
+}
+.ennemy .anim_gatling {
+	-webkit-animation-name: gatling;
+}
 
 @-webkit-keyframes gatling {
 	0% {
 		opacity: 1;
-		left: -50px;
-		top: 0px;
+		left: $left_ennemy;
+		top: $top;
 	}
 	5% {
 		opacity: 0;
 	}
 	10% {
 		opacity: 1;
-		left: 0px;
-		top: 50px;
+		left: $left_ennemy + 50px;
+		top: $top + 50px;
 	}
 	15% {
 		opacity: 0;
 	}
 	20% {
 		opacity: 1;
-		left: 50px;
-		top: 100px;
+		left: $left_ennemy + 100px;
+		top: $top + 100px;
 	}
 	25% {
 		opacity: 0;
 	}
 	30% {
 		opacity: 1;
-		left: 100px;
-		top: 50px;
+		left: $left_ennemy + 150px;
+		top: $top + 50px;
 	}
 	35% {
 		opacity: 0;
 	}
 	40% {
 		opacity: 1;
-		left: 50px;
-		top: 0px;
+		left: $left_ennemy + 100px;
+		top: $top;
 	}
 	45% {
 		opacity: 0;
 	}
 	50% {
 		opacity: 1;
-		left: 0px;
-		top: -50px;
+		left: $left_ennemy + 50px;
+		top: $top - 50px;
 	}
 	55% {
 		opacity: 0;
 	}
 	60% {
 		opacity: 1;
-		left: -50px;
-		top: -100px;
+		left: $left_ennemy;
+		top: $top - 100px;
 	}
 	65% {
 		opacity: 0;
 	}
 	70% {
 		opacity: 1;
-		left: -100px;
-		top: -50px;
+		left: $left_ennemy - 50px;
+		top: $top - 50px;
 	}
 	75% {
 		opacity: 0;
 	}
 	80% {
 		opacity: 1;
-		left: -50px;
-		top: 0px;
+		left: $left_ennemy;
+		top: $top;
 	}
 	85% {
 		opacity: 0;
 	}
 	90% {
 		opacity: 1;
-		left: 0px;
-		top: 50px;
+		left: $left_ennemy + 50px;
+		top: $top + 50px;
 	}
 	95% {
 		opacity: 0;
 	}
 	100% {
 		opacity: 1;
-		left: -50px;
-		top: 0px;
+		left: $left_ennemy;
+		top: $top;
+	}
+}
+
+@-webkit-keyframes receive_gatling {
+	0% {
+		opacity: 1;
+		left: $left_ally;
+		top: $top;
+	}
+	5% {
+		opacity: 0;
+	}
+	10% {
+		opacity: 1;
+		left: $left_ally - 50px;
+		top: $top - 50px;
+	}
+	15% {
+		opacity: 0;
+	}
+	20% {
+		opacity: 1;
+		left: $left_ally - 100px;
+		top: $top - 100px;
+	}
+	25% {
+		opacity: 0;
+	}
+	30% {
+		opacity: 1;
+		left: $left_ally - 150px;
+		top: $top - 50px;
+	}
+	35% {
+		opacity: 0;
+	}
+	40% {
+		opacity: 1;
+		left: $left_ally - 100px;
+		top: $top;
+	}
+	45% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+		left: $left_ally - 50px;
+		top: $top + 50px;
+	}
+	55% {
+		opacity: 0;
+	}
+	60% {
+		opacity: 1;
+		left: $left_ally;
+		top: $top + 100px;
+	}
+	65% {
+		opacity: 0;
+	}
+	70% {
+		opacity: 1;
+		left: $left_ally + 50px;
+		top: $top + 50px;
+	}
+	75% {
+		opacity: 0;
+	}
+	80% {
+		opacity: 1;
+		left: $left_ally;
+		top: $top;
+	}
+	85% {
+		opacity: 0;
+	}
+	90% {
+		opacity: 1;
+		left: $left_ally - 50px;
+		top: $top - 50px;
+	}
+	95% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+		left: $left_ally;
+		top: $top;
 	}
 }
 
@@ -428,7 +541,7 @@ $left_ennemy : -50px;
 *	BUBBLE
 */
 
-.ennemy .anim_bubble {
+.anim_bubble {
 	display: inline-block;
 	width: 100%;
 	height: 100%;
@@ -439,69 +552,87 @@ $left_ennemy : -50px;
 	-webkit-animation-name: bubble;
 	-webkit-animation-duration: 1.7s;
 	-webkit-animation-timing-function: ease-in-out;
-}
-.ennemy .anim_bubble:before {
-	content: "";
-	position: absolute;
-	top: 1%;
-	left: 5%;
-	width: 90%;
-	height: 90%;
-	border-radius: 100%;
-	background: radial-gradient(circle at top, white, rgba(255, 255, 255, 0) 58%);
-	-webkit-filter: blur(5px);
-	z-index: 2; 
-}
-.ennemy .anim_bubble:after {
-	content: "";
-	position: absolute;
-	display: none;
-	top: 5%;
-	left: 10%;
-	width: 80%;
-	height: 80%;
-	border-radius: 100%;
-	-webkit-filter: blur(1px);
-	z-index: 2;
-	-webkit-transform: rotateZ(-30deg); 
-}
-.ennemy .anim_bubble .shadow {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	background: radial-gradient(circle, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0) 50%);
-	-webkit-transform: rotateX(90deg) translateZ(-160px);
-	z-index: 1; 
-}
-.ennemy .anim_bubble.plain {
-	background: black; 
-}
-.ennemy .anim_bubble.plain:before, .bubble.plain:after {
-	display: none; 
-}
-.ennemy .anim_bubble.bubble {
-	background: radial-gradient(circle at 50% 55%, rgba(240, 245, 255, 0.9), rgba(240, 245, 255, 0.9) 40%, rgba(225, 238, 255, 0.8) 60%, rgba(43, 130, 255, 0.4));
-}
-.ennemy .anim_bubble.bubble:before {
-	-webkit-filter: blur(0);
-	height: 80%;
-	width: 40%;
-	background: radial-gradient(circle at 130% 130%, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0) 46%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.8) 58%, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0) 100%);
-	-webkit-transform: translateX(131%) translateY(58%) rotateZ(168deg) rotateX(10deg);
-}
-.ennemy .anim_bubble.bubble:after {
-	display: block;
-	background: radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 74%, white 80%, white 84%, rgba(255, 255, 255, 0) 100%); 
+
+	&:before, &:after {
+		display: none; 
+	}
+
+	&:before {
+		content: "";
+		position: absolute;
+		top: 1%;
+		left: 5%;
+		width: 90%;
+		height: 90%;
+		border-radius: 100%;
+		background: radial-gradient(circle at top, white, rgba(255, 255, 255, 0) 58%);
+		-webkit-filter: blur(5px);
+		z-index: 2;
+	}
+
+	&:after {
+		content: "";
+		position: absolute;
+		display: none;
+		top: 5%;
+		left: 10%;
+		width: 80%;
+		height: 80%;
+		border-radius: 100%;
+		-webkit-filter: blur(1px);
+		z-index: 2;
+		-webkit-transform: rotateZ(-30deg); 
+	}
+
+	.shadow {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background: radial-gradient(circle, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0) 50%);
+		-webkit-transform: rotateX(90deg) translateZ(-160px);
+		z-index: 1; 
+	}
+
+	&.plain {
+		background: black; 
+
+		&:before, &:after {
+			display: none; 
+		}
+	}
+
+	&.bubble {
+		background: radial-gradient(circle at 50% 55%, rgba(240, 245, 255, 0.9), rgba(240, 245, 255, 0.9) 40%, rgba(225, 238, 255, 0.8) 60%, rgba(43, 130, 255, 0.4));
+
+		&:before {
+			-webkit-filter: blur(0);
+			height: 80%;
+			width: 40%;
+			background: radial-gradient(circle at 130% 130%, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0) 46%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.8) 58%, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0) 100%);
+			-webkit-transform: translateX(131%) translateY(58%) rotateZ(168deg) rotateX(10deg);
+		}
+
+		&:after {
+			display: block;
+			background: radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 74%, white 80%, white 84%, rgba(255, 255, 255, 0) 100%); 
+		}
+	}
 }
 
+.ally .anim_bubble {
+	-webkit-animation-name: receive_bubble;
+}
+.ennemy .anim_bubble {
+	-webkit-animation-name: bubble;
+}
 
 @-webkit-keyframes bubble {
 
 	0% {
 		height: 50px;
 	    width: 50px;
-	    top: 230px;
-	    left: -400px;
+	    top: $top + 230px;
+	    left: $left_ennemy - 350px;
 		-webkit-transform: scale(1);
 	}
 
@@ -528,8 +659,46 @@ $left_ennemy : -50px;
 	100% {
 		width: 150px;
 	    height: 150px;
-	    top: -5px;
-	    left: -54px;
+	    top: $top - 5px;
+	    left: $left_ennemy - 4px;
+	}
+}
+
+@-webkit-keyframes receive_bubble {
+
+	0% {
+		height: 50px;
+	    width: 50px;
+	    top: $top - 230px;
+	    left: $left_ally + 350px;
+		-webkit-transform: scale(1);
+	}
+
+	20% {
+		-webkit-transform: scaleY(0.95) scaleX(1.05);
+	}
+
+	48% {
+		-webkit-transform: scaleY(1.1) scaleX(0.9);
+	}
+
+	68% {
+		-webkit-transform: scaleY(0.98) scaleX(1.02);
+	}
+
+	80% {
+		-webkit-transform: scaleY(1.02) scaleX(0.98);
+	}
+
+	97%, 100% {
+		-webkit-transform: scale(1);
+	}
+
+	100% {
+		width: 150px;
+	    height: 150px;
+	    top: $top + 5px;
+	    left: $left_ally + 4px;
 	}
 }
 
@@ -538,7 +707,7 @@ $left_ennemy : -50px;
 *	RASENGAN
 */
 
-.ennemy .anim_rasengan {
+.anim_rasengan {
 	display: inline-block;
 	width: 100%;
 	height: 100%;
@@ -548,12 +717,11 @@ $left_ennemy : -50px;
 	-webkit-transform-style: preserve-3d;
 	background: url('../img/anim/rasengan.png') repeat-x;
 	background-size: auto 100%;
-	-webkit-animation-name: rasengan;
 	-webkit-animation-duration: 1.3s;
 	-webkit-animation-timing-function: ease-in-out;
 }
 
-.ennemy .anim_rasengan:before {
+.anim_rasengan:before {
   content: "";
   position: absolute;
   top: 0%;
@@ -564,7 +732,7 @@ $left_ennemy : -50px;
   z-index: 2;
 }
 
-.ennemy .anim_rasengan:after {
+.anim_rasengan:after {
   content: "";
   position: absolute;
   border-radius: 50%;
@@ -577,23 +745,49 @@ $left_ennemy : -50px;
   background: radial-gradient(circle at 50% 80%, #81e8f6, #76deef 10%, #055194 66%, #062745 100%);
 }
 
+.ally .anim_rasengan {
+	-webkit-animation-name: receive_rasengan;
+}
+.ennemy .anim_rasengan {
+	-webkit-animation-name: rasengan;
+}
+
 @-webkit-keyframes rasengan {
 	0% {
 	    background-position: 0 0; 
 	    height: 50px;
 	    width: 50px;
-	    top: 230px;
-	    left: -400px;
+	    top: $top + 230px;
+	    left: $left_ennemy - 350px;
 	}
 	
 	100% {
 	    background-position: -1250px 0; 
 	    width: 150px;
 	    height: 150px;
-	    top: -5px;
-	    left: -54px;
+	    top: $top - 5px;
+	    left: $left_ennemy - 4px;
 	}
 }
+
+@-webkit-keyframes receive_rasengan {
+	0% {
+	    background-position: 0 0; 
+	    height: 50px;
+	    width: 50px;
+	    top: $top - 230px;
+	    left: $left_ally + 350px;
+	}
+	
+	100% {
+	    background-position: -1250px 0; 
+	    width: 150px;
+	    height: 150px;
+	    top: $top + 5px;
+	    left: $left_ally + 4px;
+	}
+}
+
 
 /*
 *	GENKIDAMA
@@ -607,14 +801,13 @@ $left_ennemy : -50px;
 	border-radius: 50%;
 	position: absolute;
 	-webkit-transform-style: preserve-3d;
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#fff9f9), color-stop(60%,#7db9e8), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
-	background: -webkit-radial-gradient(center, ellipse cover, #fff9f9 0%,#7db9e8 60%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
-	-webkit-animation-name: genkidama;
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#fff9f9), color-stop(60%,#7db9e8), color-stop(100%,#ffffff));
+	background: -webkit-radial-gradient(center, ellipse cover, #fff9f9 0%,#7db9e8 60%,#ffffff 100%);
 	-webkit-animation-duration: 1.3s;
 	-webkit-animation-timing-function: ease-in-out;
 }
 
-.ennemy .anim_genkidama:before {
+.anim_genkidama:before {
   content: "";
   position: absolute;
   top: 0%;
@@ -625,7 +818,7 @@ $left_ennemy : -50px;
   z-index: 2;
 }
 
-.ennemy .anim_genkidama:after {
+.anim_genkidama:after {
   content: "";
   position: absolute;
   border-radius: 50%;
@@ -635,22 +828,46 @@ $left_ennemy : -50px;
   left: 0;
   -webkit-filter: blur(0);
   opacity: 0.3;
-  //background: radial-gradient(circle at 50% 80%, #81e8f6, #76deef 10%, #055194 66%, #062745 100%);
+}
+
+.ally .anim_genkidama {
+	-webkit-animation-name: receive_genkidama;
+}
+.ennemy .anim_genkidama {
+	-webkit-animation-name: genkidama;
 }
 
 @-webkit-keyframes genkidama {
+
 	0% {
-	    height: 50px;
+		height: 50px;
 	    width: 50px;
-	    top: 230px;
-	    left: -400px;
+	    top: $top + 230px;
+	    left: $left_ennemy - 350px;
 	}
-	
+
 	100% {
-	    width: 150px;
+		width: 150px;
 	    height: 150px;
-	    top: -5px;
-	    left: -54px;
+	    top: $top - 5px;
+	    left: $left_ennemy - 4px;
+	}
+}
+
+@-webkit-keyframes receive_genkidama {
+
+	0% {
+		height: 50px;
+	    width: 50px;
+	    top: $top - 230px;
+	    left: $left_ally + 350px;
+	}
+
+	100% {
+		width: 150px;
+	    height: 150px;
+	    top: $top + 5px;
+	    left: $left_ally + 4px;
 	}
 }
 
@@ -658,7 +875,7 @@ $left_ennemy : -50px;
 *	FIREBALL
 */
 
-.ennemy .anim_fireball {
+.anim_fireball {
 	display: inline-block;
 	width: 100%;
 	height: 100%;
@@ -668,12 +885,11 @@ $left_ennemy : -50px;
 	-webkit-transform-style: preserve-3d;
 	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(248,80,50,1)), color-stop(50%,rgba(241,111,92,1)), color-stop(51%,rgba(246,41,12,1)), color-stop(71%,rgba(240,47,23,1)), color-stop(100%,rgba(231,56,39,1))); /* Chrome,Safari4+ */
 	background: -webkit-radial-gradient(center, ellipse cover, rgba(248,80,50,1) 0%,rgba(241,111,92,1) 50%,rgba(246,41,12,1) 51%,rgba(240,47,23,1) 71%,rgba(231,56,39,1) 100%); /* Chrome10+,Safari5.1+ */
-	-webkit-animation-name: fireball;
 	-webkit-animation-duration: 1.3s;
 	-webkit-animation-timing-function: ease-in-out;
 }
 
-.ennemy .anim_fireball:before {
+.anim_fireball:before {
   content: "";
   position: absolute;
   top: 0%;
@@ -684,7 +900,7 @@ $left_ennemy : -50px;
   z-index: 2;
 }
 
-.ennemy .anim_fireball:after {
+.anim_fireball:after {
   content: "";
   position: absolute;
   border-radius: 50%;
@@ -694,22 +910,46 @@ $left_ennemy : -50px;
   left: 0;
   -webkit-filter: blur(0);
   opacity: 0.3;
-  //background: radial-gradient(circle at 50% 80%, #81e8f6, #76deef 10%, #055194 66%, #062745 100%);
+}
+
+.ally .anim_fireball {
+	-webkit-animation-name: receive_fireball;
+}
+.ennemy .anim_fireball {
+	-webkit-animation-name: fireball;
 }
 
 @-webkit-keyframes fireball {
+
 	0% {
-	    height: 50px;
+		height: 50px;
 	    width: 50px;
-	    top: 230px;
-	    left: -400px;
+	    top: $top + 230px;
+	    left: $left_ennemy - 350px;
 	}
-	
+
 	100% {
-	    width: 150px;
+		width: 150px;
 	    height: 150px;
-	    top: -5px;
-	    left: -54px;
+	    top: $top - 5px;
+	    left: $left_ennemy - 4px;
+	}
+}
+
+@-webkit-keyframes receive_fireball {
+
+	0% {
+		height: 50px;
+	    width: 50px;
+	    top: $top - 230px;
+	    left: $left_ally + 350px;
+	}
+
+	100% {
+		width: 150px;
+	    height: 150px;
+	    top: $top + 5px;
+	    left: $left_ally + 4px;
 	}
 }
 
@@ -717,38 +957,70 @@ $left_ennemy : -50px;
 *	KAMEHAMEHA
 */
 
-.ennemy .anim_kamehameha {
+.anim_kamehameha {
 	width: 20px;
 	height: 2px;
-	top: 275px;
-	left: -436px;
 	position: absolute;
 	background-color: blue;
-	-webkit-transform: rotate(58deg);
-	-webkit-animation-name: kamehameha;
 	-webkit-animation-duration: 1.3s;
 	-webkit-animation-timing-function: linear;
+
+	&:after {
+		content: '';
+		width: 50px;
+		height: 50px;
+		border-radius: 100%;
+		background-color: blue;
+		position: absolute;
+	}
 }
 
-.ennemy .anim_kamehameha:after {
-	content: '';
-	width: 50px;
-	height: 50px;
-	border-radius: 100%;
-	background-color: blue;
-	position: absolute;
-	top: -10px;
-  	left: -16px;
+.ally .anim_kamehameha {
+	-webkit-animation-name: receive_kamehameha;
+	-webkit-transform: rotate(-32deg);
+
+	&:after {
+		top: 10px;
+	  	left: 16px;
+	}
+}
+
+.ennemy .anim_kamehameha {
+	-webkit-animation-name: kamehameha;
+	-webkit-transform: rotate(58deg);
+
+	&:after {
+		top: -10px;
+	  	left: -16px;
+	}
 }
 
 @-webkit-keyframes kamehameha {
 	0% {
 	    height: 0px;
+	    top: $top + 275px;
+		left: $left_ennemy - 386px;
+
 	}
 	
 	100% {
-		top: -69px;
-		left: -246px;
+		top: $top - 69px;
+		left: $left_ennemy - 194px;
+		height: 450px;
+	}
+}
+
+@-webkit-keyframes receive_kamehameha {
+	0% {
+	    height: 0px;
+	    top: $top - 275px;
+		left: $left_ally + 386px;
+
+	}
+	
+	100% {
+		top: $top + 69px;
+		left: $left_ally + 194px;
 		height: 450px;
 	}
 }
@@ -757,7 +1029,7 @@ $left_ennemy : -50px;
 *	SUPER SAIYAN
 */
 
-.ennemy .anim_saiyan {
+.anim_saiyan {
 	-webkit-box-shadow: inset 0px 25px 87px 10px #ffc702;
 	position: absolute;
 	-webkit-animation-name: saiyan;
@@ -766,12 +1038,20 @@ $left_ennemy : -50px;
 	height: 0;
 }
 
+.ally .anim_saiyan {
+	-webkit-animation-name: receive_saiyan;
+}
+
+.ennemy .anim_saiyan {
+	-webkit-animation-name: saiyan;
+}
+
 @-webkit-keyframes saiyan {
 	0% {
 		width: 210px;
 		height: 190px;
-		top: 150px;
-		left: -581px;
+		top: $top + 150px;
+		left: $left_ennemy - 531px;
 	    opacity: 0;
 	    border-top-left-radius: 50px;
 		border-top-right-radius: 50px;
@@ -788,41 +1068,41 @@ $left_ennemy : -50px;
 	}
 
 	35% {
-		top: 170px;
+		top: $top + 170px;
 	}
 
 	40% {
-		top: 150px;
+		top: $top + 150px;
 	}
 
 	45% {
-		top: 170px;
+		top: $top + 170px;
 	}
 
 	50% {
-		top: 150px;
+		top: $top + 150px;
 	}
 
 	55% {
-		top: 170px;
+		top: $top + 170px;
 	}
 
 	60% {
-		top: 150px;
+		top: $top + 150px;
 	}
 
 	65% {
-		top: 170px;
+		top: $top + 170px;
 	}
 
 	70% {
-		top: 150px;
-		left: -581px;
+		top: $top + 150px;
+		left: $left_ennemy - 531px;
 	}
 
 	80% {
-		top: -43px;
-  		left: -105px;
+		top: $top - 43px;
+  		left: $left_ennemy + 55px;
   		width: 190px;
  		height: 190px;
 	}
@@ -830,13 +1110,90 @@ $left_ennemy : -50px;
 	90% {
 		width: 0px;
 		height: 0px;
-		top: 41px;
-  		left: -11px;
+		top: $top + 41px;
+  		left: $left_ennemy + 39px;
 	}
 
 	100% {
-		top: -43px;
-  		left: -105px;
+		top: $top - 43px;
+  		left: $left_ennemy - 55px;
+		width: 190px;
+ 		height: 190px;
+		border-radius: 100%;
+	}
+}
+
+@-webkit-keyframes receive_saiyan {
+	0% {
+		width: 210px;
+		height: 190px;
+		top: $top - 150px;
+		left: $left_ally + 531px;
+	    opacity: 0;
+	    border-top-left-radius: 50px;
+		border-top-right-radius: 50px;
+	}
+
+	5% {
+		opacity: 1;
+	}
+
+	30% {
+		width: 190px;
+ 		height: 190px;
+		border-radius: 100%;
+	}
+
+	35% {
+		top: $top - 170px;
+	}
+
+	40% {
+		top: $top - 150px;
+	}
+
+	45% {
+		top: $top - 170px;
+	}
+
+	50% {
+		top: $top - 150px;
+	}
+
+	55% {
+		top: $top - 170px;
+	}
+
+	60% {
+		top: $top - 150px;
+	}
+
+	65% {
+		top: $top - 170px;
+	}
+
+	70% {
+		top: $top - 150px;
+		left: $left_ally + 531px;
+	}
+
+	80% {
+		top: $top + 43px;
+  		left: $left_ally - 55px;
+  		width: 190px;
+ 		height: 190px;
+	}
+	
+	90% {
+		width: 0px;
+		height: 0px;
+		top: $top - 41px;
+  		left: $left_ally - 39px;
+	}
+
+	100% {
+		top: $top + 43px;
+  		left: $left_ally + 55px;
 		width: 190px;
  		height: 190px;
 		border-radius: 100%;
@@ -848,7 +1205,7 @@ $left_ennemy : -50px;
 *	ULTIMATE
 */
 
-.ennemy .anim_ultimate {
+.anim_ultimate {
 	display: inline-block;
 	margin: 0;
 	border-radius: 50%;
@@ -859,55 +1216,99 @@ $left_ennemy : -50px;
 	-webkit-animation-name: ultimate;
 	-webkit-animation-duration: 2.5s;
 	-webkit-animation-timing-function: ease-in-out;
+
+	&:before {
+	  content: "";
+	  position: absolute;
+	  top: 0%;
+	  left: 0%;
+	  width: 100%;
+	  height: 100%;
+	  border-radius: 50%;
+	  z-index: 2;
+	}
+
+	&:after {
+	  content: "";
+	  position: absolute;
+	  border-radius: 50%;
+	  width: 100%;
+	  height: 100%;
+	  top: 0;
+	  left: 0;
+	  opacity: 0.3;
+	}
 }
 
-.ennemy .anim_ultimate:before {
-  content: "";
-  position: absolute;
-  top: 0%;
-  left: 0%;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  z-index: 2;
+.ally .anim_ultimate {
+	-webkit-animation-name: receive_ultimate;
 }
 
-.ennemy .anim_ultimate:after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  opacity: 0.3;
+.ennemy .anim_ultimate {
+	-webkit-animation-name: ultimate;
 }
 
 @-webkit-keyframes ultimate {
 	0% {
 	    height: 50px;
 	    width: 50px;
-	    top: 230px;
-	    left: -400px;
+	    top: $top + 230px;
+	    left: $left_ennemy - 350px;
 	}
 
 	33% {
-		top: -5px;
-	    left: -54px;
+		top: $top - 5px;
+	    left: $left_ennemy - 4px;
 		width: 150px;
 	    height: 150px;
 	}
 
 	66% {
-		top: -805px;
-	    left: -854px;
+		top: $top - 805px;
+	    left: $left_ennemy - 804px;
 		width: 2000px;
 	    height: 2000px;
 	}
 	
 	80% {
-		top: -5px;
-	    left: -54px;
+		top: $top - 5px;
+	    left: $left_ennemy - 4px;
+	    width: 150px;
+	    height: 150px;
+	    
+	}
+
+	100% {
+		background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(243,197,189,1)), color-stop(50%,rgba(232,108,87,1)), color-stop(51%,rgba(234,40,3,1)), color-stop(75%,rgba(255,102,0,1)), color-stop(100%,rgba(199,34,0,1)));
+		background: -webkit-radial-gradient(center, ellipse cover, rgba(243,197,189,1) 0%,rgba(232,108,87,1) 50%,rgba(234,40,3,1) 51%,rgba(255,102,0,1) 75%,rgba(199,34,0,1) 100%);
+	}
+}
+
+@-webkit-keyframes receive_ultimate {
+	0% {
+	    height: 50px;
+	    width: 50px;
+	    top: $top - 230px;
+	    left: $left_ally + 350px;
+	}
+
+	33% {
+		top: $top + 5px;
+	    left: $left_ally + 4px;
+		width: 150px;
+	    height: 150px;
+	}
+
+	66% {
+		top: $top - 805px;
+	    left: $left_ally - 804px;
+		width: 2000px;
+	    height: 2000px;
+	}
+	
+	80% {
+		top: $top + 5px;
+	    left: $left_ally + 4px;
 	    width: 150px;
 	    height: 150px;
 	    

@@ -174,12 +174,12 @@
 
 /* line 183, ../sass/battle.scss */
 .ally .anim_physic {
-  left: -520px;
+  left: -540px;
 }
 
 /* line 186, ../sass/battle.scss */
 .ennemy .anim_physic {
-  left: -50px;
+  left: -70px;
 }
 
 @-webkit-keyframes physic {
@@ -207,12 +207,12 @@
 
 /* line 214, ../sass/battle.scss */
 .ally .anim_magnum {
-  left: -570px;
+  left: -590px;
 }
 
 /* line 217, ../sass/battle.scss */
 .ennemy .anim_magnum {
-  left: -100px;
+  left: -120px;
 }
 
 @-webkit-keyframes magnum {
@@ -240,12 +240,12 @@
 
 /* line 245, ../sass/battle.scss */
 .ally .anim_physic2 {
-  left: -570px;
+  left: -590px;
 }
 
 /* line 248, ../sass/battle.scss */
 .ennemy .anim_physic2 {
-  left: -100px;
+  left: -120px;
 }
 
 @-webkit-keyframes physic2 {
@@ -276,12 +276,12 @@
 
 /* line 279, ../sass/battle.scss */
 .ally .anim_cut {
-  left: -408px;
+  left: -428px;
 }
 
 /* line 282, ../sass/battle.scss */
 .ennemy .anim_cut {
-  left: 62px;
+  left: 42px;
 }
 
 @-webkit-keyframes cut {
@@ -307,125 +307,243 @@
   -webkit-animation-duration: 1s;
 }
 
+/* line 310, ../sass/battle.scss */
+.ally .anim_cut_bas {
+  -webkit-animation-name: receive_cut_bas;
+}
+
+/* line 313, ../sass/battle.scss */
+.ennemy .anim_cut_bas {
+  -webkit-animation-name: cut_bas;
+}
+
 @-webkit-keyframes cut_bas {
   0% {
-    left: -85px;
+    left: -105px;
+    top: 103px;
     height: 1px;
-    top: 123px;
   }
   100% {
-    left: -20px;
-    top: -52px;
+    left: -40px;
+    top: -72px;
+    height: 200px;
+  }
+}
+@-webkit-keyframes receive_cut_bas {
+  0% {
+    left: -505px;
+    top: -143px;
+    height: 1px;
+  }
+  100% {
+    left: -570px;
+    top: 32px;
     height: 200px;
   }
 }
 /*
 *	GATLING
 */
-/* line 327, ../sass/battle.scss */
-.ennemy .anim_gatling {
+/* line 347, ../sass/battle.scss */
+.anim_gatling {
   width: 80px;
   height: 87px;
   position: absolute;
   background-image: url("../img/anim/punch.png");
   background-repeat: no-repeat;
-  -webkit-animation-name: gatling;
   -webkit-animation-duration: 2s;
   -webkit-animation-timing-function: ease-in-out;
+}
+
+/* line 357, ../sass/battle.scss */
+.ally .anim_gatling {
+  -webkit-animation-name: receive_gatling;
+}
+
+/* line 360, ../sass/battle.scss */
+.ennemy .anim_gatling {
+  -webkit-animation-name: gatling;
 }
 
 @-webkit-keyframes gatling {
   0% {
     opacity: 1;
-    left: -50px;
-    top: 0px;
+    left: -70px;
+    top: -20px;
   }
   5% {
     opacity: 0;
   }
   10% {
     opacity: 1;
-    left: 0px;
-    top: 50px;
+    left: -20px;
+    top: 30px;
   }
   15% {
     opacity: 0;
   }
   20% {
     opacity: 1;
-    left: 50px;
-    top: 100px;
+    left: 30px;
+    top: 80px;
   }
   25% {
     opacity: 0;
   }
   30% {
     opacity: 1;
-    left: 100px;
-    top: 50px;
+    left: 80px;
+    top: 30px;
   }
   35% {
     opacity: 0;
   }
   40% {
     opacity: 1;
-    left: 50px;
-    top: 0px;
+    left: 30px;
+    top: -20px;
   }
   45% {
     opacity: 0;
   }
   50% {
     opacity: 1;
-    left: 0px;
-    top: -50px;
+    left: -20px;
+    top: -70px;
   }
   55% {
     opacity: 0;
   }
   60% {
     opacity: 1;
-    left: -50px;
-    top: -100px;
+    left: -70px;
+    top: -120px;
   }
   65% {
     opacity: 0;
   }
   70% {
     opacity: 1;
-    left: -100px;
-    top: -50px;
+    left: -120px;
+    top: -70px;
   }
   75% {
     opacity: 0;
   }
   80% {
     opacity: 1;
-    left: -50px;
-    top: 0px;
+    left: -70px;
+    top: -20px;
   }
   85% {
     opacity: 0;
   }
   90% {
     opacity: 1;
-    left: 0px;
-    top: 50px;
+    left: -20px;
+    top: 30px;
   }
   95% {
     opacity: 0;
   }
   100% {
     opacity: 1;
-    left: -50px;
-    top: 0px;
+    left: -70px;
+    top: -20px;
+  }
+}
+@-webkit-keyframes receive_gatling {
+  0% {
+    opacity: 1;
+    left: -540px;
+    top: -20px;
+  }
+  5% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    left: -590px;
+    top: -70px;
+  }
+  15% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+    left: -640px;
+    top: -120px;
+  }
+  25% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+    left: -690px;
+    top: -70px;
+  }
+  35% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+    left: -640px;
+    top: -20px;
+  }
+  45% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+    left: -590px;
+    top: 30px;
+  }
+  55% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+    left: -540px;
+    top: 80px;
+  }
+  65% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 1;
+    left: -490px;
+    top: 30px;
+  }
+  75% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 1;
+    left: -540px;
+    top: -20px;
+  }
+  85% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 1;
+    left: -590px;
+    top: -70px;
+  }
+  95% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    left: -540px;
+    top: -20px;
   }
 }
 /*
 *	BUBBLE
 */
-/* line 431, ../sass/battle.scss */
-.ennemy .anim_bubble {
+/* line 544, ../sass/battle.scss */
+.anim_bubble {
   display: inline-block;
   width: 100%;
   height: 100%;
@@ -437,9 +555,12 @@
   -webkit-animation-duration: 1.7s;
   -webkit-animation-timing-function: ease-in-out;
 }
-
-/* line 443, ../sass/battle.scss */
-.ennemy .anim_bubble:before {
+/* line 556, ../sass/battle.scss */
+.anim_bubble:before, .anim_bubble:after {
+  display: none;
+}
+/* line 560, ../sass/battle.scss */
+.anim_bubble:before {
   content: "";
   position: absolute;
   top: 1%;
@@ -451,9 +572,8 @@
   -webkit-filter: blur(5px);
   z-index: 2;
 }
-
-/* line 455, ../sass/battle.scss */
-.ennemy .anim_bubble:after {
+/* line 573, ../sass/battle.scss */
+.anim_bubble:after {
   content: "";
   position: absolute;
   display: none;
@@ -466,9 +586,8 @@
   z-index: 2;
   -webkit-transform: rotateZ(-30deg);
 }
-
-/* line 468, ../sass/battle.scss */
-.ennemy .anim_bubble .shadow {
+/* line 587, ../sass/battle.scss */
+.anim_bubble .shadow {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -476,43 +595,48 @@
   -webkit-transform: rotateX(90deg) translateZ(-160px);
   z-index: 1;
 }
-
-/* line 476, ../sass/battle.scss */
-.ennemy .anim_bubble.plain {
+/* line 596, ../sass/battle.scss */
+.anim_bubble.plain {
   background: black;
 }
-
-/* line 479, ../sass/battle.scss */
-.ennemy .anim_bubble.plain:before, .bubble.plain:after {
+/* line 599, ../sass/battle.scss */
+.anim_bubble.plain:before, .anim_bubble.plain:after {
   display: none;
 }
-
-/* line 482, ../sass/battle.scss */
-.ennemy .anim_bubble.bubble {
+/* line 604, ../sass/battle.scss */
+.anim_bubble.bubble {
   background: radial-gradient(circle at 50% 55%, rgba(240, 245, 255, 0.9), rgba(240, 245, 255, 0.9) 40%, rgba(225, 238, 255, 0.8) 60%, rgba(43, 130, 255, 0.4));
 }
-
-/* line 485, ../sass/battle.scss */
-.ennemy .anim_bubble.bubble:before {
+/* line 607, ../sass/battle.scss */
+.anim_bubble.bubble:before {
   -webkit-filter: blur(0);
   height: 80%;
   width: 40%;
   background: radial-gradient(circle at 130% 130%, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 46%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.8) 58%, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0) 100%);
   -webkit-transform: translateX(131%) translateY(58%) rotateZ(168deg) rotateX(10deg);
 }
-
-/* line 492, ../sass/battle.scss */
-.ennemy .anim_bubble.bubble:after {
+/* line 615, ../sass/battle.scss */
+.anim_bubble.bubble:after {
   display: block;
   background: radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 74%, #ffffff 80%, #ffffff 84%, rgba(255, 255, 255, 0) 100%);
+}
+
+/* line 622, ../sass/battle.scss */
+.ally .anim_bubble {
+  -webkit-animation-name: receive_bubble;
+}
+
+/* line 625, ../sass/battle.scss */
+.ennemy .anim_bubble {
+  -webkit-animation-name: bubble;
 }
 
 @-webkit-keyframes bubble {
   0% {
     height: 50px;
     width: 50px;
-    top: 230px;
-    left: -400px;
+    top: 210px;
+    left: -420px;
     -webkit-transform: scale(1);
   }
   20% {
@@ -533,15 +657,45 @@
   100% {
     width: 150px;
     height: 150px;
-    top: -5px;
-    left: -54px;
+    top: -25px;
+    left: -74px;
+  }
+}
+@-webkit-keyframes receive_bubble {
+  0% {
+    height: 50px;
+    width: 50px;
+    top: -250px;
+    left: -190px;
+    -webkit-transform: scale(1);
+  }
+  20% {
+    -webkit-transform: scaleY(0.95) scaleX(1.05);
+  }
+  48% {
+    -webkit-transform: scaleY(1.1) scaleX(0.9);
+  }
+  68% {
+    -webkit-transform: scaleY(0.98) scaleX(1.02);
+  }
+  80% {
+    -webkit-transform: scaleY(1.02) scaleX(0.98);
+  }
+  97%, 100% {
+    -webkit-transform: scale(1);
+  }
+  100% {
+    width: 150px;
+    height: 150px;
+    top: -15px;
+    left: -536px;
   }
 }
 /*
 *	RASENGAN
 */
-/* line 541, ../sass/battle.scss */
-.ennemy .anim_rasengan {
+/* line 710, ../sass/battle.scss */
+.anim_rasengan {
   display: inline-block;
   width: 100%;
   height: 100%;
@@ -551,13 +705,12 @@
   -webkit-transform-style: preserve-3d;
   background: url("../img/anim/rasengan.png") repeat-x;
   background-size: auto 100%;
-  -webkit-animation-name: rasengan;
   -webkit-animation-duration: 1.3s;
   -webkit-animation-timing-function: ease-in-out;
 }
 
-/* line 556, ../sass/battle.scss */
-.ennemy .anim_rasengan:before {
+/* line 724, ../sass/battle.scss */
+.anim_rasengan:before {
   content: "";
   position: absolute;
   top: 0%;
@@ -568,8 +721,8 @@
   z-index: 2;
 }
 
-/* line 567, ../sass/battle.scss */
-.ennemy .anim_rasengan:after {
+/* line 735, ../sass/battle.scss */
+.anim_rasengan:after {
   content: "";
   position: absolute;
   border-radius: 50%;
@@ -582,26 +735,52 @@
   background: radial-gradient(circle at 50% 80%, #81e8f6, #76deef 10%, #055194 66%, #062745 100%);
 }
 
+/* line 748, ../sass/battle.scss */
+.ally .anim_rasengan {
+  -webkit-animation-name: receive_rasengan;
+}
+
+/* line 751, ../sass/battle.scss */
+.ennemy .anim_rasengan {
+  -webkit-animation-name: rasengan;
+}
+
 @-webkit-keyframes rasengan {
   0% {
     background-position: 0 0;
     height: 50px;
     width: 50px;
-    top: 230px;
-    left: -400px;
+    top: 210px;
+    left: -420px;
   }
   100% {
     background-position: -1250px 0;
     width: 150px;
     height: 150px;
-    top: -5px;
-    left: -54px;
+    top: -25px;
+    left: -74px;
+  }
+}
+@-webkit-keyframes receive_rasengan {
+  0% {
+    background-position: 0 0;
+    height: 50px;
+    width: 50px;
+    top: -250px;
+    left: -190px;
+  }
+  100% {
+    background-position: -1250px 0;
+    width: 150px;
+    height: 150px;
+    top: -15px;
+    left: -536px;
   }
 }
 /*
 *	GENKIDAMA
 */
-/* line 602, ../sass/battle.scss */
+/* line 796, ../sass/battle.scss */
 .anim_genkidama {
   display: inline-block;
   width: 100%;
@@ -611,16 +790,13 @@
   position: absolute;
   -webkit-transform-style: preserve-3d;
   background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #fff9f9), color-stop(60%, #7db9e8), color-stop(100%, #ffffff));
-  /* Chrome,Safari4+ */
   background: -webkit-radial-gradient(center, ellipse cover, #fff9f9 0%, #7db9e8 60%, #ffffff 100%);
-  /* Chrome10+,Safari5.1+ */
-  -webkit-animation-name: genkidama;
   -webkit-animation-duration: 1.3s;
   -webkit-animation-timing-function: ease-in-out;
 }
 
-/* line 617, ../sass/battle.scss */
-.ennemy .anim_genkidama:before {
+/* line 810, ../sass/battle.scss */
+.anim_genkidama:before {
   content: "";
   position: absolute;
   top: 0%;
@@ -631,8 +807,8 @@
   z-index: 2;
 }
 
-/* line 628, ../sass/battle.scss */
-.ennemy .anim_genkidama:after {
+/* line 821, ../sass/battle.scss */
+.anim_genkidama:after {
   content: "";
   position: absolute;
   border-radius: 50%;
@@ -644,25 +820,49 @@
   opacity: 0.3;
 }
 
+/* line 833, ../sass/battle.scss */
+.ally .anim_genkidama {
+  -webkit-animation-name: receive_genkidama;
+}
+
+/* line 836, ../sass/battle.scss */
+.ennemy .anim_genkidama {
+  -webkit-animation-name: genkidama;
+}
+
 @-webkit-keyframes genkidama {
   0% {
     height: 50px;
     width: 50px;
-    top: 230px;
-    left: -400px;
+    top: 210px;
+    left: -420px;
   }
   100% {
     width: 150px;
     height: 150px;
-    top: -5px;
-    left: -54px;
+    top: -25px;
+    left: -74px;
+  }
+}
+@-webkit-keyframes receive_genkidama {
+  0% {
+    height: 50px;
+    width: 50px;
+    top: -250px;
+    left: -190px;
+  }
+  100% {
+    width: 150px;
+    height: 150px;
+    top: -15px;
+    left: -536px;
   }
 }
 /*
 *	FIREBALL
 */
-/* line 661, ../sass/battle.scss */
-.ennemy .anim_fireball {
+/* line 878, ../sass/battle.scss */
+.anim_fireball {
   display: inline-block;
   width: 100%;
   height: 100%;
@@ -674,13 +874,12 @@
   /* Chrome,Safari4+ */
   background: -webkit-radial-gradient(center, ellipse cover, #f85032 0%, #f16f5c 50%, #f6290c 51%, #f02f17 71%, #e73827 100%);
   /* Chrome10+,Safari5.1+ */
-  -webkit-animation-name: fireball;
   -webkit-animation-duration: 1.3s;
   -webkit-animation-timing-function: ease-in-out;
 }
 
-/* line 676, ../sass/battle.scss */
-.ennemy .anim_fireball:before {
+/* line 892, ../sass/battle.scss */
+.anim_fireball:before {
   content: "";
   position: absolute;
   top: 0%;
@@ -691,8 +890,8 @@
   z-index: 2;
 }
 
-/* line 687, ../sass/battle.scss */
-.ennemy .anim_fireball:after {
+/* line 903, ../sass/battle.scss */
+.anim_fireball:after {
   content: "";
   position: absolute;
   border-radius: 50%;
@@ -704,45 +903,84 @@
   opacity: 0.3;
 }
 
+/* line 915, ../sass/battle.scss */
+.ally .anim_fireball {
+  -webkit-animation-name: receive_fireball;
+}
+
+/* line 918, ../sass/battle.scss */
+.ennemy .anim_fireball {
+  -webkit-animation-name: fireball;
+}
+
 @-webkit-keyframes fireball {
   0% {
     height: 50px;
     width: 50px;
-    top: 230px;
-    left: -400px;
+    top: 210px;
+    left: -420px;
   }
   100% {
     width: 150px;
     height: 150px;
-    top: -5px;
-    left: -54px;
+    top: -25px;
+    left: -74px;
+  }
+}
+@-webkit-keyframes receive_fireball {
+  0% {
+    height: 50px;
+    width: 50px;
+    top: -250px;
+    left: -190px;
+  }
+  100% {
+    width: 150px;
+    height: 150px;
+    top: -15px;
+    left: -536px;
   }
 }
 /*
 *	KAMEHAMEHA
 */
-/* line 720, ../sass/battle.scss */
-.ennemy .anim_kamehameha {
+/* line 960, ../sass/battle.scss */
+.anim_kamehameha {
   width: 20px;
   height: 2px;
-  top: 275px;
-  left: -436px;
   position: absolute;
   background-color: blue;
-  -webkit-transform: rotate(58deg);
-  -webkit-animation-name: kamehameha;
   -webkit-animation-duration: 1.3s;
   -webkit-animation-timing-function: linear;
 }
-
-/* line 733, ../sass/battle.scss */
-.ennemy .anim_kamehameha:after {
+/* line 968, ../sass/battle.scss */
+.anim_kamehameha:after {
   content: '';
   width: 50px;
   height: 50px;
   border-radius: 100%;
   background-color: blue;
   position: absolute;
+}
+
+/* line 978, ../sass/battle.scss */
+.ally .anim_kamehameha {
+  -webkit-animation-name: receive_kamehameha;
+  -webkit-transform: rotate(-32deg);
+}
+/* line 982, ../sass/battle.scss */
+.ally .anim_kamehameha:after {
+  top: 10px;
+  left: 16px;
+}
+
+/* line 988, ../sass/battle.scss */
+.ennemy .anim_kamehameha {
+  -webkit-animation-name: kamehameha;
+  -webkit-transform: rotate(58deg);
+}
+/* line 992, ../sass/battle.scss */
+.ennemy .anim_kamehameha:after {
   top: -10px;
   left: -16px;
 }
@@ -750,18 +988,32 @@
 @-webkit-keyframes kamehameha {
   0% {
     height: 0px;
+    top: 255px;
+    left: -456px;
   }
   100% {
-    top: -69px;
-    left: -246px;
+    top: -89px;
+    left: -264px;
+    height: 450px;
+  }
+}
+@-webkit-keyframes receive_kamehameha {
+  0% {
+    height: 0px;
+    top: -295px;
+    left: -154px;
+  }
+  100% {
+    top: 49px;
+    left: -346px;
     height: 450px;
   }
 }
 /*
 *	SUPER SAIYAN
 */
-/* line 760, ../sass/battle.scss */
-.ennemy .anim_saiyan {
+/* line 1032, ../sass/battle.scss */
+.anim_saiyan {
   -webkit-box-shadow: inset 0px 25px 87px 10px #ffc702;
   position: absolute;
   -webkit-animation-name: saiyan;
@@ -770,12 +1022,22 @@
   height: 0;
 }
 
+/* line 1041, ../sass/battle.scss */
+.ally .anim_saiyan {
+  -webkit-animation-name: receive_saiyan;
+}
+
+/* line 1045, ../sass/battle.scss */
+.ennemy .anim_saiyan {
+  -webkit-animation-name: saiyan;
+}
+
 @-webkit-keyframes saiyan {
   0% {
     width: 210px;
     height: 190px;
-    top: 150px;
-    left: -581px;
+    top: 130px;
+    left: -601px;
     opacity: 0;
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
@@ -789,45 +1051,108 @@
     border-radius: 100%;
   }
   35% {
-    top: 170px;
+    top: 150px;
   }
   40% {
-    top: 150px;
+    top: 130px;
   }
   45% {
-    top: 170px;
+    top: 150px;
   }
   50% {
-    top: 150px;
+    top: 130px;
   }
   55% {
-    top: 170px;
+    top: 150px;
   }
   60% {
-    top: 150px;
+    top: 130px;
   }
   65% {
-    top: 170px;
+    top: 150px;
   }
   70% {
-    top: 150px;
-    left: -581px;
+    top: 130px;
+    left: -601px;
   }
   80% {
-    top: -43px;
-    left: -105px;
+    top: -63px;
+    left: -15px;
     width: 190px;
     height: 190px;
   }
   90% {
     width: 0px;
     height: 0px;
-    top: 41px;
-    left: -11px;
+    top: 21px;
+    left: -31px;
   }
   100% {
-    top: -43px;
-    left: -105px;
+    top: -63px;
+    left: -125px;
+    width: 190px;
+    height: 190px;
+    border-radius: 100%;
+  }
+}
+@-webkit-keyframes receive_saiyan {
+  0% {
+    width: 210px;
+    height: 190px;
+    top: -170px;
+    left: -9px;
+    opacity: 0;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+  }
+  5% {
+    opacity: 1;
+  }
+  30% {
+    width: 190px;
+    height: 190px;
+    border-radius: 100%;
+  }
+  35% {
+    top: -190px;
+  }
+  40% {
+    top: -170px;
+  }
+  45% {
+    top: -190px;
+  }
+  50% {
+    top: -170px;
+  }
+  55% {
+    top: -190px;
+  }
+  60% {
+    top: -170px;
+  }
+  65% {
+    top: -190px;
+  }
+  70% {
+    top: -170px;
+    left: -9px;
+  }
+  80% {
+    top: 23px;
+    left: -595px;
+    width: 190px;
+    height: 190px;
+  }
+  90% {
+    width: 0px;
+    height: 0px;
+    top: -61px;
+    left: -579px;
+  }
+  100% {
+    top: 23px;
+    left: -485px;
     width: 190px;
     height: 190px;
     border-radius: 100%;
@@ -836,8 +1161,8 @@
 /*
 *	ULTIMATE
 */
-/* line 851, ../sass/battle.scss */
-.ennemy .anim_ultimate {
+/* line 1208, ../sass/battle.scss */
+.anim_ultimate {
   display: inline-block;
   margin: 0;
   border-radius: 50%;
@@ -850,9 +1175,8 @@
   -webkit-animation-duration: 2.5s;
   -webkit-animation-timing-function: ease-in-out;
 }
-
-/* line 864, ../sass/battle.scss */
-.ennemy .anim_ultimate:before {
+/* line 1220, ../sass/battle.scss */
+.anim_ultimate:before {
   content: "";
   position: absolute;
   top: 0%;
@@ -862,9 +1186,8 @@
   border-radius: 50%;
   z-index: 2;
 }
-
-/* line 875, ../sass/battle.scss */
-.ennemy .anim_ultimate:after {
+/* line 1231, ../sass/battle.scss */
+.anim_ultimate:after {
   content: "";
   position: absolute;
   border-radius: 50%;
@@ -875,28 +1198,68 @@
   opacity: 0.3;
 }
 
+/* line 1243, ../sass/battle.scss */
+.ally .anim_ultimate {
+  -webkit-animation-name: receive_ultimate;
+}
+
+/* line 1247, ../sass/battle.scss */
+.ennemy .anim_ultimate {
+  -webkit-animation-name: ultimate;
+}
+
 @-webkit-keyframes ultimate {
   0% {
     height: 50px;
     width: 50px;
-    top: 230px;
-    left: -400px;
+    top: 210px;
+    left: -420px;
   }
   33% {
-    top: -5px;
-    left: -54px;
+    top: -25px;
+    left: -74px;
     width: 150px;
     height: 150px;
   }
   66% {
-    top: -805px;
-    left: -854px;
+    top: -825px;
+    left: -874px;
     width: 2000px;
     height: 2000px;
   }
   80% {
-    top: -5px;
-    left: -54px;
+    top: -25px;
+    left: -74px;
+    width: 150px;
+    height: 150px;
+  }
+  100% {
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #f3c5bd), color-stop(50%, #e86c57), color-stop(51%, #ea2803), color-stop(75%, #ff6600), color-stop(100%, #c72200));
+    background: -webkit-radial-gradient(center, ellipse cover, #f3c5bd 0%, #e86c57 50%, #ea2803 51%, #ff6600 75%, #c72200 100%);
+  }
+}
+@-webkit-keyframes receive_ultimate {
+  0% {
+    height: 50px;
+    width: 50px;
+    top: -250px;
+    left: -190px;
+  }
+  33% {
+    top: -15px;
+    left: -536px;
+    width: 150px;
+    height: 150px;
+  }
+  66% {
+    top: -825px;
+    left: -1344px;
+    width: 2000px;
+    height: 2000px;
+  }
+  80% {
+    top: -15px;
+    left: -536px;
     width: 150px;
     height: 150px;
   }
