@@ -733,6 +733,8 @@ $(document).ready(function() {
 				duration = parseFloat(duration) * 1000;
 			}
 
+			console.log(duration);
+
 
 			setTimeout(function() {
 
