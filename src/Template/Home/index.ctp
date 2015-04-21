@@ -56,11 +56,11 @@
         </div>
     </div>-->
 
-    <div  style="position:relative; left: 200px;margin-top: 100px;margin-bottom:100px;">
+    <!-- <div  style="position:relative; left: 200px;margin-top: 100px;margin-bottom:100px;">
         <div class="anim">
             <div class="anim_ultimate"></div>
         </div>
-    </div>
+    </div> -->
     
     
     <?php

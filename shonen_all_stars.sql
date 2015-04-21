@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 20 Avril 2015 à 18:17
+-- Généré le :  Mar 21 Avril 2015 à 10:49
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `attacks` (
   `type` varchar(255) NOT NULL,
   `anim` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=82 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=78 ;
 
 --
 -- Contenu de la table `attacks`
@@ -43,10 +43,10 @@ CREATE TABLE IF NOT EXISTS `attacks` (
 INSERT INTO `attacks` (`id`, `name`, `power`, `requis`, `type`, `anim`) VALUES
 (1, 'Kamehameha', 30, 10, 'special', 'kamehameha'),
 (2, 'Poing du Dragon', 40, 20, 'physic', 'physic'),
-(3, 'Super Saiyen', 50, 35, 'special', 'physic'),
+(3, 'Super Saiyen', 50, 35, 'special', 'saiyan'),
 (4, 'Genkidama', 85, 60, 'special', 'genkidama'),
 (5, 'Gomu Gomu No Pistol', 20, 5, 'physic', 'physic'),
-(6, 'Gomu Gomu no Bazooka', 40, 15, 'physic', 'physic'),
+(6, 'Gomu Gomu no Bazooka', 40, 15, 'physic', 'physic2'),
 (7, 'Gomu Gomu no Jet Gatling', 45, 25, 'physic', 'gatling'),
 (8, 'Gomu Gomu no Grizzly Magnum', 70, 45, 'physic', 'magnum'),
 (46, 'Coup d''épée', 10, 1, 'physic', 'cut'),
@@ -65,7 +65,7 @@ INSERT INTO `attacks` (`id`, `name`, `power`, `requis`, `type`, `anim`) VALUES
 (63, 'Trap', 35, 40, 'special', 'physic'),
 (64, 'PCP', 50, 60, 'special', 'physic'),
 (65, 'Reversi', 80, 95, 'special', 'ultimate'),
-(66, 'Pêche', 10, 1, 'physic', 'physic'),
+(66, 'Pêche', 10, 1, 'physic', 'cut'),
 (67, 'Janken, Papier', 30, 20, 'physic', 'cut'),
 (68, 'Janken, Pierre', 50, 65, 'physic', 'physic'),
 (69, 'Transformation cheloue', 70, 95, 'special', 'ultimate'),
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `fights` (
   `result` varchar(255) NOT NULL,
   `created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=73 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=80 ;
 
 --
 -- Contenu de la table `fights`
@@ -170,7 +170,14 @@ INSERT INTO `fights` (`id`, `user`, `ally`, `ennemy`, `result`, `created`) VALUE
 (69, 'Gear', 'Sangoku', 'Luffy', 'win', '2015-04-20 16:12:08'),
 (70, 'Gear', 'Sangoku', 'Kenshin', 'win', '2015-04-20 16:12:27'),
 (71, 'Gear', 'Naruto', 'Gon', 'win', '2015-04-20 16:12:53'),
-(72, 'Gear', 'Aladdin', 'Eyeshield', 'win', '2015-04-20 16:17:06');
+(72, 'Gear', 'Aladdin', 'Eyeshield', 'win', '2015-04-20 16:17:06'),
+(73, 'Gear', 'Aladdin', 'Naruto', 'win', '2015-04-20 16:18:16'),
+(74, 'Gear', 'Aladdin', 'Naruto', 'win', '2015-04-20 16:18:45'),
+(75, 'Gear', 'Aladdin', 'Naruto', 'win', '2015-04-20 16:19:01'),
+(76, 'Gear', 'Aladdin', 'Gon', 'win', '2015-04-20 16:27:07'),
+(77, 'Gear', 'Sangoku', 'Aladdin', 'lost', '2015-04-21 08:20:06'),
+(78, 'Gear', 'Sangoku', 'Aladdin', 'lost', '2015-04-21 08:26:15'),
+(79, 'Gear', 'Luffy', 'Kenshin', 'win', '2015-04-21 08:43:43');
 
 -- --------------------------------------------------------
 
@@ -194,7 +201,7 @@ CREATE TABLE IF NOT EXISTS `persos` (
   `img_front` varchar(255) DEFAULT NULL,
   `img_back` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
 
 --
 -- Contenu de la table `persos`
@@ -209,7 +216,7 @@ INSERT INTO `persos` (`id`, `name`, `manga_name`, `attack_1`, `attack_2`, `attac
 (19, 'Ashirogi', 'Bakuman', '62', '63', '64', '65', 60, 50, 50, 65, 65, 'ashirogi_front.png', 'ashirogi_back.png'),
 (22, 'Gon', 'Hunter X Hunter', '66', '67', '68', '69', 50, 70, 60, 55, 50, 'gon_front.png', 'gon_back.png'),
 (25, 'Toriko', 'Toriko', '70', '71', '72', '73', 35, 90, 80, 55, 50, 'toriko_front.png', 'toriko_back.png'),
-(26, 'Aladdin', 'Magi', '74', '75', '76', '77', 70, 50, 40, 80, 80, 'aladdin_front.png', 'aladdin_back.png');
+(26, 'Aladdin', 'Magi', '74', '75', '76', '77', 65, 50, 40, 80, 80, 'aladdin_front.png', 'aladdin_back.png');
 
 -- --------------------------------------------------------
 
@@ -233,8 +240,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `pseudo`, `password`, `created`, `win`, `lost`, `arcades`) VALUES
-(4, 'Gear', '7df4459c049c3ef550317f4bd737df5f', '2015-04-15 10:09:47', 53, 29, 1),
-(19, '098f6bcd4621d373cade4e832627b4f6', '', '2015-04-20 10:03:04', 0, 0, 0),
+(4, 'Gear', '7df4459c049c3ef550317f4bd737df5f', '2015-04-15 10:09:47', 58, 31, 2),
 (20, 'test', '05a671c66aefea124cc08b76ea6d30bb', '2015-04-20 10:03:33', 0, 0, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

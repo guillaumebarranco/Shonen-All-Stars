@@ -316,6 +316,31 @@
 }
 
 /*
+*	DOUBLE PUNCH
+*/
+
+.anim_physic2 {
+	width: 169px;
+	height: 87px;
+	position: absolute;
+	background-image: url('../img/anim/physic2.png');
+	background-repeat: no-repeat;
+	left: -100px;
+	-webkit-animation-name: physic2;
+	-webkit-animation-duration: 1s;
+	-webkit-animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes physic2 {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1
+	}
+}
+
+/*
 *	CUT
 */
 
@@ -672,6 +697,96 @@
 		top: -69px;
 		left: -246px;
 		height: 450px;
+	}
+}
+
+/*
+*	SUPER SAIYAN
+*/
+
+.anim_saiyan {
+	-webkit-box-shadow: inset 0px 25px 87px 10px #ffc702;
+	position: absolute;
+	-webkit-animation-name: saiyan;
+	-webkit-animation-duration: 5s;
+	width: 0;
+	height: 0;
+}
+
+@-webkit-keyframes saiyan {
+	0% {
+		width: 210px;
+		height: 190px;
+		top: 150px;
+		left: -581px;
+	    opacity: 0;
+	    border-top-left-radius: 50px;
+		border-top-right-radius: 50px;
+	}
+
+	5% {
+		opacity: 1;
+	}
+
+	30% {
+		width: 190px;
+ 		height: 190px;
+		border-radius: 100%;
+	}
+
+	35% {
+		top: 170px;
+	}
+
+	40% {
+		top: 150px;
+	}
+
+	45% {
+		top: 170px;
+	}
+
+	50% {
+		top: 150px;
+	}
+
+	55% {
+		top: 170px;
+	}
+
+	60% {
+		top: 150px;
+	}
+
+	65% {
+		top: 170px;
+	}
+
+	70% {
+		top: 150px;
+		left: -581px;
+	}
+
+	80% {
+		top: -43px;
+  		left: -105px;
+  		width: 190px;
+ 		height: 190px;
+	}
+	
+	90% {
+		width: 0px;
+		height: 0px;
+		top: 41px;
+  		left: -11px;
+	}
+
+	100% {
+		top: -43px;
+  		left: -105px;
+		width: 190px;
+ 		height: 190px;
+		border-radius: 100%;
 	}
 }
 
