@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 22 Avril 2015 à 16:06
+-- Généré le :  Mer 22 Avril 2015 à 18:24
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `attacks` (
   `type` varchar(255) NOT NULL,
   `anim` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=78 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=90 ;
 
 --
 -- Contenu de la table `attacks`
@@ -76,7 +76,19 @@ INSERT INTO `attacks` (`id`, `name`, `power`, `requis`, `type`, `anim`) VALUES
 (74, 'Ugo', 25, 20, 'physic', 'physic'),
 (75, 'Boule de feu', 35, 25, 'special', 'fireball'),
 (76, 'Water magic', 50, 55, 'special', 'bubble'),
-(77, 'Sagesse de Salomon', 70, 70, 'special', 'ultimate');
+(77, 'Sagesse de Salomon', 70, 70, 'special', 'ultimate'),
+(78, 'Rayon Astral', 20, 10, 'special', 'kamehameha'),
+(79, 'Coup de boule', 35, 15, 'physic', 'physic'),
+(80, 'Onde Astrale', 40, 40, 'special', 'genkidama'),
+(81, 'Rayons Astro-démoniaques', 60, 75, 'special', 'ultimate'),
+(82, 'Getsuga Tensho', 25, 30, 'special', 'moon'),
+(83, 'Masque de Hollow', 40, 40, 'special', 'hollow'),
+(84, 'Bankai', 50, 60, 'physic', 'cut'),
+(85, 'Ultime Getsuga Tensho', 80, 100, 'physic', 'ultimate'),
+(86, 'Coup de poing tranquille', 50, 10, 'physic', 'physic'),
+(87, 'Coup de poing appuyé', 60, 15, 'physic', 'physic'),
+(88, 'Coup de poing puissant', 70, 20, 'physic', 'physic'),
+(89, 'Coup de poing MAX', 80, 25, 'physic', 'physic');
 
 -- --------------------------------------------------------
 
@@ -92,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `fights` (
   `result` varchar(255) NOT NULL,
   `created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=155 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=161 ;
 
 --
 -- Contenu de la table `fights`
@@ -252,7 +264,13 @@ INSERT INTO `fights` (`id`, `user`, `ally`, `ennemy`, `result`, `created`) VALUE
 (151, 'Gear', 'Kenshin', 'Toriko', 'lost', '2015-04-22 13:42:00'),
 (152, 'Gear', 'Kenshin', 'Eyeshield', 'win', '2015-04-22 13:42:40'),
 (153, 'Gear', 'Kenshin', 'Toriko', 'lost', '2015-04-22 13:43:16'),
-(154, 'Gear', 'Kenshin', 'Toriko', 'win', '2015-04-22 13:45:01');
+(154, 'Gear', 'Kenshin', 'Toriko', 'win', '2015-04-22 13:45:01'),
+(155, 'Gear', 'Kenshin', 'Toriko', 'win', '2015-04-22 14:14:40'),
+(156, 'erg', 'Eyeshield', 'Toriko', 'win', '2015-04-22 14:31:26'),
+(157, 'erg', 'Eyeshield', 'Kenshin', 'win', '2015-04-22 14:32:22'),
+(158, 'erg', 'Eyeshield', 'Toriko', 'win', '2015-04-22 14:32:54'),
+(159, 'erg', 'Eyeshield', 'Toriko', 'win', '2015-04-22 14:33:24'),
+(160, 'erg', 'Eyeshield', 'Naruto', 'win', '2015-04-22 14:33:48');
 
 -- --------------------------------------------------------
 
@@ -277,7 +295,7 @@ CREATE TABLE IF NOT EXISTS `persos` (
   `img_back` varchar(255) DEFAULT NULL,
   `condition` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=30 ;
 
 --
 -- Contenu de la table `persos`
@@ -292,7 +310,10 @@ INSERT INTO `persos` (`id`, `name`, `manga_name`, `attack_1`, `attack_2`, `attac
 (19, 'Ashirogi', 'Bakuman', '62', '63', '64', '65', 60, 50, 50, 65, 65, 'ashirogi_front.png', 'ashirogi_back.png', 'none'),
 (22, 'Gon', 'Hunter X Hunter', '66', '67', '68', '69', 50, 70, 60, 55, 50, 'gon_front.png', 'gon_back.png', 'none'),
 (25, 'Toriko', 'Toriko', '70', '71', '72', '73', 35, 90, 80, 55, 50, 'toriko_front.png', 'toriko_back.png', '3'),
-(26, 'Aladdin', 'Magi', '74', '75', '76', '77', 65, 50, 40, 80, 80, 'aladdin_front.png', 'aladdin_back.png', '5');
+(26, 'Aladdin', 'Magi', '74', '75', '76', '77', 65, 50, 40, 80, 80, 'aladdin_front.png', 'aladdin_back.png', '5'),
+(27, 'Yusuke', 'Yu Yu Hakusho', '78', '79', '80', '81', 50, 65, 55, 80, 75, 'yusuke_front.png', 'yusuke_back.png', 'catch'),
+(28, 'Ichigo', 'Bleach', '82', '83', '84', '85', 70, 65, 55, 60, 55, 'ichigo_front.png', 'ichigo_back.png', 'catch'),
+(29, 'Saitama', 'One-punch Man', '86', '87', '88', '89', 80, 95, 90, 30, 30, 'saitama_front.png', 'saitama_back.png', '15');
 
 -- --------------------------------------------------------
 
@@ -309,15 +330,18 @@ CREATE TABLE IF NOT EXISTS `users` (
   `lost` int(11) DEFAULT '0',
   `arcades` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
 
 --
 -- Contenu de la table `users`
 --
 
 INSERT INTO `users` (`id`, `pseudo`, `password`, `created`, `win`, `lost`, `arcades`) VALUES
-(4, 'Gear', '7df4459c049c3ef550317f4bd737df5f', '2015-04-15 10:09:47', 101, 63, 3),
-(20, 'test', '05a671c66aefea124cc08b76ea6d30bb', '2015-04-20 10:03:33', 0, 0, 0);
+(4, 'Gear', '7df4459c049c3ef550317f4bd737df5f', '2015-04-15 10:09:47', 102, 63, 3),
+(20, 'test', '05a671c66aefea124cc08b76ea6d30bb', '2015-04-20 10:03:33', 0, 0, 0),
+(21, 'newtest', '0876b6b0db0707db221a5c736d8a896a', '2015-04-22 14:15:23', 0, 0, 0),
+(22, 'efe', 'e2d945d5d3b0f73c7662a00245d6ff38', '2015-04-22 14:24:04', 0, 0, 0),
+(23, 'erg', '47ebbd54e8948a4f898a3838d85325bd', '2015-04-22 14:30:48', 5, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -331,7 +355,7 @@ CREATE TABLE IF NOT EXISTS `user_persos` (
   `id_perso` int(11) NOT NULL,
   `unlocked` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=38 ;
 
 --
 -- Contenu de la table `user_persos`
@@ -346,7 +370,25 @@ INSERT INTO `user_persos` (`id`, `id_user`, `id_perso`, `unlocked`) VALUES
 (16, 4, 19, 1),
 (17, 4, 22, 1),
 (18, 4, 25, 1),
-(19, 4, 26, 0);
+(19, 4, 26, 0),
+(20, 22, 1, 0),
+(21, 22, 4, 0),
+(22, 22, 12, 0),
+(23, 22, 15, 1),
+(24, 22, 16, 1),
+(25, 22, 19, 1),
+(26, 22, 22, 1),
+(27, 22, 25, 0),
+(28, 22, 26, 0),
+(29, 23, 1, 0),
+(30, 23, 4, 0),
+(31, 23, 12, 1),
+(32, 23, 15, 1),
+(33, 23, 16, 1),
+(34, 23, 19, 1),
+(35, 23, 22, 1),
+(36, 23, 25, 0),
+(37, 23, 26, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

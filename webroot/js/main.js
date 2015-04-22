@@ -186,7 +186,7 @@ $(document).ready(function() {
 						'<img src="img/persos/'+_this.response[p].img_front+'"/>'
 					;
 
-					if(_this.response[p].id == 26 || _this.response[p].id == 25 || _this.response[p].id == 12) {
+					if(_this.response[p].condition != 'none' && _this.response[p].condition != null && _this.response[p].condition != 'catch') {
 
 						li_append += 
 							'<div class="sub">Vous devez terminer '+_this.response[p].condition+' arcades pour débloquer ce personnage !</div>'
