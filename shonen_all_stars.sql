@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 21 Avril 2015 à 18:40
+-- Généré le :  Mer 22 Avril 2015 à 16:06
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `fights` (
   `result` varchar(255) NOT NULL,
   `created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=118 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=155 ;
 
 --
 -- Contenu de la table `fights`
@@ -215,7 +215,44 @@ INSERT INTO `fights` (`id`, `user`, `ally`, `ennemy`, `result`, `created`) VALUE
 (114, 'Gear', 'Luffy', 'Gon', 'win', '2015-04-21 14:39:23'),
 (115, 'Gear', 'Luffy', 'Luffy', 'win', '2015-04-21 14:39:55'),
 (116, 'Gear', 'Kenshin', 'Luffy', 'lost', '2015-04-21 15:16:26'),
-(117, 'Gear', 'Luffy', 'Toriko', 'win', '2015-04-21 15:18:00');
+(117, 'Gear', 'Luffy', 'Toriko', 'win', '2015-04-21 15:18:00'),
+(118, 'Gear', 'Gon', 'Luffy', 'lost', '2015-04-22 08:12:21'),
+(119, 'Gear', 'Sangoku', 'Ashirogi', 'win', '2015-04-22 08:13:12'),
+(120, 'Gear', 'Sangoku', 'Gon', 'win', '2015-04-22 08:13:28'),
+(121, 'Gear', 'Sangoku', 'Gon', 'win', '2015-04-22 08:13:44'),
+(122, 'Gear', 'Sangoku', 'Naruto', 'win', '2015-04-22 08:14:00'),
+(123, 'Gear', 'Sangoku', 'Kenshin', 'lost', '2015-04-22 08:14:15'),
+(124, 'Gear', 'Sangoku', 'Aladdin', 'win', '2015-04-22 08:14:43'),
+(125, 'Gear', 'Sangoku', 'Toriko', 'win', '2015-04-22 08:19:00'),
+(126, 'Gear', 'Sangoku', 'Naruto', 'win', '2015-04-22 08:19:14'),
+(127, 'Gear', 'Sangoku', 'Gon', 'win', '2015-04-22 08:19:30'),
+(128, 'Gear', 'Sangoku', 'Gon', 'win', '2015-04-22 08:23:36'),
+(129, 'Gear', 'Sangoku', 'Kenshin', 'lost', '2015-04-22 08:23:49'),
+(130, 'Gear', 'Sangoku', 'Gon', 'win', '2015-04-22 08:24:06'),
+(131, 'Gear', 'Sangoku', 'Eyeshield', 'win', '2015-04-22 08:29:25'),
+(132, 'Gear', 'Sangoku', 'Aladdin', 'win', '2015-04-22 09:29:12'),
+(133, 'Gear', 'Sangoku', 'Gon', 'win', '2015-04-22 09:29:24'),
+(134, 'Gear', 'Sangoku', 'Gon', 'win', '2015-04-22 09:29:39'),
+(135, 'Gear', 'Sangoku', 'Kenshin', 'win', '2015-04-22 09:29:56'),
+(136, 'Gear', 'Kenshin', 'Ashirogi', 'lost', '2015-04-22 10:26:53'),
+(137, 'Gear', 'Kenshin', 'Luffy', 'lost', '2015-04-22 10:27:20'),
+(138, 'Gear', 'Kenshin', 'Ashirogi', 'win', '2015-04-22 10:27:39'),
+(139, 'Gear', 'Kenshin', 'Gon', 'win', '2015-04-22 10:27:54'),
+(140, 'Gear', 'Kenshin', 'Aladdin', 'lost', '2015-04-22 10:29:05'),
+(141, 'Gear', 'Kenshin', 'Luffy', 'lost', '2015-04-22 10:30:39'),
+(142, 'Gear', 'Kenshin', 'Aladdin', 'lost', '2015-04-22 10:31:55'),
+(143, 'Gear', 'Naruto', 'Aladdin', 'lost', '2015-04-22 10:32:54'),
+(144, 'Gear', 'Kenshin', 'Aladdin', 'lost', '2015-04-22 10:34:58'),
+(145, 'Gear', 'Kenshin', 'Kenshin', 'lost', '2015-04-22 13:38:15'),
+(146, 'Gear', 'Kenshin', 'Naruto', 'win', '2015-04-22 13:38:30'),
+(147, 'Gear', 'Kenshin', 'Luffy', 'lost', '2015-04-22 13:39:03'),
+(148, 'Gear', 'Kenshin', 'Ashirogi', 'win', '2015-04-22 13:39:25'),
+(149, 'Gear', 'Kenshin', 'Kenshin', 'win', '2015-04-22 13:40:18'),
+(150, 'Gear', 'Kenshin', 'Luffy', 'lost', '2015-04-22 13:41:31'),
+(151, 'Gear', 'Kenshin', 'Toriko', 'lost', '2015-04-22 13:42:00'),
+(152, 'Gear', 'Kenshin', 'Eyeshield', 'win', '2015-04-22 13:42:40'),
+(153, 'Gear', 'Kenshin', 'Toriko', 'lost', '2015-04-22 13:43:16'),
+(154, 'Gear', 'Kenshin', 'Toriko', 'win', '2015-04-22 13:45:01');
 
 -- --------------------------------------------------------
 
@@ -238,6 +275,7 @@ CREATE TABLE IF NOT EXISTS `persos` (
   `def_spe` int(11) DEFAULT NULL,
   `img_front` varchar(255) DEFAULT NULL,
   `img_back` varchar(255) DEFAULT NULL,
+  `condition` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
 
@@ -245,16 +283,16 @@ CREATE TABLE IF NOT EXISTS `persos` (
 -- Contenu de la table `persos`
 --
 
-INSERT INTO `persos` (`id`, `name`, `manga_name`, `attack_1`, `attack_2`, `attack_3`, `attack_4`, `vit`, `atk`, `def`, `atk_spe`, `def_spe`, `img_front`, `img_back`) VALUES
-(1, 'Sangoku', 'Dragon Ball', '1', '2', '3', '4', 70, 70, 60, 85, 65, 'goku_front.png', 'goku_back.png'),
-(4, 'Luffy', 'One Piece', '5', '6', '7', '8', 75, 75, 65, 45, 50, 'luffy_front.png', 'luffy_back.png'),
-(12, 'Kenshin', 'Kenshin Le Vagabond', '46', '47', '48', '49', 85, 75, 70, 55, 45, 'kenshin_front.png', 'kenshin_back.png'),
-(15, 'Naruto', 'Naruto', '54', '55', '56', '57', 55, 55, 50, 70, 65, 'naruto_front.png', 'naruto_back.png'),
-(16, 'Eyeshield', 'Eyeshield 21', '58', '59', '60', '61', 95, 55, 40, 40, 40, 'eyeshield_front.png', 'eyeshield_back.png'),
-(19, 'Ashirogi', 'Bakuman', '62', '63', '64', '65', 60, 50, 50, 65, 65, 'ashirogi_front.png', 'ashirogi_back.png'),
-(22, 'Gon', 'Hunter X Hunter', '66', '67', '68', '69', 50, 70, 60, 55, 50, 'gon_front.png', 'gon_back.png'),
-(25, 'Toriko', 'Toriko', '70', '71', '72', '73', 35, 90, 80, 55, 50, 'toriko_front.png', 'toriko_back.png'),
-(26, 'Aladdin', 'Magi', '74', '75', '76', '77', 65, 50, 40, 80, 80, 'aladdin_front.png', 'aladdin_back.png');
+INSERT INTO `persos` (`id`, `name`, `manga_name`, `attack_1`, `attack_2`, `attack_3`, `attack_4`, `vit`, `atk`, `def`, `atk_spe`, `def_spe`, `img_front`, `img_back`, `condition`) VALUES
+(1, 'Sangoku', 'Dragon Ball', '1', '2', '3', '4', 70, 70, 60, 85, 65, 'goku_front.png', 'goku_back.png', 'catch'),
+(4, 'Luffy', 'One Piece', '5', '6', '7', '8', 75, 75, 65, 45, 50, 'luffy_front.png', 'luffy_back.png', 'catch'),
+(12, 'Kenshin', 'Kenshin Le Vagabond', '46', '47', '48', '49', 85, 75, 70, 55, 45, 'kenshin_front.png', 'kenshin_back.png', '1'),
+(15, 'Naruto', 'Naruto', '54', '55', '56', '57', 55, 55, 50, 70, 65, 'naruto_front.png', 'naruto_back.png', 'none'),
+(16, 'Eyeshield', 'Eyeshield 21', '58', '59', '60', '61', 95, 55, 40, 40, 40, 'eyeshield_front.png', 'eyeshield_back.png', 'none'),
+(19, 'Ashirogi', 'Bakuman', '62', '63', '64', '65', 60, 50, 50, 65, 65, 'ashirogi_front.png', 'ashirogi_back.png', 'none'),
+(22, 'Gon', 'Hunter X Hunter', '66', '67', '68', '69', 50, 70, 60, 55, 50, 'gon_front.png', 'gon_back.png', 'none'),
+(25, 'Toriko', 'Toriko', '70', '71', '72', '73', 35, 90, 80, 55, 50, 'toriko_front.png', 'toriko_back.png', '3'),
+(26, 'Aladdin', 'Magi', '74', '75', '76', '77', 65, 50, 40, 80, 80, 'aladdin_front.png', 'aladdin_back.png', '5');
 
 -- --------------------------------------------------------
 
@@ -278,7 +316,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `pseudo`, `password`, `created`, `win`, `lost`, `arcades`) VALUES
-(4, 'Gear', '7df4459c049c3ef550317f4bd737df5f', '2015-04-15 10:09:47', 79, 48, 2),
+(4, 'Gear', '7df4459c049c3ef550317f4bd737df5f', '2015-04-15 10:09:47', 101, 63, 3),
 (20, 'test', '05a671c66aefea124cc08b76ea6d30bb', '2015-04-20 10:03:33', 0, 0, 0);
 
 -- --------------------------------------------------------
@@ -302,12 +340,12 @@ CREATE TABLE IF NOT EXISTS `user_persos` (
 INSERT INTO `user_persos` (`id`, `id_user`, `id_perso`, `unlocked`) VALUES
 (11, 4, 1, 0),
 (12, 4, 4, 0),
-(13, 4, 12, 0),
+(13, 4, 12, 1),
 (14, 4, 15, 1),
 (15, 4, 16, 1),
 (16, 4, 19, 1),
 (17, 4, 22, 1),
-(18, 4, 25, 0),
+(18, 4, 25, 1),
 (19, 4, 26, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
