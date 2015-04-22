@@ -54,9 +54,14 @@ class BattleController extends AppController
         $this->layout = null;
         $this->RequestHandler->renderAs($this, 'json');
 
+        $session = $this->request->session();
+        $connected_user = $session->read('user')[0];
+
         $persos = $this->Persos->find()->toArray();
         $attacks = $this->Attacks->find()->toArray();
-        $user_persos = $this->UserPersos->find()->toArray();
+        $user_persos = $this->UserPersos->find()->where(
+            array('UserPersos.id_user' => $connected_user['id'])
+        )->toArray();
 
         $v = 0;
 
@@ -80,10 +85,9 @@ class BattleController extends AppController
             foreach ($user_persos as $key => $user_perso) {
                 if($user_perso['id_perso'] == $perso['id'] && $user_perso['unlocked'] == 1) {
                     $persos[$v]['unlocked'] = 1;
-                } 
+                }
             }
 
-            
             $v++;
         }
 

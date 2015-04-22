@@ -20,6 +20,11 @@ $(document).ready(function() {
 	var ap = $('.ally .status .pp');
 	var ep = $('.ennemy .status .pp');
 
+
+	/*****************************/
+	/* 	       	 HIDES      	 */
+	/*****************************/
+
 	$('.battle').hide();
 	$('.before_battle h2').hide();
 	$('.pseudo').hide();
@@ -30,14 +35,17 @@ $(document).ready(function() {
 	$('.choose .button_attack').parent().hide();
 	$('.choose .button_tools').parent().hide();
 
+	// Si le User a déjà une session connectée
 	if($('.launch_direct').length != 0) {
 		$('.pseudo').show();
 		getConnectedUser();
 	}
 
+
 	/*****************************/
 	/* 	   LOG IN / SIGN IN      */
 	/*****************************/
+
 
 	$('.return_sign_log_in').on('click', function(e) {
 		e.preventDefault();
@@ -84,8 +92,6 @@ $(document).ready(function() {
 
 				if(_this.response.check === 'OK') {
 
-					console.log(_this.response);
-
 					if(_this.response.user[0] != undefined) {
 						user = _this.response.user[0];
 					} else {
@@ -106,7 +112,12 @@ $(document).ready(function() {
 					$('.pseudo').html(txt_pseudo);
 					$('.pseudo').show();
 					$('.sign_log_in').hide();
-					getAllPersos();
+
+					if(what_form == 'signIn') {
+						getUserPersos();
+					} else {
+						getAllPersos();
+					}
 					
 				} else {
 					alert('Pseudo déjà pris ou bug.');
@@ -123,8 +134,8 @@ $(document).ready(function() {
 	/* 	  GET PERSOS AND USER  	 */
 	/*****************************/
 
-	// Fonction appellée quand la $_SESSION récupère un utilisateur connecté
 
+	// Fonction appellée quand la $_SESSION récupère un utilisateur connecté
 	function getConnectedUser() {
 
 		makeAjax('POST', 'battle/getConnectedUser', '', function() {
@@ -140,13 +151,11 @@ $(document).ready(function() {
 				}
 
 				getAllPersos();
-
 			}
 		});
 	}
 
 	// Fonction AJAX qui récupère tous les personnages et leurs attaques pour que l'utilisateur choisisse son personnage
-
 	function getAllPersos() {
 
 		makeAjax('POST', 'battle/getPersos', '', function() {
@@ -200,6 +209,13 @@ $(document).ready(function() {
 
 			_this.all_persos = _this.response;
 
+		});
+	}
+
+	// Si Sign In, création des persos pour le User
+	function getUserPersos() {
+		makeAjax('POST', 'battle/getUserPersos', '', function() {
+			getAllPersos();
 		});
 	}
 
@@ -398,7 +414,6 @@ $(document).ready(function() {
 	}
 
 	// Fonction de lancement d'une Manga Ball
-
 	function mangaBall() {
 
 		var ennemy_name = $('.ennemy .status .name').text();
@@ -489,9 +504,7 @@ $(document).ready(function() {
 		} else {
 			alert('Ce personnage est déjà disponible, vous ne pouvez pas l\'attraper !');
 		}
-
 	}
-
 
 	// Fonction pour écrire dans la zone de texte
 	function chat(txt) {
@@ -508,9 +521,11 @@ $(document).ready(function() {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
+
 	/*****************************/
 	/* 	 FONCTIONS FIN DU JEU  	 */
 	/*****************************/
+
 
 	// Après chaque attaque, on vérifie si un personnage a ses PV à 0
 	function checkWin() {
@@ -524,7 +539,6 @@ $(document).ready(function() {
 			winner = 'ally';
 			return true;
 		}
-
 		return false;
 	}
 
@@ -557,7 +571,6 @@ $(document).ready(function() {
 			}
 		});
 	}
-
 
 	// Fonction annonçant la fin du jeu
 	function endGame() {
@@ -592,9 +605,11 @@ $(document).ready(function() {
 		} else if(winner === 'ennemy') {
 			arcade = 0;
 			updateUser('lost');
+
 			chat('Vos points de vie sont tombé à zéro.');
 			chat('Vous avez <span style="color:red;text-transform:uppercase;">perdu</span> !');
 			chat('<button class="play_again">Rejouer</button>');
+
 			$('.nb_lost em').text(parseInt($('.nb_lost em').text()) + 1);
 
 		} else if(winner == 'catch') {
@@ -626,6 +641,7 @@ $(document).ready(function() {
 
 	// Fonction appellée une fois une Arcade remportée
 	function endArcade() {
+
 		emptyChat();
 		chat('FELICITATIONS ! VOUS AVEZ TERMINE UNE ARCADE');
 		chat('<button class="play_again">Rejouer</button>');
@@ -652,7 +668,6 @@ $(document).ready(function() {
 		}
 
 		updateUserPerso(id_perso);
-
 	}
 
 	// Fonction utilisée pour démarrer un nouveau combat (après une victoire de l'utilisateur)
@@ -682,6 +697,7 @@ $(document).ready(function() {
 
 	// Fonction pour rejouer après une défaite ou la fin d'une arcade
 	function playAgain() {
+
 		emptyChat();
 		$('.battle').hide();
 
@@ -776,9 +792,7 @@ $(document).ready(function() {
 			attack('ennemy', ennemy_attack);
 
 		}, 2000);
-
 	}
-
 
 	// Fonction qui va lancer l'attaque et effectuer les actions relatives à la pré-attaque et la post-attaque
 	function attack(who, that) {
@@ -890,8 +904,10 @@ $(document).ready(function() {
 
 				// Si les PP adverses sont inférieurs à la moitié on les régénère
 				if(parseInt(ep.find('strong').text()) < 50) {
+
 					ep.find('strong').text(parseInt(ep.find('strong').text()) + 50);
 					ep.find('span').width(ep.find('span').width() + 50*3);
+
 					$('.button_return').hide();
 					$('.choose .button_depart').parent().show();
 
