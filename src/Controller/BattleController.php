@@ -152,6 +152,7 @@ class BattleController extends AppController
         $connected_user = $session->read('user')[0];
 
         $check = 'KO';
+        $perso = null;
 
         if(isset($this->request->data) && $connected_user) {
 
@@ -168,12 +169,16 @@ class BattleController extends AppController
                 ->where(['id_perso' => intval($data['id_perso'])])
                 ->execute();
 
+                $perso = $this->Persos->find();
+                $perso->where(['id' => intval($data['id_perso'])]);
+
                 $check = 'OK';   
             }
         }
 
         $response = array();
         $response['check'] = $check;
+        $response['perso'] = $perso;
 
         echo json_encode($response);
     }
