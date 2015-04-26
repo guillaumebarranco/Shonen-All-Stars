@@ -31,6 +31,7 @@ $(document).ready(function() {
 	$('.sign_log_in form').hide();
 	$('.anim').hide();
 	$('.return_sign_log_in').hide();
+	$('.button_return').hide();
 
 	$('.choose .button_attack').parent().hide();
 	$('.choose .button_tools').parent().hide();
@@ -234,6 +235,17 @@ $(document).ready(function() {
 		ally = _this.all_persos[id_chosen];
 		ennemy = _this.all_persos[random_ennemy];
 
+		console.log('ennemy', ennemy);
+
+		if(ennemy.name == 'Saitama') {
+			while(ennemy.name == 'Saitama') {
+				random_ennemy = rand(1,_this.all_persos.length -1);
+				_this.all_persos[random_ennemy].side = 'ennemy';
+
+				ennemy = _this.all_persos[random_ennemy];
+			}
+		}
+
 		$('.ally').find('.picture img').attr('src', 'img/persos/'+ally.img_back);
 		$('.ennemy').find('.picture img').attr('src', 'img/persos/'+ennemy.img_front);
 
@@ -281,6 +293,7 @@ $(document).ready(function() {
 	// Bouton de retour dans le jeu (pour quitter les attaques et revenir sur les objets par exemple)
 	$('.button_return').on('click', function(e) {
 		e.preventDefault();
+		$(this).hide();
 		$('.choose .button_attack').parent().hide();
 		$('.choose .button_tools').parent().hide();
 		$('.choose .button_depart').parent().show();
@@ -290,12 +303,14 @@ $(document).ready(function() {
 	$('.make_attack').on('click', function() {
 		$('.choose .button_depart').parent().hide();
 		$('.choose .button_attack').parent().show();
+		$('.button_return').show();
 	});
 
 	// Au click sur le bouton Tools, on affiche les 4 objets
 	$('.use_tools').on('click', function() {
 		$('.choose .button_depart').parent().hide();
 		$('.choose .button_tools').parent().show();
+		$('.button_return').show();
 	});
 
 	// Au clic sur l'objet Potion de Vie
@@ -434,7 +449,7 @@ $(document).ready(function() {
 		if(!is_unlocked) {
 
 			// Impossible d'attraper les personnages que l'on obtient seulement en finissant des arcades
-			if(ennemy_id != 26 || ennemy_id != 25 || ennemy_id != 12) {
+			if(ennemy_id != 26 || ennemy_id != 25 || ennemy_id != 12 || ennemy_id != 29) {
 
 				$('.ennemy .anim').show();
 				$('.ennemy .anim').append('<div class="anim_mangaball"></div>');
@@ -665,6 +680,10 @@ $(document).ready(function() {
 			
 			// Aladdin est débloqué
 			updateUserPerso(26);
+		} else if(arcades_now === 15) {
+			
+			// Saitama est débloqué
+			updateUserPerso(29);
 		}
 
 		updateUserPerso(id_perso);
@@ -684,6 +703,17 @@ $(document).ready(function() {
 		_this.all_persos[random_ennemy].side = 'ennemy';
 
 		ennemy = _this.all_persos[random_ennemy];
+
+		console.log('ennemy', ennemy);
+
+		if(ennemy.name == 'Saitama') {
+			while(ennemy.name == 'Saitama') {
+				random_ennemy = rand(1,_this.all_persos.length -1);
+				_this.all_persos[random_ennemy].side = 'ennemy';
+
+				ennemy = _this.all_persos[random_ennemy];
+			}
+		}
 
 		$('.ennemy .status .name').text(ennemy.name);
 		$('.ennemy').find('img').attr('src', 'img/persos/'+ennemy.img_front);

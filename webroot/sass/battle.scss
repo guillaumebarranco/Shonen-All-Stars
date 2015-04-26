@@ -344,13 +344,13 @@ $top : -20px;
 
 @keyframes receive_cut_bas {
 	0% {
-		left: $left_ally + 35px;
-		top: $top - 123px;
+		left: $left_ally - 35px;
+		top: $top + 123px;
 		height: 1px;
 	}
 	100% {
-		left: $left_ally - 30px;
-		top: $top + 52px;
+		left: $left_ally + 30px;
+		top: $top - 52px;
 		height: 200px;
 	}
 }
@@ -893,8 +893,8 @@ $top : -20px;
 
 .anim_fireball {
 	display: inline-block;
-	width: 100%;
-	height: 100%;
+	width: 150px;
+	    height: 150px;
 	margin: 0;
 	border-radius: 50%;
 	position: absolute;
@@ -970,6 +970,133 @@ $top : -20px;
 }
 
 /*
+*	YIN YANG
+*/
+
+.anim_yin_yang {
+	width: 96px;
+	height: 48px;
+	background: #eee;
+	border-color: red;
+	border-style: solid;
+	border-width: 2px 2px 50px 2px;
+	border-radius: 100%;
+	position: absolute;
+	animation-duration: 1.3s;
+	animation-timing-function: ease-in-out;
+
+	&:before {
+		content: "";
+		position: absolute;
+		top: 50%;
+		left: 0;
+		background: #eee;
+		border: 18px solid red;
+		border-radius: 100%;
+		width: 12px;
+		height: 12px;
+	}
+
+	&:after {
+		content: "";
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		background: red;
+		border: 18px solid #eee;
+		border-radius:100%;
+		width: 12px;
+		height: 12px;
+	}
+}
+
+.ally .anim_yin_yang {
+	animation-name: receive_yin_yang;
+}
+.ennemy .anim_yin_yang {
+	animation-name: yin_yang;
+}
+
+@keyframes yin_yang {
+
+	0% {
+	    top: $top + 230px;
+	    left: $left_ennemy - 350px;
+	}
+
+	100% {
+	    top: $top - 5px;
+	    left: $left_ennemy - 4px;
+	}
+}
+
+@keyframes receive_yin_yang {
+
+	0% {
+		height: 50px;
+	    width: 50px;
+	    top: $top - 230px;
+	    left: $left_ally + 350px;
+	}
+
+	100% {
+		width: 150px;
+	    height: 150px;
+	    top: $top + 5px;
+	    left: $left_ally + 4px;
+	}
+}
+
+/*
+*	MOON
+*/
+
+.anim_moon {
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	box-shadow: 15px 15px 0 0 black;
+	animation-duration: 1.3s;
+	position: absolute;
+	animation-timing-function: ease-in-out;
+}
+
+.ally .anim_moon {
+	animation-name: receive_moon;
+	transform: rotate(87deg);
+}
+.ennemy .anim_moon {
+	animation-name: moon;
+	transform: rotate(-87deg);
+}
+
+@keyframes moon {
+
+	0% {
+	    top: $top + 230px;
+	    left: $left_ennemy - 350px;
+	}
+
+	100% {
+	    top: $top - 5px;
+	    left: $left_ennemy - 4px;
+	}
+}
+
+@keyframes receive_moon {
+
+	0% {
+	    top: $top - 230px;
+	    left: $left_ally + 350px;
+	}
+
+	100% {
+	    top: $top + 5px;
+	    left: $left_ally + 4px;
+	}
+}
+
+/*
 *	KAMEHAMEHA
 */
 
@@ -988,27 +1115,19 @@ $top : -20px;
 		border-radius: 100%;
 		background-color: blue;
 		position: absolute;
+		top: -10px;
+	  	left: -16px;
 	}
 }
 
 .ally .anim_kamehameha {
 	animation-name: receive_kamehameha;
-	transform: rotate(-32deg);
-
-	&:after {
-		top: 10px;
-	  	left: 16px;
-	}
+	transform: rotate(-122deg);
 }
 
 .ennemy .anim_kamehameha {
 	animation-name: kamehameha;
 	transform: rotate(58deg);
-
-	&:after {
-		top: -10px;
-	  	left: -16px;
-	}
 }
 
 @keyframes kamehameha {
@@ -1027,6 +1146,139 @@ $top : -20px;
 }
 
 @keyframes receive_kamehameha {
+	0% {
+	    height: 0px;
+	    top: $top - 275px;
+		left: $left_ally + 386px;
+
+	}
+	
+	100% {
+		top: $top - 382px;
+		left: $left_ally + 194px;
+		height: 450px;
+	}
+}
+
+/*
+*	ZEBUB
+*/
+
+.anim_zebub {
+	width: 20px;
+	height: 2px;
+	position: absolute;
+	background-color: gold;
+	animation-duration: 1.3s;
+	animation-timing-function: linear;
+
+	&:after {
+		content: '';
+		width: 50px;
+		height: 50px;
+		border-radius: 100%;
+		background-color: gold;
+		position: absolute;
+		top: -10px;
+	  	left: -16px;
+	}
+}
+
+.ally .anim_zebub {
+	animation-name: receive_kamehameha;
+	transform: rotate(-122deg);
+}
+
+.ennemy .anim_zebub {
+	animation-name: kamehameha;
+	transform: rotate(58deg);
+}
+
+
+/*
+*	CHAKRA
+*/
+
+.anim_chakra {
+	width: 20px;
+	height: 2px;
+	position: absolute;
+	background-color: #f6290c;
+	border-left: solid 4px red;
+	border-right: solid 4px red;
+	animation-duration: 1.3s;
+	animation-timing-function: linear;
+
+	top: $top - 69px;
+		left: $left_ennemy - 194px;
+		height: 450px;
+transform: rotate(58deg);
+
+
+	&:after {
+
+		width: 0;
+	height: 0;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-top: 100px solid red;
+	position: absolute;
+	content: "";
+	top: 30px;
+	left: -50px;
+
+	}
+
+	&:before {
+
+		width: 0;
+	height: 0;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-top: 100px solid red;
+	position: absolute;
+	content: "";
+	top: 30px;
+	left: -50px;
+	}
+}
+
+.ally .anim_chakra {
+	animation-name: receive_chakra;
+	transform: rotate(-122deg);
+
+	&:after {
+		top: 10px;
+	  	left: 16px;
+	}
+}
+
+.ennemy .anim_chakra {
+	animation-name: chakra;
+	transform: rotate(58deg);
+
+	&:after {
+		top: -10px;
+	  	left: -16px;
+	}
+}
+
+@keyframes chakra {
+	0% {
+	    height: 0px;
+	    top: $top + 275px;
+		left: $left_ennemy - 386px;
+
+	}
+	
+	100% {
+		top: $top - 69px;
+		left: $left_ennemy - 194px;
+		height: 450px;
+	}
+}
+
+@keyframes receive_chakra {
 	0% {
 	    height: 0px;
 	    top: $top - 275px;

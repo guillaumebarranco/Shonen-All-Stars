@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 22 Avril 2015 à 18:24
+-- Généré le :  Lun 27 Avril 2015 à 00:52
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `attacks` (
   `type` varchar(255) NOT NULL,
   `anim` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=90 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=102 ;
 
 --
 -- Contenu de la table `attacks`
@@ -88,7 +88,19 @@ INSERT INTO `attacks` (`id`, `name`, `power`, `requis`, `type`, `anim`) VALUES
 (86, 'Coup de poing tranquille', 50, 10, 'physic', 'physic'),
 (87, 'Coup de poing appuyé', 60, 15, 'physic', 'physic'),
 (88, 'Coup de poing puissant', 70, 20, 'physic', 'physic'),
-(89, 'Coup de poing MAX', 80, 25, 'physic', 'physic');
+(89, 'Coup de poing MAX', 80, 25, 'physic', 'physic'),
+(90, 'Crunching Punch', 25, 10, 'physic', 'physic'),
+(91, 'Beelze Blast', 35, 25, 'special', 'fireball'),
+(92, 'Super Milk Time', 55, 65, 'physic', 'gatling'),
+(93, 'Zebub Finisher', 70, 95, 'special', 'zebub'),
+(94, 'Coup de poing', 10, 5, 'physic', 'physic'),
+(95, 'Allumette Rouge', 30, 20, 'special', 'fireball'),
+(96, 'Allumette Noire', 50, 65, 'special', 'blackball'),
+(97, 'Pouvoir caché', 60, 75, 'special', 'ultimate'),
+(98, 'Et je prends une chips...', 15, 5, 'physic', 'physic'),
+(99, 'Jugement', 30, 15, 'special', 'yin_yang'),
+(100, 'Rem', 40, 25, 'special', 'moon'),
+(101, 'Oeil de la mort', 55, 65, 'special', 'ultimate');
 
 -- --------------------------------------------------------
 
@@ -104,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `fights` (
   `result` varchar(255) NOT NULL,
   `created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=161 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=188 ;
 
 --
 -- Contenu de la table `fights`
@@ -270,7 +282,34 @@ INSERT INTO `fights` (`id`, `user`, `ally`, `ennemy`, `result`, `created`) VALUE
 (157, 'erg', 'Eyeshield', 'Kenshin', 'win', '2015-04-22 14:32:22'),
 (158, 'erg', 'Eyeshield', 'Toriko', 'win', '2015-04-22 14:32:54'),
 (159, 'erg', 'Eyeshield', 'Toriko', 'win', '2015-04-22 14:33:24'),
-(160, 'erg', 'Eyeshield', 'Naruto', 'win', '2015-04-22 14:33:48');
+(160, 'erg', 'Eyeshield', 'Naruto', 'win', '2015-04-22 14:33:48'),
+(161, 'Gear', 'Kenshin', 'Aladdin', 'win', '2015-04-24 17:19:34'),
+(162, 'Gear', 'Kenshin', 'Eyeshield', 'win', '2015-04-24 17:19:54'),
+(163, 'Gear', 'Kenshin', 'Naruto', 'win', '2015-04-24 17:20:13'),
+(164, 'Gear', 'Kenshin', 'Kenshin', 'win', '2015-04-24 17:21:44'),
+(165, 'Gear', 'Toriko', 'Ichigo', 'lost', '2015-04-24 17:23:06'),
+(166, 'Gear', 'Toriko', 'Ichigo', 'lost', '2015-04-24 17:26:55'),
+(167, 'Gear', 'Eyeshield', 'Gon', 'lost', '2015-04-24 17:29:10'),
+(168, 'Gear', 'Eyeshield', 'Luffy', 'lost', '2015-04-24 17:31:30'),
+(169, 'Gear', 'Eyeshield', 'Aladdin', 'win', '2015-04-24 17:32:07'),
+(170, 'Gear', 'Eyeshield', 'Luffy', 'lost', '2015-04-24 17:32:31'),
+(171, 'Gear', 'Naruto', 'Saitama', 'lost', '2015-04-24 17:32:51'),
+(172, 'Gear', 'Gon', 'Luffy', 'lost', '2015-04-24 17:34:43'),
+(173, 'Gear', 'Naruto', 'Yusuke', 'lost', '2015-04-24 17:35:56'),
+(174, 'Gear', 'Eyeshield', 'Ichigo', 'lost', '2015-04-26 18:06:12'),
+(175, 'Gear', 'Ichigo', 'Kenshin', 'lost', '2015-04-26 18:17:03'),
+(176, 'Gear', 'Eyeshield', 'Eyeshield', 'win', '2015-04-26 18:17:34'),
+(177, 'Gear', 'Eyeshield', 'Ichigo', 'win', '2015-04-26 18:18:08'),
+(178, 'Gear', 'Eyeshield', 'Naruto', 'win', '2015-04-26 18:19:34'),
+(179, 'Gear', 'Eyeshield', 'Eyeshield', 'win', '2015-04-26 18:20:01'),
+(180, 'Gear', 'Eyeshield', 'Ichigo', 'win', '2015-04-26 18:20:32'),
+(181, 'Gear', 'Eyeshield', 'Luffy', 'win', '2015-04-26 18:21:08'),
+(182, 'Gear', 'Eyeshield', 'Naruto', 'win', '2015-04-26 18:21:41'),
+(183, 'Gear', 'Kenshin', 'Luffy', 'lost', '2015-04-26 18:22:19'),
+(184, 'Gear', 'Kenshin', 'Luffy', 'win', '2015-04-26 18:22:40'),
+(185, 'Gear', 'Kenshin', 'Yusuke', 'lost', '2015-04-26 18:25:41'),
+(186, 'Gear', 'Yusuke', 'Luffy', 'lost', '2015-04-26 18:27:53'),
+(187, 'Gear', 'Naruto', 'Luffy', 'lost', '2015-04-26 19:06:13');
 
 -- --------------------------------------------------------
 
@@ -295,7 +334,7 @@ CREATE TABLE IF NOT EXISTS `persos` (
   `img_back` varchar(255) DEFAULT NULL,
   `condition` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
 
 --
 -- Contenu de la table `persos`
@@ -313,7 +352,10 @@ INSERT INTO `persos` (`id`, `name`, `manga_name`, `attack_1`, `attack_2`, `attac
 (26, 'Aladdin', 'Magi', '74', '75', '76', '77', 65, 50, 40, 80, 80, 'aladdin_front.png', 'aladdin_back.png', '5'),
 (27, 'Yusuke', 'Yu Yu Hakusho', '78', '79', '80', '81', 50, 65, 55, 80, 75, 'yusuke_front.png', 'yusuke_back.png', 'catch'),
 (28, 'Ichigo', 'Bleach', '82', '83', '84', '85', 70, 65, 55, 60, 55, 'ichigo_front.png', 'ichigo_back.png', 'catch'),
-(29, 'Saitama', 'One-punch Man', '86', '87', '88', '89', 80, 95, 90, 30, 30, 'saitama_front.png', 'saitama_back.png', '15');
+(29, 'Saitama', 'One-punch Man', '86', '87', '88', '89', 80, 95, 90, 30, 30, 'saitama_front.png', 'saitama_back.png', '15'),
+(30, 'Oga', 'Beelzebub', '90', '91', '92', '93', 70, 80, 75, 65, 60, 'oga_front.png', 'oga_back.png', 'none'),
+(35, 'Terrence', 'Dreamland', '94', '95', '96', '97', 65, 55, 65, 75, 60, 'terrence_front.png', 'terrence_back.png', 'none'),
+(40, 'Kira', 'Death Note', '98', '99', '100', '101', 60, 55, 60, 70, 60, 'kira_front.png', 'kira_back.png', 'catch');
 
 -- --------------------------------------------------------
 
@@ -337,7 +379,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `pseudo`, `password`, `created`, `win`, `lost`, `arcades`) VALUES
-(4, 'Gear', '7df4459c049c3ef550317f4bd737df5f', '2015-04-15 10:09:47', 102, 63, 3),
+(4, 'Gear', '7df4459c049c3ef550317f4bd737df5f', '2015-04-15 10:09:47', 115, 73, 1),
 (20, 'test', '05a671c66aefea124cc08b76ea6d30bb', '2015-04-20 10:03:33', 0, 0, 0),
 (21, 'newtest', '0876b6b0db0707db221a5c736d8a896a', '2015-04-22 14:15:23', 0, 0, 0),
 (22, 'efe', 'e2d945d5d3b0f73c7662a00245d6ff38', '2015-04-22 14:24:04', 0, 0, 0),
@@ -355,40 +397,28 @@ CREATE TABLE IF NOT EXISTS `user_persos` (
   `id_perso` int(11) NOT NULL,
   `unlocked` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- Contenu de la table `user_persos`
 --
 
 INSERT INTO `user_persos` (`id`, `id_user`, `id_perso`, `unlocked`) VALUES
-(11, 4, 1, 0),
-(12, 4, 4, 0),
-(13, 4, 12, 1),
-(14, 4, 15, 1),
-(15, 4, 16, 1),
-(16, 4, 19, 1),
-(17, 4, 22, 1),
-(18, 4, 25, 1),
-(19, 4, 26, 0),
-(20, 22, 1, 0),
-(21, 22, 4, 0),
-(22, 22, 12, 0),
-(23, 22, 15, 1),
-(24, 22, 16, 1),
-(25, 22, 19, 1),
-(26, 22, 22, 1),
-(27, 22, 25, 0),
-(28, 22, 26, 0),
-(29, 23, 1, 0),
-(30, 23, 4, 0),
-(31, 23, 12, 1),
-(32, 23, 15, 1),
-(33, 23, 16, 1),
-(34, 23, 19, 1),
-(35, 23, 22, 1),
-(36, 23, 25, 0),
-(37, 23, 26, 0);
+(1, 4, 1, 0),
+(2, 4, 4, 0),
+(3, 4, 12, 1),
+(4, 4, 15, 1),
+(5, 4, 16, 1),
+(6, 4, 19, 1),
+(7, 4, 22, 1),
+(8, 4, 25, 0),
+(9, 4, 26, 0),
+(10, 4, 27, 1),
+(11, 4, 28, 1),
+(12, 4, 29, 0),
+(13, 4, 30, 1),
+(14, 4, 35, 1),
+(15, 4, 40, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

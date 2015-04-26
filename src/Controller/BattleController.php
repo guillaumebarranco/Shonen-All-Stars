@@ -132,7 +132,6 @@ class BattleController extends AppController
                    }
                     
                     $userPersos->save($new_user_perso);
-
                 }
 
                 echo 'ok';

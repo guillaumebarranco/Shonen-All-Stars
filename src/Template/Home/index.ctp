@@ -19,7 +19,7 @@
 
     <h1>Homepage</h1>
 
-    <a href="<?= $this->request->base ?>/battle">Home</a>
+    <a href="<?= $this->request->base ?>/battle">Battle</a>
 
     <h2>Persos</h2>
 
@@ -56,9 +56,9 @@
         </div>
     </div>-->
 
-    <!-- <div  style="position:relative; left: 200px;margin-top: 100px;margin-bottom:100px;">
+    <!-- <div  class="ennemy" style="position:relative; left: 200px;margin-top: 100px;margin-bottom:100px;">
         <div class="anim">
-            <div class="anim_ultimate"></div>
+            <div class="anim_zebub"></div>
         </div>
     </div> -->
     
