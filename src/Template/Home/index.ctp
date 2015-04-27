@@ -54,13 +54,17 @@
         <div class="anim">
             <div class="anim_cut"></div>
         </div>
-    </div>-->
+    </div>
 
-    <!-- <div  class="ennemy" style="position:relative; left: 200px;margin-top: 100px;margin-bottom:100px;">
+    animation-iteration-count: 20;
+
+-->
+
+    <div  class="ennemy" style="position:relative; left: 200px;margin-top: 100px;margin-bottom:100px;">
         <div class="anim">
-            <div class="anim_zebub"></div>
+            <div class="anim_yin_yang"></div>
         </div>
-    </div> -->
+    </div>
     
     
     <?php

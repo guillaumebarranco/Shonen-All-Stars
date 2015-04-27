@@ -181,28 +181,39 @@ $top : -20px;
 
 
 /*
-*	PUNCH
+*	PUNCH ////// PUNCH 2 /////// PHYSIC
 */
 
-.anim_physic {
+.anim_punch, .anim_punch2, .anim_physic {
 	width: 80px;
 	height: 87px;
 	position: absolute;
-	background-image: url('../img/anim/punch.png');
 	background-repeat: no-repeat;
-	animation-name: physic;
+	animation-name: punch;
 	animation-duration: 1s;
 	animation-timing-function: ease-in-out;
 }
 
-.ally .anim_physic {
+.anim_punch {
+	background-image: url('../img/anim/punch.png');
+}
+
+.anim_punch2 {
+	background-image: url('../img/anim/punch2.png');
+}
+
+.anim_physic {
+	background-image: url('../img/anim/physic.png');
+}
+
+.ally .anim_punch, .ally .anim_punch2, .ally .anim_physic {
 	left: $left_ally;
 }
-.ennemy .anim_physic {
+.ennemy .anim_punch, .ennemy .anim_punch2, .ennemy .anim_physic {
 	left: $left_ennemy;
 }
 
-@keyframes physic {
+@keyframes punch {
 	0% {
 		opacity: 0;
 	}
@@ -211,67 +222,37 @@ $top : -20px;
 	}
 }
 
+
 /*
-*	MAGNUM
+*	DOUBLE PUNCH ////// MAGNUM
 */
+
+.anim_punch_double, .anim_magnum {
+	width: 169px;
+	height: 87px;
+	position: absolute;
+	background-repeat: no-repeat;
+	animation-name: punch;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+}
+
+.anim_punch_double {
+	background-image: url('../img/anim/punch_double.png');
+}
 
 .anim_magnum {
-	width: 169px;
-	height: 87px;
-	position: absolute;
 	background-image: url('../img/anim/magnum.png');
-	background-repeat: no-repeat;
-	animation-name: magnum;
-	animation-duration: 1s;
-	animation-timing-function: ease-in-out;
 }
 
-.ally .anim_magnum {
+.ally .anim_punch_double, .ally .anim_magnum {
 	left: $left_ally - 50px;
 }
-.ennemy .anim_magnum {
+
+.ennemy .anim_punch_double, .ennemy .anim_magnum {
 	left: $left_ennemy - 50px;
 }
 
-@keyframes magnum {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
-}
-
-/*
-*	DOUBLE PUNCH
-*/
-
-.anim_physic2 {
-	width: 169px;
-	height: 87px;
-	position: absolute;
-	background-image: url('../img/anim/physic2.png');
-	background-repeat: no-repeat;
-	animation-name: physic2;
-	animation-duration: 1s;
-	animation-timing-function: ease-in-out;
-}
-
-.ally .anim_physic2 {
-	left: $left_ally - 50px;
-}
-.ennemy .anim_physic2 {
-	left: $left_ennemy - 50px;
-}
-
-@keyframes physic2 {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1
-	}
-}
 
 /*
 *	CUT
@@ -304,6 +285,62 @@ $top : -20px;
 	}
 	100% {
 		height: 200px;
+	}
+}
+
+/*
+*	CUT TRIPLE
+*/
+
+.anim_cut_triple {
+	width: 4px;
+	height: 0;
+	background-color: black;
+	position: absolute;
+	left: 30px;
+	top: -20px;
+	transform: rotate(41deg);
+	animation-name: cut_triple;
+	animation-duration: 1s;
+  	transform-origin: 0% 0%;
+  	height: 120px;
+
+  	&:before, &:after {
+  		content: "";
+		width: 4px;
+		height: 0;
+		background-color: black;
+		position: absolute;
+		display: block;
+		animation-name: cut_triple;
+		animation-duration: 1s;
+	  	transform-origin: 0% 0%;
+  	}
+
+  	&:before {
+		left: -30px;
+  		top: 25px;
+  	}
+
+  	&:after {
+		left: 30px;
+  		top: -25px;
+  	}
+}
+
+.ally .anim_cut_triple {
+	left: $left_ally + 112px;
+}
+.ennemy .anim_cut_triple {
+	left: $left_ennemy + 112px;
+}
+
+@keyframes cut_triple {
+	0% {
+		height: 1px;
+	}
+	100% {
+		height: 120px;
 	}
 }
 
@@ -733,32 +770,10 @@ $top : -20px;
 	transform-style: preserve-3d;
 	background: url('../img/anim/rasengan.png') repeat-x;
 	background-size: auto 100%;
-	animation-duration: 1.3s;
+	animation-duration: 1.7s;
 	animation-timing-function: ease-in-out;
-}
-
-.anim_rasengan:before {
-  content: "";
-  position: absolute;
-  top: 0%;
-  left: 0%;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  z-index: 2;
-}
-
-.anim_rasengan:after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  filter: blur(0);
-  opacity: 0.3;
-  background: radial-gradient(circle at 50% 80%, #81e8f6, #76deef 10%, #055194 66%, #062745 100%);
+	width: 100px;
+	height: 100px;
 }
 
 .ally .anim_rasengan {
@@ -770,17 +785,12 @@ $top : -20px;
 
 @keyframes rasengan {
 	0% {
-	    background-position: 0 0; 
-	    height: 50px;
-	    width: 50px;
 	    top: $top + 230px;
 	    left: $left_ennemy - 350px;
 	}
 	
 	100% {
-	    background-position: -1250px 0; 
-	    width: 150px;
-	    height: 150px;
+		transform: rotate(2600deg);
 	    top: $top - 5px;
 	    left: $left_ennemy - 4px;
 	}
@@ -788,17 +798,129 @@ $top : -20px;
 
 @keyframes receive_rasengan {
 	0% {
-	    background-position: 0 0; 
-	    height: 50px;
-	    width: 50px;
 	    top: $top - 230px;
 	    left: $left_ally + 350px;
 	}
 	
 	100% {
-	    background-position: -1250px 0; 
-	    width: 150px;
-	    height: 150px;
+		transform: rotate(2600deg);
+	    top: $top + 5px;
+	    left: $left_ally + 4px;
+	}
+}
+
+/*
+*	RASENGAN PLANETAIRE
+*/
+
+.anim_planetaire {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	border-radius: 50%;
+	position: absolute;
+	background: url('../img/anim/rasengan.png') repeat-x;
+	background-size: auto 100%;
+	animation-duration: 1.3s;
+	animation-timing-function: ease-in-out;
+	width: 70px;
+	height: 70px;
+
+	&:before, &:after {
+		content: "";
+		width: 25px;
+		height: 25px;
+		display: block;
+		position: absolute;
+		border-radius: 50%;
+		background: url('../img/anim/rasengan.png') repeat-x;
+		background-size: auto 100%;
+		top: 23px;
+	}
+
+	&:before {
+		animation-duration: 1.3s;
+		animation-timing-function: ease-in-out;
+		animation-name: before_planetaire;
+	}
+
+	&:after {
+		animation-duration: 1.3s;
+		animation-timing-function: ease-in-out;
+		animation-name: after_planetaire;
+	}
+}
+
+
+.ally .anim_planetaire {
+	animation-name: receive_planetaire;
+}
+.ennemy .anim_planetaire {
+	animation-name: planetaire;
+}
+
+@keyframes before_planetaire {
+	0% {
+		opacity: 1;
+		left: -27px;
+	}
+
+	60% {
+		left: -27px;
+	}
+
+	75% {
+		opacity: 1;
+	}
+
+	100% {
+		left: 27px;
+		opacity: 0;
+	}
+}
+
+@keyframes after_planetaire {
+	0% {
+		opacity: 1;
+		left: 72px;
+	}
+
+	60% {
+		left: 72px;
+	}
+
+	75% {
+		opacity: 1;
+	}
+
+	100% {
+		left: 27px;
+		opacity: 0;
+	}
+}
+
+@keyframes planetaire {
+	0% {
+	    top: $top + 230px;
+	    left: $left_ennemy - 350px;
+	}
+	
+	100% {
+		transform: rotate(1000deg);
+	    top: $top - 5px;
+	    left: $left_ennemy - 4px;
+	}
+}
+
+@keyframes receive_planetaire {
+	0% {
+	    top: $top - 230px;
+	    left: $left_ally + 350px;
+	}
+	
+	100% {
+		transform: rotate(1000deg);
 	    top: $top + 5px;
 	    left: $left_ally + 4px;
 	}
@@ -816,34 +938,10 @@ $top : -20px;
 	margin: 0;
 	border-radius: 50%;
 	position: absolute;
-	transform-style: preserve-3d;
 	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#fff9f9), color-stop(60%,#7db9e8), color-stop(100%,#ffffff));
 	background: -webkit-radial-gradient(center, ellipse cover, #fff9f9 0%,#7db9e8 60%,#ffffff 100%);
 	animation-duration: 1.3s;
 	animation-timing-function: ease-in-out;
-}
-
-.anim_genkidama:before {
-  content: "";
-  position: absolute;
-  top: 0%;
-  left: 0%;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  z-index: 2;
-}
-
-.anim_genkidama:after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  filter: blur(0);
-  opacity: 0.3;
 }
 
 .ally .anim_genkidama {
@@ -894,119 +992,83 @@ $top : -20px;
 .anim_fireball {
 	display: inline-block;
 	width: 150px;
-	    height: 150px;
+	height: 150px;
 	margin: 0;
 	border-radius: 50%;
 	position: absolute;
-	transform-style: preserve-3d;
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(248,80,50,1)), color-stop(50%,rgba(241,111,92,1)), color-stop(51%,rgba(246,41,12,1)), color-stop(71%,rgba(240,47,23,1)), color-stop(100%,rgba(231,56,39,1))); /* Chrome,Safari4+ */
-	background: -webkit-radial-gradient(center, ellipse cover, rgba(248,80,50,1) 0%,rgba(241,111,92,1) 50%,rgba(246,41,12,1) 51%,rgba(240,47,23,1) 71%,rgba(231,56,39,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(248,80,50,1)), color-stop(50%,rgba(241,111,92,1)), color-stop(51%,rgba(246,41,12,1)), color-stop(71%,rgba(240,47,23,1)), color-stop(100%,rgba(231,56,39,1)));
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(248,80,50,1) 0%,rgba(241,111,92,1) 50%,rgba(246,41,12,1) 51%,rgba(240,47,23,1) 71%,rgba(231,56,39,1) 100%);
 	animation-duration: 1.3s;
 	animation-timing-function: ease-in-out;
 }
 
-.anim_fireball:before {
-  content: "";
-  position: absolute;
-  top: 0%;
-  left: 0%;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  z-index: 2;
-}
-
-.anim_fireball:after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  filter: blur(0);
-  opacity: 0.3;
-}
-
 .ally .anim_fireball {
-	animation-name: receive_fireball;
+	animation-name: receive_genkidama;
 }
 .ennemy .anim_fireball {
-	animation-name: fireball;
+	animation-name: genkidama;
 }
 
-@keyframes fireball {
+/*
+*	BLACK BALL
+*/
 
-	0% {
-		height: 50px;
-	    width: 50px;
-	    top: $top + 230px;
-	    left: $left_ennemy - 350px;
-	}
-
-	100% {
-		width: 150px;
-	    height: 150px;
-	    top: $top - 5px;
-	    left: $left_ennemy - 4px;
-	}
+.anim_blackball {
+	display: inline-block;
+	width: 150px;
+	height: 150px;
+	margin: 0;
+	border-radius: 50%;
+	position: absolute;
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(149,149,149,1)), color-stop(46%,rgba(13,13,13,1)), color-stop(50%,rgba(1,1,1,1)), color-stop(53%,rgba(10,10,10,1)), color-stop(76%,rgba(78,78,78,1)), color-stop(87%,rgba(56,56,56,1)), color-stop(100%,rgba(27,27,27,1)));
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(149,149,149,1) 0%,rgba(13,13,13,1) 46%,rgba(1,1,1,1) 50%,rgba(10,10,10,1) 53%,rgba(78,78,78,1) 76%,rgba(56,56,56,1) 87%,rgba(27,27,27,1) 100%);
+	animation-duration: 1.3s;
+	animation-timing-function: ease-in-out;
 }
 
-@keyframes receive_fireball {
 
-	0% {
-		height: 50px;
-	    width: 50px;
-	    top: $top - 230px;
-	    left: $left_ally + 350px;
-	}
-
-	100% {
-		width: 150px;
-	    height: 150px;
-	    top: $top + 5px;
-	    left: $left_ally + 4px;
-	}
+.ally .anim_blackball {
+	animation-name: receive_genkidama;
+}
+.ennemy .anim_blackball {
+	animation-name: genkidama;
 }
 
 /*
 *	YIN YANG
 */
 
+.anim_yin_yang, .anim_yin_yang:before, .anim_yin_yang:after {
+	box-sizing: content-box;
+	width: 12px;
+	height: 12px;
+	border-style: solid;
+	border-radius: 100%;
+	position: absolute;
+	animation-duration: 1.5s;
+	animation-timing-function: ease-in-out;
+}
+
 .anim_yin_yang {
 	width: 96px;
 	height: 48px;
-	background: #eee;
-	border-color: red;
-	border-style: solid;
-	border-width: 2px 2px 50px 2px;
-	border-radius: 100%;
-	position: absolute;
-	animation-duration: 1.3s;
-	animation-timing-function: ease-in-out;
+	border-width: 2px;
+	border-bottom-width: 50px;
+	transform: rotateZ(-45deg) scaleX(1) scaleY(1) scaleZ(1);
+	transform-origin: 50% 50% 0;
 
-	&:before {
+	&:before, &:after {
 		content: "";
-		position: absolute;
 		top: 50%;
-		left: 0;
-		background: #eee;
-		border: 18px solid red;
-		border-radius: 100%;
-		width: 12px;
-		height: 12px;
+		border-width: 18px;
+		transform: scaleX(1) scaleY(1) scaleZ(1);
+		transform-origin: 50% 50% 0;
 	}
 
 	&:after {
-		content: "";
-		position: absolute;
-		top: 50%;
 		left: 50%;
-		background: red;
-		border: 18px solid #eee;
-		border-radius:100%;
-		width: 12px;
-		height: 12px;
+		border: 18px solid white;
+		background-color: black;
 	}
 }
 
@@ -1033,32 +1095,38 @@ $top : -20px;
 @keyframes receive_yin_yang {
 
 	0% {
-		height: 50px;
-	    width: 50px;
 	    top: $top - 230px;
 	    left: $left_ally + 350px;
 	}
 
 	100% {
-		width: 150px;
-	    height: 150px;
 	    top: $top + 5px;
 	    left: $left_ally + 4px;
 	}
 }
 
 /*
-*	MOON
+*	MOON ////// GHOST
 */
+
+.anim_moon, .anim_ghost {
+	animation-duration: 1.3s;
+	position: absolute;
+	animation-timing-function: ease-in-out;
+}
 
 .anim_moon {
 	width: 80px;
 	height: 80px;
 	border-radius: 50%;
 	box-shadow: 15px 15px 0 0 black;
-	animation-duration: 1.3s;
-	position: absolute;
-	animation-timing-function: ease-in-out;
+}
+
+.anim_ghost {
+	width: 100px;
+	height: 114px;
+	background-image: url('../img/anim/ghost.png');
+	background-repeat: no-repeat;
 }
 
 .ally .anim_moon {
@@ -1068,6 +1136,15 @@ $top : -20px;
 .ennemy .anim_moon {
 	animation-name: moon;
 	transform: rotate(-87deg);
+}
+
+.ally .anim_ghost {
+	animation-name: receive_moon;
+}
+.ennemy .anim_ghost {
+	transform: scaleX(-1);
+    filter: FlipH;
+	animation-name: moon;
 }
 
 @keyframes moon {
@@ -1096,11 +1173,95 @@ $top : -20px;
 	}
 }
 
+
 /*
-*	KAMEHAMEHA
+*	CHIPS
 */
 
-.anim_kamehameha {
+.anim_chips {
+	width: 100px;
+	height: 114px;
+	background-image: url('../img/anim/chips.png');
+	background-repeat: no-repeat;
+	animation-duration: 2s;
+	position: absolute;
+	animation-timing-function: ease-in-out;
+}
+
+.ally .anim_chips {
+	animation-name: receive_chips;
+}
+.ennemy .anim_chips {
+	animation-name: chips;
+}
+
+@keyframes chips {
+
+	0% {
+	    top: $top + 230px;
+	    left: $left_ennemy - 350px;
+	}
+
+	10% {
+		transform: rotate(-30deg);
+	}
+
+	20% {
+		transform: rotate(30deg);
+	}
+
+	30% {
+		transform: rotate(-30deg);
+	}
+
+	40% {
+		transform: rotate(30deg);
+		top: $top + 230px;
+	    left: $left_ennemy - 350px;
+	}
+
+	100% {
+	    top: $top - 5px;
+	    left: $left_ennemy - 4px;
+	}
+}
+
+@keyframes receive_chips {
+
+	0% {
+	    top: $top - 230px;
+	    left: $left_ennemy + 350px;
+	}
+
+	10% {
+		transform: rotate(30deg);
+	}
+
+	20% {
+		transform: rotate(-30deg);
+	}
+
+	30% {
+		transform: rotate(+30deg);
+	}
+
+	40% {
+		transform: rotate(-30deg);
+		top: $top - 230px;
+	    left: $left_ennemy + 350px;
+	}
+
+	100% {
+	    top: $top + 5px;
+	    left: $left_ennemy + 4px;
+	}
+}
+
+/*
+*	KAMEHAMEHA ////// ZEBUB FINISHER
+*/
+
+.anim_kamehameha, .anim_zebub {
 	width: 20px;
 	height: 2px;
 	position: absolute;
@@ -1120,12 +1281,20 @@ $top : -20px;
 	}
 }
 
-.ally .anim_kamehameha {
+.anim_zebub {
+	background-color: gold;
+
+	&:after {
+		background-color: gold;
+	}
+}
+
+.ally .anim_kamehameha, .ally .anim_zebub {
 	animation-name: receive_kamehameha;
 	transform: rotate(-122deg);
 }
 
-.ennemy .anim_kamehameha {
+.ennemy .anim_kamehameha, .ennemy .anim_zebub {
 	animation-name: kamehameha;
 	transform: rotate(58deg);
 }
@@ -1161,15 +1330,14 @@ $top : -20px;
 }
 
 /*
-*	ZEBUB
+*	RAYONS ASTRO-DEMONIAQUES
 */
 
-.anim_zebub {
+.anim_rayons {
 	width: 20px;
 	height: 2px;
 	position: absolute;
-	background-color: gold;
-	animation-duration: 1.3s;
+	animation-duration: 3s;
 	animation-timing-function: linear;
 
 	&:after {
@@ -1177,23 +1345,110 @@ $top : -20px;
 		width: 50px;
 		height: 50px;
 		border-radius: 100%;
-		background-color: gold;
+		background-color: inherit;
 		position: absolute;
 		top: -10px;
 	  	left: -16px;
 	}
 }
 
-.ally .anim_zebub {
+.ally .anim_rayons {
 	animation-name: receive_kamehameha;
 	transform: rotate(-122deg);
 }
 
-.ennemy .anim_zebub {
-	animation-name: kamehameha;
+.ennemy .anim_rayons {
+	animation-name: rayons;
 	transform: rotate(58deg);
 }
 
+@keyframes rayons {
+	0% {
+	    height: 0px;
+	    top: $top + 275px;
+		left: $left_ennemy - 386px;
+		background-color: blue;
+	}
+
+	30% {
+		top: $top - 69px;
+		left: $left_ennemy - 194px;
+		height: 450px;
+		background-color: blue;
+	}
+
+	31% {
+		height: 0px;
+	    top: $top + 275px;
+		left: $left_ennemy - 386px;
+		background-color: red;
+	}
+
+	60% {
+		top: $top - 69px;
+		left: $left_ennemy - 194px;
+		height: 450px;
+		background-color: red;
+	}
+
+	61% {
+		height: 0px;
+	    top: $top + 275px;
+		left: $left_ennemy - 386px;
+		background-color: blue;
+	}
+	
+	100% {
+		top: $top - 69px;
+		left: $left_ennemy - 194px;
+		height: 450px;
+		background-color: blue;
+	}
+}
+
+@keyframes receive_rayons {
+	0% {
+	    height: 0px;
+	    top: $top - 275px;
+		left: $left_ennemy + 386px;
+		background-color: blue;
+	}
+
+	30% {
+		top: $top - 69px;
+		left: $left_ennemy + 194px;
+		height: 450px;
+		background-color: blue;
+	}
+
+	31% {
+		height: 0px;
+	    top: $top - 275px;
+		left: $left_ennemy + 386px;
+		background-color: red;
+	}
+
+	60% {
+		top: $top + 69px;
+		left: $left_ennemy + 194px;
+		height: 450px;
+		background-color: red;
+	}
+
+	61% {
+		height: 0px;
+	    top: $top - 275px;
+		left: $left_ennemy + 386px;
+		background-color: blue;
+	}
+	
+	100% {
+		top: $top + 69px;
+		left: $left_ennemy - 194px;
+		height: 450px;
+		background-color: blue;
+	}
+}
 
 /*
 *	CHAKRA
@@ -1592,10 +1847,6 @@ transform: rotate(58deg);
 
 /*
 *	ANIM MANGA BALL
-*/
-
-/*
-*	FIREBALL
 */
 
 .anim_mangaball {
