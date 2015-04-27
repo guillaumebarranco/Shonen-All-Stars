@@ -196,7 +196,7 @@ $(document).ready(function() {
 					} else {
 
 						li_append += 
-							'<div class="sub">Vous devez vous attraper ce personnage pour pouvoir le jouer !</div>'
+							'<div class="sub">Vous devez attraper ce personnage pour pouvoir le jouer !</div>'
 						;
 					}
 
@@ -227,7 +227,8 @@ $(document).ready(function() {
 	$(document).on('click', '.choose_perso li img.unlocked', function() {
 
 		var id_chosen = $(this).parent().attr('data-id');
-		var random_ennemy = rand(1,_this.all_persos.length -1);
+		var random_ennemy = rand(0,_this.all_persos.length -1);
+		//var random_ennemy = 8;
 
 		_this.all_persos[id_chosen].side = 'ally';
 		_this.all_persos[random_ennemy].side = 'ennemy';
@@ -687,6 +688,8 @@ $(document).ready(function() {
 		}
 
 		updateUserPerso(id_perso);
+
+		arcade = 0;
 	}
 
 	// Fonction utilisée pour démarrer un nouveau combat (après une victoire de l'utilisateur)
@@ -698,7 +701,7 @@ $(document).ready(function() {
 		$('.status span').width(300);
 		$('.status strong').text('100');
 
-		var random_ennemy = rand(1,_this.all_persos.length -1);
+		var random_ennemy = rand(0,_this.all_persos.length -1);
 
 		_this.all_persos[random_ennemy].side = 'ennemy';
 
