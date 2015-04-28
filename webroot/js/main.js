@@ -963,37 +963,68 @@ $(document).ready(function() {
 			who_receive = 'ally';
 		}
 
-		if(anim_attack == 'ultimate') {
-			$('html, body').css('overflow', 'hidden');
-		}
+		if(anim_attack == 'monochrome') {
 
-		$('.'+who_receive+' .anim').append('<div class="anim_'+anim_attack+'"></div>');
-		$('.'+who_receive+' .anim').show();
+			$('.battle').addClass('battle_monochrome');
 
-		// Animation duration from the CSS given to the setTimeout function
-		var duration = $('.anim_'+anim_attack).css('-webkit-animation-duration');
+			var duration = $('.battle_monochrome').css('-webkit-animation-duration');
 
-		if(duration.length == 2) {
-			duration = duration.substr(0,1);
-			duration = parseInt(duration) * 1000;
-		} else {
-			duration = duration.substr(0,3);
-			duration = parseFloat(duration) * 1000;
-		}
-
-		setTimeout(function() {
-
-			$('.'+who_receive+' .anim').hide();
-			$('.'+who_receive+' .anim div').remove();
-			$('html, body').css('overflow', 'auto');
-			$('.'+who_receive+'').addClass('injured');
+			if(duration.length == 2) {
+				duration = duration.substr(0,1);
+				duration = parseInt(duration) * 1000;
+			} else {
+				duration = duration.substr(0,3);
+				duration = parseFloat(duration) * 1000;
+			}
 
 			setTimeout(function() {
-				$('.'+who_receive+'').removeClass('injured');
-				callback();
-			}, 1000);
 
-		}, duration);
+				$('.battle').removeClass('battle_monochrome');
+				$('.'+who_receive+'').addClass('injured');
+
+				setTimeout(function() {
+					$('.'+who_receive+'').removeClass('injured');
+					callback();
+				}, 1000);
+
+			}, duration);
+
+		} else {
+
+			if(anim_attack == 'ultimate') {
+				$('html, body').css('overflow', 'hidden');
+			}
+
+			$('.'+who_receive+' .anim').append('<div class="anim_'+anim_attack+'"></div>');
+			$('.'+who_receive+' .anim').show();
+
+			// Animation duration from the CSS given to the setTimeout function
+			var duration = $('.anim_'+anim_attack).css('-webkit-animation-duration');
+
+			if(duration.length == 2) {
+				duration = duration.substr(0,1);
+				duration = parseInt(duration) * 1000;
+			} else {
+				duration = duration.substr(0,3);
+				duration = parseFloat(duration) * 1000;
+			}
+
+			setTimeout(function() {
+
+				$('.'+who_receive+' .anim').hide();
+				$('.'+who_receive+' .anim div').remove();
+				$('html, body').css('overflow', 'auto');
+				$('.'+who_receive+'').addClass('injured');
+
+				setTimeout(function() {
+					$('.'+who_receive+'').removeClass('injured');
+					callback();
+				}, 1000);
+
+			}, duration);
+		}
+
+		
 	}
 
 });

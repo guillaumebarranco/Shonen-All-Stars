@@ -8,6 +8,24 @@
 	display: inline-block;
 	box-sizing: border-box;
 	vertical-align: top;
+
+	&.battle_monochrome {
+		animation-name: monochrome;
+		animation-duration: 2s;
+		animation-timing-function: ease-in-out;
+	}
+}
+
+@keyframes monochrome {
+	15% {
+		filter: grayscale(0%);
+	}
+	70% {
+		filter: grayscale(100%);
+	}
+	100% {
+		filter: grayscale(0%);
+	}
 }
 
 .chat {
@@ -184,7 +202,7 @@ $top : -20px;
 *	PUNCH ////// PUNCH 2 /////// PHYSIC
 */
 
-.anim_punch, .anim_punch2, .anim_physic {
+.anim_punch, .anim_punch2, .anim_physic, .anim_punch_yellow {
 	width: 80px;
 	height: 87px;
 	position: absolute;
@@ -202,14 +220,18 @@ $top : -20px;
 	background-image: url('../img/anim/punch2.png');
 }
 
+.anim_punch_yellow {
+	background-image: url('../img/anim/punch_yellow.png');
+}
+
 .anim_physic {
 	background-image: url('../img/anim/physic.png');
 }
 
-.ally .anim_punch, .ally .anim_punch2, .ally .anim_physic {
+.ally .anim_punch, .ally .anim_punch2, .ally .anim_physic, .ally .anim_punch_yellow {
 	left: $left_ally;
 }
-.ennemy .anim_punch, .ennemy .anim_punch2, .ennemy .anim_physic {
+.ennemy .anim_punch, .ennemy .anim_punch2, .ennemy .anim_physic, .ennemy .anim_punch_yellow {
 	left: $left_ennemy;
 }
 
@@ -224,7 +246,7 @@ $top : -20px;
 
 
 /*
-*	DOUBLE PUNCH ////// MAGNUM
+*	DOUBLE PUNCH ////// MAGNUM /////// EYE
 */
 
 .anim_punch_double, .anim_magnum {
@@ -245,11 +267,42 @@ $top : -20px;
 	background-image: url('../img/anim/magnum.png');
 }
 
-.ally .anim_punch_double, .ally .anim_magnum {
+.anim_eye {
+	position: relative;
+	border: solid 7px black;
+	width: 35px;
+	height: 35px;
+	border-radius: 100%;
+	box-sizing: content-box;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+	background-color: darken(red, 20%);
+	box-shadow: 4px 0px 12px 0px black inset;
+
+	&:before {
+		position: absolute;
+		content: "";
+		background-color: wheat;
+		border: solid 8px black;
+		z-index: -1;
+		width: 125px;
+		height: 125px;
+		border-radius: 100%;
+		box-sizing: content-box;
+		animation-duration: 1s;
+		animation-timing-function: ease-in-out;
+		animation-name: punch;
+		top: -51px;
+		left: -53px;
+		box-shadow: 7px 0px 17px 3px black inset;
+	}
+}
+
+.ally .anim_punch_double, .ally .anim_magnum, .ally .anim_eye {
 	left: $left_ally - 50px;
 }
 
-.ennemy .anim_punch_double, .ennemy .anim_magnum {
+.ennemy .anim_punch_double, .ennemy .anim_magnum, .ennemy .anim_eye {
 	left: $left_ennemy - 50px;
 }
 
@@ -757,6 +810,56 @@ $top : -20px;
 
 
 /*
+*	TORNADE
+*/
+
+.anim_tornade {
+	position: absolute;
+	animation-duration: 1.5s;
+	animation-timing-function: linear;
+	animation-name: tornade;
+
+	&:before {
+		position: absolute;
+		content: "Ceci est une tornade";
+	}
+}
+
+.ally .anim_tornade {
+	animation-name: receive_tornade;
+}
+.ennemy .anim_tornade {
+	animation-name: tornade;
+}
+
+@keyframes tornade {
+	0% {
+	    top: $top + 230px;
+	    left: $left_ennemy - 350px;
+	}
+	
+	100% {
+		transform: rotate(3000deg);
+	    top: $top - 5px;
+	    left: $left_ennemy - 4px;
+	}
+}
+
+@keyframes receive_rasengan {
+	0% {
+	    top: $top - 230px;
+	    left: $left_ally + 350px;
+	}
+	
+	100% {
+		transform: rotate(3000deg);
+	    top: $top + 5px;
+	    left: $left_ally + 4px;
+	}
+}
+
+
+/*
 *	RASENGAN
 */
 
@@ -928,28 +1031,48 @@ $top : -20px;
 
 
 /*
-*	GENKIDAMA
+*	GENKIDAMA //////// FIREBALL //////// BLACK BALL ///////// PURPLE BALL
 */
 
-.anim_genkidama {
+.anim_genkidama, .anim_fireball, .anim_blackball, .anim_purpleball {
  	display: inline-block;
 	width: 100%;
 	height: 100%;
 	margin: 0;
 	border-radius: 50%;
 	position: absolute;
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#fff9f9), color-stop(60%,#7db9e8), color-stop(100%,#ffffff));
-	background: -webkit-radial-gradient(center, ellipse cover, #fff9f9 0%,#7db9e8 60%,#ffffff 100%);
 	animation-duration: 1.3s;
 	animation-timing-function: ease-in-out;
 }
 
-.ally .anim_genkidama {
+.anim_genkidama {
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#fff9f9), color-stop(60%,#7db9e8), color-stop(100%,#ffffff));
+	background: -webkit-radial-gradient(center, ellipse cover, #fff9f9 0%,#7db9e8 60%,#ffffff 100%);
+}
+
+.anim_fireball {
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(248,80,50,1)), color-stop(50%,rgba(241,111,92,1)), color-stop(51%,rgba(246,41,12,1)), color-stop(71%,rgba(240,47,23,1)), color-stop(100%,rgba(231,56,39,1)));
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(248,80,50,1) 0%,rgba(241,111,92,1) 50%,rgba(246,41,12,1) 51%,rgba(240,47,23,1) 71%,rgba(231,56,39,1) 100%);
+}
+
+.anim_blackball {
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(149,149,149,1)), color-stop(46%,rgba(13,13,13,1)), color-stop(50%,rgba(1,1,1,1)), color-stop(53%,rgba(10,10,10,1)), color-stop(76%,rgba(78,78,78,1)), color-stop(87%,rgba(56,56,56,1)), color-stop(100%,rgba(27,27,27,1)));
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(149,149,149,1) 0%,rgba(13,13,13,1) 46%,rgba(1,1,1,1) 50%,rgba(10,10,10,1) 53%,rgba(78,78,78,1) 76%,rgba(56,56,56,1) 87%,rgba(27,27,27,1) 100%);
+}
+
+.anim_purpleball {
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(203,96,179,1)), color-stop(50%,rgba(193,70,161,1)), color-stop(51%,rgba(168,0,119,1)), color-stop(100%,rgba(219,54,164,1)));
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(203,96,179,1) 0%,rgba(193,70,161,1) 50%,rgba(168,0,119,1) 51%,rgba(219,54,164,1) 100%);
+}
+
+
+.ally .anim_genkidama, .ally .anim_fireball, .ally .anim_blackball, .ally .anim_purpleball {
 	animation-name: receive_genkidama;
 }
-.ennemy .anim_genkidama {
+.ennemy .anim_genkidama, .ennemy .anim_fireball, .ennemy .anim_blackball, .ennemy .anim_purpleball {
 	animation-name: genkidama;
 }
+
 
 @keyframes genkidama {
 
@@ -985,54 +1108,6 @@ $top : -20px;
 	}
 }
 
-/*
-*	FIREBALL
-*/
-
-.anim_fireball {
-	display: inline-block;
-	width: 150px;
-	height: 150px;
-	margin: 0;
-	border-radius: 50%;
-	position: absolute;
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(248,80,50,1)), color-stop(50%,rgba(241,111,92,1)), color-stop(51%,rgba(246,41,12,1)), color-stop(71%,rgba(240,47,23,1)), color-stop(100%,rgba(231,56,39,1)));
-	background: -webkit-radial-gradient(center, ellipse cover, rgba(248,80,50,1) 0%,rgba(241,111,92,1) 50%,rgba(246,41,12,1) 51%,rgba(240,47,23,1) 71%,rgba(231,56,39,1) 100%);
-	animation-duration: 1.3s;
-	animation-timing-function: ease-in-out;
-}
-
-.ally .anim_fireball {
-	animation-name: receive_genkidama;
-}
-.ennemy .anim_fireball {
-	animation-name: genkidama;
-}
-
-/*
-*	BLACK BALL
-*/
-
-.anim_blackball {
-	display: inline-block;
-	width: 150px;
-	height: 150px;
-	margin: 0;
-	border-radius: 50%;
-	position: absolute;
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(149,149,149,1)), color-stop(46%,rgba(13,13,13,1)), color-stop(50%,rgba(1,1,1,1)), color-stop(53%,rgba(10,10,10,1)), color-stop(76%,rgba(78,78,78,1)), color-stop(87%,rgba(56,56,56,1)), color-stop(100%,rgba(27,27,27,1)));
-	background: -webkit-radial-gradient(center, ellipse cover, rgba(149,149,149,1) 0%,rgba(13,13,13,1) 46%,rgba(1,1,1,1) 50%,rgba(10,10,10,1) 53%,rgba(78,78,78,1) 76%,rgba(56,56,56,1) 87%,rgba(27,27,27,1) 100%);
-	animation-duration: 1.3s;
-	animation-timing-function: ease-in-out;
-}
-
-
-.ally .anim_blackball {
-	animation-name: receive_genkidama;
-}
-.ennemy .anim_blackball {
-	animation-name: genkidama;
-}
 
 /*
 *	YIN YANG
@@ -1047,6 +1122,8 @@ $top : -20px;
 	position: absolute;
 	animation-duration: 1.5s;
 	animation-timing-function: ease-in-out;
+	border-color: black;
+	background-color: white;
 }
 
 .anim_yin_yang {
@@ -1063,6 +1140,8 @@ $top : -20px;
 		border-width: 18px;
 		transform: scaleX(1) scaleY(1) scaleZ(1);
 		transform-origin: 50% 50% 0;
+		border: 18px solid black;
+		background-color: white;
 	}
 
 	&:after {
@@ -1109,7 +1188,7 @@ $top : -20px;
 *	MOON ////// GHOST
 */
 
-.anim_moon, .anim_ghost {
+.anim_moon, .anim_ghost, .anim_moon_big {
 	animation-duration: 1.3s;
 	position: absolute;
 	animation-timing-function: ease-in-out;
@@ -1122,6 +1201,13 @@ $top : -20px;
 	box-shadow: 15px 15px 0 0 black;
 }
 
+.anim_moon_big {
+	width: 150px;
+	height: 80px;
+	border-radius: 50%;
+	box-shadow: 15px 15px 0 0 black;
+}
+
 .anim_ghost {
 	width: 100px;
 	height: 114px;
@@ -1129,21 +1215,21 @@ $top : -20px;
 	background-repeat: no-repeat;
 }
 
-.ally .anim_moon {
+.ally .anim_moon, .ally .anim_moon_big {
 	animation-name: receive_moon;
 	transform: rotate(87deg);
 }
-.ennemy .anim_moon {
+.ennemy .anim_moon, .ennemy .anim_moon_big {
 	animation-name: moon;
 	transform: rotate(-87deg);
 }
 
 .ally .anim_ghost {
+	transform: scaleX(-1);
+	filter: FlipH;
 	animation-name: receive_moon;
 }
 .ennemy .anim_ghost {
-	transform: scaleX(-1);
-    filter: FlipH;
 	animation-name: moon;
 }
 
@@ -1317,13 +1403,13 @@ $top : -20px;
 @keyframes receive_kamehameha {
 	0% {
 	    height: 0px;
-	    top: $top - 275px;
+	    top: $top - 320px;
 		left: $left_ally + 386px;
 
 	}
 	
 	100% {
-		top: $top - 382px;
+		top: $top - 520px;
 		left: $left_ally + 194px;
 		height: 450px;
 	}
@@ -1353,7 +1439,7 @@ $top : -20px;
 }
 
 .ally .anim_rayons {
-	animation-name: receive_kamehameha;
+	animation-name: receive_rayons;
 	transform: rotate(-122deg);
 }
 
