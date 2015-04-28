@@ -230,7 +230,7 @@ $(document).ready(function() {
 
 		var id_chosen = $(this).parent().attr('data-id');
 		var random_ennemy = rand(0,_this.all_persos.length -1);
-		//var random_ennemy = 8;
+		var random_ennemy = 18;
 
 		_this.all_persos[id_chosen].side = 'ally';
 		_this.all_persos[random_ennemy].side = 'ennemy';

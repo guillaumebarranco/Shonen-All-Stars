@@ -62,7 +62,7 @@
 
     <div  class="ennemy" style="position:relative; left: 200px;margin-top: 100px;margin-bottom:100px;">
         <div class="anim">
-            <div class="anim_leaf"></div>
+            <div class="anim_wings"></div>
         </div>
     </div>
     

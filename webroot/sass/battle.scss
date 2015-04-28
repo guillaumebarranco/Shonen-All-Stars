@@ -808,6 +808,44 @@ $top : -20px;
 	}
 }
 
+/*
+*	WINGS
+*/
+
+.anim_wings {
+	position: absolute;
+	animation-duration: 1.5s;
+	animation-timing-function: linear;
+	animation-name: punch;
+
+	&:before, &:after {
+		content: "";
+		position: absolute;
+		background-image: url('../img/anim/wing.png');
+		background-repeat: no-repeat;
+		width: 160px;
+		height: 80px;
+		top:0;
+		left: 0;
+	}
+
+	&:after {
+		transform: scaleX(-1);
+		filter: FlipH;
+		left: 200px;
+	}
+}
+
+.ally .anim_wings {
+	animation-name: receive_punch;
+	top: $top - 230px;
+	left: $left_ennemy - 100px;
+}
+.ennemy .anim_wings {
+	animation-name: punch;
+	top: $top + 230px;
+	left: $left_ally - 100px;
+}
 
 /*
 *	TORNADE
@@ -824,6 +862,7 @@ $top : -20px;
 		content: "Ceci est une tornade";
 	}
 }
+
 .anim_tornade_rouge {
 	color: red;
 }
