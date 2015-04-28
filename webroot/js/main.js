@@ -182,6 +182,8 @@ $(document).ready(function() {
 
 				} else {
 
+					console.log(_this.response[p].name, _this.response[p].condition);
+
 					li_append = 
 						'<li data-id="'+p+'">'+
 						'<img src="img/persos/'+_this.response[p].img_front+'"/>'
@@ -227,7 +229,7 @@ $(document).ready(function() {
 	$(document).on('click', '.choose_perso li img.unlocked', function() {
 
 		var id_chosen = $(this).parent().attr('data-id');
-		var random_ennemy = rand(1,_this.all_persos.length -1);
+		var random_ennemy = rand(0,_this.all_persos.length -1);
 
 		_this.all_persos[id_chosen].side = 'ally';
 		_this.all_persos[random_ennemy].side = 'ennemy';
@@ -698,7 +700,7 @@ $(document).ready(function() {
 		$('.status span').width(300);
 		$('.status strong').text('100');
 
-		var random_ennemy = rand(1,_this.all_persos.length -1);
+		var random_ennemy = rand(0,_this.all_persos.length -1);
 
 		_this.all_persos[random_ennemy].side = 'ennemy';
 
