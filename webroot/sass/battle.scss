@@ -813,7 +813,7 @@ $top : -20px;
 *	TORNADE
 */
 
-.anim_tornade {
+.anim_tornade, .anim_tornade_rouge {
 	position: absolute;
 	animation-duration: 1.5s;
 	animation-timing-function: linear;
@@ -824,11 +824,14 @@ $top : -20px;
 		content: "Ceci est une tornade";
 	}
 }
+.anim_tornade_rouge {
+	color: red;
+}
 
-.ally .anim_tornade {
+.ally .anim_tornade, .ally .anim_tornade_rouge {
 	animation-name: receive_tornade;
 }
-.ennemy .anim_tornade {
+.ennemy .anim_tornade, .ennemy .anim_tornade_rouge {
 	animation-name: tornade;
 }
 
@@ -845,7 +848,7 @@ $top : -20px;
 	}
 }
 
-@keyframes receive_rasengan {
+@keyframes receive_tornade {
 	0% {
 	    top: $top - 230px;
 	    left: $left_ally + 350px;
@@ -858,20 +861,16 @@ $top : -20px;
 	}
 }
 
-
 /*
-*	RASENGAN
+*	LEAF //////// LEAF 2
 */
 
-.anim_rasengan {
+.anim_leaf, .anim_leaf2 {
 	display: inline-block;
-	width: 100%;
-	height: 100%;
 	margin: 0;
 	border-radius: 50%;
 	position: absolute;
-	transform-style: preserve-3d;
-	background: url('../img/anim/rasengan.png') repeat-x;
+	background: url('../img/anim/ballon.png') repeat-x;
 	background-size: auto 100%;
 	animation-duration: 1.7s;
 	animation-timing-function: ease-in-out;
@@ -879,10 +878,124 @@ $top : -20px;
 	height: 100px;
 }
 
-.ally .anim_rasengan {
+.ally .anim_leaf {
+	animation-name: receive_leaf;
+}
+.ennemy .anim_leaf {
+	animation-name: leaf;
+}
+
+.ally .anim_leaf2 {
+	animation-name: receive_leaftwo;
+}
+.ennemy .anim_leaf2 {
+	animation-name: leaftwo;
+}
+
+@keyframes leaf {
+	0% {
+	    top: $top + 230px;
+	    left: $left_ennemy - 350px;
+	}
+
+	70% {
+		top: $top - 105px;
+	    left: $left_ennemy - 104px;
+	}
+	
+	100% {
+		transform: rotate(2600deg);
+	    top: $top - 5px;
+	    left: $left_ennemy - 4px;
+	}
+}
+
+@keyframes receive_leaf {
+	0% {
+	    top: $top - 230px;
+	    left: $left_ally + 350px;
+	}
+
+	70% {
+		top: $top + 105px;
+	    left: $left_ennemy + 104px;
+	}
+	
+	100% {
+		transform: rotate(2600deg);
+	    top: $top + 5px;
+	    left: $left_ally + 4px;
+	}
+}
+
+@keyframes leaftwo {
+	0% {
+	    top: $top + 230px;
+	    left: $left_ennemy - 350px;
+	}
+
+	70% {
+		top: $top - 105px;
+	    left: $left_ennemy - 804px;
+	}
+	
+	100% {
+		transform: rotate(2600deg);
+	    top: $top - 5px;
+	    left: $left_ennemy - 4px;
+	}
+}
+
+@keyframes receive_leaftwo {
+	0% {
+	    top: $top - 230px;
+	    left: $left_ally + 350px;
+	}
+
+	70% {
+		top: $top + 105px;
+	    left: $left_ennemy + 804px;
+	}
+	
+	100% {
+		transform: rotate(2600deg);
+	    top: $top + 5px;
+	    left: $left_ally + 4px;
+	}
+}
+
+
+/*
+*	RASENGAN //////// SKY SHOOT
+*/
+
+.anim_rasengan, .anim_sky_shoot {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	border-radius: 50%;
+	position: absolute;
+	transform-style: preserve-3d;
+	background-size: auto 100%;
+	animation-duration: 1.7s;
+	animation-timing-function: ease-in-out;
+	width: 100px;
+	height: 100px;
+	background-repeat: repeat-x;
+}
+
+.anim_rasengan {
+	background-image: url('../img/anim/rasengan.png');
+}
+.anim_sky_shoot {
+	background-image: url('../img/anim/sky_shoot.png');
+}
+
+.ally .anim_rasengan, .ally .anim_sky_shoot {
 	animation-name: receive_rasengan;
 }
-.ennemy .anim_rasengan {
+.ennemy .anim_rasengan, .ennemy .anim_sky_shoot {
 	animation-name: rasengan;
 }
 
@@ -1031,48 +1144,67 @@ $top : -20px;
 
 
 /*
-*	GENKIDAMA //////// FIREBALL //////// BLACK BALL ///////// PURPLE BALL
+*	GENKIDAMA //////// FIREBALL //////// BLACK BALL ///////// PURPLE BALL ///////// CANON
 */
 
-.anim_genkidama, .anim_fireball, .anim_blackball, .anim_purpleball {
+.anim_genkidama, .anim_fireball, .anim_blackball, .anim_purpleball, .anim_canon, .anim_gauntlet {
  	display: inline-block;
 	width: 100%;
 	height: 100%;
 	margin: 0;
-	border-radius: 50%;
 	position: absolute;
 	animation-duration: 1.3s;
 	animation-timing-function: ease-in-out;
 }
 
 .anim_genkidama {
+	border-radius: 50%;
 	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#fff9f9), color-stop(60%,#7db9e8), color-stop(100%,#ffffff));
 	background: -webkit-radial-gradient(center, ellipse cover, #fff9f9 0%,#7db9e8 60%,#ffffff 100%);
 }
 
 .anim_fireball {
+	border-radius: 50%;
 	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(248,80,50,1)), color-stop(50%,rgba(241,111,92,1)), color-stop(51%,rgba(246,41,12,1)), color-stop(71%,rgba(240,47,23,1)), color-stop(100%,rgba(231,56,39,1)));
 	background: -webkit-radial-gradient(center, ellipse cover, rgba(248,80,50,1) 0%,rgba(241,111,92,1) 50%,rgba(246,41,12,1) 51%,rgba(240,47,23,1) 71%,rgba(231,56,39,1) 100%);
 }
 
 .anim_blackball {
+	border-radius: 50%;
 	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(149,149,149,1)), color-stop(46%,rgba(13,13,13,1)), color-stop(50%,rgba(1,1,1,1)), color-stop(53%,rgba(10,10,10,1)), color-stop(76%,rgba(78,78,78,1)), color-stop(87%,rgba(56,56,56,1)), color-stop(100%,rgba(27,27,27,1)));
 	background: -webkit-radial-gradient(center, ellipse cover, rgba(149,149,149,1) 0%,rgba(13,13,13,1) 46%,rgba(1,1,1,1) 50%,rgba(10,10,10,1) 53%,rgba(78,78,78,1) 76%,rgba(56,56,56,1) 87%,rgba(27,27,27,1) 100%);
 }
 
 .anim_purpleball {
+	border-radius: 50%;
 	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(203,96,179,1)), color-stop(50%,rgba(193,70,161,1)), color-stop(51%,rgba(168,0,119,1)), color-stop(100%,rgba(219,54,164,1)));
 	background: -webkit-radial-gradient(center, ellipse cover, rgba(203,96,179,1) 0%,rgba(193,70,161,1) 50%,rgba(168,0,119,1) 51%,rgba(219,54,164,1) 100%);
 }
 
-
-.ally .anim_genkidama, .ally .anim_fireball, .ally .anim_blackball, .ally .anim_purpleball {
-	animation-name: receive_genkidama;
+.anim_canon {
+	background-size: auto 100%;
+	width: 100px;
+	height: 100px;
+	background: url('../img/anim/canon.png') repeat-x;
 }
-.ennemy .anim_genkidama, .ennemy .anim_fireball, .ennemy .anim_blackball, .ennemy .anim_purpleball {
-	animation-name: genkidama;
+
+.anim_gauntlet {
+	width: 105px;
+	height: 99px;
+	background: url('../img/anim/gauntlet.png') repeat-x;
 }
 
+.ally {
+	.anim_genkidama, .anim_fireball, .anim_blackball, .anim_purpleball {
+		animation-name: receive_genkidama;
+	}
+}
+
+.ennemy {
+	.anim_genkidama, .anim_fireball, .anim_blackball, .anim_purpleball {
+		animation-name: genkidama;
+	}
+}
 
 @keyframes genkidama {
 
@@ -1151,10 +1283,10 @@ $top : -20px;
 	}
 }
 
-.ally .anim_yin_yang {
+.ally .anim_yin_yang, .ally .anim_canon {
 	animation-name: receive_yin_yang;
 }
-.ennemy .anim_yin_yang {
+.ennemy .anim_yin_yang, .ennemy .anim_canon {
 	animation-name: yin_yang;
 }
 
@@ -1216,47 +1348,21 @@ $top : -20px;
 }
 
 .ally .anim_moon, .ally .anim_moon_big {
-	animation-name: receive_moon;
+	animation-name: receive_yin_yang;
 	transform: rotate(87deg);
 }
 .ennemy .anim_moon, .ennemy .anim_moon_big {
-	animation-name: moon;
+	animation-name: yin_yang;
 	transform: rotate(-87deg);
 }
 
-.ally .anim_ghost {
+.ally .anim_ghost, .ally .anim_gauntlet {
 	transform: scaleX(-1);
 	filter: FlipH;
-	animation-name: receive_moon;
+	animation-name: receive_yin_yang;
 }
-.ennemy .anim_ghost {
-	animation-name: moon;
-}
-
-@keyframes moon {
-
-	0% {
-	    top: $top + 230px;
-	    left: $left_ennemy - 350px;
-	}
-
-	100% {
-	    top: $top - 5px;
-	    left: $left_ennemy - 4px;
-	}
-}
-
-@keyframes receive_moon {
-
-	0% {
-	    top: $top - 230px;
-	    left: $left_ally + 350px;
-	}
-
-	100% {
-	    top: $top + 5px;
-	    left: $left_ally + 4px;
-	}
+.ennemy .anim_ghost, .ennemy .anim_gauntlet {
+	animation-name: yin_yang;
 }
 
 
