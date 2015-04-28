@@ -17,6 +17,7 @@
 }
 
 @keyframes monochrome {
+
 	15% {
 		filter: grayscale(0%);
 	}
@@ -102,7 +103,6 @@
 		z-index: 2;
 	}
 }
-
 
 .choose {
 	padding: 0;
@@ -654,13 +654,8 @@ $top : -20px;
 	position: absolute;
 	background: radial-gradient(circle at bottom, #81e8f6, #76deef 10%, #055194 80%, #062745 100%); 
 	opacity: 0.8;
-	animation-name: bubble;
 	animation-duration: 1.7s;
 	animation-timing-function: ease-in-out;
-
-	&:before, &:after {
-		display: none; 
-	}
 
 	&:before {
 		content: "";
@@ -688,41 +683,6 @@ $top : -20px;
 		z-index: 2;
 		transform: rotateZ(-30deg); 
 	}
-
-	.shadow {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		background: radial-gradient(circle, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0) 50%);
-		transform: rotateX(90deg) translateZ(-160px);
-		z-index: 1; 
-	}
-
-	&.plain {
-		background: black; 
-
-		&:before, &:after {
-			display: none; 
-		}
-	}
-
-
-	&.bubble {
-		background: radial-gradient(circle at 50% 55%, rgba(240, 245, 255, 0.9), rgba(240, 245, 255, 0.9) 40%, rgba(225, 238, 255, 0.8) 60%, rgba(43, 130, 255, 0.4));
-
-		&:before {
-			filter: blur(0);
-			height: 80%;
-			width: 40%;
-			background: radial-gradient(circle at 130% 130%, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0) 46%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.8) 58%, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0) 100%);
-			transform: translateX(131%) translateY(58%) rotateZ(168deg) rotateX(10deg);
-		}
-
-		&:after {
-			display: block;
-			background: radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 74%, white 80%, white 84%, rgba(255, 255, 255, 0) 100%); 
-		}
-	}
 }
 
 .ally .anim_bubble {
@@ -743,7 +703,7 @@ $top : -20px;
 	}
 
 	20% {
-		transform: scaleY(0.95) scaleX(1.05);
+		transform: scaleY(0.80) scaleX(1.20);
 	}
 
 	48% {
@@ -755,7 +715,7 @@ $top : -20px;
 	}
 
 	80% {
-		transform: scaleY(1.02) scaleX(0.98);
+		transform: scaleY(1.20) scaleX(0.80);
 	}
 
 	97%, 100% {
@@ -781,7 +741,7 @@ $top : -20px;
 	}
 
 	20% {
-		transform: scaleY(0.95) scaleX(1.05);
+		transform: scaleY(0.80) scaleX(1.20);
 	}
 
 	48% {
@@ -793,7 +753,7 @@ $top : -20px;
 	}
 
 	80% {
-		transform: scaleY(1.02) scaleX(0.98);
+		transform: scaleY(1.20) scaleX(0.80);
 	}
 
 	97%, 100% {
@@ -1015,7 +975,6 @@ $top : -20px;
 	margin: 0;
 	border-radius: 50%;
 	position: absolute;
-	transform-style: preserve-3d;
 	background-size: auto 100%;
 	animation-duration: 1.7s;
 	animation-timing-function: ease-in-out;
@@ -1106,7 +1065,6 @@ $top : -20px;
 		animation-name: after_planetaire;
 	}
 }
-
 
 .ally .anim_planetaire {
 	animation-name: receive_planetaire;
@@ -1954,7 +1912,6 @@ transform: rotate(58deg);
 	}
 }
 
-
 /*
 *	ULTIMATE
 */
@@ -1965,7 +1922,7 @@ transform: rotate(58deg);
 	border-radius: 50%;
 	position: absolute;
 	transform-style: preserve-3d;
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(252,234,187,1)), color-stop(50%,rgba(252,205,77,1)), color-stop(51%,rgba(248,181,0,1)), color-stop(75%,rgba(249,221,149,1)), color-stop(100%,rgba(251,223,147,1))); /* Chrome,Safari4+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(252,234,187,1)), color-stop(50%,rgba(252,205,77,1)), color-stop(51%,rgba(248,181,0,1)), color-stop(75%,rgba(249,221,149,1)), color-stop(100%,rgba(251,223,147,1)));
 	background: -webkit-radial-gradient(center, ellipse cover, rgba(252,234,187,1) 0%,rgba(252,205,77,1) 50%,rgba(248,181,0,1) 51%,rgba(249,221,149,1) 75%,rgba(251,223,147,1) 100%);
 	animation-name: ultimate;
 	animation-duration: 2.5s;

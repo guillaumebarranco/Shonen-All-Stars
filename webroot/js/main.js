@@ -230,7 +230,7 @@ $(document).ready(function() {
 
 		var id_chosen = $(this).parent().attr('data-id');
 		var random_ennemy = rand(0,_this.all_persos.length -1);
-		var random_ennemy = 18;
+		//var random_ennemy = 18;
 
 		_this.all_persos[id_chosen].side = 'ally';
 		_this.all_persos[random_ennemy].side = 'ennemy';
@@ -384,7 +384,7 @@ $(document).ready(function() {
 			ennemyTurn();
 
 		} else {
-			alert('You have too much life to use it');
+			alert('Vous avez trop de vie pour utiliser cette potion !');
 		}
 	}
 
@@ -397,7 +397,7 @@ $(document).ready(function() {
 			ennemyTurn();
 
 		} else {
-			alert('You have too much PP to use it');
+			alert('Vous avez trop de PP pour utiliser cette potion !');
 		}
 	}
 
@@ -412,7 +412,7 @@ $(document).ready(function() {
 			ennemyTurn();
 
 		} else {
-			alert('You have too much PP or Life to use it');
+			alert('Vous avez trop de vie ou de PP pour utiliser cette potion !');
 		}
 	}
 
@@ -427,7 +427,7 @@ $(document).ready(function() {
 			ennemyTurn();
 
 		} else {
-			alert('You have not enough PP to use it');
+			alert('Vous n\'avez pas assez de PP pour utiliser cette potion !');
 		}
 	}
 
@@ -452,7 +452,7 @@ $(document).ready(function() {
 		if(!is_unlocked) {
 
 			// Impossible d'attraper les personnages que l'on obtient seulement en finissant des arcades
-			if(ennemy_id != 26 || ennemy_id != 25 || ennemy_id != 12 || ennemy_id != 29) {
+			if(ennemy_id != 26 || ennemy_id != 25 || ennemy_id != 12 || ennemy_id != 29 || ennemy_id != 47 || ennemy_id != 54) {
 
 				$('.ennemy .anim').show();
 				$('.ennemy .anim').append('<div class="anim_mangaball"></div>');
@@ -475,15 +475,10 @@ $(document).ready(function() {
 					$('.ennemy .anim').hide();
 					$('.anim_mangaball').remove();
 
-					var is_possible;
 					var ennemy_life = parseInt(el.find('strong').text());
 					var catched = 0;
 
-					if(ennemy_life === 100) {
-						is_possible = false;
-					} else {
-
-						is_possible = true;
+					if(ennemy_life != 100) {
 
 						catched = rand(1, Math.floor((ennemy_life/10)));
 
@@ -500,7 +495,7 @@ $(document).ready(function() {
 
 					console.log(catched);
 
-					if(catched === 3 && is_possible) {
+					if(catched === 3) {
 						chat('Félicitations ! Vous avez attrapé '+ennemy_name);
 						chat('Vous pouvez désormais jouer avec '+ennemy_name);
 						updateUserPerso(ennemy_id);
@@ -509,9 +504,8 @@ $(document).ready(function() {
 						endGame();
 					} else {
 						chat('Vous avez manqué le personnage, dommage.');
+						ennemyTurn();
 					}
-
-					ennemyTurn();
 
 				}, duration);
 			
@@ -617,7 +611,7 @@ $(document).ready(function() {
 				} else {
 					endArcade();
 				}
-				
+
 			}, 2000);
 
 		} else if(winner === 'ennemy') {
@@ -635,7 +629,6 @@ $(document).ready(function() {
 			arcade = 0;
 			chat('Vous pouvez rejouer une arcade et sélectionnez si vous le voulez votre nouveau personnage !');
 			chat('<button class="play_again">Rejouer</button>');
-
 		}
 	}
 
@@ -675,16 +668,22 @@ $(document).ready(function() {
 			updateUserPerso(12);
 
 		} else if(arcades_now === 3) {
-			
 			// Toriko est débloqué
 			updateUserPerso(25);
 
 		} else if(arcades_now === 5) {
-			
 			// Aladdin est débloqué
 			updateUserPerso(26);
+
+		} else if(arcades_now === 7) {
+			// Ah Gou est débloqué
+			updateUserPerso(47);
+
+		} else if(arcades_now === 8) {
+			// Ray est débloqué
+			updateUserPerso(54);
+
 		} else if(arcades_now === 15) {
-			
 			// Saitama est débloqué
 			updateUserPerso(29);
 		}
