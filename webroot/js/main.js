@@ -451,9 +451,15 @@ $(document).ready(function() {
 
 		if(!is_unlocked) {
 
-			// Impossible d'attraper les personnages que l'on obtient seulement en finissant des arcades
-			if(ennemy_id != 26 || ennemy_id != 25 || ennemy_id != 12 || ennemy_id != 29 || ennemy_id != 47 || ennemy_id != 54) {
+			console.log('ennemy_id', ennemy_id);
 
+			// Impossible d'attraper les personnages que l'on obtient seulement en finissant des arcades
+			if(ennemy_id == 26 || ennemy_id == 25 || ennemy_id == 12 || ennemy_id == 29 || ennemy_id == 47 || ennemy_id == 54) {
+
+				alert('Vous ne pouvez pas obtenir ce personnage de cette façon !');
+			
+			} else {
+				
 				$('.ennemy .anim').show();
 				$('.ennemy .anim').append('<div class="anim_mangaball"></div>');
 
@@ -508,9 +514,6 @@ $(document).ready(function() {
 					}
 
 				}, duration);
-			
-			} else {
-				alert('Vous ne pouvez pas obtenir ce personnage de cette façon !');
 			}
 
 		} else {
