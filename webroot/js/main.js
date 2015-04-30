@@ -587,6 +587,8 @@ $(document).ready(function() {
 	// Fonction annonçant la fin du jeu
 	function endGame() {
 
+		console.log("arcade", arcade);
+
 		$('.choose .button_attack').parent().hide();
 		$('.choose .button_tools').parent().hide();
 		$('.choose .button_depart').parent().hide();
@@ -602,7 +604,7 @@ $(document).ready(function() {
 
 			$('.nb_win em').text(parseInt($('.nb_win em').text()) + 1);
 
-			arcade++;
+			arcade = arcade +1;
 
 			setTimeout(function() {
 
@@ -687,8 +689,6 @@ $(document).ready(function() {
 			// Saitama est débloqué
 			updateUserPerso(29);
 		}
-
-		updateUserPerso(id_perso);
 
 		arcade = 0;
 	}
