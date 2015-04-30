@@ -159,6 +159,15 @@
 		.sub {
 			display: none;
 			position: absolute;
+			background: black;
+			color: white;
+			z-index: 2;
+			font-size: 13px;
+			text-align: center;
+			border-radius: 10px;
+			padding: 6px;
+			top: 0px;
+			height: 103px;
 		}
 
 		&:hover {
