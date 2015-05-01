@@ -318,26 +318,31 @@ $(document).ready(function() {
 
 	// Au clic sur l'objet Potion de Vie
 	$('.button_life_potion').on('click', function() {
+		$('.choose .button_tools').parent().hide();
 		updateLife();
 	});
 
 	// Au clic sur l'objet Potion de PP
 	$('.button_pp_potion').on('click', function() {
+		$('.choose .button_tools').parent().hide();
 		updatePP();
 	});
 
 	// Au clic sur l'objet Recovery Potion
 	$('.button_life_pp_potion').on('click', function() {
+		$('.choose .button_tools').parent().hide();
 		updateLifePP();
 	});
 
 	// Au clic sur l'objet Shosinsui
 	$('.button_shosinsui').on('click', function() {
+		$('.choose .button_tools').parent().hide();
 		shosinsui();
 	});
 	
 	// Au clic sur une attaque
 	$('.button_attack').on('click', function() {
+		$('.choose .button_attack').parent().hide();
 		attack('ally', $(this));
 	});
 
@@ -590,8 +595,6 @@ $(document).ready(function() {
 	// Fonction annonçant la fin du jeu
 	function endGame() {
 
-		console.log("arcade", arcade);
-
 		$('.choose .button_attack').parent().hide();
 		$('.choose .button_tools').parent().hide();
 		$('.choose .button_depart').parent().hide();
@@ -836,11 +839,13 @@ $(document).ready(function() {
 
 		if(who === 'ally') {
 
-			console.log('attack_ended', attack_ended);
-
 			if(attack_ended === 1) {
 
+				console.log('attack_ended', attack_ended);
+
 				attack_ended = 0;
+
+				console.log('attack_ended', attack_ended);
 
 				if(parseInt(ap.find('strong').text()) >= parseInt(that.attr('data-requis'))) {
 
