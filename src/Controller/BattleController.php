@@ -163,19 +163,44 @@ class BattleController extends AppController
 
             if(isset($data['id_perso']) && $data['id_perso'] != null) {
 
-                $userPersosTable = TableRegistry::get('UserPersos');
-                $query = $userPersosTable->query();
+                $check_user_perso = $this->UserPersos->find()->where(
+                    array(
+                        'UserPersos.id_user' => $connected_user['id'],
+                        'UserPersos.id_perso' => $data['id_perso']
+                    ))
+                ->toArray();
 
-                $query->update()
-                ->set(['unlocked' => 1])
-                ->where(['id_user' => $connected_user['id']])
-                ->where(['id_perso' => intval($data['id_perso'])])
-                ->execute();
+                if($check_user_perso) {
 
-                $perso = $this->Persos->find();
-                $perso->where(['id' => intval($data['id_perso'])]);
+                    $userPersosTable = TableRegistry::get('UserPersos');
+                    $query = $userPersosTable->query();
 
-                $check = 'OK';   
+                    $query->update()
+                    ->set(['unlocked' => 1])
+                    ->where(['id_user' => $connected_user['id']])
+                    ->where(['id_perso' => intval($data['id_perso'])])
+                    ->execute();
+
+                    $perso = $this->Persos->find();
+                    $perso->where(['id' => intval($data['id_perso'])]);
+
+                    $check = 'OK';   
+                } else {
+
+                    $userPersosTable = TableRegistry::get('UserPersos');
+                    $new_user_perso = $userPersosTable->newEntity();
+
+                    $new_user_perso->unlocked = 1;
+                    $new_user_perso->id_user = $connected_user['id'];
+                    $new_user_perso->id_perso = intval($data['id_perso']);
+
+                    $savedArticle = $userPersosTable->save($new_user_perso);
+                    
+                    $perso = $this->Persos->find();
+                    $perso->where(['id' => intval($data['id_perso'])]);
+
+                    $check = 'OK';   
+                }
             }
         }
 
