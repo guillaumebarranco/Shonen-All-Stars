@@ -355,6 +355,7 @@ $(document).ready(function() {
 	// Au clic sur Manga Ball
 
 	$('.manga_ball').on('click', function() {
+		$('.choose .button_depart').parent().hide();
 		mangaBall();
 	});
  
@@ -390,6 +391,7 @@ $(document).ready(function() {
 
 		} else {
 			alert('Vous avez trop de vie pour utiliser cette potion !');
+			$('.choose .button_tools').parent().show();
 		}
 	}
 
@@ -403,6 +405,7 @@ $(document).ready(function() {
 
 		} else {
 			alert('Vous avez trop de PP pour utiliser cette potion !');
+			$('.choose .button_tools').parent().show();
 		}
 	}
 
@@ -418,6 +421,7 @@ $(document).ready(function() {
 
 		} else {
 			alert('Vous avez trop de vie ou de PP pour utiliser cette potion !');
+			$('.choose .button_tools').parent().show();
 		}
 	}
 
@@ -433,6 +437,7 @@ $(document).ready(function() {
 
 		} else {
 			alert('Vous n\'avez pas assez de PP pour utiliser cette potion !');
+			$('.choose .button_tools').parent().show();
 		}
 	}
 
@@ -462,6 +467,7 @@ $(document).ready(function() {
 			if(ennemy_id == 26 || ennemy_id == 25 || ennemy_id == 12 || ennemy_id == 29 || ennemy_id == 47 || ennemy_id == 54) {
 
 				alert('Vous ne pouvez pas obtenir ce personnage de cette façon !');
+				$('.choose .button_depart').parent().show();
 			
 			} else {
 				
@@ -523,6 +529,7 @@ $(document).ready(function() {
 
 		} else {
 			alert('Ce personnage est déjà disponible, vous ne pouvez pas l\'attraper !');
+			$('.choose .button_depart').parent().show();
 		}
 	}
 
@@ -890,7 +897,8 @@ $(document).ready(function() {
 					});
 					
 				} else {
-					alert('not enough pp');
+					alert('Vous n\'avez pas assez de PP.');
+					$('.choose .button_attack').parent().show();
 				}
 
 				attack_ended = 1;
