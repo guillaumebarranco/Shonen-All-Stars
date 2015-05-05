@@ -15,6 +15,12 @@ $(document).ready(function() {
 	var arcade = 0;
 	var attack_ended = 1;
 
+
+	// SI BESOIN DE TESTER UNE ATTAQUE ENNEMIE PARTICULIRE, CHANGER CES VARIABLES 
+	var random_ennemy = 16;
+	var random_attack = 4;
+	var disappear_attack = false;
+
 	var al = $('.ally .status .life');
 	var el = $('.ennemy .status .life');
 	var ap = $('.ally .status .pp');
@@ -121,7 +127,13 @@ $(document).ready(function() {
 					}
 					
 				} else {
-					alert('Pseudo déjà pris ou bug.');
+
+					if(what_form === 'signIn') {
+						alert('Vous avez tapé un mauvais pseudo et/ou un mauvais mot de passe.');
+					} else {
+						alert('Ce pseudo est déjà pris, essayez-en un autre.');
+					}
+					
 				}
 			});
 
@@ -229,8 +241,10 @@ $(document).ready(function() {
 	$(document).on('click', '.choose_perso li img.unlocked', function() {
 
 		var id_chosen = $(this).parent().attr('data-id');
-		var random_ennemy = rand(0,_this.all_persos.length -1);
-		//var random_ennemy = 18;
+
+		if(random_ennemy == undefined) {
+			random_ennemy = rand(0,_this.all_persos.length -1);
+		}
 
 		_this.all_persos[id_chosen].side = 'ally';
 		_this.all_persos[random_ennemy].side = 'ennemy';
@@ -715,7 +729,9 @@ $(document).ready(function() {
 		$('.status span').width(300);
 		$('.status strong').text('100');
 
-		var random_ennemy = rand(0,_this.all_persos.length -1);
+		if(random_ennemy == undefined) {
+			random_ennemy = rand(0,_this.all_persos.length -1);
+		}
 
 		_this.all_persos[random_ennemy].side = 'ennemy';
 
@@ -818,10 +834,12 @@ $(document).ready(function() {
 
 		setTimeout(function() {
 
-			var random = rand(1,4);
+			if(random_attack == undefined) {
+				random_attack = rand(1,4);
+			}
 			var ennemy_attack;
 
-			switch(random) {
+			switch(random_attack) {
 				case 1:
 					ennemy_attack = ennemy.attack_1;
 				break;
@@ -1028,8 +1046,11 @@ $(document).ready(function() {
 
 			setTimeout(function() {
 
-				$('.'+who_receive+' .anim').hide();
-				$('.'+who_receive+' .anim div').remove();
+				if(disappear_attack === true) {
+					$('.'+who_receive+' .anim').hide();
+					$('.'+who_receive+' .anim div').remove();
+				}
+				
 				$('html, body').css('overflow', 'auto');
 				$('.'+who_receive+'').addClass('injured');
 

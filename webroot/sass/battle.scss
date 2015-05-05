@@ -307,13 +307,22 @@ $top : -20px;
 	}
 }
 
-.ally .anim_punch_double, .ally .anim_magnum, .ally .anim_eye {
+.ally .anim_punch_double, .ally .anim_magnum {
 	left: $left_ally - 50px;
 }
 
-.ennemy .anim_punch_double, .ennemy .anim_magnum, .ennemy .anim_eye {
+.ennemy .anim_punch_double, .ennemy .anim_magnum {
 	left: $left_ennemy - 50px;
 }
+
+.ally .anim_punch_double, .ally .anim_magnum, .ally .anim_eye {
+	left: $left_ally;
+}
+
+.ennemy .anim_punch_double, .ennemy .anim_magnum, .ennemy .anim_eye {
+	left: $left_ennemy;
+}
+
 
 
 /*
@@ -1367,6 +1376,11 @@ $top : -20px;
 	filter: FlipH;
 	animation-name: receive_yin_yang;
 }
+
+.ally .anim_gauntlet {
+	transform:rotate(-65deg) scaleX(-1);
+}
+
 .ennemy .anim_ghost, .ennemy .anim_gauntlet {
 	animation-name: yin_yang;
 }
@@ -1428,7 +1442,7 @@ $top : -20px;
 
 	0% {
 	    top: $top - 230px;
-	    left: $left_ennemy + 350px;
+	    left: $left_ally + 350px;
 	}
 
 	10% {
@@ -1451,7 +1465,7 @@ $top : -20px;
 
 	100% {
 	    top: $top + 5px;
-	    left: $left_ennemy + 4px;
+	    left: $left_ally + 4px;
 	}
 }
 
@@ -1515,13 +1529,13 @@ $top : -20px;
 @keyframes receive_kamehameha {
 	0% {
 	    height: 0px;
-	    top: $top - 320px;
+	    top: $top - 170px;
 		left: $left_ally + 386px;
 
 	}
 	
 	100% {
-		top: $top - 520px;
+		top: $top - 280px;
 		left: $left_ally + 194px;
 		height: 450px;
 	}
@@ -1607,42 +1621,42 @@ $top : -20px;
 @keyframes receive_rayons {
 	0% {
 	    height: 0px;
-	    top: $top - 275px;
-		left: $left_ennemy + 386px;
+	    top: $top - 170px;
+		left: $left_ally + 386px;
 		background-color: blue;
 	}
 
 	30% {
-		top: $top - 69px;
-		left: $left_ennemy + 194px;
+		top: $top - 280px;
+		left: $left_ally + 194px;
 		height: 450px;
 		background-color: blue;
 	}
 
 	31% {
 		height: 0px;
-	    top: $top - 275px;
-		left: $left_ennemy + 386px;
+	    top: $top - 170px;
+		left: $left_ally + 386px;
 		background-color: red;
 	}
 
 	60% {
-		top: $top + 69px;
-		left: $left_ennemy + 194px;
+		top: $top - 280px;
+		left: $left_ally + 194px;
 		height: 450px;
 		background-color: red;
 	}
 
 	61% {
 		height: 0px;
-	    top: $top - 275px;
-		left: $left_ennemy + 386px;
+	    top: $top - 170px;
+		left: $left_ally + 386px;
 		background-color: blue;
 	}
 	
 	100% {
-		top: $top + 69px;
-		left: $left_ennemy - 194px;
+		top: $top - 280px;
+		left: $left_ally + 194px;
 		height: 450px;
 		background-color: blue;
 	}

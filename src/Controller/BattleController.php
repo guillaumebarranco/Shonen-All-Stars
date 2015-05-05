@@ -227,8 +227,7 @@ class BattleController extends AppController
 
                 $check_user = $this->Users->find()->where(
                     array(
-                        'Users.pseudo' => $data['pseudo'],
-                        'Users.password' => md5($data['password'])
+                        'Users.pseudo' => $data['pseudo']
                     ))
                 ->toArray();
 
