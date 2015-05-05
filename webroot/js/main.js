@@ -271,7 +271,7 @@ $(document).ready(function() {
 		$('.ally').find('.picture img').attr('src', 'img/persos/'+ally.img_back);
 		$('.ennemy').find('.picture img').attr('src', 'img/persos/'+ennemy.img_front);
 
-		$('.ally .status .name').text(ally.name);
+		$('.ally .status .name').text(ally.name+' '+'Lv '+ally.level);
 		$('.ennemy .status .name').text(ennemy.name);
 
 		$('.choose .button_attack1').html('<span>'+ally.attack_1.requis+' PP</span>'+'<em>'+ally.attack_1.name+'<em>');
@@ -641,9 +641,16 @@ $(document).ready(function() {
 			setTimeout(function() {
 
 				if(arcade < 5) {
-					newFight();
+
+					updateLevel('win', function() {
+						newFight();
+					});
+					
 				} else {
-					endArcade();
+					updateLevel('arcade', function() {
+						endArcade();
+					});
+					
 				}
 
 			}, 2000);
@@ -664,6 +671,50 @@ $(document).ready(function() {
 			chat('Vous pouvez rejouer une arcade et sélectionnez si vous le voulez votre nouveau personnage !');
 			chat('<button class="play_again">Rejouer</button>');
 		}
+	}
+
+	// Fonction pour vérifier et augmenter si besoin le niveau du perso
+	function updateLevel(what, callback) {
+
+		var current_level = ally.level;
+		var current_xp = ally.xp;
+		var exp;
+
+		if(what === 'win') {
+
+			exp = 10;
+
+			current_xp = current_xp + exp;
+
+			if((current_level * exp) === current_xp) {
+
+				current_level = current_level + 1;
+				makeAjax('POST', 'battle/updateLevel', ally, function() {
+					console.log('updateLevel', _this.response);
+				});
+
+			} else {
+
+				makeAjax('POST', 'battle/updateExp', ally, function() {
+					console.log('updateExp', _this.response);
+				});
+			}
+
+		} else if(what === 'arcade') {
+			
+			exp = 0;
+
+			for (var i = 0; i < 5; i++) {
+				exp = exp + 10;
+			}
+		}
+
+
+		$('.level').text(current_level);
+
+		chat('Vous avez gagné '+current_level+' niveau(x)');
+
+		callback();
 	}
 
 	// Fonction pour enregistrer les données du combat en BDD
@@ -724,7 +775,7 @@ $(document).ready(function() {
 
 		arcade = 0;
 	}
-
+ 
 	// Fonction utilisée pour démarrer un nouveau combat (après une victoire de l'utilisateur)
 	function newFight() {
 

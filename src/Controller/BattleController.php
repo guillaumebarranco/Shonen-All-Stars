@@ -83,8 +83,14 @@ class BattleController extends AppController
             }
 
             foreach ($user_persos as $key => $user_perso) {
-                if($user_perso['id_perso'] == $perso['id'] && $user_perso['unlocked'] == 1) {
-                    $persos[$v]['unlocked'] = 1;
+
+                if($user_perso['id_perso'] == $perso['id']) {
+                    $persos[$v]['level'] = $user_perso['level'];
+                    $persos[$v]['xp'] = $user_perso['xp'];
+
+                    if($user_perso['unlocked'] == 1) {
+                        $persos[$v]['unlocked'] = 1;
+                    } 
                 }
             }
 

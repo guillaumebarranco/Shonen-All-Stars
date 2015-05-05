@@ -126,7 +126,11 @@ if(!isset($user)) { ?>
 					<b>PP</b> <span><strong>100</strong></span>
 				</div>
 			</div>
-			<a href="#" class="button_return">Retour</a>
+			
+			<div style="height: 30px;">
+				<a href="#" class="button_return">Retour</a>
+			</div>
+			
 			<ul class="choose">
 				<li><button class="button_depart make_attack">Attack</button></li><!--
 				--><li><button class="button_depart use_tools">Tools</button></li><!--
