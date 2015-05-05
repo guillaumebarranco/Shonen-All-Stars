@@ -16,10 +16,15 @@ $(document).ready(function() {
 	var attack_ended = 1;
 
 
-	// SI BESOIN DE TESTER UNE ATTAQUE ENNEMIE PARTICULIRE, CHANGER CES VARIABLES 
-	var random_ennemy = 16;
-	var random_attack = 4;
-	var disappear_attack = false;
+	// SI BESOIN DE TESTER UNE ATTAQUE ENNEMIE PARTICULIRE, CHANGER CES VARIABLES
+
+	var ennemy_defined = false;
+	var random_ennemy;
+
+	var attack_defined = false;
+	var random_attack;
+	
+	var disappear_attack = true;
 
 	var al = $('.ally .status .life');
 	var el = $('.ennemy .status .life');
@@ -242,7 +247,7 @@ $(document).ready(function() {
 
 		var id_chosen = $(this).parent().attr('data-id');
 
-		if(random_ennemy == undefined) {
+		if(ennemy_defined === false) {
 			random_ennemy = rand(0,_this.all_persos.length -1);
 		}
 
@@ -729,7 +734,7 @@ $(document).ready(function() {
 		$('.status span').width(300);
 		$('.status strong').text('100');
 
-		if(random_ennemy == undefined) {
+		if(ennemy_defined === false) {
 			random_ennemy = rand(0,_this.all_persos.length -1);
 		}
 
@@ -834,7 +839,7 @@ $(document).ready(function() {
 
 		setTimeout(function() {
 
-			if(random_attack == undefined) {
+			if(attack_defined === false) {
 				random_attack = rand(1,4);
 			}
 			var ennemy_attack;
