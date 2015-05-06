@@ -195,6 +195,32 @@
 		width: 300px;
 		color: white;
 	}
+
+	.pp {
+		span {
+			transition: 0.6s;
+		}
+	}
+
+	.exp {
+		margin-left: 15px;
+		background: red;
+		font-size: 11px;
+		display: inline-block;
+		color: white;
+		text-align: center;
+		position: relative;
+
+		&:after {
+			content: "";
+			width: 200px;
+			height: 3px;
+			background: black;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+		}
+	}
 }
 
 

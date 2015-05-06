@@ -272,7 +272,11 @@ $(document).ready(function() {
 		$('.ennemy').find('.picture img').attr('src', 'img/persos/'+ennemy.img_front);
 
 		// ECRITURE DU NOM DU PERSONNAGE
-		$('.ally .status .name').html(ally.name+' '+'<em class="level">Lv '+ally.level+'</em>');
+		
+		var exp_width = Math.round(ally.xp / ally.level)*10;
+
+		$('.ally .status .name').html(ally.name+' '+'<em class="level">Lv '+ally.level+'</em><i class="exp" style="width:'+(exp_width*2)+'px">'+exp_width+'%</i>');
+
 
 		ennemy.level = rand(ally.level-3, ally.level+3);
 
@@ -520,7 +524,7 @@ $(document).ready(function() {
 
 					if(ennemy_life != 100) {
 
-						catched = rand(1, Math.floor((ennemy_life/10)));
+						catched = rand(1, Math.round((ennemy_life/10)));
 
 						if(ennemy_life > 75) {
 							catched = rand(1,20);
@@ -734,7 +738,9 @@ $(document).ready(function() {
 			console.log('updateExp', _this.response);
 		});
 
-		$('.level').text('Lv '+ally.level);
+		var exp_width = Math.round(ally.xp / ally.level)*10;
+
+		$('.ally .status .name').html(ally.name+' '+'<em class="level">Lv '+ally.level+'</em><i class="exp" style="width:'+(exp_width*2)+'px">'+exp_width+'%</i>');
 
 		chat('Vous avez êtes désormais niveau '+ally.level);
 
