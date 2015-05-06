@@ -369,31 +369,14 @@ class BattleController extends AppController
             $userPersosTable = TableRegistry::get('UserPersos');
             $query = $userPersosTable->query();
 
-            if(isset($data['type'])) {
+            $query->update()
+            ->set(['level' => intval($data['perso']['level'])])
+            ->set(['xp' => intval($data['perso']['xp'])])
+            ->where(['id_user' => $connected_user['id']])
+            ->where(['id_perso' => intval($data['perso']['id'])])
+            ->execute();
 
-                switch($data['type']) {
-
-                    case 'level':
-
-                        $query->update()
-                        ->set(['level' => intval($data['perso']['level']) + 1])
-                        ->where(['id_user' => $connected_user['id']])
-                        ->where(['id_perso' => intval($data['perso']['id'])])
-                        ->execute();
-                    break;
-
-                    case 'exp':
-
-                        $query->update()
-                        ->set(['xp' => intval($data['perso']['xp']) + 10])
-                        ->where(['id_user' => $connected_user['id']])
-                        ->where(['id_perso' => intval($data['perso']['id'])])
-                        ->execute();
-                    break;
-
-                }
-                $check = 'OK';
-            }
+            $check = 'OK';
 
         }
 

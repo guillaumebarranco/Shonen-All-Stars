@@ -21,8 +21,8 @@ $(document).ready(function() {
 	var ennemy_defined = false;
 	var random_ennemy;
 
-	var attack_defined = false;
-	var random_attack;
+	var attack_defined = true;
+	var random_attack = 1;
 	
 	var disappear_attack = true;
 
@@ -571,7 +571,7 @@ $(document).ready(function() {
 		var the_random = Math.floor(Math.random() * (max - min + 1)) + min;
 		
 		// Pour gérer le niveau adverse qui ne peut pas être inférieur à 0 ni supérieur à 30
-		if(the_random < 0) {
+		if(the_random <= 0) {
 			the_random = 1;
 		} else if(the_random > 30) {
 			the_random = 30;
@@ -694,7 +694,6 @@ $(document).ready(function() {
 		var exp;
 
 		var data = {};
-		data.perso = ally;
 
 		if(what === 'win') {
 
@@ -702,30 +701,11 @@ $(document).ready(function() {
 
 			current_xp = current_xp + exp;
 
-			console.log('calcul', (current_level * exp));
-			console.log('calcul2', current_xp);
-
 			if((current_level * exp) === current_xp) { // Si 2 * 10 = 20
 
 				current_level = current_level + 1; // On augmente le niveau
 				current_xp = 0;
 
-				data.type = 'level';
-
-				console.log('level update');
-
-				makeAjax('POST', 'battle/updateLevelExp', data, function() {
-					console.log('updateLevel', _this.response);
-				});
-
-			} else {
-				data.type = 'exp';
-
-				console.log('exp update');
-
-				makeAjax('POST', 'battle/updateLevelExp', data, function() {
-					console.log('updateExp', _this.response);
-				});
 			}
 
 		} else if(what === 'arcade') {
@@ -733,17 +713,30 @@ $(document).ready(function() {
 			exp = 0;
 
 			for (var i = 0; i < 5; i++) {
-				exp = exp + 10;
+
+				exp = 10;
+
+				current_xp = current_xp + exp;
+
+				if((current_level * exp) === current_xp) { // Si 2 * 10 = 20
+
+					current_level = current_level + 1; // On augmente le niveau
+					current_xp = 0;
+				}
 			}
 		}
 
 		ally.level = current_level;
 		ally.xp = current_xp;
+		data.perso = ally;
 
+		makeAjax('POST', 'battle/updateLevelExp', data, function() {
+			console.log('updateExp', _this.response);
+		});
 
-		$('.level').text('Lv '+current_level);
+		$('.level').text('Lv '+ally.level);
 
-		chat('Vous avez êtes désormais niveau '+current_level);
+		chat('Vous avez êtes désormais niveau '+ally.level);
 
 		callback();
 	}
@@ -835,7 +828,9 @@ $(document).ready(function() {
 			}
 		}
 
-		$('.ennemy .status .name').text(ennemy.name);
+		ennemy.level = rand(ally.level-3, ally.level+3);
+
+		$('.ennemy .status .name').html(ennemy.name+' '+'<em class="level">Lv '+ennemy.level+'</em>');
 		$('.ennemy').find('img').attr('src', 'img/persos/'+ennemy.img_front);
 
 		if(ennemy.vit >= ally.vit) {
