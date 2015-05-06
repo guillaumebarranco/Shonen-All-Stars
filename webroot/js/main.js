@@ -271,8 +271,12 @@ $(document).ready(function() {
 		$('.ally').find('.picture img').attr('src', 'img/persos/'+ally.img_back);
 		$('.ennemy').find('.picture img').attr('src', 'img/persos/'+ennemy.img_front);
 
-		$('.ally .status .name').text(ally.name+' '+'Lv '+ally.level);
-		$('.ennemy .status .name').text(ennemy.name);
+		// ECRITURE DU NOM DU PERSONNAGE
+		$('.ally .status .name').html(ally.name+' '+'<em class="level">Lv '+ally.level+'</em>');
+
+		ennemy.level = rand(ally.level-3, ally.level+3);
+
+		$('.ennemy .status .name').html(ennemy.name+' '+'<em class="level">Lv '+ennemy.level+'</em>');
 
 		$('.choose .button_attack1').html('<span>'+ally.attack_1.requis+' PP</span>'+'<em>'+ally.attack_1.name+'<em>');
 		$('.choose .button_attack2').html('<span>'+ally.attack_2.requis+' PP</span>'+'<em>'+ally.attack_2.name+'<em>');
@@ -564,7 +568,16 @@ $(document).ready(function() {
 
 	// Fonction pour générer un nombre aléatoire
 	function rand(min, max) {
-		return Math.floor(Math.random() * (max - min + 1)) + min;
+		var the_random = Math.floor(Math.random() * (max - min + 1)) + min;
+		
+		// Pour gérer le niveau adverse qui ne peut pas être inférieur à 0 ni supérieur à 30
+		if(the_random < 0) {
+			the_random = 1;
+		} else if(the_random > 30) {
+			the_random = 30;
+		}
+
+		return the_random;
 	}
 
 
@@ -680,22 +693,37 @@ $(document).ready(function() {
 		var current_xp = ally.xp;
 		var exp;
 
+		var data = {};
+		data.perso = ally;
+
 		if(what === 'win') {
 
 			exp = 10;
 
 			current_xp = current_xp + exp;
 
-			if((current_level * exp) === current_xp) {
+			console.log('calcul', (current_level * exp));
+			console.log('calcul2', current_xp);
 
-				current_level = current_level + 1;
-				makeAjax('POST', 'battle/updateLevel', ally, function() {
+			if((current_level * exp) === current_xp) { // Si 2 * 10 = 20
+
+				current_level = current_level + 1; // On augmente le niveau
+				current_xp = 0;
+
+				data.type = 'level';
+
+				console.log('level update');
+
+				makeAjax('POST', 'battle/updateLevelExp', data, function() {
 					console.log('updateLevel', _this.response);
 				});
 
 			} else {
+				data.type = 'exp';
 
-				makeAjax('POST', 'battle/updateExp', ally, function() {
+				console.log('exp update');
+
+				makeAjax('POST', 'battle/updateLevelExp', data, function() {
 					console.log('updateExp', _this.response);
 				});
 			}
@@ -709,10 +737,13 @@ $(document).ready(function() {
 			}
 		}
 
+		ally.level = current_level;
+		ally.xp = current_xp;
 
-		$('.level').text(current_level);
 
-		chat('Vous avez gagné '+current_level+' niveau(x)');
+		$('.level').text('Lv '+current_level);
+
+		chat('Vous avez êtes désormais niveau '+current_level);
 
 		callback();
 	}
@@ -843,6 +874,7 @@ $(document).ready(function() {
 	// Fonction pour calculer les dégâts en fonction des caractéristiques de chaque personnage
 	function calculForce(power, type, who) {
 
+		// SI L'ATTAQUE EST PHYSIQUE
 		if(type === 'physic') {
 
 			if(who === 'ally') {
@@ -860,6 +892,7 @@ $(document).ready(function() {
 				}
 			}
 
+		// SI L'ATTAQUE EST MAGIQUE
 		} else if(type === 'special') {
 
 			if(who === 'ally') {
@@ -875,6 +908,23 @@ $(document).ready(function() {
 				} else {
 					power = power - 5;
 				}
+			}
+		}
+
+		//GESTION DES NIVEAUX
+
+		if(who === 'ally') {
+			if(ally.level > ennemy.level) {
+				power = power + (2*(ally.level - ennemy.level));
+			} else {
+				power = power - (2*(ally.level - ennemy.level));
+			}
+
+		} else if(who === 'ennemy') {
+			if(ally.level > ennemy.level) {
+				power = power - (2*(ally.level - ennemy.level));
+			} else {
+				power = power + (2*(ally.level - ennemy.level));
 			}
 		}
 

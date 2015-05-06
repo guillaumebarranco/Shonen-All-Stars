@@ -131,11 +131,26 @@ class BattleController extends AppController
                     $new_user_perso->id_perso = $perso['id'];
 
                     // On donne au joueur 4 personnages parmi les plus faibles (bah ouais)
-                    if($perso['id'] == 15 || $perso['id'] == 16 || $perso['id'] == 19 || $perso['id'] == 22) {
+                    if($perso['name'] == 'Naruto' || $perso['name'] == 'Eyeshield' || $perso['name'] == 'Ashirogi' || $perso['name'] == 'Gon' || $perso['name'] == 'Terrence' || $perso['name'] == 'Shioon') {
                         $new_user_perso->unlocked = 1;
-                   } else {
+                    } else {
                         $new_user_perso->unlocked = 0;
-                   }
+                    }
+                    
+                    // Si le personnage se gagne avec une arcade
+                    if(is_numeric($perso['condition'])) {
+
+                        if($perso['name'] == 'Saitama') {
+                            $new_user_perso->level = 50;
+                        } else {
+                            $new_user_perso->level = (intval($perso['condition']) * 3);
+                        }
+
+                    } else {
+                        $new_user_perso->level = 1;
+                    }
+                    
+                    $new_user_perso->exp = 0;
                     
                     $userPersos->save($new_user_perso);
                 }
@@ -329,6 +344,57 @@ class BattleController extends AppController
                         
                 $check = 'OK';
             }
+        }
+
+        $response = array();
+        $response['check'] = $check;
+
+        echo json_encode($response);
+    }
+
+    public function updateLevelExp() {
+        $this->autoRender = false;
+        $this->layout = null;
+        $this->RequestHandler->renderAs($this, 'json');
+
+        $check = 'KO';
+
+        if(isset($this->request->data)) {
+
+            $data = $this->request->data;
+
+            $session = $this->request->session();
+            $connected_user = $session->read('user')[0];
+
+            $userPersosTable = TableRegistry::get('UserPersos');
+            $query = $userPersosTable->query();
+
+            if(isset($data['type'])) {
+
+                switch($data['type']) {
+
+                    case 'level':
+
+                        $query->update()
+                        ->set(['level' => intval($data['perso']['level']) + 1])
+                        ->where(['id_user' => $connected_user['id']])
+                        ->where(['id_perso' => intval($data['perso']['id'])])
+                        ->execute();
+                    break;
+
+                    case 'exp':
+
+                        $query->update()
+                        ->set(['xp' => intval($data['perso']['xp']) + 10])
+                        ->where(['id_user' => $connected_user['id']])
+                        ->where(['id_perso' => intval($data['perso']['id'])])
+                        ->execute();
+                    break;
+
+                }
+                $check = 'OK';
+            }
+
         }
 
         $response = array();
