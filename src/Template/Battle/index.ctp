@@ -126,12 +126,16 @@ if(!isset($user)) { ?>
 					<b>PP</b> <span><strong>100</strong></span>
 				</div>
 			</div>
-			<a href="#" class="button_return">Retour</a>
+			
+			<div style="height: 30px;">
+				<a href="#" class="button_return">Retour</a>
+			</div>
+			
 			<ul class="choose">
 				<li><button class="button_depart make_attack">Attack</button></li><!--
 				--><li><button class="button_depart use_tools">Tools</button></li><!--
 				--><li><button class="button_depart manga_ball">Manga Ball</button></li><!--
-				--><li><button class="button_depart">Defense + 20</button></li>
+				--><li><button class="button_depart">Boutonquisertàrien</button></li>
 
 				<li><button class="button_attack button_attack1"></button></li><!--
 				--><li><button class="button_attack button_attack2"></button></li><!--

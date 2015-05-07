@@ -83,8 +83,14 @@ class BattleController extends AppController
             }
 
             foreach ($user_persos as $key => $user_perso) {
-                if($user_perso['id_perso'] == $perso['id'] && $user_perso['unlocked'] == 1) {
-                    $persos[$v]['unlocked'] = 1;
+
+                if($user_perso['id_perso'] == $perso['id']) {
+                    $persos[$v]['level'] = $user_perso['level'];
+                    $persos[$v]['xp'] = $user_perso['xp'];
+
+                    if($user_perso['unlocked'] == 1) {
+                        $persos[$v]['unlocked'] = 1;
+                    } 
                 }
             }
 
@@ -125,11 +131,26 @@ class BattleController extends AppController
                     $new_user_perso->id_perso = $perso['id'];
 
                     // On donne au joueur 4 personnages parmi les plus faibles (bah ouais)
-                    if($perso['id'] == 15 || $perso['id'] == 16 || $perso['id'] == 19 || $perso['id'] == 22) {
+                    if($perso['name'] == 'Naruto' || $perso['name'] == 'Eyeshield' || $perso['name'] == 'Ashirogi' || $perso['name'] == 'Gon' || $perso['name'] == 'Terrence' || $perso['name'] == 'Shioon') {
                         $new_user_perso->unlocked = 1;
-                   } else {
+                    } else {
                         $new_user_perso->unlocked = 0;
-                   }
+                    }
+                    
+                    // Si le personnage se gagne avec une arcade
+                    if(is_numeric($perso['condition'])) {
+
+                        if($perso['name'] == 'Saitama') {
+                            $new_user_perso->level = 50;
+                        } else {
+                            $new_user_perso->level = (intval($perso['condition']) * 3);
+                        }
+
+                    } else {
+                        $new_user_perso->level = 1;
+                    }
+                    
+                    $new_user_perso->exp = 0;
                     
                     $userPersos->save($new_user_perso);
                 }
@@ -163,19 +184,44 @@ class BattleController extends AppController
 
             if(isset($data['id_perso']) && $data['id_perso'] != null) {
 
-                $userPersosTable = TableRegistry::get('UserPersos');
-                $query = $userPersosTable->query();
+                $check_user_perso = $this->UserPersos->find()->where(
+                    array(
+                        'UserPersos.id_user' => $connected_user['id'],
+                        'UserPersos.id_perso' => $data['id_perso']
+                    ))
+                ->toArray();
 
-                $query->update()
-                ->set(['unlocked' => 1])
-                ->where(['id_user' => $connected_user['id']])
-                ->where(['id_perso' => intval($data['id_perso'])])
-                ->execute();
+                if($check_user_perso) {
 
-                $perso = $this->Persos->find();
-                $perso->where(['id' => intval($data['id_perso'])]);
+                    $userPersosTable = TableRegistry::get('UserPersos');
+                    $query = $userPersosTable->query();
 
-                $check = 'OK';   
+                    $query->update()
+                    ->set(['unlocked' => 1])
+                    ->where(['id_user' => $connected_user['id']])
+                    ->where(['id_perso' => intval($data['id_perso'])])
+                    ->execute();
+
+                    $perso = $this->Persos->find();
+                    $perso->where(['id' => intval($data['id_perso'])]);
+
+                    $check = 'OK';   
+                } else {
+
+                    $userPersosTable = TableRegistry::get('UserPersos');
+                    $new_user_perso = $userPersosTable->newEntity();
+
+                    $new_user_perso->unlocked = 1;
+                    $new_user_perso->id_user = $connected_user['id'];
+                    $new_user_perso->id_perso = intval($data['id_perso']);
+
+                    $savedArticle = $userPersosTable->save($new_user_perso);
+                    
+                    $perso = $this->Persos->find();
+                    $perso->where(['id' => intval($data['id_perso'])]);
+
+                    $check = 'OK';   
+                }
             }
         }
 
@@ -202,8 +248,7 @@ class BattleController extends AppController
 
                 $check_user = $this->Users->find()->where(
                     array(
-                        'Users.pseudo' => $data['pseudo'],
-                        'Users.password' => md5($data['password'])
+                        'Users.pseudo' => $data['pseudo']
                     ))
                 ->toArray();
 
@@ -299,6 +344,40 @@ class BattleController extends AppController
                         
                 $check = 'OK';
             }
+        }
+
+        $response = array();
+        $response['check'] = $check;
+
+        echo json_encode($response);
+    }
+
+    public function updateLevelExp() {
+        $this->autoRender = false;
+        $this->layout = null;
+        $this->RequestHandler->renderAs($this, 'json');
+
+        $check = 'KO';
+
+        if(isset($this->request->data)) {
+
+            $data = $this->request->data;
+
+            $session = $this->request->session();
+            $connected_user = $session->read('user')[0];
+
+            $userPersosTable = TableRegistry::get('UserPersos');
+            $query = $userPersosTable->query();
+
+            $query->update()
+            ->set(['level' => intval($data['perso']['level'])])
+            ->set(['xp' => intval($data['perso']['xp'])])
+            ->where(['id_user' => $connected_user['id']])
+            ->where(['id_perso' => intval($data['perso']['id'])])
+            ->execute();
+
+            $check = 'OK';
+
         }
 
         $response = array();

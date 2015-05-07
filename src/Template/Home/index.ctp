@@ -60,9 +60,9 @@
 
 -->
 
-    <div  class="ennemy" style="position:relative; left: 200px;margin-top: 100px;margin-bottom:100px;">
+    <div  class="ally" style="position:relative; left: 200px;margin-top: 100px;margin-bottom:100px;">
         <div class="anim">
-            <div class="anim_bubble"></div>
+            <div class="anim_kamehameha"></div>
         </div>
     </div>
     

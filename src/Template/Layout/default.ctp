@@ -22,13 +22,7 @@
 </head>
 <body>
     <header>
-        <div class="header-title">
-            Shonen All Stars
-        </div>
-        <div class="header-help">
-            <span><a target="_blank" href="http://book.cakephp.org/3.0/">Documentation</a></span>
-            <span><a target="_blank" href="http://api.cakephp.org/3.0/">API</a></span>
-        </div>
+        Shonen All Stars
     </header>
     
     <div id="container">

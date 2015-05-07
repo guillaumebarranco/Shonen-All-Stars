@@ -15,6 +15,17 @@ $(document).ready(function() {
 	var arcade = 0;
 	var attack_ended = 1;
 
+
+	// SI BESOIN DE TESTER UNE ATTAQUE ENNEMIE PARTICULIRE, CHANGER CES VARIABLES
+
+	var ennemy_defined = false;
+	var random_ennemy;
+
+	var attack_defined = true;
+	var random_attack = 1;
+	
+	var disappear_attack = true;
+
 	var al = $('.ally .status .life');
 	var el = $('.ennemy .status .life');
 	var ap = $('.ally .status .pp');
@@ -121,7 +132,13 @@ $(document).ready(function() {
 					}
 					
 				} else {
-					alert('Pseudo déjà pris ou bug.');
+
+					if(what_form === 'signIn') {
+						alert('Vous avez tapé un mauvais pseudo et/ou un mauvais mot de passe.');
+					} else {
+						alert('Ce pseudo est déjà pris, essayez-en un autre.');
+					}
+					
 				}
 			});
 
@@ -229,8 +246,10 @@ $(document).ready(function() {
 	$(document).on('click', '.choose_perso li img.unlocked', function() {
 
 		var id_chosen = $(this).parent().attr('data-id');
-		var random_ennemy = rand(0,_this.all_persos.length -1);
-		//var random_ennemy = 18;
+
+		if(ennemy_defined === false) {
+			random_ennemy = rand(0,_this.all_persos.length -1);
+		}
 
 		_this.all_persos[id_chosen].side = 'ally';
 		_this.all_persos[random_ennemy].side = 'ennemy';
@@ -252,8 +271,16 @@ $(document).ready(function() {
 		$('.ally').find('.picture img').attr('src', 'img/persos/'+ally.img_back);
 		$('.ennemy').find('.picture img').attr('src', 'img/persos/'+ennemy.img_front);
 
-		$('.ally .status .name').text(ally.name);
-		$('.ennemy .status .name').text(ennemy.name);
+		// ECRITURE DU NOM DU PERSONNAGE
+		
+		var exp_width = Math.round(ally.xp / ally.level)*10;
+
+		$('.ally .status .name').html(ally.name+' '+'<em class="level">Lv '+ally.level+'</em><i class="exp" style="width:'+(exp_width*2)+'px">'+exp_width+'%</i>');
+
+
+		ennemy.level = rand(ally.level-3, ally.level+3);
+
+		$('.ennemy .status .name').html(ennemy.name+' '+'<em class="level">Lv '+ennemy.level+'</em>');
 
 		$('.choose .button_attack1').html('<span>'+ally.attack_1.requis+' PP</span>'+'<em>'+ally.attack_1.name+'<em>');
 		$('.choose .button_attack2').html('<span>'+ally.attack_2.requis+' PP</span>'+'<em>'+ally.attack_2.name+'<em>');
@@ -355,6 +382,7 @@ $(document).ready(function() {
 	// Au clic sur Manga Ball
 
 	$('.manga_ball').on('click', function() {
+		$('.choose .button_depart').parent().hide();
 		mangaBall();
 	});
  
@@ -390,6 +418,7 @@ $(document).ready(function() {
 
 		} else {
 			alert('Vous avez trop de vie pour utiliser cette potion !');
+			$('.choose .button_tools').parent().show();
 		}
 	}
 
@@ -403,6 +432,7 @@ $(document).ready(function() {
 
 		} else {
 			alert('Vous avez trop de PP pour utiliser cette potion !');
+			$('.choose .button_tools').parent().show();
 		}
 	}
 
@@ -418,6 +448,7 @@ $(document).ready(function() {
 
 		} else {
 			alert('Vous avez trop de vie ou de PP pour utiliser cette potion !');
+			$('.choose .button_tools').parent().show();
 		}
 	}
 
@@ -433,6 +464,7 @@ $(document).ready(function() {
 
 		} else {
 			alert('Vous n\'avez pas assez de PP pour utiliser cette potion !');
+			$('.choose .button_tools').parent().show();
 		}
 	}
 
@@ -462,6 +494,7 @@ $(document).ready(function() {
 			if(ennemy_id == 26 || ennemy_id == 25 || ennemy_id == 12 || ennemy_id == 29 || ennemy_id == 47 || ennemy_id == 54) {
 
 				alert('Vous ne pouvez pas obtenir ce personnage de cette façon !');
+				$('.choose .button_depart').parent().show();
 			
 			} else {
 				
@@ -491,7 +524,7 @@ $(document).ready(function() {
 
 					if(ennemy_life != 100) {
 
-						catched = rand(1, Math.floor((ennemy_life/10)));
+						catched = rand(1, Math.round((ennemy_life/10)));
 
 						if(ennemy_life > 75) {
 							catched = rand(1,20);
@@ -523,6 +556,7 @@ $(document).ready(function() {
 
 		} else {
 			alert('Ce personnage est déjà disponible, vous ne pouvez pas l\'attraper !');
+			$('.choose .button_depart').parent().show();
 		}
 	}
 
@@ -538,7 +572,16 @@ $(document).ready(function() {
 
 	// Fonction pour générer un nombre aléatoire
 	function rand(min, max) {
-		return Math.floor(Math.random() * (max - min + 1)) + min;
+		var the_random = Math.floor(Math.random() * (max - min + 1)) + min;
+		
+		// Pour gérer le niveau adverse qui ne peut pas être inférieur à 0 ni supérieur à 30
+		if(the_random <= 0) {
+			the_random = 1;
+		} else if(the_random > 30) {
+			the_random = 30;
+		}
+
+		return the_random;
 	}
 
 
@@ -615,9 +658,16 @@ $(document).ready(function() {
 			setTimeout(function() {
 
 				if(arcade < 5) {
-					newFight();
+
+					updateLevel('win', function() {
+						newFight();
+					});
+					
 				} else {
-					endArcade();
+					updateLevel('arcade', function() {
+						endArcade();
+					});
+					
 				}
 
 			}, 2000);
@@ -638,6 +688,63 @@ $(document).ready(function() {
 			chat('Vous pouvez rejouer une arcade et sélectionnez si vous le voulez votre nouveau personnage !');
 			chat('<button class="play_again">Rejouer</button>');
 		}
+	}
+
+	// Fonction pour vérifier et augmenter si besoin le niveau du perso
+	function updateLevel(what, callback) {
+
+		var current_level = ally.level;
+		var current_xp = ally.xp;
+		var exp;
+
+		var data = {};
+
+		if(what === 'win') {
+
+			exp = 10;
+
+			current_xp = current_xp + exp;
+
+			if((current_level * exp) === current_xp) { // Si 2 * 10 = 20
+
+				current_level = current_level + 1; // On augmente le niveau
+				current_xp = 0;
+
+			}
+
+		} else if(what === 'arcade') {
+			
+			exp = 0;
+
+			for (var i = 0; i < 5; i++) {
+
+				exp = 10;
+
+				current_xp = current_xp + exp;
+
+				if((current_level * exp) === current_xp) { // Si 2 * 10 = 20
+
+					current_level = current_level + 1; // On augmente le niveau
+					current_xp = 0;
+				}
+			}
+		}
+
+		ally.level = current_level;
+		ally.xp = current_xp;
+		data.perso = ally;
+
+		makeAjax('POST', 'battle/updateLevelExp', data, function() {
+			console.log('updateExp', _this.response);
+		});
+
+		var exp_width = Math.round(ally.xp / ally.level)*10;
+
+		$('.ally .status .name').html(ally.name+' '+'<em class="level">Lv '+ally.level+'</em><i class="exp" style="width:'+(exp_width*2)+'px">'+exp_width+'%</i>');
+
+		chat('Vous avez êtes désormais niveau '+ally.level);
+
+		callback();
 	}
 
 	// Fonction pour enregistrer les données du combat en BDD
@@ -698,7 +805,7 @@ $(document).ready(function() {
 
 		arcade = 0;
 	}
-
+ 
 	// Fonction utilisée pour démarrer un nouveau combat (après une victoire de l'utilisateur)
 	function newFight() {
 
@@ -708,7 +815,9 @@ $(document).ready(function() {
 		$('.status span').width(300);
 		$('.status strong').text('100');
 
-		var random_ennemy = rand(0,_this.all_persos.length -1);
+		if(ennemy_defined === false) {
+			random_ennemy = rand(0,_this.all_persos.length -1);
+		}
 
 		_this.all_persos[random_ennemy].side = 'ennemy';
 
@@ -725,7 +834,9 @@ $(document).ready(function() {
 			}
 		}
 
-		$('.ennemy .status .name').text(ennemy.name);
+		ennemy.level = rand(ally.level-3, ally.level+3);
+
+		$('.ennemy .status .name').html(ennemy.name+' '+'<em class="level">Lv '+ennemy.level+'</em>');
 		$('.ennemy').find('img').attr('src', 'img/persos/'+ennemy.img_front);
 
 		if(ennemy.vit >= ally.vit) {
@@ -764,6 +875,7 @@ $(document).ready(function() {
 	// Fonction pour calculer les dégâts en fonction des caractéristiques de chaque personnage
 	function calculForce(power, type, who) {
 
+		// SI L'ATTAQUE EST PHYSIQUE
 		if(type === 'physic') {
 
 			if(who === 'ally') {
@@ -781,6 +893,7 @@ $(document).ready(function() {
 				}
 			}
 
+		// SI L'ATTAQUE EST MAGIQUE
 		} else if(type === 'special') {
 
 			if(who === 'ally') {
@@ -799,6 +912,23 @@ $(document).ready(function() {
 			}
 		}
 
+		//GESTION DES NIVEAUX
+
+		if(who === 'ally') {
+			if(ally.level > ennemy.level) {
+				power = power + (2*(ally.level - ennemy.level));
+			} else {
+				power = power - (2*(ally.level - ennemy.level));
+			}
+
+		} else if(who === 'ennemy') {
+			if(ally.level > ennemy.level) {
+				power = power - (2*(ally.level - ennemy.level));
+			} else {
+				power = power + (2*(ally.level - ennemy.level));
+			}
+		}
+
 		return power;
 	}
 
@@ -811,10 +941,12 @@ $(document).ready(function() {
 
 		setTimeout(function() {
 
-			var random = rand(1,4);
+			if(attack_defined === false) {
+				random_attack = rand(1,4);
+			}
 			var ennemy_attack;
 
-			switch(random) {
+			switch(random_attack) {
 				case 1:
 					ennemy_attack = ennemy.attack_1;
 				break;
@@ -1021,8 +1153,11 @@ $(document).ready(function() {
 
 			setTimeout(function() {
 
-				$('.'+who_receive+' .anim').hide();
-				$('.'+who_receive+' .anim div').remove();
+				if(disappear_attack === true) {
+					$('.'+who_receive+' .anim').hide();
+					$('.'+who_receive+' .anim div').remove();
+				}
+				
 				$('html, body').css('overflow', 'auto');
 				$('.'+who_receive+'').addClass('injured');
 
