@@ -890,7 +890,8 @@ $(document).ready(function() {
 					});
 					
 				} else {
-					alert('not enough pp');
+					alert('Pas assez de PP pour cette attaque.');
+					$('.choose .button_attack').parent().show();
 				}
 
 				attack_ended = 1;
