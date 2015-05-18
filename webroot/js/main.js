@@ -21,10 +21,12 @@ $(document).ready(function() {
 	var ennemy_defined = false;
 	var random_ennemy;
 
-	var attack_defined = true;
-	var random_attack = 1;
+	var attack_defined = false;
+	var random_attack;
 	
 	var disappear_attack = true;
+
+	var master_ball = false;
 
 	var al = $('.ally .status .life');
 	var el = $('.ennemy .status .life');
@@ -475,15 +477,10 @@ $(document).ready(function() {
 		var is_unlocked = false;
 		var ennemy_id;
 
-		for (var c = 0; c < _this.all_persos.length; c++) {
-			if(_this.all_persos[c].name == ennemy_name) {
+		ennemy_id = ennemy.id;
 
-				ennemy_id = _this.all_persos[c].id;
-
-				if(_this.all_persos[c].unlocked == 1) {
-					is_unlocked = true;
-				}
-			}
+		if(ennemy.unlocked == 1) {
+			is_unlocked = true;
 		}
 
 		if(!is_unlocked) {
@@ -538,6 +535,10 @@ $(document).ready(function() {
 					}
 
 					console.log(catched);
+
+					if(master_ball) {
+						catched = 3;
+					}
 
 					if(catched === 3) {
 						chat('Félicitations ! Vous avez attrapé '+ennemy_name);
