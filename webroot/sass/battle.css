@@ -1,0 +1,2436 @@
+/* line 1, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.scene {
+  width: 700px;
+  height: 500px;
+  border: solid 1px black;
+  position: relative;
+  margin-top: 20px;
+  display: inline-block;
+  box-sizing: border-box;
+  vertical-align: top;
+}
+
+/* line 12, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.perso {
+  background-color: red;
+  width: 15px;
+  height: 20px;
+}
+/* line 17, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.perso div {
+  background-image: url("../img/sprite.png");
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  width: 14px;
+  height: 13px;
+}
+
+/* line 26, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.battle {
+  position: relative;
+  padding: 10px;
+}
+/* line 30, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.battle.battle_monochrome {
+  animation-name: monochrome;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes monochrome {
+  /* line 39, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  15% {
+    filter: grayscale(0%);
+  }
+
+  /* line 42, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  70% {
+    filter: grayscale(100%);
+  }
+
+  /* line 45, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    filter: grayscale(0%);
+  }
+}
+
+/* line 50, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.chat {
+  display: inline-block;
+  vertical-align: top;
+}
+
+/* line 55, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally {
+  height: 250px;
+  width: 700px;
+  bottom: 0;
+  left: 0;
+  position: relative;
+}
+
+/* line 65, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.pseudo span {
+  font-size: 16px;
+  margin-left: 15px;
+}
+
+/* line 71, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.picture, .infos_battle {
+  display: inline-block;
+  width: 340px;
+  vertical-align: top;
+}
+
+/* line 77, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy.injured img, .ally.injured img {
+  animation-name: injured;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-in-out;
+}
+
+/* line 85, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .picture {
+  margin-bottom: 100px;
+}
+/* line 88, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .picture img {
+  float: left;
+}
+/* line 92, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim {
+  position: absolute;
+  right: 110px;
+  top: 56px;
+  z-index: 2;
+}
+
+/* line 100, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy {
+  height: 200px;
+  width: 700px;
+  top: 0;
+  left: 0;
+  position: relative;
+}
+/* line 107, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .picture {
+  float: right;
+  position: relative;
+}
+/* line 111, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .picture img {
+  position: absolute;
+  right: 20px;
+}
+/* line 117, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim {
+  position: absolute;
+  right: 110px;
+  top: 56px;
+  z-index: 2;
+}
+
+/* line 125, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.choose {
+  padding: 0;
+  margin: 0;
+}
+/* line 129, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.choose li {
+  list-style: none;
+  display: inline-block;
+  width: 170px;
+  margin: 0;
+  vertical-align: top;
+}
+/* line 136, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.choose li button {
+  width: 170px;
+  margin: 0;
+  padding: 4px;
+  height: 70px;
+  border: solid 1px black;
+  box-sizing: border-box;
+}
+/* line 144, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.choose li button span {
+  font-size: 10px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+/* line 151, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.choose li button em {
+  font-style: normal;
+}
+
+/* line 160, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.choose_perso li {
+  list-style: none;
+  display: inline-block;
+  position: relative;
+}
+/* line 165, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.choose_perso li img {
+  max-width: 100px;
+  border: solid 1px black;
+  margin: 10px;
+  filter: grayscale(100%);
+}
+/* line 171, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.choose_perso li img.unlocked {
+  cursor: pointer;
+  filter: grayscale(0%);
+}
+/* line 177, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.choose_perso li .sub {
+  display: none;
+  position: absolute;
+  background: black;
+  color: white;
+  z-index: 2;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 6px;
+  top: 0px;
+  height: 103px;
+}
+/* line 192, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.choose_perso li:hover .sub {
+  display: block;
+}
+
+/* line 201, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.status div {
+  margin-top: 10px;
+}
+/* line 204, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.status b {
+  width: 30px;
+  display: inline-block;
+  vertical-align: top;
+}
+/* line 209, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.status span {
+  display: inline-block;
+  vertical-align: top;
+  background-color: blue;
+  width: 300px;
+  color: white;
+}
+/* line 218, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.status .pp span {
+  transition: 0.6s;
+}
+/* line 223, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.status .exp {
+  margin-left: 15px;
+  background: red;
+  font-size: 11px;
+  display: inline-block;
+  color: white;
+  text-align: center;
+  position: relative;
+}
+/* line 232, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.status .exp:after {
+  content: "";
+  width: 200px;
+  height: 3px;
+  background: black;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+/********************/
+/*	  ANIMATIONS	*/
+/********************/
+/*
+*	PUNCH ////// PUNCH 2 /////// PHYSIC
+*/
+/* line 258, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_punch, .anim_punch2, .anim_physic, .anim_punch_yellow {
+  width: 80px;
+  height: 87px;
+  position: absolute;
+  background-repeat: no-repeat;
+  animation-name: punch;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+}
+
+/* line 268, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_punch {
+  background-image: url("../img/anim/punch.png");
+}
+
+/* line 272, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_punch2 {
+  background-image: url("../img/anim/punch2.png");
+}
+
+/* line 276, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_punch_yellow {
+  background-image: url("../img/anim/punch_yellow.png");
+}
+
+/* line 280, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_physic {
+  background-image: url("../img/anim/physic.png");
+}
+
+/* line 284, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_punch, .ally .anim_punch2, .ally .anim_physic, .ally .anim_punch_yellow {
+  left: -540px;
+}
+
+/* line 287, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_punch, .ennemy .anim_punch2, .ennemy .anim_physic, .ennemy .anim_punch_yellow {
+  left: -70px;
+}
+
+@keyframes punch {
+  /* line 292, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    opacity: 0;
+  }
+
+  /* line 295, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    opacity: 1;
+  }
+}
+
+/*
+*	DOUBLE PUNCH ////// MAGNUM /////// EYE
+*/
+/* line 305, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_punch_double, .anim_magnum {
+  width: 169px;
+  height: 87px;
+  position: absolute;
+  background-repeat: no-repeat;
+  animation-name: punch;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+}
+
+/* line 315, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_punch_double {
+  background-image: url("../img/anim/punch_double.png");
+}
+
+/* line 319, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_magnum {
+  background-image: url("../img/anim/magnum.png");
+}
+
+/* line 323, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_eye {
+  position: relative;
+  border: solid 7px black;
+  width: 35px;
+  height: 35px;
+  border-radius: 100%;
+  box-sizing: content-box;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  background-color: #990000;
+  box-shadow: 4px 0px 12px 0px black inset;
+}
+/* line 335, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_eye:before {
+  position: absolute;
+  content: "";
+  background-color: wheat;
+  border: solid 8px black;
+  z-index: -1;
+  width: 125px;
+  height: 125px;
+  border-radius: 100%;
+  box-sizing: content-box;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-name: punch;
+  top: -51px;
+  left: -53px;
+  box-shadow: 7px 0px 17px 3px black inset;
+}
+
+/* line 354, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_punch_double, .ally .anim_magnum {
+  left: -590px;
+}
+
+/* line 358, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_punch_double, .ennemy .anim_magnum {
+  left: -120px;
+}
+
+/* line 362, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_punch_double, .ally .anim_magnum, .ally .anim_eye {
+  left: -540px;
+}
+
+/* line 366, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_punch_double, .ennemy .anim_magnum, .ennemy .anim_eye {
+  left: -70px;
+}
+
+/*
+*	CUT
+*/
+/* line 376, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_cut {
+  width: 4px;
+  max-width: 4px;
+  height: 0;
+  background-color: black;
+  position: absolute;
+  left: 62px;
+  top: -47px;
+  transform: rotate(41deg);
+  animation-name: cut;
+  animation-duration: 1s;
+  transform-origin: 0% 0%;
+}
+
+/* line 390, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_cut {
+  left: -428px;
+}
+
+/* line 393, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_cut {
+  left: 42px;
+}
+
+@keyframes cut {
+  /* line 398, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    height: 1px;
+  }
+
+  /* line 401, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    height: 200px;
+  }
+}
+
+/*
+*	CUT TRIPLE
+*/
+/* line 410, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_cut_triple {
+  width: 4px;
+  height: 0;
+  background-color: black;
+  position: absolute;
+  left: 30px;
+  top: -20px;
+  transform: rotate(41deg);
+  animation-name: cut_triple;
+  animation-duration: 1s;
+  transform-origin: 0% 0%;
+  height: 120px;
+}
+/* line 423, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_cut_triple:before, .anim_cut_triple:after {
+  content: "";
+  width: 4px;
+  height: 0;
+  background-color: black;
+  position: absolute;
+  display: block;
+  animation-name: cut_triple;
+  animation-duration: 1s;
+  transform-origin: 0% 0%;
+}
+/* line 435, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_cut_triple:before {
+  left: -30px;
+  top: 25px;
+}
+/* line 440, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_cut_triple:after {
+  left: 30px;
+  top: -25px;
+}
+
+/* line 446, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_cut_triple {
+  left: -428px;
+}
+
+/* line 449, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_cut_triple {
+  left: 42px;
+}
+
+@keyframes cut_triple {
+  /* line 454, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    height: 1px;
+  }
+
+  /* line 457, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    height: 120px;
+  }
+}
+
+/*
+*	CUT ASCENDANT
+*/
+/* line 466, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_cut_bas {
+  width: 4px;
+  max-width: 4px;
+  height: 0;
+  background-color: black;
+  position: absolute;
+  transform: rotate(41deg);
+  animation-name: cut_bas;
+  animation-duration: 1s;
+}
+
+/* line 477, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_cut_bas {
+  animation-name: receive_cut_bas;
+}
+
+/* line 480, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_cut_bas {
+  animation-name: cut_bas;
+}
+
+@keyframes cut_bas {
+  /* line 485, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    left: -105px;
+    top: 103px;
+    height: 1px;
+  }
+
+  /* line 490, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    left: -40px;
+    top: -72px;
+    height: 200px;
+  }
+}
+
+@keyframes receive_cut_bas {
+  /* line 498, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    left: -575px;
+    top: 103px;
+    height: 1px;
+  }
+
+  /* line 503, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    left: -510px;
+    top: -72px;
+    height: 200px;
+  }
+}
+
+/*
+*	GATLING
+*/
+/* line 514, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_gatling {
+  width: 80px;
+  height: 87px;
+  position: absolute;
+  background-image: url("../img/anim/punch.png");
+  background-repeat: no-repeat;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+}
+
+/* line 524, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_gatling {
+  animation-name: receive_gatling;
+}
+
+/* line 527, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_gatling {
+  animation-name: gatling;
+}
+
+@keyframes gatling {
+  /* line 532, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    opacity: 1;
+    left: -70px;
+    top: -20px;
+  }
+
+  /* line 537, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  5% {
+    opacity: 0;
+  }
+
+  /* line 540, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  10% {
+    opacity: 1;
+    left: -20px;
+    top: 30px;
+  }
+
+  /* line 545, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  15% {
+    opacity: 0;
+  }
+
+  /* line 548, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  20% {
+    opacity: 1;
+    left: 30px;
+    top: 80px;
+  }
+
+  /* line 553, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  25% {
+    opacity: 0;
+  }
+
+  /* line 556, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  30% {
+    opacity: 1;
+    left: 80px;
+    top: 30px;
+  }
+
+  /* line 561, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  35% {
+    opacity: 0;
+  }
+
+  /* line 564, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  40% {
+    opacity: 1;
+    left: 30px;
+    top: -20px;
+  }
+
+  /* line 569, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  45% {
+    opacity: 0;
+  }
+
+  /* line 572, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  50% {
+    opacity: 1;
+    left: -20px;
+    top: -70px;
+  }
+
+  /* line 577, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  55% {
+    opacity: 0;
+  }
+
+  /* line 580, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  60% {
+    opacity: 1;
+    left: -70px;
+    top: -120px;
+  }
+
+  /* line 585, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  65% {
+    opacity: 0;
+  }
+
+  /* line 588, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  70% {
+    opacity: 1;
+    left: -120px;
+    top: -70px;
+  }
+
+  /* line 593, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  75% {
+    opacity: 0;
+  }
+
+  /* line 596, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  80% {
+    opacity: 1;
+    left: -70px;
+    top: -20px;
+  }
+
+  /* line 601, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  85% {
+    opacity: 0;
+  }
+
+  /* line 604, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  90% {
+    opacity: 1;
+    left: -20px;
+    top: 30px;
+  }
+
+  /* line 609, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  95% {
+    opacity: 0;
+  }
+
+  /* line 612, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    opacity: 1;
+    left: -70px;
+    top: -20px;
+  }
+}
+
+@keyframes receive_gatling {
+  /* line 620, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    opacity: 1;
+    left: -540px;
+    top: -20px;
+  }
+
+  /* line 625, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  5% {
+    opacity: 0;
+  }
+
+  /* line 628, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  10% {
+    opacity: 1;
+    left: -590px;
+    top: -70px;
+  }
+
+  /* line 633, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  15% {
+    opacity: 0;
+  }
+
+  /* line 636, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  20% {
+    opacity: 1;
+    left: -640px;
+    top: -120px;
+  }
+
+  /* line 641, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  25% {
+    opacity: 0;
+  }
+
+  /* line 644, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  30% {
+    opacity: 1;
+    left: -690px;
+    top: -70px;
+  }
+
+  /* line 649, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  35% {
+    opacity: 0;
+  }
+
+  /* line 652, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  40% {
+    opacity: 1;
+    left: -640px;
+    top: -20px;
+  }
+
+  /* line 657, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  45% {
+    opacity: 0;
+  }
+
+  /* line 660, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  50% {
+    opacity: 1;
+    left: -590px;
+    top: 30px;
+  }
+
+  /* line 665, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  55% {
+    opacity: 0;
+  }
+
+  /* line 668, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  60% {
+    opacity: 1;
+    left: -540px;
+    top: 80px;
+  }
+
+  /* line 673, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  65% {
+    opacity: 0;
+  }
+
+  /* line 676, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  70% {
+    opacity: 1;
+    left: -490px;
+    top: 30px;
+  }
+
+  /* line 681, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  75% {
+    opacity: 0;
+  }
+
+  /* line 684, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  80% {
+    opacity: 1;
+    left: -540px;
+    top: -20px;
+  }
+
+  /* line 689, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  85% {
+    opacity: 0;
+  }
+
+  /* line 692, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  90% {
+    opacity: 1;
+    left: -590px;
+    top: -70px;
+  }
+
+  /* line 697, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  95% {
+    opacity: 0;
+  }
+
+  /* line 700, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    opacity: 1;
+    left: -540px;
+    top: -20px;
+  }
+}
+
+/*
+*	BUBBLE
+*/
+/* line 711, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_bubble {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  position: absolute;
+  background: radial-gradient(circle at bottom, #81e8f6, #76deef 10%, #055194 80%, #062745 100%);
+  opacity: 0.8;
+  animation-duration: 1.7s;
+  animation-timing-function: ease-in-out;
+}
+/* line 722, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_bubble:before {
+  content: "";
+  position: absolute;
+  top: 1%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  border-radius: 100%;
+  background: radial-gradient(circle at top, #ffffff, rgba(255, 255, 255, 0) 58%);
+  filter: blur(5px);
+  z-index: 2;
+}
+/* line 735, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_bubble:after {
+  content: "";
+  position: absolute;
+  display: none;
+  top: 5%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  border-radius: 100%;
+  filter: blur(1px);
+  z-index: 2;
+  transform: rotateZ(-30deg);
+}
+
+/* line 750, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_bubble {
+  animation-name: receive_bubble;
+}
+
+/* line 753, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_bubble {
+  animation-name: bubble;
+}
+
+@keyframes bubble {
+  /* line 759, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    height: 50px;
+    width: 50px;
+    top: 210px;
+    left: -420px;
+    transform: scale(1);
+  }
+
+  /* line 767, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  20% {
+    transform: scaleY(0.8) scaleX(1.2);
+  }
+
+  /* line 771, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  48% {
+    transform: scaleY(1.1) scaleX(0.9);
+  }
+
+  /* line 775, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  68% {
+    transform: scaleY(0.98) scaleX(1.02);
+  }
+
+  /* line 779, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  80% {
+    transform: scaleY(1.2) scaleX(0.8);
+  }
+
+  /* line 783, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  97%, 100% {
+    transform: scale(1);
+  }
+
+  /* line 787, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    width: 150px;
+    height: 150px;
+    top: -25px;
+    left: -74px;
+  }
+}
+
+@keyframes receive_bubble {
+  /* line 797, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    height: 50px;
+    width: 50px;
+    top: -250px;
+    left: -190px;
+    transform: scale(1);
+  }
+
+  /* line 805, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  20% {
+    transform: scaleY(0.8) scaleX(1.2);
+  }
+
+  /* line 809, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  48% {
+    transform: scaleY(1.1) scaleX(0.9);
+  }
+
+  /* line 813, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  68% {
+    transform: scaleY(0.98) scaleX(1.02);
+  }
+
+  /* line 817, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  80% {
+    transform: scaleY(1.2) scaleX(0.8);
+  }
+
+  /* line 821, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  97%, 100% {
+    transform: scale(1);
+  }
+
+  /* line 825, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    width: 150px;
+    height: 150px;
+    top: -15px;
+    left: -536px;
+  }
+}
+
+/*
+*	WINGS
+*/
+/* line 837, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_wings {
+  position: absolute;
+  animation-duration: 1.5s;
+  animation-timing-function: linear;
+  animation-name: punch;
+}
+/* line 843, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_wings:before, .anim_wings:after {
+  content: "";
+  position: absolute;
+  background-image: url("../img/anim/wing.png");
+  background-repeat: no-repeat;
+  width: 160px;
+  height: 80px;
+  top: 0;
+  left: 0;
+}
+/* line 854, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_wings:after {
+  transform: scaleX(-1);
+  filter: FlipH;
+  left: 200px;
+}
+
+/* line 861, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_wings {
+  animation-name: receive_punch;
+  top: -250px;
+  left: -170px;
+}
+
+/* line 866, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_wings {
+  animation-name: punch;
+  top: 210px;
+  left: -640px;
+}
+
+/*
+*	TORNADE
+*/
+/* line 876, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_tornade, .anim_tornade_rouge {
+  position: absolute;
+  animation-duration: 1.5s;
+  animation-timing-function: linear;
+  animation-name: tornade;
+}
+/* line 882, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_tornade:before, .anim_tornade_rouge:before {
+  position: absolute;
+  content: "Ceci est une tornade";
+}
+
+/* line 888, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_tornade_rouge {
+  color: red;
+}
+
+/* line 892, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_tornade, .ally .anim_tornade_rouge {
+  animation-name: receive_tornade;
+}
+
+/* line 895, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_tornade, .ennemy .anim_tornade_rouge {
+  animation-name: tornade;
+}
+
+@keyframes tornade {
+  /* line 900, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    top: 210px;
+    left: -420px;
+  }
+
+  /* line 905, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    transform: rotate(3000deg);
+    top: -25px;
+    left: -74px;
+  }
+}
+
+@keyframes receive_tornade {
+  /* line 913, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    top: -250px;
+    left: -190px;
+  }
+
+  /* line 918, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    transform: rotate(3000deg);
+    top: -15px;
+    left: -536px;
+  }
+}
+
+/*
+*	LEAF //////// LEAF 2
+*/
+/* line 929, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_leaf, .anim_leaf2 {
+  display: inline-block;
+  margin: 0;
+  border-radius: 50%;
+  position: absolute;
+  background: url("../img/anim/ballon.png") repeat-x;
+  background-size: auto 100%;
+  animation-duration: 1.7s;
+  animation-timing-function: ease-in-out;
+  width: 100px;
+  height: 100px;
+}
+
+/* line 942, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_leaf {
+  animation-name: receive_leaf;
+}
+
+/* line 945, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_leaf {
+  animation-name: leaf;
+}
+
+/* line 949, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_leaf2 {
+  animation-name: receive_leaftwo;
+}
+
+/* line 952, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_leaf2 {
+  animation-name: leaftwo;
+}
+
+@keyframes leaf {
+  /* line 957, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    top: 210px;
+    left: -420px;
+  }
+
+  /* line 962, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  70% {
+    top: -125px;
+    left: -174px;
+  }
+
+  /* line 967, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    transform: rotate(2600deg);
+    top: -25px;
+    left: -74px;
+  }
+}
+
+@keyframes receive_leaf {
+  /* line 975, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    top: 210px;
+    left: -190px;
+  }
+
+  /* line 980, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  70% {
+    top: 85px;
+    left: -436px;
+  }
+
+  /* line 985, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    transform: rotate(2600deg);
+    top: -25px;
+    left: -536px;
+  }
+}
+
+@keyframes leaftwo {
+  /* line 993, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    top: 210px;
+    left: -420px;
+  }
+
+  /* line 998, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  70% {
+    top: -125px;
+    left: -874px;
+  }
+
+  /* line 1003, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    transform: rotate(2600deg);
+    top: -25px;
+    left: -74px;
+  }
+}
+
+@keyframes receive_leaftwo {
+  /* line 1011, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    top: -250px;
+    left: -190px;
+  }
+
+  /* line 1016, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  70% {
+    top: 85px;
+    left: 734px;
+  }
+
+  /* line 1021, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    transform: rotate(2600deg);
+    top: -15px;
+    left: -536px;
+  }
+}
+
+/*
+*	RASENGAN //////// SKY SHOOT
+*/
+/* line 1033, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_rasengan, .anim_sky_shoot {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border-radius: 50%;
+  position: absolute;
+  background-size: auto 100%;
+  animation-duration: 1.7s;
+  animation-timing-function: ease-in-out;
+  width: 100px;
+  height: 100px;
+  background-repeat: repeat-x;
+}
+
+/* line 1048, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_rasengan {
+  background-image: url("../img/anim/rasengan.png");
+}
+
+/* line 1051, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_sky_shoot {
+  background-image: url("../img/anim/sky_shoot.png");
+}
+
+/* line 1055, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_rasengan, .ally .anim_sky_shoot {
+  animation-name: receive_rasengan;
+}
+
+/* line 1058, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_rasengan, .ennemy .anim_sky_shoot {
+  animation-name: rasengan;
+}
+
+@keyframes rasengan {
+  /* line 1063, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    top: 210px;
+    left: -420px;
+  }
+
+  /* line 1068, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    transform: rotate(2600deg);
+    top: -25px;
+    left: -74px;
+  }
+}
+
+@keyframes receive_rasengan {
+  /* line 1076, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    top: -250px;
+    left: -190px;
+  }
+
+  /* line 1081, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    transform: rotate(2600deg);
+    top: -15px;
+    left: -536px;
+  }
+}
+
+/*
+*	RASENGAN PLANETAIRE
+*/
+/* line 1092, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_planetaire {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border-radius: 50%;
+  position: absolute;
+  background: url("../img/anim/rasengan.png") repeat-x;
+  background-size: auto 100%;
+  animation-duration: 1.3s;
+  animation-timing-function: ease-in-out;
+  width: 70px;
+  height: 70px;
+}
+/* line 1106, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_planetaire:before, .anim_planetaire:after {
+  content: "";
+  width: 25px;
+  height: 25px;
+  display: block;
+  position: absolute;
+  border-radius: 50%;
+  background: url("../img/anim/rasengan.png") repeat-x;
+  background-size: auto 100%;
+  top: 23px;
+}
+/* line 1118, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_planetaire:before {
+  animation-duration: 1.3s;
+  animation-timing-function: ease-in-out;
+  animation-name: before_planetaire;
+}
+/* line 1124, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_planetaire:after {
+  animation-duration: 1.3s;
+  animation-timing-function: ease-in-out;
+  animation-name: after_planetaire;
+}
+
+/* line 1131, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_planetaire {
+  animation-name: receive_planetaire;
+}
+
+/* line 1134, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_planetaire {
+  animation-name: planetaire;
+}
+
+@keyframes before_planetaire {
+  /* line 1139, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    opacity: 1;
+    left: -27px;
+  }
+
+  /* line 1144, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  60% {
+    left: -27px;
+  }
+
+  /* line 1148, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  75% {
+    opacity: 1;
+  }
+
+  /* line 1152, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    left: 27px;
+    opacity: 0;
+  }
+}
+
+@keyframes after_planetaire {
+  /* line 1159, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    opacity: 1;
+    left: 72px;
+  }
+
+  /* line 1164, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  60% {
+    left: 72px;
+  }
+
+  /* line 1168, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  75% {
+    opacity: 1;
+  }
+
+  /* line 1172, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    left: 27px;
+    opacity: 0;
+  }
+}
+
+@keyframes planetaire {
+  /* line 1179, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    top: 210px;
+    left: -420px;
+  }
+
+  /* line 1184, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    transform: rotate(1000deg);
+    top: -25px;
+    left: -74px;
+  }
+}
+
+@keyframes receive_planetaire {
+  /* line 1192, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    top: -250px;
+    left: -190px;
+  }
+
+  /* line 1197, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    transform: rotate(1000deg);
+    top: -15px;
+    left: -536px;
+  }
+}
+
+/*
+*	GENKIDAMA //////// FIREBALL //////// BLACK BALL ///////// PURPLE BALL ///////// CANON
+*/
+/* line 1209, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_genkidama, .anim_fireball, .anim_blackball, .anim_purpleball, .anim_canon, .anim_gauntlet {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  position: absolute;
+  animation-duration: 1.3s;
+  animation-timing-function: ease-in-out;
+}
+
+/* line 1219, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_genkidama {
+  border-radius: 50%;
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #fff9f9), color-stop(60%, #7db9e8), color-stop(100%, white));
+  background: -webkit-radial-gradient(center, ellipse cover, #fff9f9 0%, #7db9e8 60%, white 100%);
+}
+
+/* line 1225, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_fireball {
+  border-radius: 50%;
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #f85032), color-stop(50%, #f16f5c), color-stop(51%, #f6290c), color-stop(71%, #f02f17), color-stop(100%, #e73827));
+  background: -webkit-radial-gradient(center, ellipse cover, #f85032 0%, #f16f5c 50%, #f6290c 51%, #f02f17 71%, #e73827 100%);
+}
+
+/* line 1231, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_blackball {
+  border-radius: 50%;
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #959595), color-stop(46%, #0d0d0d), color-stop(50%, #010101), color-stop(53%, #0a0a0a), color-stop(76%, #4e4e4e), color-stop(87%, #383838), color-stop(100%, #1b1b1b));
+  background: -webkit-radial-gradient(center, ellipse cover, #959595 0%, #0d0d0d 46%, #010101 50%, #0a0a0a 53%, #4e4e4e 76%, #383838 87%, #1b1b1b 100%);
+}
+
+/* line 1237, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_purpleball {
+  border-radius: 50%;
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #cb60b3), color-stop(50%, #c146a1), color-stop(51%, #a80077), color-stop(100%, #db36a4));
+  background: -webkit-radial-gradient(center, ellipse cover, #cb60b3 0%, #c146a1 50%, #a80077 51%, #db36a4 100%);
+}
+
+/* line 1243, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_canon {
+  background-size: auto 100%;
+  width: 100px;
+  height: 100px;
+  background: url("../img/anim/canon.png") repeat-x;
+}
+
+/* line 1250, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_gauntlet {
+  width: 105px;
+  height: 99px;
+  background: url("../img/anim/gauntlet.png") repeat-x;
+}
+
+/* line 1257, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_genkidama, .ally .anim_fireball, .ally .anim_blackball, .ally .anim_purpleball {
+  animation-name: receive_genkidama;
+}
+
+/* line 1263, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_genkidama, .ennemy .anim_fireball, .ennemy .anim_blackball, .ennemy .anim_purpleball {
+  animation-name: genkidama;
+}
+
+@keyframes genkidama {
+  /* line 1270, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    height: 50px;
+    width: 50px;
+    top: 210px;
+    left: -420px;
+  }
+
+  /* line 1277, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    width: 150px;
+    height: 150px;
+    top: -25px;
+    left: -74px;
+  }
+}
+
+@keyframes receive_genkidama {
+  /* line 1287, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    height: 50px;
+    width: 50px;
+    top: -250px;
+    left: -190px;
+  }
+
+  /* line 1294, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    width: 150px;
+    height: 150px;
+    top: -15px;
+    left: -536px;
+  }
+}
+
+/*
+*	YIN YANG
+*/
+/* line 1307, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_yin_yang, .anim_yin_yang:before, .anim_yin_yang:after {
+  box-sizing: content-box;
+  width: 12px;
+  height: 12px;
+  border-style: solid;
+  border-radius: 100%;
+  position: absolute;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-in-out;
+  border-color: black;
+  background-color: white;
+}
+
+/* line 1320, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_yin_yang {
+  width: 96px;
+  height: 48px;
+  border-width: 2px;
+  border-bottom-width: 50px;
+  transform: rotateZ(-45deg) scaleX(1) scaleY(1) scaleZ(1);
+  transform-origin: 50% 50% 0;
+}
+/* line 1328, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_yin_yang:before, .anim_yin_yang:after {
+  content: "";
+  top: 50%;
+  border-width: 18px;
+  transform: scaleX(1) scaleY(1) scaleZ(1);
+  transform-origin: 50% 50% 0;
+  border: 18px solid black;
+  background-color: white;
+}
+/* line 1338, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_yin_yang:after {
+  left: 50%;
+  border: 18px solid white;
+  background-color: black;
+}
+
+/* line 1345, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_yin_yang, .ally .anim_canon {
+  animation-name: receive_yin_yang;
+}
+
+/* line 1348, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_yin_yang, .ennemy .anim_canon {
+  animation-name: yin_yang;
+}
+
+@keyframes yin_yang {
+  /* line 1354, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    top: 210px;
+    left: -420px;
+  }
+
+  /* line 1359, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    top: -25px;
+    left: -74px;
+  }
+}
+
+@keyframes receive_yin_yang {
+  /* line 1367, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    top: -250px;
+    left: -190px;
+  }
+
+  /* line 1372, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    top: -15px;
+    left: -536px;
+  }
+}
+
+/*
+*	MOON ////// GHOST
+*/
+/* line 1382, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_moon, .anim_ghost, .anim_moon_big {
+  animation-duration: 1.3s;
+  position: absolute;
+  animation-timing-function: ease-in-out;
+}
+
+/* line 1388, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_moon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  box-shadow: 15px 15px 0 0 black;
+}
+
+/* line 1395, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_moon_big {
+  width: 150px;
+  height: 80px;
+  border-radius: 50%;
+  box-shadow: 15px 15px 0 0 black;
+}
+
+/* line 1402, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_ghost {
+  width: 100px;
+  height: 114px;
+  background-image: url("../img/anim/ghost.png");
+  background-repeat: no-repeat;
+}
+
+/* line 1409, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_moon, .ally .anim_moon_big {
+  animation-name: receive_yin_yang;
+  transform: rotate(87deg);
+}
+
+/* line 1413, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_moon, .ennemy .anim_moon_big {
+  animation-name: yin_yang;
+  transform: rotate(-87deg);
+}
+
+/* line 1418, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_ghost, .ally .anim_gauntlet {
+  transform: scaleX(-1);
+  filter: FlipH;
+  animation-name: receive_yin_yang;
+}
+
+/* line 1424, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_gauntlet {
+  transform: rotate(-65deg) scaleX(-1);
+}
+
+/* line 1428, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_ghost, .ennemy .anim_gauntlet {
+  animation-name: yin_yang;
+}
+
+/*
+*	CHIPS
+*/
+/* line 1437, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_chips {
+  width: 100px;
+  height: 114px;
+  background-image: url("../img/anim/chips.png");
+  background-repeat: no-repeat;
+  animation-duration: 2s;
+  position: absolute;
+  animation-timing-function: ease-in-out;
+}
+
+/* line 1447, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_chips {
+  animation-name: receive_chips;
+}
+
+/* line 1450, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_chips {
+  animation-name: chips;
+}
+
+@keyframes chips {
+  /* line 1456, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    top: 210px;
+    left: -420px;
+  }
+
+  /* line 1461, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  10% {
+    transform: rotate(-30deg);
+  }
+
+  /* line 1465, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  20% {
+    transform: rotate(30deg);
+  }
+
+  /* line 1469, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  30% {
+    transform: rotate(-30deg);
+  }
+
+  /* line 1473, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  40% {
+    transform: rotate(30deg);
+    top: 210px;
+    left: -420px;
+  }
+
+  /* line 1479, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    top: -25px;
+    left: -74px;
+  }
+}
+
+@keyframes receive_chips {
+  /* line 1487, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    top: -250px;
+    left: -190px;
+  }
+
+  /* line 1492, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  10% {
+    transform: rotate(30deg);
+  }
+
+  /* line 1496, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  20% {
+    transform: rotate(-30deg);
+  }
+
+  /* line 1500, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  30% {
+    transform: rotate(30deg);
+  }
+
+  /* line 1504, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  40% {
+    transform: rotate(-30deg);
+    top: -250px;
+    left: 280px;
+  }
+
+  /* line 1510, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    top: -15px;
+    left: -536px;
+  }
+}
+
+/*
+*	KAMEHAMEHA ////// ZEBUB FINISHER
+*/
+/* line 1520, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_kamehameha, .anim_zebub {
+  width: 20px;
+  height: 2px;
+  position: absolute;
+  background-color: blue;
+  animation-duration: 1.3s;
+  animation-timing-function: linear;
+}
+/* line 1528, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_kamehameha:after, .anim_zebub:after {
+  content: '';
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background-color: blue;
+  position: absolute;
+  top: -10px;
+  left: -16px;
+}
+
+/* line 1540, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_zebub {
+  background-color: gold;
+}
+/* line 1543, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_zebub:after {
+  background-color: gold;
+}
+
+/* line 1548, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_kamehameha, .ally .anim_zebub {
+  animation-name: receive_kamehameha;
+  transform: rotate(-122deg);
+}
+
+/* line 1553, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_kamehameha, .ennemy .anim_zebub {
+  animation-name: kamehameha;
+  transform: rotate(58deg);
+}
+
+@keyframes kamehameha {
+  /* line 1559, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    height: 0px;
+    top: 255px;
+    left: -456px;
+  }
+
+  /* line 1566, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    top: -89px;
+    left: -264px;
+    height: 450px;
+  }
+}
+
+@keyframes receive_kamehameha {
+  /* line 1574, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    height: 0px;
+    top: -190px;
+    left: -154px;
+  }
+
+  /* line 1581, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    top: -300px;
+    left: -346px;
+    height: 450px;
+  }
+}
+
+/*
+*	RAYONS ASTRO-DEMONIAQUES
+*/
+/* line 1592, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_rayons {
+  width: 20px;
+  height: 2px;
+  position: absolute;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+}
+/* line 1599, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_rayons:after {
+  content: '';
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background-color: inherit;
+  position: absolute;
+  top: -10px;
+  left: -16px;
+}
+
+/* line 1611, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_rayons {
+  animation-name: receive_rayons;
+  transform: rotate(-122deg);
+}
+
+/* line 1616, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_rayons {
+  animation-name: rayons;
+  transform: rotate(58deg);
+}
+
+@keyframes rayons {
+  /* line 1622, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    height: 0px;
+    top: 255px;
+    left: -456px;
+    background-color: blue;
+  }
+
+  /* line 1629, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  30% {
+    top: -89px;
+    left: -264px;
+    height: 450px;
+    background-color: blue;
+  }
+
+  /* line 1636, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  31% {
+    height: 0px;
+    top: 255px;
+    left: -456px;
+    background-color: red;
+  }
+
+  /* line 1643, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  60% {
+    top: -89px;
+    left: -264px;
+    height: 450px;
+    background-color: red;
+  }
+
+  /* line 1650, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  61% {
+    height: 0px;
+    top: 255px;
+    left: -456px;
+    background-color: blue;
+  }
+
+  /* line 1657, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    top: -89px;
+    left: -264px;
+    height: 450px;
+    background-color: blue;
+  }
+}
+
+@keyframes receive_rayons {
+  /* line 1666, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    height: 0px;
+    top: -190px;
+    left: -154px;
+    background-color: blue;
+  }
+
+  /* line 1673, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  30% {
+    top: -300px;
+    left: -346px;
+    height: 450px;
+    background-color: blue;
+  }
+
+  /* line 1680, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  31% {
+    height: 0px;
+    top: -190px;
+    left: -154px;
+    background-color: red;
+  }
+
+  /* line 1687, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  60% {
+    top: -300px;
+    left: -346px;
+    height: 450px;
+    background-color: red;
+  }
+
+  /* line 1694, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  61% {
+    height: 0px;
+    top: -190px;
+    left: -154px;
+    background-color: blue;
+  }
+
+  /* line 1701, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    top: -300px;
+    left: -346px;
+    height: 450px;
+    background-color: blue;
+  }
+}
+
+/*
+*	CHAKRA
+*/
+/* line 1713, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_chakra {
+  width: 20px;
+  height: 2px;
+  position: absolute;
+  background-color: #f6290c;
+  border-left: solid 4px red;
+  border-right: solid 4px red;
+  animation-duration: 1.3s;
+  animation-timing-function: linear;
+  top: -89px;
+  left: -264px;
+  height: 450px;
+  transform: rotate(58deg);
+}
+/* line 1729, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_chakra:after {
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-top: 100px solid red;
+  position: absolute;
+  content: "";
+  top: 30px;
+  left: -50px;
+}
+/* line 1743, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_chakra:before {
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-top: 100px solid red;
+  position: absolute;
+  content: "";
+  top: 30px;
+  left: -50px;
+}
+
+/* line 1757, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_chakra {
+  animation-name: receive_chakra;
+  transform: rotate(-122deg);
+}
+/* line 1761, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_chakra:after {
+  top: 10px;
+  left: 16px;
+}
+
+/* line 1767, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_chakra {
+  animation-name: chakra;
+  transform: rotate(58deg);
+}
+/* line 1771, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_chakra:after {
+  top: -10px;
+  left: -16px;
+}
+
+@keyframes chakra {
+  /* line 1778, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    height: 0px;
+    top: 255px;
+    left: -456px;
+  }
+
+  /* line 1785, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    top: -89px;
+    left: -264px;
+    height: 450px;
+  }
+}
+
+@keyframes receive_chakra {
+  /* line 1793, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    height: 0px;
+    top: -295px;
+    left: -154px;
+  }
+
+  /* line 1800, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    top: 49px;
+    left: -346px;
+    height: 450px;
+  }
+}
+
+/*
+*	SUPER SAIYAN
+*/
+/* line 1811, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_saiyan {
+  box-shadow: inset 0px 25px 87px 10px #ffc702;
+  position: absolute;
+  animation-name: saiyan;
+  animation-duration: 3s;
+  width: 0;
+  height: 0;
+}
+
+/* line 1820, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_saiyan {
+  animation-name: receive_saiyan;
+}
+
+/* line 1824, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_saiyan {
+  animation-name: saiyan;
+}
+
+@keyframes saiyan {
+  /* line 1829, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    width: 210px;
+    height: 190px;
+    top: 130px;
+    left: -601px;
+    opacity: 0;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+  }
+
+  /* line 1839, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  5% {
+    opacity: 1;
+  }
+
+  /* line 1843, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  30% {
+    width: 190px;
+    height: 190px;
+    border-radius: 100%;
+  }
+
+  /* line 1849, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  35% {
+    top: 150px;
+  }
+
+  /* line 1853, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  40% {
+    top: 130px;
+  }
+
+  /* line 1857, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  45% {
+    top: 150px;
+  }
+
+  /* line 1861, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  50% {
+    top: 130px;
+  }
+
+  /* line 1865, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  55% {
+    top: 150px;
+  }
+
+  /* line 1869, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  60% {
+    top: 130px;
+  }
+
+  /* line 1873, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  65% {
+    top: 150px;
+  }
+
+  /* line 1877, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  70% {
+    top: 130px;
+    left: -601px;
+  }
+
+  /* line 1882, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  80% {
+    top: -63px;
+    left: -15px;
+    width: 190px;
+    height: 190px;
+  }
+
+  /* line 1889, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  90% {
+    width: 0px;
+    height: 0px;
+    top: 21px;
+    left: -31px;
+  }
+
+  /* line 1896, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    top: -63px;
+    left: -125px;
+    width: 190px;
+    height: 190px;
+    border-radius: 100%;
+  }
+}
+
+@keyframes receive_saiyan {
+  /* line 1906, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    width: 210px;
+    height: 190px;
+    top: -170px;
+    left: -9px;
+    opacity: 0;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+  }
+
+  /* line 1916, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  5% {
+    opacity: 1;
+  }
+
+  /* line 1920, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  30% {
+    width: 190px;
+    height: 190px;
+    border-radius: 100%;
+  }
+
+  /* line 1926, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  35% {
+    top: -190px;
+  }
+
+  /* line 1930, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  40% {
+    top: -170px;
+  }
+
+  /* line 1934, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  45% {
+    top: -190px;
+  }
+
+  /* line 1938, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  50% {
+    top: -170px;
+  }
+
+  /* line 1942, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  55% {
+    top: -190px;
+  }
+
+  /* line 1946, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  60% {
+    top: -170px;
+  }
+
+  /* line 1950, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  65% {
+    top: -190px;
+  }
+
+  /* line 1954, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  70% {
+    top: -170px;
+    left: -9px;
+  }
+
+  /* line 1959, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  80% {
+    top: 23px;
+    left: -595px;
+    width: 190px;
+    height: 190px;
+  }
+
+  /* line 1966, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  90% {
+    width: 0px;
+    height: 0px;
+    top: -61px;
+    left: -579px;
+  }
+
+  /* line 1973, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    top: 23px;
+    left: -485px;
+    width: 190px;
+    height: 190px;
+    border-radius: 100%;
+  }
+}
+
+/*
+*	ULTIMATE
+*/
+/* line 1986, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_ultimate {
+  display: inline-block;
+  margin: 0;
+  border-radius: 50%;
+  position: absolute;
+  transform-style: preserve-3d;
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #fceabb), color-stop(50%, #fccd4d), color-stop(51%, #f8b500), color-stop(75%, #f9dd95), color-stop(100%, #fbdf93));
+  background: -webkit-radial-gradient(center, ellipse cover, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #f9dd95 75%, #fbdf93 100%);
+  animation-name: ultimate;
+  animation-duration: 2.5s;
+  animation-timing-function: ease-in-out;
+}
+/* line 1998, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_ultimate:before {
+  content: "";
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  z-index: 2;
+}
+/* line 2009, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_ultimate:after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.3;
+}
+
+/* line 2021, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ally .anim_ultimate {
+  animation-name: receive_ultimate;
+}
+
+/* line 2025, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.ennemy .anim_ultimate {
+  animation-name: ultimate;
+}
+
+@keyframes ultimate {
+  /* line 2030, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    height: 50px;
+    width: 50px;
+    top: 210px;
+    left: -420px;
+  }
+
+  /* line 2037, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  33% {
+    top: -25px;
+    left: -74px;
+    width: 150px;
+    height: 150px;
+  }
+
+  /* line 2044, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  66% {
+    top: -825px;
+    left: -874px;
+    width: 2000px;
+    height: 2000px;
+  }
+
+  /* line 2051, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  80% {
+    top: -25px;
+    left: -74px;
+    width: 150px;
+    height: 150px;
+  }
+
+  /* line 2059, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #f3c5bd), color-stop(50%, #e86c57), color-stop(51%, #ea2803), color-stop(75%, #ff6600), color-stop(100%, #c72200));
+    background: -webkit-radial-gradient(center, ellipse cover, #f3c5bd 0%, #e86c57 50%, #ea2803 51%, #ff6600 75%, #c72200 100%);
+  }
+}
+
+@keyframes receive_ultimate {
+  /* line 2066, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    height: 50px;
+    width: 50px;
+    top: -250px;
+    left: -190px;
+  }
+
+  /* line 2073, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  33% {
+    top: -15px;
+    left: -536px;
+    width: 150px;
+    height: 150px;
+  }
+
+  /* line 2080, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  66% {
+    top: -825px;
+    left: -1344px;
+    width: 2000px;
+    height: 2000px;
+  }
+
+  /* line 2087, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  80% {
+    top: -15px;
+    left: -536px;
+    width: 150px;
+    height: 150px;
+  }
+
+  /* line 2095, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #f3c5bd), color-stop(50%, #e86c57), color-stop(51%, #ea2803), color-stop(75%, #ff6600), color-stop(100%, #c72200));
+    background: -webkit-radial-gradient(center, ellipse cover, #f3c5bd 0%, #e86c57 50%, #ea2803 51%, #ff6600 75%, #c72200 100%);
+  }
+}
+
+/*
+*	ANIM MANGA BALL
+*/
+/* line 2107, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+.anim_mangaball {
+  display: inline-block;
+  width: 60px;
+  height: 59px;
+  margin: 0;
+  position: absolute;
+  background-image: url("../img/anim/ball.png");
+  background-repeat: no-repeat;
+  animation-duration: 1.3s;
+  animation-timing-function: ease-in-out;
+  animation-name: mangaball;
+}
+
+@keyframes mangaball {
+  /* line 2123, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  0% {
+    top: 210px;
+    left: -420px;
+  }
+
+  /* line 2128, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    top: -25px;
+    left: -74px;
+  }
+}
+
+@keyframes injured {
+  /* line 2137, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  15% {
+    opacity: 0;
+  }
+
+  /* line 2140, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  30% {
+    opacity: 1;
+  }
+
+  /* line 2143, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  45% {
+    opacity: 0;
+  }
+
+  /* line 2146, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  60% {
+    opacity: 1;
+  }
+
+  /* line 2149, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  75% {
+    opacity: 0;
+  }
+
+  /* line 2152, C:/wamp/www/guillaume/ShonenAllStars/webroot/sass/battle.scss */
+  100% {
+    opacity: 1;
+  }
+}

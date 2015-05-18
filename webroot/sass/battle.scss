@@ -1,13 +1,53 @@
-.battle {
+.scene {
 	width: 700px;
 	height: 500px;
 	border: solid 1px black;
 	position: relative;
 	margin-top: 20px;
-	padding: 10px;
 	display: inline-block;
 	box-sizing: border-box;
 	vertical-align: top;
+}
+
+.perso {
+	position: relative;
+	top: 0;
+	left: 0;
+
+	div {
+		background-image: url('../img/sprite.png');
+		background-repeat: no-repeat;
+		background-position: 0 0;
+		width: 14px;
+		height: 17px;
+
+		&.perso_down {
+			background-position: 0px 0px;
+		}
+		&.perso_up {
+			background-position: -14px 0px;
+		}
+		&.perso_left {
+			background-position: -28px 0px;
+		}
+		&.perso_right {
+			background-position: -42px 0px;
+		}
+	}
+}
+
+.people {
+	width: 20px;
+	height: 20px;
+	background-color: red;
+	position: absolute;
+	left: 250px;
+	right: 250px;
+}
+
+.battle {
+	position: relative;
+	padding: 10px;
 
 	&.battle_monochrome {
 		animation-name: monochrome;
@@ -955,18 +995,18 @@ $top : -20px;
 
 @keyframes receive_leaf {
 	0% {
-	    top: $top - 230px;
+	    top: $top + 230px;
 	    left: $left_ally + 350px;
 	}
 
 	70% {
 		top: $top + 105px;
-	    left: $left_ennemy + 104px;
+	    left: $left_ally + 104px;
 	}
 	
 	100% {
 		transform: rotate(2600deg);
-	    top: $top + 5px;
+	    top: $top - 5px;
 	    left: $left_ally + 4px;
 	}
 }
