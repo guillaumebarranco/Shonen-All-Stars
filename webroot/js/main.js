@@ -28,12 +28,6 @@ $(document).ready(function() {
 
 	var master_ball = false;
 
-	var al = $('.ally .status .life');
-	var el = $('.ennemy .status .life');
-	var ap = $('.ally .status .pp');
-	var ep = $('.ennemy .status .pp');
-
-
 	/*****************************/
 	/* 	       	 HIDES      	 */
 	/*****************************/
@@ -135,7 +129,7 @@ $(document).ready(function() {
 					
 				} else {
 
-					if(what_form === 'signIn') {
+					if(what_form === 'logIn') {
 						alert('Vous avez tapé un mauvais pseudo et/ou un mauvais mot de passe.');
 					} else {
 						alert('Ce pseudo est déjà pris, essayez-en un autre.');
@@ -392,6 +386,20 @@ $(document).ready(function() {
 	/* 	  FONCTIONS GENERIQUES	 */
 	/*****************************/
 
+
+	function getPersoAttr(who, what) {
+		return parseInt($('.'+who+' .status .'+what).find('strong').text());
+	}
+
+	function setPersoAttr(who, what, new_attr) {
+		if((getPersoAttr(who, what) + new_attr) >= 100) {
+			new_attr = 100 - getPersoAttr(who, what);
+		}
+		$('.'+who+' .status .'+what).find('strong').text(getPersoAttr(who, what) + new_attr);
+		$('.'+who+' .status .'+what).find('span').width($('.'+who+' .status .'+what).find('span').width() + new_attr*3);
+	}
+
+
 	// Fonction simplifiant l'AJAX
 	function makeAjax(type, url, data, callback) {
 
@@ -413,11 +421,9 @@ $(document).ready(function() {
 	// Action de la Potion de Vie
 	function updateLife() {
 
-		if(parseInt(al.find('strong').text()) <= 50) {
-			al.find('strong').text(parseInt(al.find('strong').text()) + 50);
-			al.find('span').width(al.find('span').width() + 50*3);
+		if(getPersoAttr('ally', 'life') <= 50) {
+			setPersoAttr('ally', 'life', 50);
 			ennemyTurn();
-
 		} else {
 			alert('Vous avez trop de vie pour utiliser cette potion !');
 			$('.choose .button_tools').parent().show();
@@ -427,9 +433,9 @@ $(document).ready(function() {
 	// Action de la Potion de PP
 	function updatePP() {
 
-		if(parseInt(ap.find('strong').text()) <= 50) {
-			ap.find('strong').text(parseInt(ap.find('strong').text()) + 50);
-			ap.find('span').width(ap.find('span').width() + 50*3);
+		if(getPersoAttr('ally', 'life') <= 50) {
+			
+			setPersoAttr('ally', 'pp', 50);
 			ennemyTurn();
 
 		} else {
@@ -441,11 +447,10 @@ $(document).ready(function() {
 	// Action de la Recovery Potion
 	function updateLifePP() {
 
-		if(parseInt(ap.find('strong').text()) <= 75 && parseInt(al.find('strong').text()) <= 75) {
-			ap.find('strong').text(parseInt(ap.find('strong').text()) + 25);
-			ap.find('span').width(ap.find('span').width() + 25*3);
-			al.find('strong').text(parseInt(al.find('strong').text()) + 25);
-			al.find('span').width(al.find('span').width() + 25*3);
+		if(getPersoAttr('ally', 'pp') <= 75 && getPersoAttr('ally', 'life') <= 75) {
+
+			setPersoAttr('ally', 'life', 25);
+			setPersoAttr('ally', 'pp', 25);
 			ennemyTurn();
 
 		} else {
@@ -457,11 +462,10 @@ $(document).ready(function() {
 	// Action de la Shosinsui
 	function shosinsui() {
 
-		if(parseInt(ap.find('strong').text()) >= 50) {
-			ap.find('strong').text(parseInt(ap.find('strong').text()) - 50);
-			ap.find('span').width(ap.find('span').width() - 50*3);
-			al.find('strong').text('100');
-			al.find('span').width(300);
+		if(getPersoAttr('ally', 'pp') >= 50) {
+
+			setPersoAttr('ally', 'pp', -50);
+			setPersoAttr('ally', 'life', 100);
 			ennemyTurn();
 
 		} else {
@@ -516,7 +520,7 @@ $(document).ready(function() {
 					$('.ennemy .anim').hide();
 					$('.anim_mangaball').remove();
 
-					var ennemy_life = parseInt(el.find('strong').text());
+					var ennemy_life = getPersoAttr('ennemy', 'life');
 					var catched = 0;
 
 					if(ennemy_life != 100) {
@@ -590,16 +594,15 @@ $(document).ready(function() {
 	/* 	 FONCTIONS FIN DU JEU  	 */
 	/*****************************/
 
-
 	// Après chaque attaque, on vérifie si un personnage a ses PV à 0
 	function checkWin() {
 
-		if(parseInt(al.find('strong').text()) <= 0) {
+		if(getPersoAttr('ally', 'life') <= 0) {
 			winner = 'ennemy';
 			return true;
 		}
 
-		if(parseInt(el.find('strong').text()) <= 0) {
+		if(getPersoAttr('ennemy', 'life') <= 0) {
 			winner = 'ally';
 			return true;
 		}
@@ -643,11 +646,10 @@ $(document).ready(function() {
 		$('.choose .button_tools').parent().hide();
 		$('.choose .button_depart').parent().hide();
 
-		//emptyChat();
-
 		recordFight();
 
 		if(winner === 'ally') {
+
 			updateUser('win');
 			chat('Les points de vie de votre adversaire sont tombé à zéro.');
 			chat('Vous avez <span style="color:red;text-transform:uppercase;">gagné</span> !');
@@ -668,7 +670,6 @@ $(document).ready(function() {
 					updateLevel('arcade', function() {
 						endArcade();
 					});
-					
 				}
 
 			}, 2000);
@@ -710,7 +711,6 @@ $(document).ready(function() {
 
 				current_level = current_level + 1; // On augmente le niveau
 				current_xp = 0;
-
 			}
 
 		} else if(what === 'arcade') {
@@ -853,15 +853,10 @@ $(document).ready(function() {
 		emptyChat();
 		$('.battle').hide();
 
-		ap.find('strong').text('100');
-		ap.find('span').width(300);
-		al.find('strong').text('100');
-		al.find('span').width(300);
-
-		ep.find('strong').text('100');
-		ep.find('span').width(300);
-		el.find('strong').text('100');
-		el.find('span').width(300);
+		setPersoAttr('ally', 'life', 100);
+		setPersoAttr('ally', 'pp', 100);
+		setPersoAttr('ennemy', 'life', 100);
+		setPersoAttr('ennemy', 'pp', 100);
 
 		$('.choose_perso').empty();
 		$('.choose_perso').show();
@@ -974,13 +969,9 @@ $(document).ready(function() {
 
 			if(attack_ended === 1) {
 
-				console.log('attack_ended', attack_ended);
-
 				attack_ended = 0;
 
-				console.log('attack_ended', attack_ended);
-
-				if(parseInt(ap.find('strong').text()) >= parseInt(that.attr('data-requis'))) {
+				if(getPersoAttr('ally', 'pp') >= parseInt(that.attr('data-requis'))) {
 
 					var name_attack = that.find('em').text();
 					var power_attack = parseInt(that.attr('data-power'));
@@ -1005,15 +996,10 @@ $(document).ready(function() {
 						chat('Vous avez perdu '+requis_attack+' points de pouvoir');
 
 						// Mise à jour des PP
-
-						ap.find('span').width(ap.find('span').width() - requis_attack*3);
-						ap.find('strong').text(parseInt(ap.find('strong').text()) - requis_attack);
+						setPersoAttr('ally', 'pp', -requis_attack);
 
 						// Mise à jour de la vie de l'adversaire
-
-						el.find('span').width(el.find('span').width() - power_attack*3);
-						el.find('strong').text(parseInt(el.find('strong').text()) - power_attack);
-
+						setPersoAttr('ennemy', 'life', -power_attack);
 
 						if(!checkWin()) {
 							ennemyTurn();
@@ -1034,7 +1020,7 @@ $(document).ready(function() {
 
 			attack_ended = 1;
 
-			if(parseInt(ep.find('strong').text()) > parseInt(that.requis)) {
+			if(getPersoAttr('ennemy', 'pp') > parseInt(that.requis)) {
 
 				var name_attack = that.name;
 				var power_attack = that.power;
@@ -1043,13 +1029,6 @@ $(document).ready(function() {
 				var anim_attack = that.anim;
 
 				emptyChat();
-
-				// Mise à jour des PP
-
-				ep.find('span').width(ep.find('span').width() - requis_attack*3);
-				ep.find('strong').text(parseInt(ep.find('strong').text()) - requis_attack);
-
-				// Mise à jour de la vie de l'adversaire
 
 				power_attack = calculForce(power_attack, type_attack, 'ennemy');
 				var check_critik = rand(1,10);
@@ -1065,8 +1044,11 @@ $(document).ready(function() {
 					chat('Vous avez perdu '+power_attack+' points de vie');
 					chat('L\'adversaire a perdu '+requis_attack+' points de pouvoir');
 
-					al.find('span').width(al.find('span').width() - power_attack*3);
-					al.find('strong').text(parseInt(al.find('strong').text()) - power_attack);
+					// Mise à jour des PP
+					setPersoAttr('ennemy', 'pp', -requis_attack);
+
+					// Mise à jour de la vie de l'adversaire
+					setPersoAttr('ally', 'life', -power_attack);
 
 					if(checkWin()) {
 						endGame();
@@ -1079,10 +1061,9 @@ $(document).ready(function() {
 			} else {
 
 				// Si les PP adverses sont inférieurs à la moitié on les régénère
-				if(parseInt(ep.find('strong').text()) < 50) {
+				if(getPersoAttr('ennemy', 'pp') < 50) {
 
-					ep.find('strong').text(parseInt(ep.find('strong').text()) + 50);
-					ep.find('span').width(ep.find('span').width() + 50*3);
+					setPersoAttr('ennemy', 'pp', 50);
 
 					$('.button_return').hide();
 					$('.choose .button_depart').parent().show();
@@ -1110,7 +1091,7 @@ $(document).ready(function() {
 
 			$('.battle').addClass('battle_monochrome');
 
-			var duration = $('.battle_monochrome').css('-webkit-animation-duration');
+			var duration = $('.battle_monochrome').css('animation-duration');
 
 			if(duration.length == 2) {
 				duration = duration.substr(0,1);
@@ -1142,7 +1123,7 @@ $(document).ready(function() {
 			$('.'+who_receive+' .anim').show();
 
 			// Animation duration from the CSS given to the setTimeout function
-			var duration = $('.anim_'+anim_attack).css('-webkit-animation-duration');
+			var duration = $('.anim_'+anim_attack).css('animation-duration');
 
 			if(duration.length == 2) {
 				duration = duration.substr(0,1);
@@ -1169,8 +1150,6 @@ $(document).ready(function() {
 
 			}, duration);
 		}
-
-		
 	}
 
 });
