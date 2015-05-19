@@ -25,9 +25,6 @@ $(document).ready(function() {
 	
 	var disappear_attack = true;
 
-	$('.before_battle').hide();
-
-
 	/*****************************/
 	/* 	       	 HIDES      	 */
 	/*****************************/
@@ -121,6 +118,9 @@ $(document).ready(function() {
 					$('.pseudo').show();
 					$('.sign_log_in').hide();
 
+					$('canvas').show();
+					$('.before_battle').hide();
+
 					if(what_form == 'signIn') {
 						getUserPersos();
 					} else {
@@ -162,7 +162,7 @@ $(document).ready(function() {
 					user = _this.response.user[0];
 				} else {
 					user = _this.response.user;
-				}
+				}				
 
 				getAllPersos();
 			}

@@ -36,7 +36,10 @@ $(document).ready(function() {
 
 	    newText = game.add.text(player.position.x, (player.position.y - 50), '', { fontSize: '32px', fill: '#fff' });
 
-	    //$('canvas').hide();
+	    if($('.launch_direct').length == 0) {
+	    	$('canvas').hide();
+	    }
+	    
 	}
 
 	function update() {
@@ -117,18 +120,15 @@ $(document).ready(function() {
 	}
 
 	function talk() {
-		//console.log(player.position);
-			
+
 		newText.x = player.position.x;
 		newText.y = player.position.y - 50;
-		newText.text = 'Hello, i\'m a star';
-
+		newText.text = 'Well, you can begin';
 
 		setTimeout(function() {
 			showBattle();
 			newText.text = '';
 		}, 1000);
-		
 	}
 
 	function showBattle() {

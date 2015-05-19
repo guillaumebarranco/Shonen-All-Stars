@@ -69,7 +69,7 @@ if(!isset($user)) { ?>
 
 	<div class="launch_direct"></div>
 
-	<div class="before_battle">
+	<div class="before_battle" style="display:none;">
 
 <?php } ?>
 	
