@@ -25,6 +25,8 @@ $(document).ready(function() {
 	
 	var disappear_attack = true;
 
+	var master_ball = false;
+
 	/*****************************/
 	/* 	       	 HIDES      	 */
 	/*****************************/
@@ -481,15 +483,10 @@ $(document).ready(function() {
 		var is_unlocked = false;
 		var ennemy_id;
 
-		for (var c = 0; c < _this.all_persos.length; c++) {
-			if(_this.all_persos[c].name == ennemy_name) {
+		ennemy_id = ennemy.id;
 
-				ennemy_id = _this.all_persos[c].id;
-
-				if(_this.all_persos[c].unlocked == 1) {
-					is_unlocked = true;
-				}
-			}
+		if(ennemy.unlocked == 1) {
+			is_unlocked = true;
 		}
 
 		if(!is_unlocked) {
@@ -544,6 +541,10 @@ $(document).ready(function() {
 					}
 
 					console.log(catched);
+
+					if(master_ball) {
+						catched = 3;
+					}
 
 					if(catched === 3) {
 						chat('Félicitations ! Vous avez attrapé '+ennemy_name);
@@ -1010,7 +1011,7 @@ $(document).ready(function() {
 					});
 					
 				} else {
-					alert('Vous n\'avez pas assez de PP.');
+					alert('Pas assez de PP pour cette attaque.');
 					$('.choose .button_attack').parent().show();
 				}
 

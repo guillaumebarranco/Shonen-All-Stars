@@ -190,7 +190,7 @@ class BattleController extends AppController
                         'UserPersos.id_perso' => $data['id_perso']
                     ))
                 ->toArray();
-
+                
                 if($check_user_perso) {
 
                     $userPersosTable = TableRegistry::get('UserPersos');
