@@ -1,162 +1,139 @@
 $(document).ready(function() {
 
 	var perso = $('.perso');
-	var speed = 20;
-	var collision = 30;
-	
+	var speed = 150;
+	var canMove = true;
+	var direction;
+	var collision;
+	var enableTalk = false;
+	var newText = null;
+
+	var game = new Phaser.Game(700, 500, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+
+	function preload() {
+		game.load.spritesheet('perso', 'img/assets/dude.png', 32, 48);
+		game.load.image('star', 'img/star.png');
+	}
+
+	function create() {
+		game.physics.startSystem(Phaser.Physics.ARCADE); // Initialize the "PHYSICS"
+
+		player = game.add.sprite(32, game.world.height - 150, 'perso');
+		game.physics.arcade.enable(player);
+		player.body.collideWorldBounds = true;
+
+		player.animations.add('left', [0, 1, 2, 3], 10, true);
+    	player.animations.add('right', [5, 6, 7, 8], 10, true);
+    	player.animations.add('up', [4], 1, true);
+    	player.animations.add('down', [4], 1, true);
+
+    	stars = game.add.group();
+
+    	stars.enableBody = true;
+    	
+        var star = stars.create(300, 250, 'star');
+        star.body.immovable = true;
+
+	    newText = game.add.text(player.position.x, (player.position.y - 50), '', { fontSize: '32px', fill: '#fff' });
+
+	    //$('canvas').hide();
+	}
+
+	function update() {
+		cursors = game.input.keyboard.createCursorKeys();
+
+		game.physics.arcade.collide(player, stars, hitStar, null, this);
+
+		player.body.velocity.x = 0;
+		player.body.velocity.y = 0;
+
+	    if (cursors.left.isDown) {
+	    	movePerso(player, 'left');
+
+	    } else if (cursors.right.isDown) {
+	        movePerso(player, 'right');
+
+	    } else if (cursors.up.isDown) {
+	        movePerso(player, 'up');
+
+	    } else if (cursors.down.isDown) {
+	        movePerso(player, 'down');
+
+	    } else {
+	        player.animations.stop();
+	        //player.frame = 4;
+	    }
+	}
+
 	$(document).keydown(function(e) {
+		var key = e.which || e.keyCode;
 
-		var key = (event.keyCode ? event.keyCode : event.which);
-
-	    switch(key) {
-			case 38 : // Flèche haut
+		switch(key) {
+			case 32 :
 				e.preventDefault();
-
-		        move('up', e);
+				if(enableTalk) {
+					talk();
+				}
 			break;
-
-			case 40 : // Flèche bas
-				e.preventDefault();
-				move('down', e);
-			break;
-
-			case 37 : // Flèche gauche
-				e.preventDefault();
-				move('left', e);
-			break;
-
-			case 39 : // Flèche droite
-				e.preventDefault();
-				move('right', e);
-			break;
-
-			default : 
-				return true;
 		}
 	});
 
+	function hitStar(player, star) {
 
-	function getClass() {
-		return perso.find('div').attr('class');
-	}
+		console.log(player);
 
-	function replaceClass(the_class) {
-		perso.find('div').removeClass();
-		perso.find('div').addClass('perso_'+the_class);
-	}
-
-	function move(direction, e) {
-
-		if(getClass() != ('perso_'+direction)) {
-			replaceClass(direction);
+		if(direction === 'up') {
+			collision = 'up';
+		} if(direction === 'down') {
+			collision = 'down';
+		} if(direction === 'left') {
+			collision = 'left';
+		} if(direction === 'right') {
+			collision = 'right';
 		}
+	}
 
-		//perso.clearQueue().stop();
+	function movePerso(player, the_direction) {
 
-		if(!checkCollision(direction)) {
-			
-
-			switch(direction) {
-
-				case 'up':
-					perso.animate({
-						top: '-='+speed
-					}, function() {
-						if(checkCollision()) {
-							
-						}
-						perso.stop(true, true);
-					});
-				break;
-
-				case 'down':
-					perso.animate({
-						top: '+='+speed
-					}, function() {
-
-						perso.stop(true, true);
-					});
-				break;
-
-				case 'left':
-					perso.animate({
-						left: '-='+speed
-					}, function() {
-						if(checkCollision()) {
-							
-						}
-						perso.stop(true, true);
-					});
-				break;
-
-				case 'right':
-					perso.animate({
-						left: '+='+speed
-					}, function() {
-						if(checkCollision()) {
-							
-						}
-						perso.stop(true, true);
-					});
-				break;
+		if(collision != the_direction) {
+			collision = null;
+			enableTalk = false;
+			if(the_direction === 'left') {
+				player.body.velocity.x = -speed;
+			} else if(the_direction === 'right') {
+				player.body.velocity.x = speed;
+			} else if(the_direction === 'up') {
+				player.body.velocity.y = -speed;
+			} else if(the_direction === 'down') {
+				player.body.velocity.y = speed;
 			}
+
+	        player.animations.play(the_direction);
+	        direction = the_direction;
 		} else {
-			alert('Salut');
+			enableTalk = true;
 		}
-
 		
-
-		// console.log('perso_left', getPersoLeft());
-		// console.log('people_left', $('.people').offset().left);
-
-		// console.log('perso_top', getPersoTop());
-		// console.log('people_top', $('.people').offset().top);
 	}
 
-	function getPersoLeft() {
-		return perso.offset().left;
+	function talk() {
+		//console.log(player.position);
+			
+		newText.x = player.position.x;
+		newText.y = player.position.y - 50;
+		newText.text = 'Hello, i\'m a star';
+
+
+		setTimeout(function() {
+			showBattle();
+			newText.text = '';
+		}, 1000);
+		
 	}
 
-	function getPersoTop() {
-		return perso.offset().top;
+	function showBattle() {
+		$('canvas').hide();
+		$('.before_battle').show();
 	}
-
-	function checkCollision(direction) {
-
-		console.log(getPersoLeft() - $('.people').offset().left);
-
-		if(
-			getPersoLeft() > ($('.people').offset().left - $('.people').width()) && // Si le personnage marche vers la droite et se trouve à moins de 30 px à gauche
-			(getPersoTop() - $('.people').offset().top) > -$('.people').height() &&
-			(getPersoTop() - $('.people').offset().top) < $('.people').height() &&
-			direction === 'right'
-		){
-			return true;
-		}
-
-		if(
-			getPersoLeft() > ($('.people').offset().left + ($('.people').width() * 2)) && // Si le personnage marche vers la droite et se trouve à moins de 30 px à gauche
-			(getPersoTop() - $('.people').offset().top) > -($('.people').height()) &&
-			(getPersoTop() - $('.people').offset().top) < $('.people').height() &&
-			direction === 'left'
-		){
-			return true;
-		}
-
-		if(
-			getPersoTop() < ($('.people').offset().top + ($('.people').height() *2)) && // Si le personnage marche vers la droite et se trouve à moins de 30 px à gauche
-			(getPersoLeft() - $('.people').offset().left) > -$('.people').width() &&
-			(getPersoLeft() - $('.people').offset().left) < $('.people').width() &&
-			direction === 'up'
-		){
-			return true;
-		}
-
-		// if((getPersoLeft() > ($('.people').offset().left - 30)) && direction === 'down') {
-		// 	return true;
-		// }
-
-		return false;
-	}
-
+	
 });

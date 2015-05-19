@@ -15,7 +15,6 @@ $(document).ready(function() {
 	var arcade = 0;
 	var attack_ended = 1;
 
-
 	// SI BESOIN DE TESTER UNE ATTAQUE ENNEMIE PARTICULIRE, CHANGER CES VARIABLES
 
 	var ennemy_defined = false;
@@ -25,6 +24,8 @@ $(document).ready(function() {
 	var random_attack;
 	
 	var disappear_attack = true;
+
+	$('.before_battle').hide();
 
 
 	/*****************************/
