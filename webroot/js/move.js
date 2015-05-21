@@ -8,6 +8,7 @@ $(document).ready(function() {
 	var enableTalk = false;
 	var newText = null;
 	var balls;
+	var stars;
 	var enableChoice = false;
 	var standby;
 	var gameLaunched = false;
@@ -21,6 +22,7 @@ $(document).ready(function() {
 
 	var user = {};
 	user.persos = {};
+	user.id_starter;
 
 	// Initialisation du framework Phaser et de la map de jeu
 	var game = new Phaser.Game(700, 500, Phaser.AUTO, '', { preload: preload, create: create, update: update });
@@ -28,6 +30,7 @@ $(document).ready(function() {
 	function preload() {
 		game.load.spritesheet('perso', 'img/assets/dude.png', 32, 48);
 		game.load.image('ball', 'img/little_ball.png');
+		game.load.image('star', 'img/star.png');
 	}
 
 	function create() {
@@ -134,7 +137,16 @@ $(document).ready(function() {
 					} else if(menu.choose == 'object') {
 
 					} else if(menu.choose == 'return') {
-						closeMenu();
+
+						if(menu.shown == 'default') {
+							closeMenu();
+
+						} else if(menu.shown == 'persos') {
+							hideMenuPersos();
+						}
+						
+					} else if(menu.choose == 'battle') {
+						showBattle();
 					}
 				}
 			break;
@@ -148,7 +160,13 @@ $(document).ready(function() {
 						openMenu();
 					}
 				}
-			;
+			break;
+
+			// case 83 : // s
+			// 	if(gameLaunched) {
+			// 		showBattle();
+			// 	}
+			// break;
 		}
 	});
 
@@ -213,6 +231,9 @@ $(document).ready(function() {
 		menu.txt.persos = game.add.text(550, 20, 'Personnages', { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
 		menu.txt.objects = game.add.text(550, 50, 'Objects', { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
 		menu.txt.retour = game.add.text(550, 80, 'Retour', { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
+		menu.txt.launch_battle = game.add.text(550, 110, 'Launch Battle', { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
+
+		menu.shown = 'default';
 	}
 
 	function closeMenu() {
@@ -232,12 +253,24 @@ $(document).ready(function() {
 			menu.cursor.drawRect(510, top_cursor, 20, 20);
 			menu.cursor.endFill();
 
-			console.log('menu choose', menu.choose);
+			if(menu.shown == 'default') {
 
-			if(menu.choose == 'persos') {
-				menu.choose = 'objects';
-			} else if(menu.choose == 'objects') {
-				menu.choose = "return";
+				if(menu.choose == 'persos') {
+					menu.choose = 'objects';
+				} else if(menu.choose == 'objects') {
+					menu.choose = "return";
+				} else if(menu.choose == 'return') {
+					menu.choose = 'battle';
+				}
+
+			} else if(menu.shown == 'persos') {
+				console.log(menu.choose);
+
+				if(user.persos[1] == undefined) {
+					if(menu.choose == 'perso1') {
+						menu.choose = 'return';
+					}
+				}
 			}
 		}
 	}
@@ -273,17 +306,39 @@ $(document).ready(function() {
 		menu.txt.objects.text = '';
 		menu.txt.retour.text = '';
 
+		menu.shown = 'persos';
+		menu.choose = 'perso1';
+
 		var tops = 20;
 
 		for (userPerso in user.persos) {
 			menu.txt.userPerso = game.add.text(550, tops, user.persos[userPerso], { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
 			tops = tops + 30;
 		}
-		
+
+		menu.txt.retourPersos = game.add.text(550, tops, 'Retour', { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
 	}
 
+	function hideMenuPersos() {
+		for (userPerso in user.persos) {
+			menu.txt.userPerso.text = '';
+		}
 
+		menu.txt.retourPersos.text = '';
 
+		menu.shown = 'default';
+
+		menu.cursor.clear();
+		menu.cursor.beginFill(0xAAAAAA, 1);
+		menu.cursor.drawRect(510, 20, 20, 20);
+		menu.cursor.endFill();
+
+		menu.choose = 'persos';
+
+		menu.txt.persos.text = 'Personnages';
+		menu.txt.objects.text = 'Objects';
+		menu.txt.retour.text = 'Retour';
+	}
 
 
 	// Fonction pour parler à un autre personnage
@@ -298,14 +353,17 @@ $(document).ready(function() {
 			case "ball1" :
 				newText.text = 'Voulez-vous choisir Luffy, le pirate avide de liberté ? Appuyez sur entrée pour confirmer.';
 				standby = 'Luffy';
+				user.id_starter = 1;
 			break;
 			case "ball2" :
 				newText.text = 'Voulez-vous choisir Sangoku, le Super Saiyen ? Appuyez sur entrée pour confirmer.';
 				standby = 'Sangoku';
+				user.id_starter = 0;
 			break;
 			case "ball3" :
 				newText.text = 'Voulez-vous choisir Naruto, le ninja légendaire ? Appuyez sur entrée pour confirmer.';
 				standby = 'Naruto';
+				user.id_starter = 3;
 			break;
 		}
 
@@ -322,7 +380,8 @@ $(document).ready(function() {
 
 	function showBattle() {
 		$('canvas').hide();
-		$('.before_battle').show();
+		//$('.before_battle').show();
+		window.beginBattle(user.id_starter);
 	}
 
 	function getCloseBall() {
@@ -364,15 +423,15 @@ $(document).ready(function() {
 
 	function makeScene() {
 
-		balls = game.add.group();
+		stars = game.add.group();
 
 		gameLaunched = true;
 
-    	balls.enableBody = true;
+    	stars.enableBody = true;
     	
     	// Création de la manga ball
-        var ball1 = balls.create(0, 100, 'ball');
-        ball1.body.immovable = true;
+        var star = stars.create(0, 100, 'star');
+        star.body.immovable = true;
 	}
 	
 });

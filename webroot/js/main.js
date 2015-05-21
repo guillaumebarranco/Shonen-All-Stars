@@ -179,6 +179,7 @@ $(document).ready(function() {
 			console.log('getPersos', _this.response);
 
 			_this.response = _this.response.persos;
+			window.all_persos = _this.response.persos;
 
 			$('.before_battle h2').show();
 
@@ -244,6 +245,10 @@ $(document).ready(function() {
 	$(document).on('click', '.choose_perso li img.unlocked', function() {
 
 		var id_chosen = $(this).parent().attr('data-id');
+		window.beginBattle(id_chosen);
+	});
+
+	window.beginBattle = function(id_chosen) {
 
 		if(ennemy_defined === false) {
 			random_ennemy = rand(0,_this.all_persos.length -1);
@@ -315,8 +320,7 @@ $(document).ready(function() {
 		} else {
 			$('.choose .button_depart').parent().show();
 		}
-
-	});
+	}
 	
 	// Bouton de retour dans le jeu (pour quitter les attaques et revenir sur les objets par exemple)
 	$('.button_return').on('click', function(e) {
