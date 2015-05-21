@@ -10,6 +10,17 @@ $(document).ready(function() {
 	var balls;
 	var enableChoice = false;
 	var standby;
+	var gameLaunched = false;
+
+	var menu = {};
+	menu.open = false;
+	menu.txt = {};
+	menu.graphics;
+	menu.cursor;
+	menu.wait = 0;
+
+	var user = {};
+	user.persos = {};
 
 	// Initialisation du framework Phaser et de la map de jeu
 	var game = new Phaser.Game(700, 500, Phaser.AUTO, '', { preload: preload, create: create, update: update });
@@ -62,7 +73,7 @@ $(document).ready(function() {
 		// Initialisation du keyboard
 		cursors = game.input.keyboard.createCursorKeys();
 
-		game.physics.arcade.collide(player, balls, hitStar, null, this);
+		game.physics.arcade.collide(player, balls, hitObject, null, this);
 
 		// Remise à zéro des mouvements du joueur.
 		player.body.velocity.x = 0;
@@ -70,46 +81,83 @@ $(document).ready(function() {
 
 		// Gestion des mouvements en fonction de la touche pressée
 
-	    if(cursors.left.isDown) {
-	    	movePerso(player, 'left');
+		if(!menu.open) {
+			if(cursors.left.isDown) {
+		    	movePerso(player, 'left');
 
-	    } else if(cursors.right.isDown) {
-	        movePerso(player, 'right');
+		    } else if(cursors.right.isDown) {
+		        movePerso(player, 'right');
 
-	    } else if(cursors.up.isDown) {
-	        movePerso(player, 'up');
+		    } else if(cursors.up.isDown) {
+		        movePerso(player, 'up');
 
-	    } else if(cursors.down.isDown) {
-	        movePerso(player, 'down');
+		    } else if(cursors.down.isDown) {
+		        movePerso(player, 'down');
 
-	    } else {
-	        player.animations.stop();
-	        //player.frame = 4;
-	    }
+		    } else {
+		        player.animations.stop();
+		        //player.frame = 4;
+		    }
+
+		} else {
+			if(cursors.up.isDown) {
+				upMenu();
+
+		    } else if(cursors.down.isDown) {
+		    	downMenu();
+		    }
+		}
 	}
 
 	$(document).keydown(function(e) {
 		var key = e.which || e.keyCode;
 
+		//console.log(key);
+
 		// Si jamais le joueur est face à un autre personnage, il peut lui parler en appuyant sur espace
 		switch(key) {
-			case 32 :
-				e.preventDefault();
+			case 32 : // space
 				if(enableTalk) {
+					e.preventDefault();
 					talk();
 				}
 			break;
 
-			case 13 :
-				e.preventDefault();
+			case 13 : // enter
 				if(enableChoice) {
+					e.preventDefault();
 					choose();
+				} else if(menu.open) {
+
+					if(menu.choose == 'persos') {
+						showMenuPersos();
+					} else if(menu.choose == 'object') {
+
+					} else if(menu.choose == 'return') {
+						closeMenu();
+					}
 				}
+			break;
+
+			case 81 : // q
+				if(gameLaunched) {
+					e.preventDefault();
+					if(menu.open) {
+						closeMenu();
+					} else {
+						openMenu();
+					}
+				}
+			;
 		}
 	});
 
+	/***********************/
+	/* FONCTION GENERIQUES */
+	/***********************/
+
 	// Fonction pour gérer la collision avec un autre personnage
-	function hitStar() {
+	function hitObject() {
 
 		if(direction === 'up') {
 			collision = 'up';
@@ -145,6 +193,99 @@ $(document).ready(function() {
 		}
 	}
 
+	// Fonction pour ouvrir le menu start
+
+	function openMenu() {
+		menu.open = true;
+
+		menu.graphics = game.add.graphics(0, 0);
+		menu.graphics.beginFill(0xFFFFFF, 1);
+		menu.graphics.drawRect(500, 0, 200, 300);
+		menu.graphics.endFill();
+
+		menu.cursor = game.add.graphics(0, 0);
+		menu.cursor.beginFill(0xAAAAAA, 1);
+		menu.cursor.drawRect(510, 20, 20, 20);
+		menu.cursor.endFill();
+
+		menu.choose = 'persos';
+
+		menu.txt.persos = game.add.text(550, 20, 'Personnages', { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
+		menu.txt.objects = game.add.text(550, 50, 'Objects', { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
+		menu.txt.retour = game.add.text(550, 80, 'Retour', { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
+	}
+
+	function closeMenu() {
+		menu.graphics.clear();
+		menu.cursor.clear();
+		menu.open = false;
+	}
+
+	function downMenu() {
+
+		if(menu.wait === 0) {
+			waitMenu();
+			var top_cursor = menu.cursor.graphicsData[0].shape.y + 30;
+
+			menu.cursor.clear();
+			menu.cursor.beginFill(0xAAAAAA, 1);
+			menu.cursor.drawRect(510, top_cursor, 20, 20);
+			menu.cursor.endFill();
+
+			console.log('menu choose', menu.choose);
+
+			if(menu.choose == 'persos') {
+				menu.choose = 'objects';
+			} else if(menu.choose == 'objects') {
+				menu.choose = "return";
+			}
+		}
+	}
+
+	function upMenu() {
+
+		if(menu.wait === 0) {
+			waitMenu();
+			var top_cursor = menu.cursor.graphicsData[0].shape.y - 30;
+
+			menu.cursor.clear();
+			menu.cursor.beginFill(0xAAAAAA, 1);
+			menu.cursor.drawRect(510, top_cursor, 20, 20);
+			menu.cursor.endFill();
+
+			if(menu.choose == 'objects') {
+				menu.choose = 'persos';
+			} else if(menu.choose == 'return') {
+				menu.choose = 'objects';
+			}
+		}
+	}
+
+	function waitMenu() {
+		menu.wait = 1;
+		setTimeout(function() {
+			menu.wait = 0;
+		}, 500);
+	}
+
+	function showMenuPersos() {
+		menu.txt.persos.text = '';
+		menu.txt.objects.text = '';
+		menu.txt.retour.text = '';
+
+		var tops = 20;
+
+		for (userPerso in user.persos) {
+			menu.txt.userPerso = game.add.text(550, tops, user.persos[userPerso], { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
+			tops = tops + 30;
+		}
+		
+	}
+
+
+
+
+
 	// Fonction pour parler à un autre personnage
 	function talk() {
 
@@ -168,6 +309,8 @@ $(document).ready(function() {
 			break;
 		}
 
+		user.persos[0] = standby;
+
 		enableChoice = true;
 
 		setTimeout(function() {
@@ -189,9 +332,9 @@ $(document).ready(function() {
 
 		for (var i = 0; i < balls.length; i++) {
 
-			console.log(balls.children[i].position);
-			console.log('player y - ball'+i, player.position.y - balls.children[i].position.y);
-			console.log('player x - ball'+i, balls.children[i].position.x - player.position.x);
+			// console.log(balls.children[i].position);
+			// console.log('player y - ball'+i, player.position.y - balls.children[i].position.y);
+			// console.log('player x - ball'+i, balls.children[i].position.x - player.position.x);
 
 			if(Math.abs(balls.children[i].position.x - player.position.x) < proxi) {
 				proxi = Math.abs(balls.children[i].position.x - player.position.x);
@@ -223,9 +366,11 @@ $(document).ready(function() {
 
 		balls = game.add.group();
 
+		gameLaunched = true;
+
     	balls.enableBody = true;
     	
-    	// Création de l'étoile
+    	// Création de la manga ball
         var ball1 = balls.create(0, 100, 'ball');
         ball1.body.immovable = true;
 	}
