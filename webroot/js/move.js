@@ -7,10 +7,17 @@ $(document).ready(function() {
 	var collision;
 	var enableTalk = false;
 	var newText = null;
+	var passText = null;
 	var balls;
 	var enableChoice = false;
 	var standby;
 	var gameLaunched = false;
+
+	var spoken = {};
+
+	var stepTalk = 1;
+
+	var people;
 
 	var menu = {};
 	menu.open = false;
@@ -28,6 +35,9 @@ $(document).ready(function() {
 	function preload() {
 		game.load.spritesheet('perso', 'img/assets/dude.png', 32, 48);
 		game.load.image('ball', 'img/little_ball.png');
+		game.load.image('korosensei', 'img/korosensei.png');
+		game.load.image('rukia', 'img/rukia.png');
+		game.load.image('piccolo', 'img/piccolo.png');
 	}
 
 	function create() {
@@ -60,7 +70,11 @@ $(document).ready(function() {
         var ball3 = balls.create(400, 350, 'ball');
         ball3.body.immovable = true;
 
+        people = game.add.group();
+		people.enableBody = true;
+
 	    newText = game.add.text(player.position.x, (player.position.y - 50), '', { fontSize: '16px', fill: '#fff', wordWrap : true, wordWrapWidth : 300 });
+	    passText = game.add.text(player.position.x, (player.position.y - 50), '', { fontSize: '12px', fill: '#fff', wordWrap : true, wordWrapWidth : 300 });
 
 	    // Si jamais l'utilisateur n'est pas authentifié, on cache le jeu
 	    if($('.launch_direct').length == 0) {
@@ -74,6 +88,7 @@ $(document).ready(function() {
 		cursors = game.input.keyboard.createCursorKeys();
 
 		game.physics.arcade.collide(player, balls, hitObject, null, this);
+		game.physics.arcade.collide(player, people, hitObject, null, this);
 
 		// Remise à zéro des mouvements du joueur.
 		player.body.velocity.x = 0;
@@ -158,6 +173,7 @@ $(document).ready(function() {
 
 	// Fonction pour gérer la collision avec un autre personnage
 	function hitObject() {
+		console.log(direction);
 
 		if(direction === 'up') {
 			collision = 'up';
@@ -168,10 +184,15 @@ $(document).ready(function() {
 		} if(direction === 'right') {
 			collision = 'right';
 		}
+		console.log(collision);
 	}
 
 	// Fonction pour déplacer le personnage
 	function movePerso(player, the_direction) {
+
+		stepTalk = 1;
+		newText.text = "";
+		hidePass();
 
 		if(collision != the_direction) {
 			collision = null;
@@ -284,28 +305,76 @@ $(document).ready(function() {
 
 
 
-
-
 	// Fonction pour parler à un autre personnage
 	function talk() {
 
 		newText.x = player.position.x;
-		newText.y = player.position.y - 150;
-		var closeBall = getCloseBall();
+		newText.y = player.position.y - 50;
+		if(balls.children.length != 0) {
+			newText.y = player.position.y - 150;
+		}
+		var closeObject = getCloseObject();
 
-		switch(closeBall) {
+		switch(closeObject) {
 
 			case "ball1" :
 				newText.text = 'Voulez-vous choisir Luffy, le pirate avide de liberté ? Appuyez sur entrée pour confirmer.';
 				standby = 'Luffy';
 			break;
+
 			case "ball2" :
 				newText.text = 'Voulez-vous choisir Sangoku, le Super Saiyen ? Appuyez sur entrée pour confirmer.';
 				standby = 'Sangoku';
 			break;
+
 			case "ball3" :
 				newText.text = 'Voulez-vous choisir Naruto, le ninja légendaire ? Appuyez sur entrée pour confirmer.';
 				standby = 'Naruto';
+			break;
+
+			case 'korosensei':
+				if(stepTalk == 1) {
+					newText.text = "Bonjour, je suis Korosensei !";
+					showPass();
+				} else if(stepTalk == 2) {
+					newText.text = "Je serais ton professeur de mangas.";
+					showPass();
+				} else if(stepTalk == 3) {
+					newText.text = "As-tu des questions ?";
+					showPass();
+					spoken.korosensei = true;
+				} else if(stepTalk == 4) {
+					newText.text = "";
+					hidePass();
+				}
+				
+			break;
+
+			case 'rukia':
+				if(stepTalk == 1) {
+					newText.text = "Bonjour, je suis Rukia !";
+					showPass();
+				} else if(stepTalk == 2) {
+					newText.text = "Je te guiderais à travers tes aventures.";
+					showPass();
+					spoken.rukia = true;
+				} else if(stepTalk == 3) {
+					newText.text = "";
+					hidePass();
+				}
+			break;
+
+			case 'piccolo':
+				if(spoken.korosensei != undefined && spoken.rukia != undefined) {
+					if(stepTalk == 1) {
+						newText.text = "Un petit combat ? Appuie de nouveau sur espace pour accepter";
+						stepTalk++;
+					} else if(stepTalk == 2) {
+						showBattle();
+					}
+				} else {
+					newText.text = "Je te conseille d'aller voir les autres d'abord";
+				}
 			break;
 		}
 
@@ -325,20 +394,40 @@ $(document).ready(function() {
 		$('.before_battle').show();
 	}
 
-	function getCloseBall() {
+	function showPass() {
+		passText.x = player.position.x;
+		passText.y = player.position.y - 100;
+		passText.text = "Appuyer sur espace pour voir la suite";
+
+		stepTalk++;
+	}
+
+	function hidePass() {
+		passText.text = "";
+		stepTalk = 1;
+	}
+
+	function getCloseObject() {
 
 		var proxi = 100;
 		var choosed = '';
 
 		for (var i = 0; i < balls.length; i++) {
 
-			// console.log(balls.children[i].position);
-			// console.log('player y - ball'+i, player.position.y - balls.children[i].position.y);
-			// console.log('player x - ball'+i, balls.children[i].position.x - player.position.x);
-
 			if(Math.abs(balls.children[i].position.x - player.position.x) < proxi) {
 				proxi = Math.abs(balls.children[i].position.x - player.position.x);
 				choosed = "ball"+(i+1);
+			}
+		}
+
+		if(choosed == '') {
+			console.log(people);
+			for (var i = 0; i < people.length; i++) {
+
+				if(Math.abs(people.children[i].position.x - player.position.x) < proxi) {
+					proxi = Math.abs(people.children[i].position.x - player.position.x);
+					choosed = people.children[i].key;
+				}
 			}
 		}
 
@@ -364,15 +453,19 @@ $(document).ready(function() {
 
 	function makeScene() {
 
-		balls = game.add.group();
-
 		gameLaunched = true;
 
-    	balls.enableBody = true;
-    	
-    	// Création de la manga ball
-        var ball1 = balls.create(0, 100, 'ball');
-        ball1.body.immovable = true;
+    	// Création de korosensei
+        var korosensei = people.create(300, 200, 'korosensei');
+        korosensei.body.immovable = true;
+
+        var rukia = people.create(100, 100, 'rukia');
+        rukia.body.immovable = true;
+
+        var piccolo = people.create(450, 150, 'piccolo');
+        piccolo.body.immovable = true;
+
+        //console.log(korosensei);
 	}
 	
 });
