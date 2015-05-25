@@ -179,7 +179,7 @@ $(document).ready(function() {
 			console.log('getPersos', _this.response);
 
 			_this.response = _this.response.persos;
-			window.all_persos = _this.response.persos;
+			window.all_persos = _this.response;
 
 			$('.before_battle h2').show();
 
@@ -197,8 +197,6 @@ $(document).ready(function() {
 					;
 
 				} else {
-
-					console.log(_this.response[p].name, _this.response[p].condition);
 
 					li_append = 
 						'<li data-id="'+p+'">'+

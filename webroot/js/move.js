@@ -13,6 +13,8 @@ $(document).ready(function() {
 	var standby;
 	var gameLaunched = false;
 
+	var the_persos;
+
 	var menu = {};
 	menu.open = false;
 	menu.txt = {};
@@ -31,6 +33,9 @@ $(document).ready(function() {
 		game.load.spritesheet('perso', 'img/assets/dude.png', 32, 48);
 		game.load.image('ball', 'img/little_ball.png');
 		game.load.image('star', 'img/star.png');
+		game.load.image('Luffy', 'img/persos/luffy_front.png');
+		game.load.image('Sangoku', 'img/persos/goku_front.png');
+		game.load.image('Naruto', 'img/persos/naruto_front.png');
 	}
 
 	function create() {
@@ -147,6 +152,13 @@ $(document).ready(function() {
 						
 					} else if(menu.choose == 'battle') {
 						showBattle();
+
+					} else if(menu.choose == 'perso1') {
+						var perso_id = getPersoIdByName(menu.txt.userPerso[0].text);
+						showOnePerso(window.all_persos[perso_id]);
+
+					} else if(menu.choose == 'one_perso') {
+						hideOnePerso();
 					}
 				}
 			break;
@@ -305,14 +317,20 @@ $(document).ready(function() {
 		menu.txt.persos.text = '';
 		menu.txt.objects.text = '';
 		menu.txt.retour.text = '';
+		menu.txt.launch_battle.text = '';
 
 		menu.shown = 'persos';
 		menu.choose = 'perso1';
 
 		var tops = 20;
 
+		menu.txt.userPerso = {};
+
 		for (userPerso in user.persos) {
-			menu.txt.userPerso = game.add.text(550, tops, user.persos[userPerso], { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
+			console.log('userPerso', userPerso);
+			var this_text = user.persos[userPerso];
+
+			menu.txt.userPerso[userPerso] = game.add.text(550, tops, this_text, { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
 			tops = tops + 30;
 		}
 
@@ -335,9 +353,69 @@ $(document).ready(function() {
 
 		menu.choose = 'persos';
 
+		for(item in menu.txt.userPerso) {
+			menu.txt.userPerso[item].text = "";
+		}
+
 		menu.txt.persos.text = 'Personnages';
 		menu.txt.objects.text = 'Objects';
 		menu.txt.retour.text = 'Retour';
+		menu.txt.launch_battle.text = 'Launch Battle';
+	}
+
+	function showOnePerso(perso) {
+		menu.choosed_perso = {};
+
+		menu.choose = "one_perso";
+
+		menu.choosed_perso.graphics = game.add.graphics(0, 0);
+		menu.choosed_perso.graphics.beginFill(0xFFFFFF, 1);
+		menu.choosed_perso.graphics.drawRect(10, 10, 680, 480);
+		menu.choosed_perso.graphics.endFill();
+		
+		menu.choosed_perso.txt = {};
+		menu.choosed_perso.txt[0] = game.add.text(20, 20, perso.name, { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
+		menu.choosed_perso.txt[1] = game.add.text(20, 50, "Level : "+perso.level, { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
+		menu.choosed_perso.txt[2] = game.add.text(20, 80, "Exp : "+perso.xp, { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
+
+		the_persos = game.add.group();
+		var the_perso1 = the_persos.create(20, 100, perso.name);
+
+	}
+
+	function hideOnePerso() {
+		menu.choosed_perso.graphics.clear();
+		the_persos.removeAll(true, true);
+		for(item in menu.choosed_perso.txt) {
+			menu.choosed_perso.txt[item].text = "";
+		}
+		menu.choose = 'perso1';
+	}
+
+	function getPersoIdByName(perso_name) {
+
+		switch(perso_name) {
+
+			case "Naruto":
+				return 3;
+			break;
+
+			case "Luffy" :
+				return 1;
+			break;
+
+			case "Sangoku" :
+				return 0;
+			break;
+
+			default:
+				return null;
+			break;
+		}
+	}
+
+	function addText(x, y,  txt) {
+		return game.add.text(x, y, txt, { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
 	}
 
 
