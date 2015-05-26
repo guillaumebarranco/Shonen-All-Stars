@@ -163,7 +163,10 @@ if(!isset($user)) { ?>
 
 <script src="js/jquery-1.11.2.min.js"></script>
 
-<script src="js/authentification.js"></script>
 <script src="js/phaser.min.js"></script>
-<script src="js/move.js"></script>
+<script src="js/functions.js"></script>
+<script src="js/init.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/talk.js"></script>
 <script src="js/main.js"></script>
+<script src="js/battle.js"></script>
