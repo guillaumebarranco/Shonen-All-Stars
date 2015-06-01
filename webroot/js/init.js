@@ -1,7 +1,8 @@
 var game;
-var perso = $('.perso');
+
 var user = {};
 var assets = {};
+
 var assetsLength = 0;
 var balls;
 var direction;
@@ -13,7 +14,7 @@ var newText = null;
 var passText = null;
 
 var stars;
-var enableChoice = false;
+var enableChoice = true;
 var standby;
 var gameLaunched = false;
 
@@ -103,7 +104,7 @@ function update() {
 	player.body.velocity.y = 0;
 
 	// Gestion des mouvements en fonction de la touche pressée
-	
+
 	if(!menu.open) {
 		if(cursors.left.isDown) {
 	    	movePerso(player, 'left');

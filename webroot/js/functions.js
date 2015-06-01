@@ -1,3 +1,8 @@
+function addAsset(the_asset) {
+	assets[assetsLength] = the_asset;
+	assetsLength++;
+}
+
 function getPersoIdByName(perso_name) {
 
 	switch(perso_name) {
@@ -20,11 +25,7 @@ function getPersoIdByName(perso_name) {
 	}
 }
 
-/***********************/
-/* FONCTION GENERIQUES */
-/***********************/
-
-// Fonction pour gérer la collision avec un autre personnage
+// Fonction pour gérer la collision avec un autre personnage, appellée grâce à la gestion des collisions de Phaser
 function hitObject() {
 	console.log(direction);
 
@@ -113,9 +114,4 @@ function showPass() {
 function hidePass() {
 	passText.text = "";
 	stepTalk = 1;
-}
-
-function addAsset(the_asset) {
-	assets[assetsLength] = the_asset;
-	assetsLength++;
 }

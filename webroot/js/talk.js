@@ -73,9 +73,7 @@ function talk() {
 		break;
 	}
 
-	user.persos[0] = standby;
-
-	enableChoice = true;
+	
 
 	setTimeout(function() {
 

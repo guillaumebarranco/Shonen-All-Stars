@@ -18,7 +18,7 @@ $(document).ready(function() {
 			case 13 : // enter
 				if(enableChoice) {
 					e.preventDefault();
-					choose();
+					chooseStarter();
 				} else if(menu.open) {
 
 					switch(menu.choose) {
@@ -75,7 +75,8 @@ $(document).ready(function() {
 	/*	CHAPTER ONE   */
 	/******************/
 
-	function choose() {
+	function chooseStarter() {
+		user.persos[0] = standby;
 		newText.text = "Vous avez choisi "+standby+" ! Excellent choix !";
 		removeBalls();
 	}
