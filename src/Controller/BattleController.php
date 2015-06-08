@@ -11,7 +11,7 @@ use Cake\Controller\Component\RequestHandlerComponent;
 class BattleController extends AppController
 {
 
-     public function initialize() {
+    public function initialize() {
         parent::initialize();
         $this->loadModel('Persos');
         $this->loadModel('Attacks');

@@ -52,12 +52,16 @@ function movePerso(player, the_direction) {
 		enableTalk = false;
 		if(the_direction === 'left') {
 			player.body.velocity.x = -speed;
+			updateScene('left');
 		} else if(the_direction === 'right') {
 			player.body.velocity.x = speed;
+			updateScene('right');
 		} else if(the_direction === 'up') {
 			player.body.velocity.y = -speed;
+			updateScene('up');
 		} else if(the_direction === 'down') {
 			player.body.velocity.y = speed;
+			updateScene('down');
 		}
 
         player.animations.play(the_direction);
@@ -67,13 +71,26 @@ function movePerso(player, the_direction) {
 	}
 }
 
-function addText(x, y,  txt) {
-	return game.add.text(x, y, txt, { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
-}
+function updateScene(the_direction) {
+	if(scene.length != 0) {
+		for (object in scene) {
+			switch(the_direction) {
 
-function showBattle() {
-	$('canvas').hide();
-	window.beginBattle(user.id_starter);
+				case 'left':
+					scene[object].body.position.x = scene[object].body.position.x + speed/100;
+				break;
+				case 'right':
+					scene[object].body.position.x = scene[object].body.position.x - speed/100;
+				break;
+				case 'up':
+					scene[object].body.position.y = scene[object].body.position.y + speed/100;
+				break;
+				case 'down':
+					scene[object].body.position.y = scene[object].body.position.y - speed/100;
+				break;
+			}
+		}
+	}
 }
 
 function getCloseObject() {
@@ -101,6 +118,20 @@ function getCloseObject() {
 	}
 
 	return choosed;
+}
+
+function addText(x, y,  txt) {
+	return game.add.text(x, y, txt, { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
+}
+
+function showBattle(argument) {
+	$('canvas').hide();
+	window.beginBattle(user.id_starter, argument);
+	newText.text = "";
+}
+function showCanvas() {
+	$('.battle').hide();
+	$('canvas').show();
 }
 
 function showPass() {

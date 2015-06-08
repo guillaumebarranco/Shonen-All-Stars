@@ -24,6 +24,9 @@ var spoken = {};
 var stepTalk = 1;
 
 var people;
+var scene = {};
+
+window.currentChapter = 1;
 
 user.persos = {};
 user.id_starter;
@@ -38,6 +41,7 @@ addAsset("rukia");
 addAsset("luffy");
 addAsset("sangoku");
 addAsset("naruto");
+addAsset("yugi");
 
 function preload() {
 
@@ -57,6 +61,9 @@ function create() {
 	player = game.add.sprite(32, game.world.height - 150, 'perso');
 	game.physics.arcade.enable(player);
 	player.body.collideWorldBounds = true;
+
+	player.position.x = game.world.width / 2;
+	player.position.y = game.world.height / 2;
 
 	// Définition des applications
 	player.animations.add('left', [0, 1, 2, 3], 10, true);

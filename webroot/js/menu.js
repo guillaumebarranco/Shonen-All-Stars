@@ -5,6 +5,7 @@ menu.graphics;
 menu.cursor;
 menu.wait = 0;
 
+
 function openMenu() {
 	menu.open = true;
 

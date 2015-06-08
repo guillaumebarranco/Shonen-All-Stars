@@ -1,5 +1,23 @@
 $(document).ready(function() {
 
+	window.newChapter = function(nb_chapter) {
+
+		switch(nb_chapter) {
+			case 1:
+				chapterOne();
+			break;
+			case 2:
+				chapterTwo();
+			break;
+			case 3:
+				chapterThree();
+			break;
+			case 4:
+				chapterFour();
+			break;
+		}
+	}
+
 	$(document).keydown(function(e) {
 		var key = e.which || e.keyCode;
 
@@ -18,7 +36,7 @@ $(document).ready(function() {
 			case 13 : // enter
 				if(enableChoice) {
 					e.preventDefault();
-					chooseStarter();
+					chapterOne();
 				} else if(menu.open) {
 
 					switch(menu.choose) {
@@ -56,8 +74,9 @@ $(document).ready(function() {
 						break;
 					}
 				}
-			break;
 
+			break;
+			
 			case 81 : // q
 				if(gameLaunched) {
 					e.preventDefault();
@@ -75,7 +94,9 @@ $(document).ready(function() {
 	/*	CHAPTER ONE   */
 	/******************/
 
-	function chooseStarter() {
+	function chapterOne() {
+		window.currentChapter = 1;
+
 		user.persos[0] = standby;
 		newText.text = "Vous avez choisi "+standby+" ! Excellent choix !";
 		removeBalls();
@@ -89,7 +110,7 @@ $(document).ready(function() {
 		setTimeout(function() {
 			newText.text = '';
 			balls.removeAll(true, true);
-			makeScene();
+			chapterTwo();
 		}, 1000);
 	}
 
@@ -97,19 +118,36 @@ $(document).ready(function() {
 	/*	CHAPTER TWO   */
 	/******************/
 
-	function makeScene() {
+	function chapterTwo() {
+		window.currentChapter = 2;
 
 		gameLaunched = true;
 
     	// Création de korosensei
-        var korosensei = people.create(300, 200, 'korosensei');
-        korosensei.body.immovable = true;
+        scene.korosensei = people.create(300, 200, 'korosensei');
+        scene.korosensei.body.immovable = true;
 
-        var rukia = people.create(100, 100, 'rukia');
-        rukia.body.immovable = true;
+        scene.rukia = people.create(100, 100, 'rukia');
+        scene.rukia.body.immovable = true;
 
-        var piccolo = people.create(450, 150, 'piccolo');
-        piccolo.body.immovable = true;
+        scene.piccolo = people.create(450, 150, 'piccolo');
+        scene.piccolo.body.immovable = true;
+
+        console.log(scene);
+	}
+
+	/******************/
+	/*  CHAPTER THREE */
+	/******************/
+
+	function chapterThree() {
+		window.currentChapter = 3;
+	}
+
+	function chapterFour() {
+		scene.yugi = people.create(500, 100, 'yugi');
+        scene.yugi.body.immovable = true;
+		window.currentChapter = 4;
 	}
 	
 });

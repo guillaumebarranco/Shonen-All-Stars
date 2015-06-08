@@ -28,19 +28,37 @@ function talk() {
 		break;
 
 		case 'korosensei':
-			if(stepTalk == 1) {
-				newText.text = "Bonjour, je suis Korosensei !";
-				showPass();
-			} else if(stepTalk == 2) {
-				newText.text = "Je serais ton professeur de mangas.";
-				showPass();
-			} else if(stepTalk == 3) {
-				newText.text = "As-tu des questions ?";
-				showPass();
-				spoken.korosensei = true;
-			} else if(stepTalk == 4) {
-				newText.text = "";
-				hidePass();
+			if(window.currentChapter < 3) {
+				if(stepTalk == 1) {
+					newText.text = "Bonjour, je suis Korosensei !";
+					showPass();
+				} else if(stepTalk == 2) {
+					newText.text = "Je serais ton professeur de mangas.";
+					showPass();
+				} else if(stepTalk == 3) {
+					newText.text = "As-tu des questions ?";
+					showPass();
+					spoken.korosensei = true;
+				} else if(stepTalk == 4) {
+					newText.text = "";
+					hidePass();
+				}
+			} else {
+				if(stepTalk == 1) {
+					newText.text = "Maintenant que tu as effectué ton premier combat, ton apprentissage des mangas peut commencer !";
+					showPass();
+				} else if(stepTalk == 2) {
+					newText.text = "Le genre le plus lu de mangas est le style Shonen !";
+					showPass();
+				} else if(stepTalk == 3) {
+					newText.text = "Tu va devoir combattre un héros emblématique pour comprendre ce dont je parle !";
+					showPass();
+				} else if(stepTalk == 4) {
+					newText.text = "Es-tu prêt à combattre ?";
+					stepTalk++;
+				} else if(stepTalk == 5) {
+					showBattle('yugi');
+				}
 			}
 			
 		break;
@@ -60,16 +78,21 @@ function talk() {
 		break;
 
 		case 'piccolo':
-			if(spoken.korosensei != undefined && spoken.rukia != undefined) {
-				if(stepTalk == 1) {
-					newText.text = "Un petit combat ? Appuie de nouveau sur espace pour accepter";
-					stepTalk++;
-				} else if(stepTalk == 2) {
-					showBattle();
+			if(window.currentChapter < 3) {
+				if(spoken.korosensei != undefined && spoken.rukia != undefined) {
+					if(stepTalk == 1) {
+						newText.text = "Un petit combat ? Appuie de nouveau sur espace pour accepter";
+						stepTalk++;
+					} else if(stepTalk == 2) {
+						showBattle('trial');
+					}
+				} else {
+					newText.text = "Je te conseille d'aller voir les autres d'abord";
 				}
-			} else {
-				newText.text = "Je te conseille d'aller voir les autres d'abord";
+			} else if(window.currentChapter == 3) {
+				newText.text = "Bravo !";
 			}
+			
 		break;
 	}
 

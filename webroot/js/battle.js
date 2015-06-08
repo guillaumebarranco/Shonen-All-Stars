@@ -15,6 +15,8 @@ $(document).ready(function() {
 	var arcade = 0;
 	var attack_ended = 1;
 
+	var showCanvasAfterBattle = false;
+
 	// SI BESOIN DE TESTER UNE ATTAQUE ENNEMIE PARTICULIRE, CHANGER CES VARIABLES
 
 	var ennemy_defined = false;
@@ -246,12 +248,19 @@ $(document).ready(function() {
 		window.beginBattle(id_chosen);
 	});
 
-	window.beginBattle = function(id_chosen) {
+	window.beginBattle = function(id_chosen, argument) {
 
 		if(ennemy_defined === false) {
 			random_ennemy = rand(0,_this.all_persos.length -1);
 		}
 
+		if(argument == 'trial') {
+			showCanvasAfterBattle = true;
+		} else if(argument == 'yugi') {
+			showCanvasAfterBattle = true;
+			random_ennemy = 17;
+		}
+		
 		_this.all_persos[id_chosen].side = 'ally';
 		_this.all_persos[random_ennemy].side = 'ennemy';
 		
@@ -662,21 +671,32 @@ $(document).ready(function() {
 
 			arcade = arcade +1;
 
-			setTimeout(function() {
+			if(showCanvasAfterBattle) {
+				cleanFight();
+				
+				showCanvas();
+				showCanvasAfterBattle = false;
 
-				if(arcade < 5) {
+				window.newChapter(window.currentChapter + 1);
 
-					updateLevel('win', function() {
-						newFight();
-					});
-					
-				} else {
-					updateLevel('arcade', function() {
-						endArcade();
-					});
-				}
+			} else {
 
-			}, 2000);
+				setTimeout(function() {
+
+					if(arcade < 5) {
+
+						updateLevel('win', function() {
+							newFight();
+						});
+						
+					} else {
+						updateLevel('arcade', function() {
+							endArcade();
+						});
+					}
+
+				}, 2000);
+			}			
 
 		} else if(winner === 'ennemy') {
 			arcade = 0;
@@ -809,6 +829,14 @@ $(document).ready(function() {
 		}
 
 		arcade = 0;
+	}
+
+	function cleanFight() {
+		emptyChat();
+
+		// On régénère les PV et PP des deux personnages
+		$('.status span').width(300);
+		$('.status strong').text('100');
 	}
  
 	// Fonction utilisée pour démarrer un nouveau combat (après une victoire de l'utilisateur)
