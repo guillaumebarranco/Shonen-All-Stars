@@ -3,6 +3,11 @@ function addAsset(the_asset) {
 	assetsLength++;
 }
 
+function addAssetPerso(the_asset) {
+	assetsPersos[assetsPersosLength] = the_asset;
+	assetsPersosLength++;
+}
+
 function getPersoIdByName(perso_name) {
 
 	switch(perso_name) {

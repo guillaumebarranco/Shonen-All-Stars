@@ -145,6 +145,7 @@ function hideMenuPersos() {
 }
 
 function showOnePerso(perso) {
+	console.log(perso);
 	menu.choosed_perso = {};
 
 	menu.choose = "one_perso";
@@ -160,7 +161,7 @@ function showOnePerso(perso) {
 	menu.choosed_perso.txt[2] = game.add.text(20, 80, "Exp : "+perso.xp, { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
 
 	the_persos = game.add.group();
-	var the_perso1 = the_persos.create(20, 100, perso.name);
+	var the_perso1 = the_persos.create(20, 100, perso.name.toLowerCase()+"_front");
 
 }
 

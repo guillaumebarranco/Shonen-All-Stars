@@ -3,6 +3,9 @@ var game;
 var user = {};
 var assets = {};
 
+var assetsPersos = {};
+var assetsPersosLength = 0;
+
 var assetsLength = 0;
 var balls;
 var direction;
@@ -12,6 +15,8 @@ var canMove = true;
 var enableTalk = false;
 var newText = null;
 var passText = null;
+
+var currentResult = 'win';
 
 var stars;
 var enableChoice = true;
@@ -38,10 +43,12 @@ addAsset("ball");
 addAsset("korosensei");
 addAsset("piccolo");
 addAsset("rukia");
-addAsset("luffy");
-addAsset("sangoku");
-addAsset("naruto");
 addAsset("yugi");
+
+addAssetPerso("luffy_front");
+addAssetPerso("goku_front");
+addAssetPerso("sangoku_front");
+addAssetPerso("naruto_front");
 
 function preload() {
 
@@ -49,6 +56,10 @@ function preload() {
 
 	for(asset in assets) {
 		game.load.image(assets[asset], 'img/assets/'+assets[asset]+'.png');
+	}
+
+	for(assetPerso in assetsPersos) {
+		game.load.image(assetsPersos[assetPerso], 'img/persos/'+assetsPersos[assetPerso]+'.png');
 	}
 }
 

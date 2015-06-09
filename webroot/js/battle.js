@@ -111,6 +111,8 @@ $(document).ready(function() {
 						user.win = user.lost = user.arcades = 0;
 					}
 
+					window.pseudo = user.pseudo;
+
 					var txt_pseudo = 
 						user.pseudo +
 						'<span class="nb_win">Win <em>'+user.win+'</em></span>'+
@@ -677,7 +679,7 @@ $(document).ready(function() {
 				showCanvas();
 				showCanvasAfterBattle = false;
 
-				window.newChapter(window.currentChapter + 1);
+				window.newChapter(window.currentChapter + 1, 'win');
 
 			} else {
 
@@ -702,11 +704,21 @@ $(document).ready(function() {
 			arcade = 0;
 			updateUser('lost');
 
-			chat('Vos points de vie sont tombé à zéro.');
-			chat('Vous avez <span style="color:red;text-transform:uppercase;">perdu</span> !');
-			chat('<button class="play_again">Rejouer</button>');
+			if(showCanvasAfterBattle) {
+				cleanFight();
 
-			$('.nb_lost em').text(parseInt($('.nb_lost em').text()) + 1);
+				$('.nb_lost em').text(parseInt($('.nb_lost em').text()) + 1);
+				
+				showCanvas();
+				showCanvasAfterBattle = false;
+
+				window.newChapter(window.currentChapter + 1, 'lost');
+			} else {
+				chat('Vos points de vie sont tombé à zéro.');
+				chat('Vous avez <span style="color:red;text-transform:uppercase;">perdu</span> !');
+				chat('<button class="play_again">Rejouer</button>');
+			}
+			
 
 		} else if(winner == 'catch') {
 

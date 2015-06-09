@@ -28,7 +28,9 @@ function talk() {
 		break;
 
 		case 'korosensei':
+
 			if(window.currentChapter < 3) {
+
 				if(stepTalk == 1) {
 					newText.text = "Bonjour, je suis Korosensei !";
 					showPass();
@@ -43,7 +45,9 @@ function talk() {
 					newText.text = "";
 					hidePass();
 				}
+
 			} else {
+
 				if(stepTalk == 1) {
 					newText.text = "Maintenant que tu as effectué ton premier combat, ton apprentissage des mangas peut commencer !";
 					showPass();
@@ -80,12 +84,23 @@ function talk() {
 		case 'piccolo':
 			if(window.currentChapter < 3) {
 				if(spoken.korosensei != undefined && spoken.rukia != undefined) {
-					if(stepTalk == 1) {
-						newText.text = "Un petit combat ? Appuie de nouveau sur espace pour accepter";
-						stepTalk++;
-					} else if(stepTalk == 2) {
-						showBattle('trial');
+
+					if(currentResult != 'lose') {
+						if(stepTalk == 1) {
+							newText.text = "Un petit combat ? Appuie de nouveau sur espace pour accepter";
+							stepTalk++;
+						} else if(stepTalk == 2) {
+							showBattle('trial');
+						}
+					} else {
+						if(stepTalk == 1) {
+							newText.text = "Tu veux retenter ta chance ? Appuie de nouveau sur espace pour accepter";
+							stepTalk++;
+						} else if(stepTalk == 2) {
+							showBattle('trial');
+						}
 					}
+					
 				} else {
 					newText.text = "Je te conseille d'aller voir les autres d'abord";
 				}
@@ -93,6 +108,21 @@ function talk() {
 				newText.text = "Bravo !";
 			}
 			
+		break;
+
+		case 'yugi' :
+			if(stepTalk == 1) {
+				newText.text = "Bonjour "+window.pseudo;
+				showPass();
+			} else if(stepTalk == 2) {
+				newText.text = "Souhaites-tu me combattre ?";
+				showPass();
+			} else if(stepTalk == 3) {
+				newText.text = "Parfait ! C'est l'heure du duel !";
+				showBattle('yugi');
+				spoken.yugi = true;
+				hidePass();
+			}
 		break;
 	}
 

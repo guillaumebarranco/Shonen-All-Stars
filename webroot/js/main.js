@@ -1,20 +1,26 @@
 $(document).ready(function() {
 
-	window.newChapter = function(nb_chapter) {
+	window.newChapter = function(nb_chapter, result) {
 
-		switch(nb_chapter) {
-			case 1:
-				chapterOne();
-			break;
-			case 2:
-				chapterTwo();
-			break;
-			case 3:
-				chapterThree();
-			break;
-			case 4:
-				chapterFour();
-			break;
+		if(result == 'win') {
+			currentResult = 'win';
+
+			switch(nb_chapter) {
+				case 1:
+					chapterOne();
+				break;
+				case 2:
+					chapterTwo();
+				break;
+				case 3:
+					chapterThree();
+				break;
+				case 4:
+					chapterFour();
+				break;
+			}
+		} else {
+			currentResult = 'lose';
 		}
 	}
 
@@ -148,6 +154,24 @@ $(document).ready(function() {
 		scene.yugi = people.create(500, 100, 'yugi');
         scene.yugi.body.immovable = true;
 		window.currentChapter = 4;
+	}
+
+	function chapterFive() {
+		scene.yusuke = people.create(500, 100, 'yusuke');
+        scene.yusuke.body.immovable = true;
+		window.currentChapter = 5;
+	}
+
+	function chapterSix() {
+		scene.yugi = people.create(500, 100, 'yugi');
+        scene.yugi.body.immovable = true;
+		window.currentChapter = 6;
+	}
+
+	function chapterSeven() {
+		scene.yugi = people.create(500, 100, 'yugi');
+        scene.yugi.body.immovable = true;
+		window.currentChapter = 7;
 	}
 	
 });
