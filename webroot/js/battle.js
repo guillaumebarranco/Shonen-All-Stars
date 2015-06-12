@@ -33,6 +33,10 @@ $(document).ready(function() {
 	/* 	       	 HIDES      	 */
 	/*****************************/
 
+	if(!showCanvasFromBeginning) {
+		$('.before_battle').show();
+	}
+
 	$('.battle').hide();
 	$('.before_battle h2').hide();
 	$('.pseudo').hide();
@@ -124,8 +128,12 @@ $(document).ready(function() {
 					$('.pseudo').show();
 					$('.sign_log_in').hide();
 
-					$('canvas').show();
-					$('.before_battle').hide();
+					if(showCanvasFromBeginning) {
+						$('canvas').show();
+						$('.before_battle').hide();
+					}
+
+					
 
 					if(what_form == 'signIn') {
 						getUserPersos();
@@ -448,7 +456,7 @@ $(document).ready(function() {
 	// Action de la Potion de PP
 	function updatePP() {
 
-		if(getPersoAttr('ally', 'life') <= 50) {
+		if(getPersoAttr('ally', 'pp') <= 50) {
 			
 			setPersoAttr('ally', 'pp', 50);
 			ennemyTurn();
@@ -674,12 +682,17 @@ $(document).ready(function() {
 			arcade = arcade +1;
 
 			if(showCanvasAfterBattle) {
-				cleanFight();
-				
-				showCanvas();
-				showCanvasAfterBattle = false;
 
-				window.newChapter(window.currentChapter + 1, 'win');
+				setTimeout(function() {
+					updateLevel('win', function() {
+						cleanFight();
+				
+						showCanvas();
+						showCanvasAfterBattle = false;
+
+						window.newChapter(window.currentChapter + 1, 'win');
+					});
+				}, 1500);
 
 			} else {
 

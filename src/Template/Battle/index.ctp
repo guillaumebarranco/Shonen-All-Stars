@@ -74,9 +74,9 @@ if(!isset($user)) { ?>
 <?php } ?>
 	
 
-	<h2>Choisissez votre personnage</h2>
-	<ul class="choose_perso"></ul>
-</div>
+		<h2>Choisissez votre personnage</h2>
+		<ul class="choose_perso"></ul>
+	</div>
 
 
 
@@ -162,6 +162,10 @@ if(!isset($user)) { ?>
 
 
 <script src="js/jquery-1.11.2.min.js"></script>
+
+<script>
+	var showCanvasFromBeginning = true;
+</script>
 
 <script src="js/phaser.min.js"></script>
 <script src="js/functions.js"></script>

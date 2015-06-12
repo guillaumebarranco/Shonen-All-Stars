@@ -15,6 +15,7 @@ var canMove = true;
 var enableTalk = false;
 var newText = null;
 var passText = null;
+window.pseudo;
 
 var currentResult = 'win';
 
@@ -44,6 +45,17 @@ addAsset("korosensei");
 addAsset("piccolo");
 addAsset("rukia");
 addAsset("yugi");
+addAsset("aladdin");
+addAsset('ichigo');
+addAsset('tsubasa');
+addAsset('gon');
+addAsset('kenichi');
+addAsset('kenshin');
+addAsset('toriko');
+addAsset('yusuke');
+addAsset('naruto');
+addAsset('goku');
+addAsset('luffy');
 
 addAssetPerso("luffy_front");
 addAssetPerso("goku_front");
@@ -104,7 +116,7 @@ function create() {
     passText = game.add.text(player.position.x, (player.position.y - 50), '', { fontSize: '12px', fill: '#fff', wordWrap : true, wordWrapWidth : 300 });
 
     // Si jamais l'utilisateur n'est pas authentifié, on cache le jeu
-    if($('.launch_direct').length == 0) {
+    if($('.launch_direct').length == 0 || !showCanvasFromBeginning) {
     	$('canvas').hide();
     }
 }

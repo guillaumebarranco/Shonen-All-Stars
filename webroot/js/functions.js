@@ -112,7 +112,6 @@ function getCloseObject() {
 	}
 
 	if(choosed == '') {
-		console.log(people);
 		for (var i = 0; i < people.length; i++) {
 
 			if(Math.abs(people.children[i].position.x - player.position.x) < proxi) {

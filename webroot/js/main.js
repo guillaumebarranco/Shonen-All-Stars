@@ -41,8 +41,12 @@ $(document).ready(function() {
 
 			case 13 : // enter
 				if(enableChoice) {
-					e.preventDefault();
-					chapterOne();
+					
+					if(standby != undefined) {
+						e.preventDefault();
+						chapterOne();
+					}
+					
 				} else if(menu.open) {
 
 					switch(menu.choose) {
