@@ -22,6 +22,7 @@ $(document).ready(function() {
 		} else {
 			currentResult = 'lose';
 		}
+		canPassChapter = false;
 	}
 
 	$(document).keydown(function(e) {

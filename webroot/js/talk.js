@@ -42,11 +42,10 @@ function talk() {
 					showPass();
 					spoken.korosensei = true;
 				} else if(stepTalk == 4) {
-					newText.text = "";
-					hidePass();
+					finishTalking();
 				}
 
-			} else {
+			} else if(window.currentChapter === 3) {
 
 				if(stepTalk == 1) {
 					newText.text = "Maintenant que tu as effectué ton premier combat, ton apprentissage des mangas peut commencer !";
@@ -61,23 +60,51 @@ function talk() {
 					newText.text = "Es-tu prêt à combattre ?";
 					stepTalk++;
 				} else if(stepTalk == 5) {
+					hidePass();
+					canPassChapter = true;
 					showBattle('yugi');
+				}
+			} else if(window.currentChapter === 4) {
+				if(stepTalk == 1) {
+					newText.text = "Tu t'en es bien sorti, il ne te reste qu'une épreuve !";
+					showPass();
+				} else if(stepTalk == 2) {
+					finishTalking();
 				}
 			}
 			
 		break;
 
 		case 'rukia':
-			if(stepTalk == 1) {
-				newText.text = "Bonjour, je suis Rukia !";
-				showPass();
-			} else if(stepTalk == 2) {
-				newText.text = "Je te guiderais à travers tes aventures.";
-				showPass();
-				spoken.rukia = true;
-			} else if(stepTalk == 3) {
-				newText.text = "";
-				hidePass();
+			if(window.currentChapter < 4) {
+
+				if(stepTalk == 1) {
+					newText.text = "Bonjour, je suis Rukia !";
+					showPass();
+				} else if(stepTalk == 2) {
+					newText.text = "Je te guiderais à travers tes aventures.";
+					showPass();
+					spoken.rukia = true;
+				} else if(stepTalk == 3) {
+					finishTalking();
+				}
+			} else if(window.currentChapter === 4) {
+				if(stepTalk === 1) {
+					txt("Bravo pour être arrivé jusqu'ici !");
+					showPass();
+				} else if(stepTalk === 2) {
+					txt("Pour ton dernier entraînement tu va avoir un adversaire coriace, tu es prêt ?");
+					showPass();
+				} else if(stepTalk === 3) {
+					txt("C'est parti !");
+
+					setTimeout(function() {
+						canPassChapter = true;
+						showBattle('toriko');
+						spoken.rukia = true;
+						hidePass();
+					}, 500);
+				}
 			}
 		break;
 
@@ -97,6 +124,7 @@ function talk() {
 							newText.text = "Tu veux retenter ta chance ? Appuie de nouveau sur espace pour accepter";
 							stepTalk++;
 						} else if(stepTalk == 2) {
+							canPassChapter = true;
 							showBattle('trial');
 						}
 					}
@@ -106,6 +134,17 @@ function talk() {
 				}
 			} else if(window.currentChapter == 3) {
 				newText.text = "Bravo !";
+			} else if(window.currentChapter == 4) {
+				if(stepTalk == 1) {
+					newText.text = "Deux victoires à ton actif ! C'est un bon début !";
+					showPass();
+				} else if(stepTalk == 2) {
+					newText.text = "Pour la fin de ton entraînement, tu devrais aller voir la guide !";
+					showPass();
+				} else if(stepTalk === 3) {
+					finishTalking();
+				}
+				
 			}
 			
 		break;

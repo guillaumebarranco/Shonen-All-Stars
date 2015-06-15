@@ -264,11 +264,17 @@ $(document).ready(function() {
 			random_ennemy = rand(0,_this.all_persos.length -1);
 		}
 
-		if(argument == 'trial') {
+		if(argument) {
+			switch(argument) {
+				case "yugi" :
+					random_ennemy = 17;
+				break;
+
+				case "toriko":
+					random_ennemy = 7;
+				break;
+			}
 			showCanvasAfterBattle = true;
-		} else if(argument == 'yugi') {
-			showCanvasAfterBattle = true;
-			random_ennemy = 17;
 		}
 		
 		_this.all_persos[id_chosen].side = 'ally';
@@ -690,7 +696,11 @@ $(document).ready(function() {
 						showCanvas();
 						showCanvasAfterBattle = false;
 
-						window.newChapter(window.currentChapter + 1, 'win');
+						if(canPassChapter) {
+							window.newChapter(window.currentChapter + 1, 'win');
+						} else {
+							window.newChapter(window.currentChapter, 'win');
+						}
 					});
 				}, 1500);
 
@@ -725,7 +735,8 @@ $(document).ready(function() {
 				showCanvas();
 				showCanvasAfterBattle = false;
 
-				window.newChapter(window.currentChapter + 1, 'lost');
+				window.newChapter(window.currentChapter, 'win');
+				
 			} else {
 				chat('Vos points de vie sont tombé à zéro.');
 				chat('Vous avez <span style="color:red;text-transform:uppercase;">perdu</span> !');

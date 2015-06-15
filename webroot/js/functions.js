@@ -150,3 +150,12 @@ function hidePass() {
 	passText.text = "";
 	stepTalk = 1;
 }
+
+function finishTalking() {
+	hidePass();
+	newText.text = "";
+}
+
+function txt(someText) {
+	newText.text = someText;
+}

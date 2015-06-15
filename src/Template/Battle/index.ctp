@@ -164,7 +164,8 @@ if(!isset($user)) { ?>
 <script src="js/jquery-1.11.2.min.js"></script>
 
 <script>
-	var showCanvasFromBeginning = true;
+	var showCanvasFromBeginning = false;
+	var canPassChapter = false;
 </script>
 
 <script src="js/phaser.min.js"></script>
