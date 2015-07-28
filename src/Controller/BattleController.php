@@ -43,7 +43,8 @@ class BattleController extends AppController
 
     public function getPersos() {
 
-        $this->Jsonification();
+        $this->layout = null;
+        $this->RequestHandler->renderAs($this, 'json');
 
         $session = $this->request->session();
         $connected_user = $session->read('user')[0];
@@ -55,6 +56,7 @@ class BattleController extends AppController
             array('UserPersos.id_user' => $connected_user['id'])
         )->toArray();
 
+        //var_dump($user_persos);
         $v = 0;
 
         foreach ($persos as $key => $perso) {

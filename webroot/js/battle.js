@@ -17,7 +17,7 @@ $(document).ready(function() {
 
 	var showCanvasAfterBattle = false;
 
-	// SI BESOIN DE TESTER UNE ATTAQUE ENNEMIE PARTICULIRE, CHANGER CES VARIABLES
+	// SI BESOIN DE TESTER UNE ATTAQUE ENNEMIE PARTICULIERE, CHANGER CES VARIABLES
 
 	var ennemy_defined = false;
 	var random_ennemy;
@@ -105,11 +105,7 @@ $(document).ready(function() {
 
 				if(_this.response.check === 'OK') {
 
-					if(_this.response.user[0] != undefined) {
-						user = _this.response.user[0];
-					} else {
-						user = _this.response.user;
-					}
+					user = (_this.response.user[0] != undefined) ? _this.response.user[0] : _this.response.user;
 
 					if(what_form === 'signIn') {
 						user.win = user.lost = user.arcades = 0;
@@ -132,7 +128,6 @@ $(document).ready(function() {
 						$('canvas').show();
 						$('.before_battle').hide();
 					}
-
 					
 
 					if(what_form == 'signIn') {
@@ -143,12 +138,8 @@ $(document).ready(function() {
 					
 				} else {
 
-					if(what_form === 'logIn') {
-						alert('Vous avez tapé un mauvais pseudo et/ou un mauvais mot de passe.');
-					} else {
-						alert('Ce pseudo est déjà pris, essayez-en un autre.');
-					}
-					
+					var the_alert = (what_form === 'logIn') ? 'Vous avez tapé un mauvais pseudo et/ou un mauvais mot de passe.' : 'Ce pseudo est déjà pris, essayez-en un autre.';
+					alert(the_alert);
 				}
 			});
 
@@ -172,11 +163,7 @@ $(document).ready(function() {
 
 				console.log('connected user', _this.response);
 
-				if(_this.response.user[0] != undefined) {
-					user = _this.response.user[0];
-				} else {
-					user = _this.response.user;
-				}				
+				user = (_this.response.user[0] != undefined) ? _this.response.user[0] : _this.response.user;
 
 				getAllPersos();
 			}
