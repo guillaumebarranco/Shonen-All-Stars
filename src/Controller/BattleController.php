@@ -13,12 +13,8 @@ class BattleController extends AppController
 
     public function initialize() {
         parent::initialize();
-        $this->loadModel('Persos');
-        $this->loadModel('Attacks');
-        $this->loadModel('Users');
         $this->loadModel('Fights');
         $this->loadModel('UserPersos');
-        $this->loadComponent('RequestHandler');
     }
 
     public function index() {
@@ -27,9 +23,7 @@ class BattleController extends AppController
 
     public function getConnectedUser() {
 
-        $this->autoRender = false;
-        $this->layout = null;
-        $this->RequestHandler->renderAs($this, 'json');
+        $this->Jsonification();
 
         $session = $this->request->session();
         $connected_user = $session->read('user');
@@ -38,9 +32,7 @@ class BattleController extends AppController
             array('Users.pseudo' => $connected_user[0]->pseudo)
         )->toArray();
 
-        if($user) {
-            $check = 'OK';
-        }
+        $check = ($user) ? 'OK' : 'KO';
 
         $response = array();
         $response['check'] = $check;
@@ -51,14 +43,14 @@ class BattleController extends AppController
 
     public function getPersos() {
 
-        $this->layout = null;
-        $this->RequestHandler->renderAs($this, 'json');
+        $this->Jsonification();
 
         $session = $this->request->session();
         $connected_user = $session->read('user')[0];
 
         $persos = $this->Persos->find()->toArray();
         $attacks = $this->Attacks->find()->toArray();
+
         $user_persos = $this->UserPersos->find()->where(
             array('UserPersos.id_user' => $connected_user['id'])
         )->toArray();
@@ -69,7 +61,7 @@ class BattleController extends AppController
             foreach ($attacks as $key => $attack) {
 
                 // On fait une boucle pour les quatres attaques de chaque personnage
-                for ($i=1; $i < 5; $i++) { 
+                for ($i=1; $i < 5; $i++) {
 
                     if($attack['id'] == $perso['attack_'.$i]) {
                         $persos[$v]['attack_'.$i] = array();
@@ -168,14 +160,11 @@ class BattleController extends AppController
 
     public function updateUserPerso() {
 
-        $this->autoRender = false;
-        $this->layout = null;
-        $this->RequestHandler->renderAs($this, 'json');
+        $check = $this->Jsonification();
 
         $session = $this->request->session();
         $connected_user = $session->read('user')[0];
 
-        $check = 'KO';
         $perso = null;
 
         if(isset($this->request->data) && $connected_user) {
@@ -234,11 +223,7 @@ class BattleController extends AppController
 
     public function signLogIn() {
 
-        $this->autoRender = false;
-        $this->layout = null;
-        $this->RequestHandler->renderAs($this, 'json');
-
-        $check = 'KO';
+        $check = $this->Jsonification();
         $user = null;
 
         if(isset($this->request->data)) {
@@ -297,11 +282,7 @@ class BattleController extends AppController
 
     public function updateUser() {
 
-        $this->autoRender = false;
-        $this->layout = null;
-        $this->RequestHandler->renderAs($this, 'json');
-
-        $check = 'KO';
+        $check = $this->Jsonification();
 
         if(isset($this->request->data)) {
 
@@ -346,18 +327,12 @@ class BattleController extends AppController
             }
         }
 
-        $response = array();
-        $response['check'] = $check;
-
-        echo json_encode($response);
+        echo $this->getResponse($check);
     }
 
     public function updateLevelExp() {
-        $this->autoRender = false;
-        $this->layout = null;
-        $this->RequestHandler->renderAs($this, 'json');
 
-        $check = 'KO';
+        $check = $this->Jsonification();
 
         if(isset($this->request->data)) {
 
@@ -377,22 +352,14 @@ class BattleController extends AppController
             ->execute();
 
             $check = 'OK';
-
         }
 
-        $response = array();
-        $response['check'] = $check;
-
-        echo json_encode($response);
+        echo $this->getResponse($check);
     }
 
     public function recordFight() {
 
-        $this->autoRender = false;
-        $this->layout = null;
-        $this->RequestHandler->renderAs($this, 'json');
-
-        $check = 'KO';
+        $check = $this->Jsonification();
 
         if(isset($this->request->data)) {
 
@@ -421,9 +388,6 @@ class BattleController extends AppController
             }
         }
 
-        $response = array();
-        $response['check'] = $check;
-
-        echo json_encode($response);
+        echo $this->getResponse($check);
     }
 }
