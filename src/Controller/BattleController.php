@@ -264,12 +264,17 @@ class BattleController extends AppController
                 } elseif($data['what_form'] == 'logIn') {
 
                     if($check_user) {
-                        $user = $check_user;
 
-                        $session = $this->request->session();
-                        $session->write('user', $user);
+                        if(md5($data['password']) == $check_user[0]->password) {
+                            $user = $check_user;
 
-                        $check = 'OK';
+                            $session = $this->request->session();
+                            $session->write('user', $user);
+
+                            $check = 'OK';
+                        } else {
+                            $check = 'KO';
+                        }
                     }
                 }
             }
