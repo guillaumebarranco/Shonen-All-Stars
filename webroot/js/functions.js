@@ -159,3 +159,42 @@ function finishTalking() {
 function txt(someText) {
 	newText.text = someText;
 }
+
+function popup(text) {
+	swal({
+		title: '',
+		text: text
+	})
+}
+
+function popError(description) {
+
+  if(description != undefined) {
+    swal({
+      type: 'error',
+      title: "Erreur",
+      text: description
+    });
+  } else {
+    swal({
+      type: 'error',
+      title: "Erreur"
+    });
+  }
+}
+
+function popSuccess(description) {
+
+  if(description != undefined) {
+    swal({
+      type: 'success',
+      title: "Succès !",
+      text: description
+    });
+  } else {
+    swal({
+      type: 'success',
+      title: "Succès !"
+    });
+  }
+}

@@ -1,4 +1,5 @@
 <?= $this->Html->css('battle') ?>
+<?= $this->Html->css('sweetalert') ?>
 
 <h1>Battle</h1>
 
@@ -171,6 +172,7 @@ if(!isset($user)) { ?>
 <script src="js/phaser.min.js"></script>
 <script src="js/functions.js"></script>
 <script src="js/init.js"></script>
+<script src="js/sweetalert.min.js"></script>
 <script src="js/menu.js"></script>
 <script src="js/talk.js"></script>
 <script src="js/main.js"></script>
