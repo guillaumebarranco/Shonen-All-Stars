@@ -41,7 +41,7 @@ class BattleController extends AppController
         echo json_encode($response);
     }
 
-    public function getPersos() {
+    public function getPersos($pseudo = null) {
 
         $this->layout = null;
         $this->RequestHandler->renderAs($this, 'json');
@@ -49,11 +49,17 @@ class BattleController extends AppController
         $session = $this->request->session();
         $connected_user = $session->read('user')[0];
 
+        if($pseudo == null) {
+            $id_user = $connected_user['id'];
+        } else {
+            $id_user = $this->getIdUserByPseudo($pseudo);
+        }
+
         $persos = $this->Persos->find()->toArray();
         $attacks = $this->Attacks->find()->toArray();
 
         $user_persos = $this->UserPersos->find()->where(
-            array('UserPersos.id_user' => $connected_user['id'])
+            array('UserPersos.id_user' => $id_user)
         )->toArray();
 
         //var_dump($user_persos);
@@ -97,7 +103,12 @@ class BattleController extends AppController
         ));
     }
 
-    public function getUserPersos() {
+    function getIdUserByPseudo($pseudo) {
+        $id_user = $this->Users->find('all')->where(['pseudo' => $pseudo])->toArray()[0]['id'];
+        return $id_user;
+    }
+
+    public function getUserPersos($pseudo = null) {
 
         $this->layout = null;
         $session = $this->request->session();
@@ -105,10 +116,16 @@ class BattleController extends AppController
 
         $user_persos = null;
 
-        if($connected_user) {
+        if($pseudo == null) {
+            $id_user = $connected_user['id'];
+        } else {
+            $id_user = $this->getIdUserByPseudo($pseudo);
+        }
+
+        if($id_user) {
 
             $user_persos = $this->UserPersos->find()->where(
-                array('UserPersos.id_user' => $connected_user['id'])
+                array('UserPersos.id_user' => $id_user)
             )->toArray();
 
             if(!$user_persos) {
@@ -121,7 +138,7 @@ class BattleController extends AppController
                     
                     $new_user_perso = $userPersos->newEntity();
 
-                    $new_user_perso->id_user = $connected_user['id'];
+                    $new_user_perso->id_user = $id_user;
                     $new_user_perso->id_perso = $perso['id'];
 
                     // On donne au joueur 4 personnages parmi les plus faibles (bah ouais)
@@ -160,7 +177,7 @@ class BattleController extends AppController
         ));
     }
 
-    public function updateUserPerso() {
+    public function updateUserPerso($pseudo = null) {
 
         $check = $this->Jsonification();
 
@@ -169,7 +186,13 @@ class BattleController extends AppController
 
         $perso = null;
 
-        if(isset($this->request->data) && $connected_user) {
+        if($pseudo == null) {
+            $id_user = $connected_user['id'];
+        } else {
+            $id_user = $this->getIdUserByPseudo($pseudo);
+        }
+
+        if(isset($this->request->data) && $id_user) {
 
             $data = $this->request->data;
 
@@ -177,7 +200,7 @@ class BattleController extends AppController
 
                 $check_user_perso = $this->UserPersos->find()->where(
                     array(
-                        'UserPersos.id_user' => $connected_user['id'],
+                        'UserPersos.id_user' => $id_user,
                         'UserPersos.id_perso' => $data['id_perso']
                     ))
                 ->toArray();
@@ -189,7 +212,7 @@ class BattleController extends AppController
 
                     $query->update()
                     ->set(['unlocked' => 1])
-                    ->where(['id_user' => $connected_user['id']])
+                    ->where(['id_user' => $id_user])
                     ->where(['id_perso' => intval($data['id_perso'])])
                     ->execute();
 
@@ -203,7 +226,7 @@ class BattleController extends AppController
                     $new_user_perso = $userPersosTable->newEntity();
 
                     $new_user_perso->unlocked = 1;
-                    $new_user_perso->id_user = $connected_user['id'];
+                    $new_user_perso->id_user = $id_user;
                     $new_user_perso->id_perso = intval($data['id_perso']);
 
                     $savedArticle = $userPersosTable->save($new_user_perso);
@@ -343,13 +366,19 @@ class BattleController extends AppController
             $session = $this->request->session();
             $connected_user = $session->read('user')[0];
 
+            if($pseudo == null) {
+                $id_user = $connected_user['id'];
+            } else {
+                $id_user = $this->getIdUserByPseudo($pseudo);
+            }
+
             $userPersosTable = TableRegistry::get('UserPersos');
             $query = $userPersosTable->query();
 
             $query->update()
             ->set(['level' => intval($data['perso']['level'])])
             ->set(['xp' => intval($data['perso']['xp'])])
-            ->where(['id_user' => $connected_user['id']])
+            ->where(['id_user' => $id_user])
             ->where(['id_perso' => intval($data['perso']['id'])])
             ->execute();
 
@@ -392,4 +421,5 @@ class BattleController extends AppController
 
         echo $this->getResponse($check);
     }
+
 }
