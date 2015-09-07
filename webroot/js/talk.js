@@ -163,6 +163,72 @@ function talk() {
 				hidePass();
 			}
 		break;
+
+		case 'toriko':
+			if(stepTalk == 1) {
+				txt("J'avais le ventre vide, mais maintenant suis prêt à prendre ma revanche !");
+			} else if(stepTalk == 1) {
+				newText.text = "Parfait ! Itadakimasu !";
+				showBattle('toriko');
+				spoken.toriko = true;
+				hidePass();
+			}
+		break;
+
+		case 'yusuke':
+			if(stepTalk == 1) {
+				txt("Mon énergie astrale a vacillé pour une seconde. Je veux combattre encore !");
+			} else if(stepTalk == 1) {
+				newText.text = "Tu va moins faire le malin cette fois !";
+				showBattle('yusuke');
+				spoken.yusuke = true;
+				hidePass();
+			}
+		break;
+
+		case 'kenichi':
+			if(stepTalk == 1) {
+				txt("Une défaite n'es qu'un entraînement de plus. Cette fois je gagnerais.");
+			} else if(stepTalk == 1) {
+				newText.text = "Tu va me dire des nouvelles de mes techniques !";
+				showBattle('kenichi');
+				spoken.kenichi = true;
+				hidePass();
+			}
+		break;
+
+		case 'gon':
+			if(stepTalk == 1) {
+				txt("Un hunter n'arrête jamais de courir après la victoire.");
+			} else if(stepTalk == 1) {
+				newText.text = "Janke, Go !";
+				showBattle('gon');
+				spoken.gon = true;
+				hidePass();
+			}
+		break;
+
+		case 'aladdin':
+			if(stepTalk == 1) {
+				txt("As-tu envie d'un autre face-à-face ?");
+			} else if(stepTalk == 1) {
+				newText.text = "Faisons de notre mieux !";
+				showBattle('aladdin');
+				spoken.aladdin = true;
+				hidePass();
+			}
+		break;
+
+		case 'kenshin':
+			if(stepTalk == 1) {
+				txt("Je ne peux pas me permettre de perdre une nouvelle fois.");
+			} else if(stepTalk == 1) {
+				newText.text = "Combattons.";
+				showBattle('kenshin');
+				spoken.kenshin = true;
+				hidePass();
+			}
+		break;
 	}
 
 	
