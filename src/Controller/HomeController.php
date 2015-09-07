@@ -9,12 +9,6 @@ use Cake\ORM\TableRegistry;
 
 class HomeController extends AppController {
 
-    public function initialize() {
-        parent::initialize();
-        $this->loadModel('Persos');
-        $this->loadModel('Attacks');
-    }
-
     public function index() {
 
         $persos = $this->Persos->find()->toArray();

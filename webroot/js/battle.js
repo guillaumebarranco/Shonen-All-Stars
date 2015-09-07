@@ -17,7 +17,7 @@ $(document).ready(function() {
 
 	var showCanvasAfterBattle = false;
 
-	// SI BESOIN DE TESTER UNE ATTAQUE ENNEMIE PARTICULIRE, CHANGER CES VARIABLES
+	// SI BESOIN DE TESTER UNE ATTAQUE ENNEMIE PARTICULIERE, CHANGER CES VARIABLES
 
 	var ennemy_defined = false;
 	var random_ennemy;
@@ -93,10 +93,11 @@ $(document).ready(function() {
 
 		if(pseudo != null && pseudo != '') {
 
-			var data = {};
-			data.pseudo = pseudo;
-			data.password = password;
-			data.what_form = what_form;
+			var data = {
+				"pseudo" : pseudo,
+				"password" : password,
+				"what_form" : what_form
+			};
 
 			// Fonction AJAX
 			makeAjax('POST', "battle/signLogIn", data, function() {
@@ -105,11 +106,7 @@ $(document).ready(function() {
 
 				if(_this.response.check === 'OK') {
 
-					if(_this.response.user[0] != undefined) {
-						user = _this.response.user[0];
-					} else {
-						user = _this.response.user;
-					}
+					user = (_this.response.user[0] != undefined) ? _this.response.user[0] : _this.response.user;
 
 					if(what_form === 'signIn') {
 						user.win = user.lost = user.arcades = 0;
@@ -132,23 +129,12 @@ $(document).ready(function() {
 						$('canvas').show();
 						$('.before_battle').hide();
 					}
-
 					
-
-					if(what_form == 'signIn') {
-						getUserPersos();
-					} else {
-						getAllPersos();
-					}
+					(what_form == 'signIn') ? getUserPersos() : getAllPersos();
 					
 				} else {
-
-					if(what_form === 'logIn') {
-						alert('Vous avez tapé un mauvais pseudo et/ou un mauvais mot de passe.');
-					} else {
-						alert('Ce pseudo est déjà pris, essayez-en un autre.');
-					}
-					
+					var the_alert = (what_form === 'logIn') ? 'Vous avez tapé un mauvais pseudo et/ou un mauvais mot de passe.' : 'Ce pseudo est déjà pris, essayez-en un autre.';
+					popError(the_alert);
 				}
 			});
 
@@ -171,12 +157,7 @@ $(document).ready(function() {
 			if(_this.response.check === 'OK') {
 
 				console.log('connected user', _this.response);
-
-				if(_this.response.user[0] != undefined) {
-					user = _this.response.user[0];
-				} else {
-					user = _this.response.user;
-				}				
+				user = (_this.response.user[0] != undefined) ? _this.response.user[0] : _this.response.user;
 
 				getAllPersos();
 			}
@@ -454,7 +435,7 @@ $(document).ready(function() {
 			setPersoAttr('ally', 'life', 50);
 			ennemyTurn();
 		} else {
-			alert('Vous avez trop de vie pour utiliser cette potion !');
+			popError('Vous avez trop de vie pour utiliser cette potion !');
 			$('.choose .button_tools').parent().show();
 		}
 	}
@@ -468,7 +449,7 @@ $(document).ready(function() {
 			ennemyTurn();
 
 		} else {
-			alert('Vous avez trop de PP pour utiliser cette potion !');
+			popError('Vous avez trop de PP pour utiliser cette potion !');
 			$('.choose .button_tools').parent().show();
 		}
 	}
@@ -483,7 +464,7 @@ $(document).ready(function() {
 			ennemyTurn();
 
 		} else {
-			alert('Vous avez trop de vie ou de PP pour utiliser cette potion !');
+			popError('Vous avez trop de vie ou de PP pour utiliser cette potion !');
 			$('.choose .button_tools').parent().show();
 		}
 	}
@@ -498,7 +479,7 @@ $(document).ready(function() {
 			ennemyTurn();
 
 		} else {
-			alert('Vous n\'avez pas assez de PP pour utiliser cette potion !');
+			popError('Vous n\'avez pas assez de PP pour utiliser cette potion !');
 			$('.choose .button_tools').parent().show();
 		}
 	}
@@ -507,14 +488,9 @@ $(document).ready(function() {
 	function mangaBall() {
 
 		var ennemy_name = $('.ennemy .status .name').text();
-		var is_unlocked = false;
-		var ennemy_id;
+		var ennemy_id = ennemy.id;
 
-		ennemy_id = ennemy.id;
-
-		if(ennemy.unlocked == 1) {
-			is_unlocked = true;
-		}
+		var is_unlocked = (ennemy.unlocked == 1) ? true : false;
 
 		if(!is_unlocked) {
 
@@ -523,7 +499,7 @@ $(document).ready(function() {
 			// Impossible d'attraper les personnages que l'on obtient seulement en finissant des arcades
 			if(ennemy_id == 26 || ennemy_id == 25 || ennemy_id == 12 || ennemy_id == 29 || ennemy_id == 47 || ennemy_id == 54) {
 
-				alert('Vous ne pouvez pas obtenir ce personnage de cette façon !');
+				popError('Vous ne pouvez pas obtenir ce personnage de cette façon !');
 				$('.choose .button_depart').parent().show();
 			
 			} else {
@@ -609,11 +585,7 @@ $(document).ready(function() {
 		var the_random = Math.floor(Math.random() * (max - min + 1)) + min;
 		
 		// Pour gérer le niveau adverse qui ne peut pas être inférieur à 0 ni supérieur à 30
-		if(the_random <= 0) {
-			the_random = 1;
-		} else if(the_random > 30) {
-			the_random = 30;
-		}
+		the_random = (the_random <= 0) ? 1 : (the_random > 30) ? 30 : the_random;
 
 		return the_random;
 	}
@@ -759,8 +731,6 @@ $(document).ready(function() {
 		var current_xp = ally.xp;
 		var exp;
 
-		var data = {};
-
 		if(what === 'win') {
 
 			exp = 10;
@@ -793,7 +763,10 @@ $(document).ready(function() {
 
 		ally.level = current_level;
 		ally.xp = current_xp;
-		data.perso = ally;
+
+		var data = {
+			'perso' : ally
+		};
 
 		makeAjax('POST', 'battle/updateLevelExp', data, function() {
 			console.log('updateExp', _this.response);
@@ -811,15 +784,13 @@ $(document).ready(function() {
 	// Fonction pour enregistrer les données du combat en BDD
 	function recordFight() {
 
-		data = {};
-		data.user = user.pseudo;
-		data.ally = ally.name;
-		data.ennemy = ennemy.name;
-		data.result = 'lost';
+		data = {
+			'user' : user.pseudo,
+			'ally' : ally.name,
+			'ennemy' : ennemy.name
+		};
 
-		if(winner === 'ally') {
-			data.result = 'win';
-		}
+		data.result = (winner === 'ally') ? 'win' : 'lost';
 
 		makeAjax('POST', 'battle/recordFight', data, function() {
 			console.log('recordFight', _this.response);
@@ -943,54 +914,33 @@ $(document).ready(function() {
 		if(type === 'physic') {
 
 			if(who === 'ally') {
-				if(ally.atk >= ennemy.def) {
-					power = power + 5;
-				} else {
-					power = power - 5;
-				}
+				power = (ally.atk >= ennemy.def) ? power + 5 : power - 5;
 
 			} else if(who === 'ennemy') {
-				if(ennemy.atk >= ally.def) {
-					power = power + 5;
-				} else {
-					power = power - 5;
-				}
+
+				power = (ennemy.atk >= ally.def) ? power + 5 : power - 5;
 			}
 
 		// SI L'ATTAQUE EST MAGIQUE
 		} else if(type === 'special') {
 
 			if(who === 'ally') {
-				if(ally.atk_spe >= ennemy.def_spe) {
-					power = power + 5;
-				} else {
-					power = power - 5;
-				}
+				power = (ally.atk_spe >= ennemy.def_spe) ? power + 5 : power - 5;
 
 			} else if(who === 'ennemy') {
-				if(ennemy.atk_spe >= ally.def_spe) {
-					power = power + 5;
-				} else {
-					power = power - 5;
-				}
+
+				power = (ennemy.atk_spe >= ally.def_spe) ? power + 5 : power - 5;
 			}
 		}
 
 		//GESTION DES NIVEAUX
 
 		if(who === 'ally') {
-			if(ally.level > ennemy.level) {
-				power = power + (2*(ally.level - ennemy.level));
-			} else {
-				power = power - (2*(ally.level - ennemy.level));
-			}
+			power = (ally.level > ennemy.level) ? power + (2*(ally.level - ennemy.level)) : power - (2*(ally.level - ennemy.level));
 
 		} else if(who === 'ennemy') {
-			if(ally.level > ennemy.level) {
-				power = power - (2*(ally.level - ennemy.level));
-			} else {
-				power = power + (2*(ally.level - ennemy.level));
-			}
+
+			power = (ally.level > ennemy.level) ? power - (2*(ally.level - ennemy.level)) : power + (2*(ally.level - ennemy.level));
 		}
 
 		return power;
@@ -1005,9 +955,8 @@ $(document).ready(function() {
 
 		setTimeout(function() {
 
-			if(attack_defined === false) {
-				random_attack = rand(1,4);
-			}
+			random_attack = (attack_defined === false) ? rand(1,4) : random_attack;
+
 			var ennemy_attack;
 
 			switch(random_attack) {
@@ -1069,15 +1018,11 @@ $(document).ready(function() {
 						// Mise à jour de la vie de l'adversaire
 						setPersoAttr('ennemy', 'life', -power_attack);
 
-						if(!checkWin()) {
-							ennemyTurn();
-						} else {
-							endGame();
-						}
+						(!checkWin()) ? ennemyTurn() : endGame();
 					});
 					
 				} else {
-					alert('Pas assez de PP pour cette attaque.');
+					popError('Pas assez de PP pour cette attaque.');
 					$('.choose .button_attack').parent().show();
 				}
 
@@ -1147,13 +1092,7 @@ $(document).ready(function() {
 	// Fonction pour mettre en place les animations relatives au attaques (les animations étant créées en CSS3)
 	function makeAnimation(who_attack, anim_attack, callback) {
 
-		var who_receive;
-
-		if(who_attack === 'ally') {
-			who_receive = 'ennemy';
-		} else if(who_attack === 'ennemy') {
-			who_receive = 'ally';
-		}
+		var who_receive = (who_attack === 'ally') ? 'ennemy' : (who_attack === 'ennemy') ? 'ally' : '';
 
 		if(anim_attack == 'monochrome') {
 
@@ -1192,14 +1131,7 @@ $(document).ready(function() {
 
 			// Animation duration from the CSS given to the setTimeout function
 			var duration = $('.anim_'+anim_attack).css('animation-duration');
-
-			if(duration.length == 2) {
-				duration = duration.substr(0,1);
-				duration = parseInt(duration) * 1000;
-			} else {
-				duration = duration.substr(0,3);
-				duration = parseFloat(duration) * 1000;
-			}
+			duration = (duration.length === 2) ? parseInt(duration.substr(0,1)) * 1000 : parseFloat(duration.substr(0,3)) * 1000;
 
 			setTimeout(function() {
 
