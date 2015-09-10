@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	window.newChapter = function(nb_chapter, result) {
+	newChapter = function(nb_chapter, result) {
 
 		if(result == 'win') {
 			currentResult = 'win';
@@ -18,6 +18,9 @@ $(document).ready(function() {
 				case 4:
 					chapterFour();
 				break;
+				case 5:
+					chapterFive();
+				break;
 			}
 		} else {
 			currentResult = 'lose';
@@ -27,8 +30,6 @@ $(document).ready(function() {
 
 	$(document).keydown(function(e) {
 		var key = e.which || e.keyCode;
-
-		//console.log(key);
 
 		// Si jamais le joueur est face à un autre personnage, il peut lui parler en appuyant sur espace
 
@@ -91,10 +92,10 @@ $(document).ready(function() {
 			case 81 : // q
 				if(gameLaunched) {
 					e.preventDefault();
-					if(menu.open) {
-						closeMenu();
-					} else {
+					if(!menu.open) {
 						openMenu();
+					} else {
+						closeMenu();
 					}
 				}
 			break;
@@ -105,15 +106,16 @@ $(document).ready(function() {
 	/*	CHAPTER ONE   */
 	/******************/
 
-	function chapterOne() {
+	var chapterOne = function() {
+		
 		currentChapter = 1;
 
 		user.persos[0] = standby;
 		newText.text = "Vous avez choisi "+standby+" ! Excellent choix !";
 		removeBalls();
-	}
+	};
 
-	function removeBalls() {
+	var removeBalls = function() {
 
 		collision = null;
 		enableChoice = false;
@@ -123,60 +125,52 @@ $(document).ready(function() {
 			balls.removeAll(true, true);
 			chapterTwo();
 		}, 1000);
-	}
+	};
 
 	/******************/
 	/*	CHAPTER TWO   */
 	/******************/
 
-	function chapterTwo() {
+	var chapterTwo = function() {
+
 		currentChapter = 2;
 
 		gameLaunched = true;
 
     	// Création de korosensei
-        scene.korosensei = people.create(300, 200, 'korosensei');
-        scene.korosensei.body.immovable = true;
-
-        scene.rukia = people.create(100, 100, 'rukia');
-        scene.rukia.body.immovable = true;
-
-        scene.piccolo = people.create(450, 150, 'piccolo');
-        scene.piccolo.body.immovable = true;
-
-        console.log(scene);
-	}
+        scenePerso(300, 200, 'korosensei');
+        scenePerso(100, 100, 'rukia');
+        scenePerso(450, 150, 'piccolo');
+	};
 
 	/******************/
 	/*  CHAPTER THREE */
 	/******************/
 
-	function chapterThree() {
+	var chapterThree = function() {
 		currentChapter = 3;
-	}
+	};
 
-	function chapterFour() {
-		scene.yugi = people.create(500, 100, 'yugi');
-        scene.yugi.body.immovable = true;
+	var chapterFour = function() {
+		scenePerso(500, 100, 'yugi');
 		currentChapter = 4;
-	}
+	};
 
-	function chapterFive() {
-		scene.yusuke = people.create(500, 100, 'yusuke');
-        scene.yusuke.body.immovable = true;
+	var chapterFive = function() {
+		scenePerso(600, 200, 'yusuke');
 		currentChapter = 5;
-	}
+	};
 
-	function chapterSix() {
+	var chapterSix = function() {
 		scene.yugi = people.create(500, 100, 'yugi');
         scene.yugi.body.immovable = true;
 		currentChapter = 6;
-	}
+	};
 
-	function chapterSeven() {
+	var chapterSeven = function() {
 		scene.yugi = people.create(500, 100, 'yugi');
         scene.yugi.body.immovable = true;
 		currentChapter = 7;
-	}
+	};
 	
 });

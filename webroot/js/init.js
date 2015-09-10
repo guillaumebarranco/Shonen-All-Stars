@@ -2,10 +2,15 @@
 var showCanvasFromBeginning = true;
 var canPassChapter = true;
 
+var beginBattle;
+
 var game;
 
 // Variable qui va contenir le User global
 var user = {};
+
+user.persos = {};
+user.id_starter;
 
 // Tableaux pour les assets à charger
 var assets = {};
@@ -14,38 +19,43 @@ var assetsLength = 0;
 var assetsPersos = {};
 var assetsPersosLength = 0;
 
+// Texts apparition
 
-var balls;
-var direction;
-var collision;
-
-var speed = 150;
-var canMove = true;
 var enableTalk = false;
 var newText = null;
 var passText = null;
+
+var spoken = {};
+var stepTalk = 1;
+
+// Movements
+var direction;
+var collision;
+var speed = 150;
+var canMove = true;
+
+
 
 var pseudo;
 
 var currentResult = 'win';
 
-var stars;
+// Items
+var balls;
+var people;
+
 var enableChoice = true;
 var standby;
 var gameLaunched = false;
 
+// Variables qui gère les assets persos
 var the_persos;
-var spoken = {};
 
-var stepTalk = 1;
-
-var people;
-var scene = {};
-
+// Variables pour la fonction newChapter ainsi que les chapitres
+var newChapter;
 var currentChapter = 1;
 
-user.persos = {};
-user.id_starter;
+var scene = {};
 
 // Initialisation du framework Phaser et de la map de jeu
 game = new Phaser.Game(700, 500, Phaser.AUTO, '', { preload: preload, create: create, update: update });
@@ -77,7 +87,6 @@ addAssetPerso("naruto_front");
 function preload() {
 
 	// On va charger tous les assets pour la Map
-
 	game.load.spritesheet('perso', 'img/assets/perso.png', 32, 48);
 
 	for(asset in assets) {

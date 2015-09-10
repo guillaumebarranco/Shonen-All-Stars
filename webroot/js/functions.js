@@ -12,17 +12,17 @@ function getPersoIdByName(perso_name) {
 
 	switch(perso_name) {
 
-		case "Naruto":
-			return 3;
+		case "Sangoku" :
+			return 0;
 		break;
 
 		case "Luffy" :
 			return 1;
 		break;
 
-		case "Sangoku" :
-			return 0;
-		break;
+		case "Naruto":
+			return 3;
+		break;		
 
 		default:
 			return null;
@@ -130,7 +130,7 @@ function addText(x, y,  txt) {
 
 function showBattle(argument) {
 	$('canvas').hide();
-	window.beginBattle(user.id_starter, argument);
+	beginBattle(user.id_starter, argument);
 	newText.text = "";
 }
 function showCanvas() {
@@ -138,7 +138,7 @@ function showCanvas() {
 	$('canvas').show();
 }
 
-function showPass() {
+var showPass = function() {
 	passText.x = player.position.x;
 	passText.y = player.position.y - 100;
 	passText.text = "Appuyer sur espace pour voir la suite";
@@ -146,7 +146,7 @@ function showPass() {
 	stepTalk++;
 }
 
-function hidePass() {
+var hidePass = function() {
 	passText.text = "";
 	stepTalk = 1;
 }
@@ -156,18 +156,18 @@ function finishTalking() {
 	newText.text = "";
 }
 
-function txt(someText) {
+var txt = function(someText) {
 	newText.text = someText;
 }
 
-function popup(text) {
+var popup = function(text) {
 	swal({
 		title: '',
 		text: text
 	})
 }
 
-function popError(description) {
+var popError = function(description) {
 
   if(description != undefined) {
     swal({
@@ -183,7 +183,7 @@ function popError(description) {
   }
 }
 
-function popSuccess(description) {
+var popSuccess = function(description) {
 
   if(description != undefined) {
     swal({
@@ -198,3 +198,8 @@ function popSuccess(description) {
     });
   }
 }
+
+var scenePerso = function(left, top, perso_name) {
+	scene[perso_name] = people.create(left, top, perso_name);
+    scene[perso_name].body.immovable = true;
+};

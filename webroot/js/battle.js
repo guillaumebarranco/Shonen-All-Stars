@@ -236,10 +236,10 @@ $(document).ready(function() {
 	$(document).on('click', '.choose_perso li img.unlocked', function() {
 
 		var id_chosen = $(this).parent().attr('data-id');
-		window.beginBattle(id_chosen);
+		beginBattle(id_chosen);
 	});
 
-	window.beginBattle = function(id_chosen, argument) {
+	beginBattle = function(id_chosen, argument) {
 
 		if(ennemy_defined === false) {
 			random_ennemy = rand(0,_this.all_persos.length -1);
@@ -254,7 +254,28 @@ $(document).ready(function() {
 				case "toriko":
 					random_ennemy = 7;
 				break;
+
+				case 'yusuke':
+					random_ennemy = 9;
+				break;
+
+				case "kenshin":
+					random_ennemy = 2;
+				break;
+
+				case "gon":
+					random_ennemy = 6;
+				break;
+
+				case "aladdin":
+					random_ennemy = 8;
+				break;
+
+				case "kenichi":
+					random_ennemy = 15;
+				break;
 			}
+
 			showCanvasAfterBattle = true;
 		}
 		
@@ -669,9 +690,9 @@ $(document).ready(function() {
 						showCanvasAfterBattle = false;
 
 						if(canPassChapter) {
-							window.newChapter(currentChapter + 1, 'win');
+							newChapter(currentChapter + 1, 'win');
 						} else {
-							window.newChapter(currentChapter, 'win');
+							newChapter(currentChapter, 'win');
 						}
 					});
 				}, 1500);
@@ -707,7 +728,7 @@ $(document).ready(function() {
 				showCanvas();
 				showCanvasAfterBattle = false;
 
-				window.newChapter(currentChapter, 'win');
+				newChapter(currentChapter, 'win');
 				
 			} else {
 				chat('Vos points de vie sont tombé à zéro.');
