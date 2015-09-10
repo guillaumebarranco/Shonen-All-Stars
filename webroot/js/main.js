@@ -106,7 +106,7 @@ $(document).ready(function() {
 	/******************/
 
 	function chapterOne() {
-		window.currentChapter = 1;
+		currentChapter = 1;
 
 		user.persos[0] = standby;
 		newText.text = "Vous avez choisi "+standby+" ! Excellent choix !";
@@ -130,7 +130,7 @@ $(document).ready(function() {
 	/******************/
 
 	function chapterTwo() {
-		window.currentChapter = 2;
+		currentChapter = 2;
 
 		gameLaunched = true;
 
@@ -152,31 +152,31 @@ $(document).ready(function() {
 	/******************/
 
 	function chapterThree() {
-		window.currentChapter = 3;
+		currentChapter = 3;
 	}
 
 	function chapterFour() {
 		scene.yugi = people.create(500, 100, 'yugi');
         scene.yugi.body.immovable = true;
-		window.currentChapter = 4;
+		currentChapter = 4;
 	}
 
 	function chapterFive() {
 		scene.yusuke = people.create(500, 100, 'yusuke');
         scene.yusuke.body.immovable = true;
-		window.currentChapter = 5;
+		currentChapter = 5;
 	}
 
 	function chapterSix() {
 		scene.yugi = people.create(500, 100, 'yugi');
         scene.yugi.body.immovable = true;
-		window.currentChapter = 6;
+		currentChapter = 6;
 	}
 
 	function chapterSeven() {
 		scene.yugi = people.create(500, 100, 'yugi');
         scene.yugi.body.immovable = true;
-		window.currentChapter = 7;
+		currentChapter = 7;
 	}
 	
 });

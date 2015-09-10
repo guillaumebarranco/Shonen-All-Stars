@@ -1,21 +1,31 @@
+// Variables permettant de commencer par la Map ou non
+var showCanvasFromBeginning = true;
+var canPassChapter = true;
+
 var game;
 
+// Variable qui va contenir le User global
 var user = {};
+
+// Tableaux pour les assets à charger
 var assets = {};
+var assetsLength = 0;
 
 var assetsPersos = {};
 var assetsPersosLength = 0;
 
-var assetsLength = 0;
+
 var balls;
 var direction;
 var collision;
+
 var speed = 150;
 var canMove = true;
 var enableTalk = false;
 var newText = null;
 var passText = null;
-window.pseudo;
+
+var pseudo;
 
 var currentResult = 'win';
 
@@ -32,7 +42,7 @@ var stepTalk = 1;
 var people;
 var scene = {};
 
-window.currentChapter = 1;
+var currentChapter = 1;
 
 user.persos = {};
 user.id_starter;
@@ -40,6 +50,7 @@ user.id_starter;
 // Initialisation du framework Phaser et de la map de jeu
 game = new Phaser.Game(700, 500, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
+// All assets for Map
 addAsset("ball");
 addAsset("korosensei");
 addAsset("piccolo");
@@ -57,12 +68,15 @@ addAsset('naruto');
 addAsset('goku');
 addAsset('luffy');
 
+// All assets for start menu
 addAssetPerso("luffy_front");
 addAssetPerso("goku_front");
 addAssetPerso("sangoku_front");
 addAssetPerso("naruto_front");
 
 function preload() {
+
+	// On va charger tous les assets pour la Map
 
 	game.load.spritesheet('perso', 'img/assets/perso.png', 32, 48);
 

@@ -87,14 +87,14 @@ $(document).ready(function() {
 
 		e.preventDefault();
 
-		var pseudo = $(this).find('input[name=pseudo]').val();
+		var the_pseudo = $(this).find('input[name=pseudo]').val();
 		var password = $(this).find('input[name=password]').val();
 		var what_form = $(this).attr('class');
 
-		if(pseudo != null && pseudo != '') {
+		if(the_pseudo != null && the_pseudo != '') {
 
 			var data = {
-				"pseudo" : pseudo,
+				"pseudo" : the_pseudo,
 				"password" : password,
 				"what_form" : what_form
 			};
@@ -112,7 +112,7 @@ $(document).ready(function() {
 						user.win = user.lost = user.arcades = 0;
 					}
 
-					window.pseudo = user.pseudo;
+					pseudo = user.pseudo;
 
 					var txt_pseudo = 
 						user.pseudo +
@@ -669,9 +669,9 @@ $(document).ready(function() {
 						showCanvasAfterBattle = false;
 
 						if(canPassChapter) {
-							window.newChapter(window.currentChapter + 1, 'win');
+							window.newChapter(currentChapter + 1, 'win');
 						} else {
-							window.newChapter(window.currentChapter, 'win');
+							window.newChapter(currentChapter, 'win');
 						}
 					});
 				}, 1500);
@@ -707,7 +707,7 @@ $(document).ready(function() {
 				showCanvas();
 				showCanvasAfterBattle = false;
 
-				window.newChapter(window.currentChapter, 'win');
+				window.newChapter(currentChapter, 'win');
 				
 			} else {
 				chat('Vos points de vie sont tombé à zéro.');

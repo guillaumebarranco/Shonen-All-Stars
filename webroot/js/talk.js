@@ -29,7 +29,7 @@ function talk() {
 
 		case 'korosensei':
 
-			if(window.currentChapter < 3) {
+			if(currentChapter < 3) {
 
 				if(stepTalk == 1) {
 					newText.text = "Bonjour, je suis Korosensei !";
@@ -45,7 +45,7 @@ function talk() {
 					finishTalking();
 				}
 
-			} else if(window.currentChapter === 3) {
+			} else if(currentChapter === 3) {
 
 				if(stepTalk == 1) {
 					newText.text = "Maintenant que tu as effectué ton premier combat, ton apprentissage des mangas peut commencer !";
@@ -64,7 +64,7 @@ function talk() {
 					canPassChapter = true;
 					showBattle('yugi');
 				}
-			} else if(window.currentChapter === 4) {
+			} else if(currentChapter === 4) {
 				if(stepTalk == 1) {
 					newText.text = "Tu t'en es bien sorti, il ne te reste qu'une épreuve !";
 					showPass();
@@ -76,7 +76,7 @@ function talk() {
 		break;
 
 		case 'rukia':
-			if(window.currentChapter < 4) {
+			if(currentChapter < 4) {
 
 				if(stepTalk == 1) {
 					newText.text = "Bonjour, je suis Rukia !";
@@ -88,7 +88,7 @@ function talk() {
 				} else if(stepTalk == 3) {
 					finishTalking();
 				}
-			} else if(window.currentChapter === 4) {
+			} else if(currentChapter === 4) {
 				if(stepTalk === 1) {
 					txt("Bravo pour être arrivé jusqu'ici !");
 					showPass();
@@ -109,7 +109,7 @@ function talk() {
 		break;
 
 		case 'piccolo':
-			if(window.currentChapter < 3) {
+			if(currentChapter < 3) {
 				if(spoken.korosensei != undefined && spoken.rukia != undefined) {
 
 					if(currentResult != 'lose') {
@@ -132,9 +132,9 @@ function talk() {
 				} else {
 					newText.text = "Je te conseille d'aller voir les autres d'abord";
 				}
-			} else if(window.currentChapter == 3) {
+			} else if(currentChapter == 3) {
 				newText.text = "Bravo !";
-			} else if(window.currentChapter == 4) {
+			} else if(currentChapter == 4) {
 				if(stepTalk == 1) {
 					newText.text = "Deux victoires à ton actif ! C'est un bon début !";
 					showPass();
@@ -151,7 +151,7 @@ function talk() {
 
 		case 'yugi' :
 			if(stepTalk == 1) {
-				newText.text = "Bonjour "+window.pseudo;
+				newText.text = "Bonjour "+pseudo;
 				showPass();
 			} else if(stepTalk == 2) {
 				newText.text = "Souhaites-tu me combattre ?";
