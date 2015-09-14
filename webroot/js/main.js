@@ -1,38 +1,67 @@
 $(document).ready(function() {
 
-	newChapter = function(nb_chapter, result) {
+	newChapter = function(nb_chapter, result, callback) {
 
 		if(result == 'win') {
 			currentResult = 'win';
 
 			switch(nb_chapter) {
 				case 1:
-					chapterOne();
+					chapterOne(function() {
+						if(callback) callback();
+					});
 				break;
 				case 2:
-					chapterTwo();
+					chapterTwo(function() {
+						if(callback) callback();
+					});
 				break;
 				case 3:
-					chapterThree();
+					chapterThree(function() {
+						if(callback) callback();
+					});
 				break;
 				case 4:
-					chapterFour();
+					chapterFour(function() {
+						if(callback) callback();
+					});
 				break;
 				case 5:
-					chapterFive();
+					chapterFive(function() {
+						if(callback) callback();
+					});
+				break;
+				case 6:
+					chapterSix(function() {
+						if(callback) callback();
+					});
+				break;
+				case 7:
+					chapterSeven(function() {
+						if(callback) callback();
+					});
+				break;
+				case 8:
+					chapterEight(function() {
+						if(callback) callback();
+					});
+				break;
+				case 9:
+					chapterNine(function() {
+						if(callback) callback();
+					});
 				break;
 			}
 		} else {
 			currentResult = 'lose';
 		}
 		canPassChapter = false;
-	}
+	};
 
 	$(document).keydown(function(e) {
 		var key = e.which || e.keyCode;
 
 		// Si jamais le joueur est face à un autre personnage, il peut lui parler en appuyant sur espace
-
 		switch(key) {
 			case 32 : // space
 				if(enableTalk) {
@@ -106,16 +135,25 @@ $(document).ready(function() {
 	/*	CHAPTER ONE   */
 	/******************/
 
-	var chapterOne = function() {
+	var chapterOne = function(callback) {
+
+		if(beginByChapter) {
+			standby = 'Sangoku';
+			user.id_starter = 0;
+			currentResult = 'win';
+		}
 		
 		currentChapter = 1;
 
 		user.persos[0] = standby;
 		newText.text = "Vous avez choisi "+standby+" ! Excellent choix !";
-		removeBalls();
+
+		removeBalls(function() {
+			if(callback) callback();
+		});		
 	};
 
-	var removeBalls = function() {
+	var removeBalls = function(callback) {
 
 		collision = null;
 		enableChoice = false;
@@ -123,7 +161,11 @@ $(document).ready(function() {
 		setTimeout(function() {
 			newText.text = '';
 			balls.removeAll(true, true);
-			chapterTwo();
+
+			chapterTwo(function() {
+				if(callback) callback();
+			});
+			
 		}, 1000);
 	};
 
@@ -131,7 +173,7 @@ $(document).ready(function() {
 	/*	CHAPTER TWO   */
 	/******************/
 
-	var chapterTwo = function() {
+	var chapterTwo = function(callback) {
 
 		currentChapter = 2;
 
@@ -141,36 +183,62 @@ $(document).ready(function() {
         scenePerso(300, 200, 'korosensei');
         scenePerso(100, 100, 'rukia');
         scenePerso(450, 150, 'piccolo');
+
+        if(callback) callback();
 	};
 
 	/******************/
 	/*  CHAPTER THREE */
 	/******************/
 
-	var chapterThree = function() {
+	var chapterThree = function(callback) {
 		currentChapter = 3;
+		if(callback) callback();
 	};
 
-	var chapterFour = function() {
+	var chapterFour = function(callback) {
 		scenePerso(500, 100, 'yugi');
 		currentChapter = 4;
+		if(callback) callback();
 	};
 
-	var chapterFive = function() {
-		scenePerso(600, 200, 'yusuke');
+	var chapterFive = function(callback) {
+		scenePerso(1100, 200, 'yusuke');
 		currentChapter = 5;
+		if(callback) callback();
 	};
 
-	var chapterSix = function() {
-		scene.yugi = people.create(500, 100, 'yugi');
-        scene.yugi.body.immovable = true;
+	var chapterSix = function(callback) {
+		scenePerso(1000, 700, 'kenichi');
 		currentChapter = 6;
+		if(callback) callback();
 	};
 
 	var chapterSeven = function() {
-		scene.yugi = people.create(500, 100, 'yugi');
-        scene.yugi.body.immovable = true;
 		currentChapter = 7;
 	};
+
+	var incrementChapter = function(nbChapter) {
+
+		if(nbChapter < (chapterBegin+1)) {
+			newChapter(nbChapter, 'win', function() {
+				incrementChapter(nbChapter+1);
+			});
+		}
+	};
+
+	if(beginByChapter) {
+		pseudo = "Gear";
+
+		setTimeout(function() {
+
+			chapterOne(function() {
+				if(chapterBegin > 2) {
+					incrementChapter(3);
+				}
+			});
+
+		}, 2000);
+	}
 	
 });

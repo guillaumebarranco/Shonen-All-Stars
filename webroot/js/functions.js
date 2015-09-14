@@ -36,11 +36,11 @@ function hitObject() {
 
 	if(direction === 'up') {
 		collision = 'up';
-	} if(direction === 'down') {
+	} else if(direction === 'down') {
 		collision = 'down';
-	} if(direction === 'left') {
+	} else if(direction === 'left') {
 		collision = 'left';
-	} if(direction === 'right') {
+	} else if(direction === 'right') {
 		collision = 'right';
 	}
 }
@@ -128,6 +128,8 @@ function addText(x, y,  txt) {
 	return game.add.text(x, y, txt, { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
 }
 
+
+
 function showBattle(argument) {
 	$('canvas').hide();
 	beginBattle(user.id_starter, argument);
@@ -151,7 +153,7 @@ var hidePass = function() {
 	stepTalk = 1;
 }
 
-function finishTalking() {
+var finishTalking = function() {
 	hidePass();
 	newText.text = "";
 }

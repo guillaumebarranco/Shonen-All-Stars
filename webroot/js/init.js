@@ -2,6 +2,11 @@
 var showCanvasFromBeginning = true;
 var canPassChapter = true;
 
+// Variable permettant de commencer par un certain chapitre
+var beginByChapter = true;
+var chapterBegin = 5;
+
+
 var beginBattle;
 
 var game;

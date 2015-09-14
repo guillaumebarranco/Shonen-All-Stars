@@ -165,7 +165,7 @@ $(document).ready(function() {
 	}
 
 	// Fonction AJAX qui récupère tous les personnages et leurs attaques pour que l'utilisateur choisisse son personnage
-	function getAllPersos() {
+	var getAllPersos = function() {
 
 		makeAjax('POST', 'battle/getPersos', '', function() {
 
@@ -220,21 +220,20 @@ $(document).ready(function() {
 			_this.all_persos = _this.response;
 
 		});
-	}
+	};
 
 	// Si Sign In, création des persos pour le User
-	function getUserPersos() {
+	var getUserPersos = function() {
 		makeAjax('POST', 'battle/getUserPersos', '', function() {
 			getAllPersos();
 		});
-	}
+	};
 
 	/*****************************/
 	/* 	  GESTION DES CLICKS	 */
 	/*****************************/
 
 	$(document).on('click', '.choose_perso li img.unlocked', function() {
-
 		var id_chosen = $(this).parent().attr('data-id');
 		beginBattle(id_chosen);
 	});
@@ -345,7 +344,7 @@ $(document).ready(function() {
 		} else {
 			$('.choose .button_depart').parent().show();
 		}
-	}
+	};
 	
 	// Bouton de retour dans le jeu (pour quitter les attaques et revenir sur les objets par exemple)
 	$('.button_return').on('click', function(e) {
@@ -1003,6 +1002,12 @@ $(document).ready(function() {
 	// Fonction qui va lancer l'attaque et effectuer les actions relatives à la pré-attaque et la post-attaque
 	function attack(who, that) {
 
+		var name_attack;
+		var power_attack;
+		var requis_attack;
+		var type_attack;
+		var anim_attack;
+
 		if(who === 'ally') {
 
 			if(attack_ended === 1) {
@@ -1011,11 +1016,11 @@ $(document).ready(function() {
 
 				if(getPersoAttr('ally', 'pp') >= parseInt(that.attr('data-requis'))) {
 
-					var name_attack = that.find('em').text();
-					var power_attack = parseInt(that.attr('data-power'));
-					var requis_attack = that.attr('data-requis');
-					var type_attack = that.attr('data-type');
-					var anim_attack = that.attr('data-anim');
+					name_attack = that.find('em').text();
+					power_attack = parseInt(that.attr('data-power'));
+					requis_attack = that.attr('data-requis');
+					type_attack = that.attr('data-type');
+					anim_attack = that.attr('data-anim');
 
 					emptyChat();
 
@@ -1056,11 +1061,11 @@ $(document).ready(function() {
 
 			if(getPersoAttr('ennemy', 'pp') > parseInt(that.requis)) {
 
-				var name_attack = that.name;
-				var power_attack = that.power;
-				var requis_attack = that.requis;
-				var type_attack = that.type;
-				var anim_attack = that.anim;
+				name_attack = that.name;
+				power_attack = that.power;
+				requis_attack = that.requis;
+				type_attack = that.type;
+				anim_attack = that.anim;
 
 				emptyChat();
 
