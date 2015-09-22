@@ -1,5 +1,5 @@
 // Variables permettant de commencer par la Map ou non
-var showCanvasFromBeginning = true;
+var showCanvasFromBeginning = false;
 var canPassChapter = true;
 
 // Variable permettant de commencer par un certain chapitre

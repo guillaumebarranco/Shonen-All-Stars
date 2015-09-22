@@ -43,7 +43,10 @@ class BattleController extends AppController
 
     public function getPersos($pseudo = null) {
 
-        $this->layout = null;
+        //$this->Jsonification();
+
+        $this->autoRender = false;
+        $this->viewBuilder()->layout(null);
         $this->RequestHandler->renderAs($this, 'json');
 
         $session = $this->request->session();
@@ -97,10 +100,11 @@ class BattleController extends AppController
             $v++;
         }
 
-        $this->set(array(
-            'persos' => $persos,
-            '_serialize' => array('persos')
-        ));
+        $response = array();
+        $response['persos'] = $persos;
+
+        $json = json_encode($response);
+        $this->response->body($json);
     }
 
     function getIdUserByPseudo($pseudo) {
@@ -110,7 +114,7 @@ class BattleController extends AppController
 
     public function getUserPersos($pseudo = null) {
 
-        $this->layout = null;
+        $this->viewBuilder()->layout(null);
         $session = $this->request->session();
         $connected_user = $session->read('user')[0];
 
@@ -360,7 +364,7 @@ class BattleController extends AppController
         echo $this->getResponse($check);
     }
 
-    public function updateLevelExp() {
+    public function updateLevelExp($pseudo = null) {
 
         $check = $this->Jsonification();
 
