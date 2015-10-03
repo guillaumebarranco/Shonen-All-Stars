@@ -80,7 +80,6 @@ if(!isset($user)) { ?>
 	</div>
 
 
-
 <div class="battle">
 
 	<div class="ennemy">

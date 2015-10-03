@@ -15,7 +15,7 @@ class AppController extends Controller {
 
     function Jsonification() {
         $this->autoRender = false;
-        $this->layout = null;
+        $this->viewBuilder()->layout(null);
         $this->RequestHandler->renderAs($this, 'json');
         return 'KO';
     }
