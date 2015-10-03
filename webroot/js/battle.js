@@ -785,7 +785,8 @@ $(document).ready(function() {
 		ally.xp = current_xp;
 
 		var data = {
-			'perso' : ally
+			'perso' : ally,
+			'pseudo' : 'Gear'
 		};
 
 		makeAjax('POST', 'battle/updateLevelExp', data, function() {

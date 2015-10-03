@@ -1,10 +1,10 @@
 // Variables permettant de commencer par la Map ou non
-var showCanvasFromBeginning = true;
+var showCanvasFromBeginning = false;
 var canPassChapter = true;
 
 // Variable permettant de commencer par un certain chapitre
-var beginByChapter = true;
-var chapterBegin = 5;
+var beginByChapter = false;
+var chapterBegin = 7;
 
 
 var beginBattle;
@@ -82,6 +82,7 @@ addAsset('yusuke');
 addAsset('naruto');
 addAsset('goku');
 addAsset('luffy');
+addAsset('saitama');
 
 // All assets for start menu
 addAssetPerso("luffy_front");

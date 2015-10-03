@@ -139,6 +139,14 @@ function talk() {
 				} else if(stepTalk == 2) {
 					finishTalking();
 				}
+			} else if(currentChapter === 7 || currentChapter === 8) {
+				if(stepTalk == 1) {
+					txt("L'énergie du Nen est puissante à l'ouest.");
+					showPass();
+				} else if(stepTalk == 2) {
+					finishTalking();
+					newChapter(8, 'win');
+				}
 			}
 
 		break;
@@ -152,6 +160,7 @@ function talk() {
 							txt("Un petit combat ?");
 							showPass();
 						} else if(stepTalk == 2) {
+							finishTalking();
 							showBattle('trial');
 						}
 					} else {
@@ -160,6 +169,7 @@ function talk() {
 							showPass();
 						} else if(stepTalk == 2) {
 							canPassChapter = true;
+							finishTalking();
 							showBattle('trial');
 						}
 					}
@@ -191,6 +201,55 @@ function talk() {
 				}
 			}
 			
+		break;
+
+		case 'saitama':
+
+			if(currentChapter === 5) {
+				if(stepTalk === 1) {
+					txt("Bienvenue, héros. As-tu le temps pour un vieil homme ?");
+					showPass();
+				} else if(stepTalk === 2) {
+					txt("La collision des énergies a commencé, un combat important va commencer.");
+					showPass();
+				} else if(stepTalk === 3) {
+					txt("Il était dit qu'un héros viendrait avant la collision.");
+					showPass();
+				} else if(stepTalk === 4) {
+					txt(pseudo+", tu as été choisi.");
+					showPass();
+				} else if(stepTalk === 5) {
+					txt("Ta mission consistera en l'harmonisation des énergies.");
+					showPass();
+				} else if(stepTalk === 6) {
+					txt("Tu va devoir combattre beaucoup de puissants guerriers, es-tu prêt ?");
+					showPass();
+				} else if(stepTalk === 7) {
+					txt("Parfait ! Tu trouveras ton ennemi en continuant sur l'ouest. Bonne chance.");
+					showPass();
+				} else if(stepTalk === 8) {
+					finishTalking();
+					newChapter(6, 'win');
+				}
+			} else if(currentChapter === 6) {
+				txt("Tu trouveras ton ennemi en continuant sur l'ouest. Bonne chance.");
+			} else if(currentChapter === 7) {
+
+				if(stepTalk === 1) {
+					txt("Tu as vaincu l'énergie des jeux, puis l'énergie astrale. Maintenant, l'énergie Combattive.");
+					showPass();
+				} else if(stepTalk === 2) {
+					txt("Ton prochain adversaire pratique l'énergie du Nen, que la force soit avec toi.");
+					showPass();
+				} else if(stepTalk === 3) {
+					txt("Je l'ai aperçu aux côtés de Rukia.");
+					showPass();
+				} else if(stepTalk === 4) {
+					finishTalking();
+				}
+				
+			}
+
 		break;
 
 
@@ -239,17 +298,19 @@ function talk() {
 		case 'kenichi':
 			if(stepTalk == 1) {
 				txt("Une défaite n'es qu'un entraînement de plus. Cette fois je gagnerais.");
+				showPass();
 			} else if(stepTalk == 2) {
 				txt("Tu va me dire des nouvelles de mes techniques !");
-				showBattle('kenichi');
 				spoken.kenichi = true;
 				hidePass();
+				showBattle('kenichi');
 			}
 		break;
 
 		case 'gon':
 			if(stepTalk == 1) {
 				txt("Un hunter n'arrête jamais de courir après la victoire.");
+				showPass();
 			} else if(stepTalk == 2) {
 				txt("Janke, Go !");
 				showBattle('gon');
@@ -261,6 +322,7 @@ function talk() {
 		case 'aladdin':
 			if(stepTalk == 1) {
 				txt("As-tu envie d'un autre face-à-face ?");
+				showPass();
 			} else if(stepTalk == 2) {
 				txt("Faisons de notre mieux !");
 				showBattle('aladdin');
@@ -272,6 +334,7 @@ function talk() {
 		case 'kenshin':
 			if(stepTalk == 1) {
 				txt("Je ne peux pas me permettre de perdre une nouvelle fois.");
+				showPass();
 			} else if(stepTalk == 2) {
 				txt("Combattons.");
 				showBattle('kenshin');

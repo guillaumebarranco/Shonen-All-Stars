@@ -371,6 +371,8 @@ class BattleController extends AppController
             $session = $this->request->session();
             $connected_user = $session->read('user')[0];
 
+            $pseudo = $data['pseudo'];
+
             if($pseudo == null) {
                 $id_user = $connected_user['id'];
             } else {

@@ -146,7 +146,7 @@ $(document).ready(function() {
 		currentChapter = 1;
 
 		user.persos[0] = standby;
-		newText.text = "Vous avez choisi "+standby+" ! Excellent choix !";
+		txt("Vous avez choisi "+standby+" ! Excellent choix !");
 
 		removeBalls(function() {
 			if(callback) callback();
@@ -204,18 +204,30 @@ $(document).ready(function() {
 
 	var chapterFive = function(callback) {
 		scenePerso(1100, 200, 'yusuke');
+		scenePerso(600, -400, 'saitama');
 		currentChapter = 5;
 		if(callback) callback();
 	};
 
+	/*
+	*	LORSQUE QU'ON FAIT APPARAITRE UN NOUVEAU PERSO, Il apparait aux coordonnées qu'on lui donne EN FONCTION de la position du point en haut à gauche visible à l'écran du Canvas
+	*/
+
 	var chapterSix = function(callback) {
-		scenePerso(1000, 700, 'kenichi');
+		scenePerso(-300, 0, 'kenichi');
 		currentChapter = 6;
 		if(callback) callback();
 	};
 
-	var chapterSeven = function() {
+	var chapterSeven = function(callback) {
+		scenePerso(-400, 0, 'gon');
 		currentChapter = 7;
+		if(callback) callback();
+	};
+
+	var chapterEight = function(callback) {
+		currentChapter = 8;
+		if(callback) callback();
 	};
 
 	var incrementChapter = function(nbChapter) {
