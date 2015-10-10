@@ -205,3 +205,22 @@ var scenePerso = function(left, top, perso_name) {
 	scene[perso_name] = people.create(left, top, perso_name);
     scene[perso_name].body.immovable = true;
 };
+
+// Fonction simplifiant l'AJAX
+function makeAjax(type, url, data, callback) {
+
+	$.ajax({
+		type : type,
+		url : url,
+		data : data,
+		success: function(response_get) {
+			// La variable globale de reponse est remplacée à chaque requête AJAX
+			_this.response = response_get;
+			callback();
+		},
+		error: function(){
+			console.log('error', url);
+        }
+	});
+}
+	
