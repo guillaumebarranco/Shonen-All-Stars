@@ -32,7 +32,7 @@ let data;
 			if(_this.response.check === 'OK') {
 				let get_perso = _this.response.perso[0];
 
-				chat('<img src="img/persos/'+get_perso.img_front+'" />');
+				chat('<img src='+WEB_URL+'"img/persos/'+get_perso.img_front+'" />');
 				chat('Vous avez débloqué '+get_perso.name);
 			}
 		});
@@ -276,7 +276,7 @@ let data;
 		ennemy.level = rand(ally.level-3, ally.level+3);
 
 		$('.ennemy .status .name').html(ennemy.name+' '+'<em class="level">Lv '+ennemy.level+'</em>');
-		$('.ennemy').find('img').attr('src', 'img/persos/'+ennemy.img_front);
+		$('.ennemy').find('img').attr('src', WEB_URL+'img/persos/'+ennemy.img_front);
 
 		if(ennemy.vit >= ally.vit) {
 			ennemyTurn();

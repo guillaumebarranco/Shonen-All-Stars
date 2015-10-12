@@ -19,6 +19,12 @@ class BattleController extends AppController
 
     public function index() {
 
+        $scfb = (isset($this->request->params['pass']) && isset($this->request->params['pass'][0])) ? intval($this->request->params['pass'][0]) : 0;
+        $scfb = ($scfb === 1) ? true : false;
+
+        $this->set(array(
+            'scfb' => $scfb
+        ));
     }
 
     public function getConnectedUser() {

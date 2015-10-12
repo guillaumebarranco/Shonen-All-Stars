@@ -131,7 +131,7 @@ $(document).ready(function() {
 
 					li_append =
 						`<li data-id="${p}">
-							<img class="unlocked" src="img/persos/${picture_perso}"/>
+							<img class="unlocked" src="${WEB_URL}img/persos/${picture_perso}"/>
 						</li>`
 					;
 
@@ -139,7 +139,7 @@ $(document).ready(function() {
 
 					li_append = 
 						`<li data-id="${p}">
-						<img src="img/persos/${picture_perso}"/>`
+						<img src="${WEB_URL}img/persos/${picture_perso}"/>`
 					;
 
 					if(_this.response[p].condition != 'none' && _this.response[p].condition != null && _this.response[p].condition != 'catch') {

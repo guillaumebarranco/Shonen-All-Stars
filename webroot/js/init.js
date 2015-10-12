@@ -1,5 +1,4 @@
 // Variables permettant de commencer par la Map ou non
-var showCanvasFromBeginning = true;
 var canPassChapter = true;
 
 // Variable permettant de commencer par un certain chapitre
@@ -13,11 +12,9 @@ var game;
 
 // Variable qui va contenir le User global
 var user = {};
-console.log(user);
 user.persos = {};
 user.id_starter;
 
-console.log(user);
 
 // Tableaux pour les assets à charger
 var assets = {};
@@ -95,14 +92,14 @@ addAssetPerso("naruto_front");
 function preload() {
 
 	// On va charger tous les assets pour la Map
-	game.load.spritesheet('perso', 'img/assets/perso.png', 32, 48);
+	game.load.spritesheet('perso', WEB_URL+'img/assets/perso.png', 32, 48);
 
 	for(asset in assets) {
-		game.load.image(assets[asset], 'img/assets/'+assets[asset]+'.png');
+		game.load.image(assets[asset], WEB_URL+'img/assets/'+assets[asset]+'.png');
 	}
 
 	for(assetPerso in assetsPersos) {
-		game.load.image(assetsPersos[assetPerso], 'img/persos/'+assetsPersos[assetPerso]+'.png');
+		game.load.image(assetsPersos[assetPerso], WEB_URL+'img/persos/'+assetsPersos[assetPerso]+'.png');
 	}
 }
 

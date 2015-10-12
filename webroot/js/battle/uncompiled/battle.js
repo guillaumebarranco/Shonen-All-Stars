@@ -80,8 +80,8 @@ $(document).ready(function() {
 			}
 		}
 
-		$('.ally').find('.picture img').attr('src', 'img/persos/'+ally.img_back);
-		$('.ennemy').find('.picture img').attr('src', 'img/persos/'+ennemy.img_front);
+		$('.ally').find('.picture img').attr('src', WEB_URL+'img/persos/'+ally.img_back);
+		$('.ennemy').find('.picture img').attr('src', WEB_URL+'img/persos/'+ennemy.img_front);
 
 		// ECRITURE DU NOM DU PERSONNAGE
 		

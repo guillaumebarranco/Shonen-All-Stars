@@ -160,19 +160,26 @@ if(!isset($user)) { ?>
 	
 </div>
 
+<script>
+	var showCanvasFromBeginning = "<?php echo $scfb?>";
+	var WEB_URL = "<?=$this->request->base?>/";
+</script>
 
-<script src="js/jquery-1.11.2.min.js"></script>
+
+<script src="<?=$this->request->base?>/js/jquery-1.11.2.min.js"></script>
 
 
-<script src="js/phaser.min.js"></script>
-<script src="js/functions.js"></script>
-<script src="js/init.js"></script>
-<script src="js/sweetalert.min.js"></script>
-<script src="js/menu.js"></script>
-<script src="js/main.js"></script>
-<script src="js/talk.js"></script>
 
-<script src="js/battle/uncompiled/init_battle.js"></script>
-<script src="js/battle/uncompiled/end_battle.js"></script>
-<script src="js/battle/uncompiled/battle_functions.js"></script>
-<script src="js/battle/uncompiled/battle.js"></script>
+<script src="<?=$this->request->base?>/js/phaser.min.js"></script>
+<script src="<?=$this->request->base?>/js/functions.js"></script>
+<script src="<?=$this->request->base?>/js/init.js"></script>
+<script src="<?=$this->request->base?>/js/sweetalert.min.js"></script>
+
+<script src="<?=$this->request->base?>/js/menu.js"></script>
+<script src="<?=$this->request->base?>/js/main.js"></script>
+<script src="<?=$this->request->base?>/js/talk.js"></script>
+
+<script src="<?=$this->request->base?>/js/battle/uncompiled/init_battle.js"></script>
+<script src="<?=$this->request->base?>/js/battle/uncompiled/end_battle.js"></script>
+<script src="<?=$this->request->base?>/js/battle/uncompiled/battle_functions.js"></script>
+<script src="<?=$this->request->base?>/js/battle/uncompiled/battle.js"></script>

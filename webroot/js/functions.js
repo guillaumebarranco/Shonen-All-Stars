@@ -211,7 +211,7 @@ function makeAjax(type, url, data, callback) {
 
 	$.ajax({
 		type : type,
-		url : url,
+		url : WEB_URL+url,
 		data : data,
 		success: function(response_get) {
 			// La variable globale de reponse est remplacée à chaque requête AJAX
