@@ -171,13 +171,13 @@ if(!isset($user)) { ?>
 
 
 <script src="<?=$this->request->base?>/js/phaser.min.js"></script>
-<script src="<?=$this->request->base?>/js/functions.js"></script>
-<script src="<?=$this->request->base?>/js/init.js"></script>
+<script src="<?=$this->request->base?>/js/uncompiled/functions.js"></script>
+<script src="<?=$this->request->base?>/js/uncompiled/init.js"></script>
 <script src="<?=$this->request->base?>/js/sweetalert.min.js"></script>
 
-<script src="<?=$this->request->base?>/js/menu.js"></script>
-<script src="<?=$this->request->base?>/js/main.js"></script>
-<script src="<?=$this->request->base?>/js/talk.js"></script>
+<script src="<?=$this->request->base?>/js/uncompiled/menu.js"></script>
+<script src="<?=$this->request->base?>/js/uncompiled/main.js"></script>
+<script src="<?=$this->request->base?>/js/uncompiled/talk.js"></script>
 
 <script src="<?=$this->request->base?>/js/battle/uncompiled/init_battle.js"></script>
 <script src="<?=$this->request->base?>/js/battle/uncompiled/end_battle.js"></script>
