@@ -1,5 +1,6 @@
 "use strict";
 
+//this = window;
 const _this = this;
 
 /*****************************/
@@ -7,29 +8,26 @@ const _this = this;
 /*****************************/
 
 let turn;
-var ally;
-var ennemy;
-var winner;
+let ally;
+let ennemy;
+let winner;
 
-var user;
+//let user;
 this.response = '';
 this.all_persos = '';
-var arcade = 0;
-var attack_ended = 1;
+let arcade = 0;
+let attack_ended = 1;
 
-const showCanvasAfterBattle = false;
+let showCanvasAfterBattle = false;
 
 // SI BESOIN DE TESTER UNE ATTAQUE ENNEMIE PARTICULIERE, CHANGER CES VARIABLES
 
-var ennemy_defined = false;
-var random_ennemy;
-
-var attack_defined = false;
-var random_attack;
-
-var disappear_attack = true;
-
-var master_ball = false;
+let ennemy_defined = false;
+let random_ennemy;
+let attack_defined = false;
+let random_attack;
+let disappear_attack = true;
+let master_ball = false;
 
 $(document).ready(function() {
 
@@ -38,9 +36,7 @@ $(document).ready(function() {
 	/* 	       	 HIDES      	 */
 	/*****************************/
 
-	if(!showCanvasFromBeginning) {
-		$('.before_battle').show();
-	}
+	if(!showCanvasFromBeginning) $('.before_battle').show();
 
 	$('.battle').hide();
 	$('.before_battle h2').hide();
@@ -77,7 +73,7 @@ $(document).ready(function() {
 		$(this).parent().hide();
 		$('.return_sign_log_in').show();
 
-		var show_what = $(this).attr('class');
+		let show_what = $(this).attr('class');
 
 		if(show_what === 'show_signIn') {
 			$('.sign_log_in form.signIn').show();
@@ -92,13 +88,13 @@ $(document).ready(function() {
 
 		e.preventDefault();
 
-		var the_pseudo = $(this).find('input[name=pseudo]').val();
-		var password = $(this).find('input[name=password]').val();
-		var what_form = $(this).attr('class');
+		let the_pseudo = $(this).find('input[name=pseudo]').val();
+		let password = $(this).find('input[name=password]').val();
+		let what_form = $(this).attr('class');
 
 		if(the_pseudo != null && the_pseudo != '') {
 
-			var data = {
+			let data = {
 				"pseudo" : the_pseudo,
 				password,
 				what_form
@@ -113,35 +109,37 @@ $(document).ready(function() {
 
 	});
 
-	function getAllPersos () {
+	function getAllPersos() {
 
 		makeAjax('POST', 'battle/getPersos', '', function() {
 
-			console.log('getPersos', _this.response);
+			//console.log('getPersos', _this.response);
 
 			_this.response = _this.response.persos;
 			window.all_persos = _this.response;
 
 			$('.before_battle h2').show();
 
-			var li_append;
+			let li_append;
 
-			for (var p = 0; p < _this.response.length; p++) {
+			for (let p = 0; p < _this.response.length; p++) {
+
+				let picture_perso = _this.response[p].img_front;
 
 				// Si le personnage a été débloqué
 				if(_this.response[p].unlocked == 1) {
 
 					li_append =
-						'<li data-id="'+p+'">'+
-							'<img class="unlocked" src="img/persos/'+_this.response[p].img_front+'"/>'+
-						'</li>'
+						`<li data-id="${p}">
+							<img class="unlocked" src="img/persos/${picture_perso}"/>
+						</li>`
 					;
 
 				} else {
 
 					li_append = 
-						'<li data-id="'+p+'">'+
-						'<img src="img/persos/'+_this.response[p].img_front+'"/>'
+						`<li data-id="${p}">
+						<img src="img/persos/${picture_perso}"/>`
 					;
 
 					if(_this.response[p].condition != 'none' && _this.response[p].condition != null && _this.response[p].condition != 'catch') {
@@ -173,23 +171,27 @@ $(document).ready(function() {
 	function checkConnection(data) {
 		makeAjax('POST', "battle/signLogIn", data, function() {
 
-			console.log('log_sign_in', _this.response);
+			//console.log('log_sign_in', _this.response);
 
 			if(_this.response.check === 'OK') {
 
 				user = (_this.response.user[0] != undefined) ? _this.response.user[0] : _this.response.user;
+				user.persos = {};
+				user.id_starter;
 
-				if(data.what_form === 'signIn') {
-					user.win = user.lost = user.arcades = 0;
-				}
+				if(data.what_form === 'signIn') user.win = user.lost = user.arcades = 0;
 
 				pseudo = user.pseudo;
 
+				let the_win = user.win;
+				let the_lost = user.lost;
+				let the_arcades = user.arcades;
+
 				var txt_pseudo = 
 					user.pseudo +
-					'<span class="nb_win">Win <em>'+user.win+'</em></span>'+
-					'<span class="nb_lost">Lost <em>'+user.lost+'</em></span>'+
-					'<span class="nb_arcade">Arcades <em>'+user.arcades+'</em></span>'
+					`<span class="nb_win">Win <em>${the_win}</em></span>
+					<span class="nb_lost">Lost <em>${the_lost}</em></span>
+					<span class="nb_arcade">Arcades <em>${the_arcades}</em></span>`
 				;
 
 				$('.pseudo').html(txt_pseudo);
@@ -222,9 +224,10 @@ $(document).ready(function() {
 
 			if(_this.response.check === 'OK') {
 
-				console.log('connected user', _this.response);
+				//console.log('connected user', _this.response);
 				user = (_this.response.user[0] != undefined) ? _this.response.user[0] : _this.response.user;
-
+				user.persos = {};
+				user.id_starter;
 				getAllPersos();
 			}
 		});

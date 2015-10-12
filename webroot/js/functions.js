@@ -32,7 +32,7 @@ function getPersoIdByName(perso_name) {
 
 // Fonction pour gérer la collision avec un autre personnage, appellée grâce à la gestion des collisions de Phaser
 function hitObject() {
-	console.log(direction);
+	//console.log(direction);
 
 	if(direction === 'up') {
 		collision = 'up';

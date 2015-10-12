@@ -3,7 +3,7 @@
 
 <h1>Battle</h1>
 
-<a href="<?= $this->request->base ?>/home">Home</a>
+<!-- <a href="<?= $this->request->base ?>/home">Home</a> -->
 	
 <?php 
 
@@ -172,7 +172,7 @@ if(!isset($user)) { ?>
 <script src="js/main.js"></script>
 <script src="js/talk.js"></script>
 
-<script src="js/battle_functions.js"></script>
-<script src="js/init_battle.js"></script>
-<script src="js/end_battle.js"></script>
-<script src="js/battle.js"></script>
+<script src="js/battle/uncompiled/init_battle.js"></script>
+<script src="js/battle/uncompiled/end_battle.js"></script>
+<script src="js/battle/uncompiled/battle_functions.js"></script>
+<script src="js/battle/uncompiled/battle.js"></script>

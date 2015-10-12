@@ -3,46 +3,50 @@
 /*****************************/
 
 // Après chaque attaque, on vérifie si un personnage a ses PV à 0
+'use strict';
+
 function checkWin() {
 
-	if(getPersoAttr('ally', 'life') <= 0) {
+	if (getPersoAttr('ally', 'life') <= 0) {
 		winner = 'ennemy';
 		return true;
 	}
 
-	if(getPersoAttr('ennemy', 'life') <= 0) {
+	if (getPersoAttr('ennemy', 'life') <= 0) {
 		winner = 'ally';
 		return true;
 	}
 	return false;
 }
 
+var data = undefined;
+
 // Fonction pour updater en temps réel les données de l'utilisateur (A chaque victoire, défaite, ou arcade remportée)
 function updateUser(type) {
 
-	var data = {};
+	data = {};
 	data.type = type;
 	data.pseudo = user.pseudo;
 
-	makeAjax('POST', 'battle/updateUser', data, function() {
+	makeAjax('POST', 'battle/updateUser', data, function () {
 		console.log('updateUser', _this.response);
 	});
 }
 
 function updateUserPerso(id_perso) {
 
-	var data = {};
+	data = {};
 	data.id_perso = id_perso;
 
-	makeAjax('POST', 'battle/updateUserPerso', data, function() {
+	makeAjax('POST', 'battle/updateUserPerso', data, function () {
 
 		console.log('updateUserPerso', _this.response);
 
-		if(_this.response.check === 'OK') {
+		if (_this.response.check === 'OK') {
 			var get_perso = _this.response.perso[0];
 
-			chat('<img src="img/persos/'+get_perso.img_front+'" />');
-			chat('Vous avez débloqué '+get_perso.name);
+			chat('<img src="img/persos/' + get_perso.img_front + '" />');
+			chat('Vous avez débloqué ' + get_perso.name);
 		}
 	});
 }
@@ -56,7 +60,7 @@ function endGame() {
 
 	recordFight();
 
-	if(winner === 'ally') {
+	if (winner === 'ally') {
 
 		updateUser('win');
 		chat('Les points de vie de votre adversaire sont tombé à zéro.');
@@ -64,66 +68,59 @@ function endGame() {
 
 		$('.nb_win em').text(parseInt($('.nb_win em').text()) + 1);
 
-		arcade = arcade +1;
+		arcade = arcade + 1;
 
-		if(showCanvasAfterBattle) {
+		if (showCanvasAfterBattle) {
 
-			setTimeout(function() {
-				updateLevel('win', function() {
+			setTimeout(function () {
+				updateLevel('win', function () {
 					cleanFight();
-			
+
 					showCanvas();
 					showCanvasAfterBattle = false;
 
-					if(canPassChapter) {
+					if (canPassChapter) {
 						newChapter(currentChapter + 1, 'win');
 					} else {
 						newChapter(currentChapter, 'win');
 					}
 				});
 			}, 1500);
-
 		} else {
 
-			setTimeout(function() {
+			setTimeout(function () {
 
-				if(arcade < 5) {
+				if (arcade < 5) {
 
-					updateLevel('win', function() {
+					updateLevel('win', function () {
 						newFight();
 					});
-					
 				} else {
-					updateLevel('arcade', function() {
+					updateLevel('arcade', function () {
 						endArcade();
 					});
 				}
-
 			}, 2000);
-		}			
-
-	} else if(winner === 'ennemy') {
+		}
+	} else if (winner === 'ennemy') {
 		arcade = 0;
 		updateUser('lost');
 
-		if(showCanvasAfterBattle) {
+		if (showCanvasAfterBattle) {
 			cleanFight();
 
 			$('.nb_lost em').text(parseInt($('.nb_lost em').text()) + 1);
-			
+
 			showCanvas();
 			showCanvasAfterBattle = false;
 
 			newChapter(currentChapter, 'win');
-			
 		} else {
 			chat('Vos points de vie sont tombé à zéro.');
 			chat('Vous avez <span style="color:red;text-transform:uppercase;">perdu</span> !');
 			chat('<button class="play_again">Rejouer</button>');
 		}
-		
-
-	} else if(winner == 'catch') {
+	} else if (winner == 'catch') {
 
 		arcade = 0;
 		chat('Vous pouvez rejouer une arcade et sélectionnez si vous le voulez votre nouveau personnage !');
@@ -136,22 +133,22 @@ function updateLevel(what, callback) {
 
 	var current_level = ally.level;
 	var current_xp = ally.xp;
-	var exp;
+	var exp = undefined;
 
-	if(what === 'win') {
+	if (what === 'win') {
 
 		exp = 10;
 
 		current_xp = current_xp + exp;
 
-		if((current_level * exp) === current_xp) { // Si 2 * 10 = 20
+		if (current_level * exp === current_xp) {
+			// Si 2 * 10 = 20
 
 			current_level = current_level + 1; // On augmente le niveau
 			current_xp = 0;
 		}
+	} else if (what === 'arcade') {
 
-	} else if(what === 'arcade') {
-		
 		exp = 0;
 
 		for (var i = 0; i < 5; i++) {
@@ -160,7 +157,8 @@ function updateLevel(what, callback) {
 
 			current_xp = current_xp + exp;
 
-			if((current_level * exp) === current_xp) { // Si 2 * 10 = 20
+			if (current_level * exp === current_xp) {
+				// Si 2 * 10 = 20
 
 				current_level = current_level + 1; // On augmente le niveau
 				current_xp = 0;
@@ -172,19 +170,19 @@ function updateLevel(what, callback) {
 	ally.xp = current_xp;
 
 	var data = {
-		'perso' : ally,
-		'pseudo' : 'Gear'
+		'perso': ally,
+		'pseudo': 'Gear'
 	};
 
-	makeAjax('POST', 'battle/updateLevelExp', data, function() {
+	makeAjax('POST', 'battle/updateLevelExp', data, function () {
 		console.log('updateExp', _this.response);
 	});
 
-	var exp_width = Math.round(ally.xp / ally.level)*10;
+	var exp_width = Math.round(ally.xp / ally.level) * 10;
 
-	$('.ally .status .name').html(ally.name+' '+'<em class="level">Lv '+ally.level+'</em><i class="exp" style="width:'+(exp_width*2)+'px">'+exp_width+'%</i>');
+	$('.ally .status .name').html(ally.name + ' ' + '<em class="level">Lv ' + ally.level + '</em><i class="exp" style="width:' + exp_width * 2 + 'px">' + exp_width + '%</i>');
 
-	chat('Vous avez êtes désormais niveau '+ally.level);
+	chat('Vous avez êtes désormais niveau ' + ally.level);
 
 	callback();
 }
@@ -193,15 +191,15 @@ function updateLevel(what, callback) {
 function recordFight() {
 
 	data = {
-		'user' : user.pseudo,
-		'ally' : ally.name,
-		'ennemy' : ennemy.name
+		'user': user.pseudo,
+		'ally': ally.name,
+		'ennemy': ennemy.name
 	};
 
-	data.result = (winner === 'ally') ? 'win' : 'lost';
+	data.result = winner === 'ally' ? 'win' : 'lost';
 
-	makeAjax('POST', 'battle/recordFight', data, function() {
-		console.log('recordFight', _this.response);
+	makeAjax('POST', 'battle/recordFight', data, function () {
+		//console.log('recordFight', _this.response);
 	});
 }
 
@@ -218,27 +216,22 @@ function endArcade() {
 
 	var arcades_now = parseInt($('.nb_arcade em').text());
 
-	if(arcades_now === 1) {
+	if (arcades_now === 1) {
 		// Kenshin est débloqué
 		updateUserPerso(12);
-
-	} else if(arcades_now === 3) {
+	} else if (arcades_now === 3) {
 		// Toriko est débloqué
 		updateUserPerso(25);
-
-	} else if(arcades_now === 5) {
+	} else if (arcades_now === 5) {
 		// Aladdin est débloqué
 		updateUserPerso(26);
-
-	} else if(arcades_now === 7) {
+	} else if (arcades_now === 7) {
 		// Ah Gou est débloqué
 		updateUserPerso(47);
-
-	} else if(arcades_now === 8) {
+	} else if (arcades_now === 8) {
 		// Ray est débloqué
 		updateUserPerso(54);
-
-	} else if(arcades_now === 15) {
+	} else if (arcades_now === 15) {
 		// Saitama est débloqué
 		updateUserPerso(29);
 	}
@@ -263,31 +256,31 @@ function newFight() {
 	$('.status span').width(300);
 	$('.status strong').text('100');
 
-	if(ennemy_defined === false) {
-		random_ennemy = rand(0,_this.all_persos.length -1);
+	if (ennemy_defined === false) {
+		random_ennemy = rand(0, _this.all_persos.length - 1);
 	}
 
 	_this.all_persos[random_ennemy].side = 'ennemy';
 
 	ennemy = _this.all_persos[random_ennemy];
 
-	console.log('ennemy', ennemy);
+	//console.log('ennemy', ennemy);
 
-	if(ennemy.name == 'Saitama') {
-		while(ennemy.name == 'Saitama') {
-			random_ennemy = rand(1,_this.all_persos.length -1);
+	if (ennemy.name == 'Saitama') {
+		while (ennemy.name == 'Saitama') {
+			random_ennemy = rand(1, _this.all_persos.length - 1);
 			_this.all_persos[random_ennemy].side = 'ennemy';
 
 			ennemy = _this.all_persos[random_ennemy];
 		}
 	}
 
-	ennemy.level = rand(ally.level-3, ally.level+3);
+	ennemy.level = rand(ally.level - 3, ally.level + 3);
 
-	$('.ennemy .status .name').html(ennemy.name+' '+'<em class="level">Lv '+ennemy.level+'</em>');
-	$('.ennemy').find('img').attr('src', 'img/persos/'+ennemy.img_front);
+	$('.ennemy .status .name').html(ennemy.name + ' ' + '<em class="level">Lv ' + ennemy.level + '</em>');
+	$('.ennemy').find('img').attr('src', 'img/persos/' + ennemy.img_front);
 
-	if(ennemy.vit >= ally.vit) {
+	if (ennemy.vit >= ally.vit) {
 		ennemyTurn();
 	} else {
 		$('.choose .button_depart').parent().show();

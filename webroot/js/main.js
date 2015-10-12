@@ -144,7 +144,8 @@ $(document).ready(function() {
 		}
 		
 		currentChapter = 1;
-
+		console.log('user', user);
+		
 		user.persos[0] = standby;
 		txt("Vous avez choisi "+standby+" ! Excellent choix !");
 

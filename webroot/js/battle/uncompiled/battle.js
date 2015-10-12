@@ -5,65 +5,10 @@ $(document).ready(function() {
 	//import * as myModule from "init_battle.js";
 
 	// Fonction AJAX qui récupère tous les personnages et leurs attaques pour que l'utilisateur choisisse son personnage
-	function getAllPersos () {
-
-		makeAjax('POST', 'battle/getPersos', '', function() {
-
-			console.log('getPersos', _this.response);
-
-			_this.response = _this.response.persos;
-			window.all_persos = _this.response;
-
-			$('.before_battle h2').show();
-
-			var li_append;
-
-			for (var p = 0; p < _this.response.length; p++) {
-
-				// Si le personnage a été débloqué
-				if(_this.response[p].unlocked == 1) {
-
-					li_append =
-						'<li data-id="'+p+'">'+
-							'<img class="unlocked" src="img/persos/'+_this.response[p].img_front+'"/>'+
-						'</li>'
-					;
-
-				} else {
-
-					li_append = 
-						'<li data-id="'+p+'">'+
-						'<img src="img/persos/'+_this.response[p].img_front+'"/>'
-					;
-
-					if(_this.response[p].condition != 'none' && _this.response[p].condition != null && _this.response[p].condition != 'catch') {
-
-						li_append += 
-							'<div class="sub">Vous devez terminer '+_this.response[p].condition+' arcades pour débloquer ce personnage !</div>'
-						;
-
-					} else {
-
-						li_append += 
-							'<div class="sub">Vous devez attraper ce personnage pour pouvoir le jouer !</div>'
-						;
-					}
-
-					li_append +=
-						'</li>'
-					;
-				}
-				
-				$('.choose_perso').append(li_append);
-			}
-
-			_this.all_persos = _this.response;
-
-		});
-	};
+	
 
 	// Si Sign In, création des persos pour le User
-	var getUserPersos = function() {
+	const getUserPersos = () => {
 		makeAjax('POST', 'battle/getUserPersos', '', function() {
 			getAllPersos();
 		});
@@ -74,11 +19,11 @@ $(document).ready(function() {
 	/*****************************/
 
 	$(document).on('click', '.choose_perso li img.unlocked', function() {
-		var id_chosen = $(this).parent().attr('data-id');
+		let id_chosen = $(this).parent().attr('data-id');
 		beginBattle(id_chosen);
 	});
 
-	beginBattle = function(id_chosen, argument) {
+	beginBattle = (id_chosen, argument) => {
 
 		if(ennemy_defined === false) {
 			random_ennemy = rand(0,_this.all_persos.length -1);
@@ -124,7 +69,7 @@ $(document).ready(function() {
 		ally = _this.all_persos[id_chosen];
 		ennemy = _this.all_persos[random_ennemy];
 
-		console.log('ennemy', ennemy);
+		//console.log('ennemy', ennemy);
 
 		if(ennemy.name == 'Saitama') {
 			while(ennemy.name == 'Saitama') {
@@ -140,7 +85,7 @@ $(document).ready(function() {
 
 		// ECRITURE DU NOM DU PERSONNAGE
 		
-		var exp_width = Math.round(ally.xp / ally.level)*10;
+		let exp_width = Math.round(ally.xp / ally.level)*10;
 
 		$('.ally .status .name').html(ally.name+' '+'<em class="level">Lv '+ally.level+'</em><i class="exp" style="width:'+(exp_width*2)+'px">'+exp_width+'%</i>');
 
@@ -209,6 +154,7 @@ $(document).ready(function() {
 		$('.button_return').show();
 	});
 
+	
 	// Au clic sur l'objet Potion de Vie
 	$('.button_life_potion').on('click', function() {
 		$('.choose .button_tools').parent().hide();
@@ -246,13 +192,9 @@ $(document).ready(function() {
 	});
 
 	// Au clic sur Manga Ball
-
 	$('.manga_ball').on('click', function() {
 		$('.choose .button_depart').parent().hide();
 		mangaBall();
 	});
- 
-	
-
 
 });

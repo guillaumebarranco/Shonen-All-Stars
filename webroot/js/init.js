@@ -1,5 +1,5 @@
 // Variables permettant de commencer par la Map ou non
-var showCanvasFromBeginning = false;
+var showCanvasFromBeginning = true;
 var canPassChapter = true;
 
 // Variable permettant de commencer par un certain chapitre
@@ -13,9 +13,11 @@ var game;
 
 // Variable qui va contenir le User global
 var user = {};
-
+console.log(user);
 user.persos = {};
 user.id_starter;
+
+console.log(user);
 
 // Tableaux pour les assets à charger
 var assets = {};

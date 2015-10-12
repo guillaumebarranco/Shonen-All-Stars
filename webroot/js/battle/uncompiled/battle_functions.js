@@ -1,15 +1,17 @@
+"use strict";
+
 /*****************************/
-	/* 	  FONCTIONS GENERIQUES	 */
-	/*****************************/
+/* 	  FONCTIONS GENERIQUES	 */
+/*****************************/
+
+
 
 	function getPersoAttr(who, what) {
 		return parseInt($('.'+who+' .status .'+what).find('strong').text());
 	}
 
 	function setPersoAttr(who, what, new_attr) {
-		if((getPersoAttr(who, what) + new_attr) >= 100) {
-			new_attr = 100 - getPersoAttr(who, what);
-		}
+		if((getPersoAttr(who, what) + new_attr) >= 100) new_attr = 100 - getPersoAttr(who, what);
 		$('.'+who+' .status .'+what).find('strong').text(getPersoAttr(who, what) + new_attr);
 		$('.'+who+' .status .'+what).find('span').width($('.'+who+' .status .'+what).find('span').width() + new_attr*3);
 	}
@@ -73,14 +75,14 @@
 	// Fonction de lancement d'une Manga Ball
 	function mangaBall() {
 
-		var ennemy_name = $('.ennemy .status .name').text();
-		var ennemy_id = ennemy.id;
+		let ennemy_name = $('.ennemy .status .name').text();
+		let ennemy_id = ennemy.id;
 
-		var is_unlocked = (ennemy.unlocked == 1) ? true : false;
+		let is_unlocked = (ennemy.unlocked == 1) ? true : false;
 
 		if(!is_unlocked) {
 
-			console.log('ennemy_id', ennemy_id);
+			//console.log('ennemy_id', ennemy_id);
 
 			// Impossible d'attraper les personnages que l'on obtient seulement en finissant des arcades
 			if(ennemy_id == 26 || ennemy_id == 25 || ennemy_id == 12 || ennemy_id == 29 || ennemy_id == 47 || ennemy_id == 54) {
@@ -93,7 +95,7 @@
 				$('.ennemy .anim').show();
 				$('.ennemy .anim').append('<div class="anim_mangaball"></div>');
 
-				var duration = $('.anim_mangaball').css('-webkit-animation-duration');
+				let duration = $('.anim_mangaball').css('-webkit-animation-duration');
 
 				if(duration.length == 2) {
 					duration = duration.substr(0,1);
@@ -104,15 +106,14 @@
 				}
 
 				emptyChat();
-
 				chat('Vous avez lancé une Manga Ball !');
 
 				setTimeout(function() {
 					$('.ennemy .anim').hide();
 					$('.anim_mangaball').remove();
 
-					var ennemy_life = getPersoAttr('ennemy', 'life');
-					var catched = 0;
+					let ennemy_life = getPersoAttr('ennemy', 'life');
+					let catched = 0;
 
 					if(ennemy_life != 100) {
 
@@ -129,9 +130,7 @@
 						}
 					}
 
-					if(master_ball) {
-						catched = 3;
-					}
+					if(master_ball) catched = 3;
 
 					if(catched === 3) {
 						chat('Félicitations ! Vous avez attrapé '+ennemy_name);
@@ -149,7 +148,7 @@
 			}
 
 		} else {
-			alert('Ce personnage est déjà disponible, vous ne pouvez pas l\'attraper !');
+			popError('Ce personnage est déjà disponible, vous ne pouvez pas l\'attraper !');
 			$('.choose .button_depart').parent().show();
 		}
 	}
@@ -166,11 +165,10 @@
 
 	// Fonction pour générer un nombre aléatoire
 	function rand(min, max) {
-		var the_random = Math.floor(Math.random() * (max - min + 1)) + min;
+		let the_random = Math.floor(Math.random() * (max - min + 1)) + min;
 		
 		// Pour gérer le niveau adverse qui ne peut pas être inférieur à 0 ni supérieur à 30
 		the_random = (the_random <= 0) ? 1 : (the_random > 30) ? 30 : the_random;
-
 		return the_random;
 	}
 
@@ -189,7 +187,6 @@
 				power = (ally.atk >= ennemy.def) ? power + 5 : power - 5;
 
 			} else if(who === 'ennemy') {
-
 				power = (ennemy.atk >= ally.def) ? power + 5 : power - 5;
 			}
 
@@ -200,7 +197,6 @@
 				power = (ally.atk_spe >= ennemy.def_spe) ? power + 5 : power - 5;
 
 			} else if(who === 'ennemy') {
-
 				power = (ennemy.atk_spe >= ally.def_spe) ? power + 5 : power - 5;
 			}
 		}
@@ -211,7 +207,6 @@
 			power = (ally.level > ennemy.level) ? power + (2*(ally.level - ennemy.level)) : power - (2*(ally.level - ennemy.level));
 
 		} else if(who === 'ennemy') {
-
 			power = (ally.level > ennemy.level) ? power - (2*(ally.level - ennemy.level)) : power + (2*(ally.level - ennemy.level));
 		}
 
@@ -229,7 +224,7 @@
 
 			random_attack = (attack_defined === false) ? rand(1,4) : random_attack;
 
-			var ennemy_attack;
+			let ennemy_attack;
 
 			switch(random_attack) {
 				case 1:
@@ -254,11 +249,12 @@
 	// Fonction qui va lancer l'attaque et effectuer les actions relatives à la pré-attaque et la post-attaque
 	function attack(who, that) {
 
-		var name_attack;
-		var power_attack;
-		var requis_attack;
-		var type_attack;
-		var anim_attack;
+		let name_attack;
+		let power_attack;
+		let requis_attack;
+		let type_attack;
+		let anim_attack;
+		let check_critik;
 
 		if(who === 'ally') {
 
@@ -277,7 +273,7 @@
 					emptyChat();
 
 					power_attack = calculForce(power_attack, type_attack, 'ally');
-					var check_critik = rand(1,10);
+					check_critik = rand(1,10);
 
 					makeAnimation('ally', anim_attack, function() {
 
@@ -322,7 +318,7 @@
 				emptyChat();
 
 				power_attack = calculForce(power_attack, type_attack, 'ennemy');
-				var check_critik = rand(1,10);
+				check_critik = rand(1,10);
 
 				makeAnimation('ennemy', anim_attack, function() {
 
@@ -370,13 +366,14 @@
 	// Fonction pour mettre en place les animations relatives au attaques (les animations étant créées en CSS3)
 	function makeAnimation(who_attack, anim_attack, callback) {
 
-		var who_receive = (who_attack === 'ally') ? 'ennemy' : (who_attack === 'ennemy') ? 'ally' : '';
+		let who_receive = (who_attack === 'ally') ? 'ennemy' : (who_attack === 'ennemy') ? 'ally' : '',
+			duration;
 
 		if(anim_attack == 'monochrome') {
 
 			$('.battle').addClass('battle_monochrome');
 
-			var duration = $('.battle_monochrome').css('animation-duration');
+			duration = $('.battle_monochrome').css('animation-duration');
 
 			if(duration.length == 2) {
 				duration = duration.substr(0,1);
@@ -400,15 +397,13 @@
 
 		} else {
 
-			if(anim_attack == 'ultimate') {
-				$('html, body').css('overflow', 'hidden');
-			}
+			if(anim_attack == 'ultimate') $('html, body').css('overflow', 'hidden');
 
 			$('.'+who_receive+' .anim').append('<div class="anim_'+anim_attack+'"></div>');
 			$('.'+who_receive+' .anim').show();
 
 			// Animation duration from the CSS given to the setTimeout function
-			var duration = $('.anim_'+anim_attack).css('animation-duration');
+			duration = $('.anim_'+anim_attack).css('animation-duration');
 			duration = (duration.length === 2) ? parseInt(duration.substr(0,1)) * 1000 : parseFloat(duration.substr(0,3)) * 1000;
 
 			setTimeout(function() {
@@ -429,3 +424,24 @@
 			}, duration);
 		}
 	}
+
+	/*
+	*	FONCTIONS FIN DE COMBAT
+	*/
+
+	// Après chaque attaque, on vérifie si un personnage a ses PV à 0
+	function checkWin() {
+
+		if(getPersoAttr('ally', 'life') <= 0) {
+			winner = 'ennemy';
+			return true;
+		}
+
+		if(getPersoAttr('ennemy', 'life') <= 0) {
+			winner = 'ally';
+			return true;
+		}
+		return false;
+	}	
+
+
