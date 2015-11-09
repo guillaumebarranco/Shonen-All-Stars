@@ -145,7 +145,6 @@ $(document).ready(function() {
 		}
 		
 		currentChapter = 1;
-		console.log('user', user);
 		
 		user.persos[0] = standby;
 		txt("Vous avez choisi "+standby+" ! Excellent choix !");
@@ -161,7 +160,7 @@ $(document).ready(function() {
 		enableChoice = false;
 
 		setTimeout(function() {
-			newText.text = '';
+			txt('');
 			balls.removeAll(true, true);
 
 			chapterTwo(function() {
@@ -181,7 +180,7 @@ $(document).ready(function() {
 
 		gameLaunched = true;
 
-    	// Création de korosensei
+    	// Création de korosensei, rukia et piccolo
         scenePerso(300, 200, 'korosensei');
         scenePerso(100, 100, 'rukia');
         scenePerso(450, 150, 'piccolo');

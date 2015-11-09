@@ -17,7 +17,6 @@ let user = {};
 user.persos = {};
 user.id_starter;
 
-
 // Tableaux pour les assets à charger
 let assets = {},
 	assetsLength = 0,
@@ -63,30 +62,15 @@ let ball1, ball2, ball3;
 // Initialisation du framework Phaser et de la map de jeu
 game = new Phaser.Game(700, 500, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
+
 // All assets for Map
-addAsset("ball");
-addAsset("korosensei");
-addAsset("piccolo");
-addAsset("rukia");
-addAsset("yugi");
-addAsset("aladdin");
-addAsset('ichigo');
-addAsset('tsubasa');
-addAsset('gon');
-addAsset('kenichi');
-addAsset('kenshin');
-addAsset('toriko');
-addAsset('yusuke');
-addAsset('naruto');
-addAsset('goku');
-addAsset('luffy');
-addAsset('saitama');
+const tab_asset = ['ball','korosensei','piccolo','rukia','yugi','aladdin','ichigo','tsubasa','gon','kenichi','kenshin','toriko','yusuke','naruto','goku','luffy','saitama'];
+for (var i = 0; i < tab_asset.length; i++) addAsset(tab_asset[i]);
+
 
 // All assets for start menu
-addAssetPerso("luffy_front");
-addAssetPerso("goku_front");
-addAssetPerso("sangoku_front");
-addAssetPerso("naruto_front");
+const tab_assetPerso = ['luffy_front','goku_front','sangoku_front','naruto_front'];
+for (var i = 0; i < tab_assetPerso.length; i++) addAssetPerso(tab_assetPerso[i]);
 
 function preload() {
 
@@ -107,6 +91,7 @@ function create() {
 	game.physics.arcade.enable(player);
 	player.body.collideWorldBounds = true;
 
+	// On positionne le player au centre de l'écran
 	player.position.x = game.world.width / 2;
 	player.position.y = game.world.height / 2;
 
@@ -122,13 +107,13 @@ function create() {
 	
 	// Création des manga balls de départ pour le choix du starter
     ball1 = balls.create(200, 350, 'ball');
-    ball1.body.immovable = true;
+    harden(ball1);
 
     ball2 = balls.create(300, 350, 'ball');
-    ball2.body.immovable = true;
+    harden(ball2);
 
     ball3 = balls.create(400, 350, 'ball');
-    ball3.body.immovable = true;
+    harden(ball3);
 
     // Création du tableau pour l'ajout des personnages movibles
     people = game.add.group();

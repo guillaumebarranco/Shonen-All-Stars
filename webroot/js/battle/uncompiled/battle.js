@@ -135,49 +135,35 @@ $(document).ready(function() {
 	$('.button_return').on('click', function(e) {
 		e.preventDefault();
 		$(this).hide();
-		$('.choose .button_attack').parent().hide();
-		$('.choose .button_tools').parent().hide();
-		$('.choose .button_depart').parent().show();
+		hideButtons(['attack', 'tools']);
+		showButtons(['depart']);
 	});
 
 	// Au click sur le bouton Attack, on affiche les 4 attaques
 	$('.make_attack').on('click', function() {
-		$('.choose .button_depart').parent().hide();
-		$('.choose .button_attack').parent().show();
+		hideButtons(['depart']);
+		showButtons(['attack']);
 		$('.button_return').show();
 	});
 
 	// Au click sur le bouton Tools, on affiche les 4 objets
 	$('.use_tools').on('click', function() {
-		$('.choose .button_depart').parent().hide();
-		$('.choose .button_tools').parent().show();
+		hideButtons(['attack', 'depart']);
+		showButtons(['tools']);
 		$('.button_return').show();
 	});
 
-	
 	// Au clic sur l'objet Potion de Vie
-	$('.button_life_potion').on('click', function() {
-		$('.choose .button_tools').parent().hide();
-		updateLife();
-	});
+	$('.button_life_potion').on('click', updateLife);
 
 	// Au clic sur l'objet Potion de PP
-	$('.button_pp_potion').on('click', function() {
-		$('.choose .button_tools').parent().hide();
-		updatePP();
-	});
+	$('.button_pp_potion').on('click', updatePP);
 
 	// Au clic sur l'objet Recovery Potion
-	$('.button_life_pp_potion').on('click', function() {
-		$('.choose .button_tools').parent().hide();
-		updateLifePP();
-	});
+	$('.button_life_pp_potion').on('click', updateLifePP);
 
 	// Au clic sur l'objet Shosinsui
-	$('.button_shosinsui').on('click', function() {
-		$('.choose .button_tools').parent().hide();
-		shosinsui();
-	});
+	$('.button_shosinsui').on('click', shosinsui);
 	
 	// Au clic sur une attaque
 	$('.button_attack').on('click', function() {
@@ -187,14 +173,9 @@ $(document).ready(function() {
 
 	// Au clic sur le bouton "Rejouer" après avoir perdu un combat ou gagné une arcade
 	$(document).off('click', '.play_again');
-	$(document).on('click', '.play_again', function() {
-		playAgain();
-	});
+	$(document).on('click', '.play_again', playAgain);
 
 	// Au clic sur Manga Ball
-	$('.manga_ball').on('click', function() {
-		$('.choose .button_depart').parent().hide();
-		mangaBall();
-	});
+	$('.manga_ball').on('click', mangaBall);
 
 });

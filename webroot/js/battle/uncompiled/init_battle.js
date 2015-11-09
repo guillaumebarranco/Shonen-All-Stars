@@ -7,27 +7,28 @@ const _this = this;
 /* 	       VARIABLES      	 */
 /*****************************/
 
-let turn;
-let ally;
-let ennemy;
-let winner;
+let turn,
+	ally,
+	ennemy,
+	winner;
 
 //let user;
 this.response = '';
 this.all_persos = '';
-let arcade = 0;
-let attack_ended = 1;
+
+let arcade = 0,
+	attack_ended = 1;
 
 let showCanvasAfterBattle = false;
 
 // SI BESOIN DE TESTER UNE ATTAQUE ENNEMIE PARTICULIERE, CHANGER CES VARIABLES
 
-let ennemy_defined = false;
-let random_ennemy;
-let attack_defined = false;
-let random_attack;
-let disappear_attack = true;
-let master_ball = false;
+let ennemy_defined = false,
+	random_ennemy,
+	attack_defined = false,
+	random_attack,
+	disappear_attack = true,
+	master_ball = false;
 
 $(document).ready(function() {
 
@@ -46,8 +47,7 @@ $(document).ready(function() {
 	$('.return_sign_log_in').hide();
 	$('.button_return').hide();
 
-	$('.choose .button_attack').parent().hide();
-	$('.choose .button_tools').parent().hide();
+	hideButtons(['attack', 'tools']);
 
 	// Si le User a déjà une session connectée
 	if($('.launch_direct').length != 0) {
@@ -88,9 +88,9 @@ $(document).ready(function() {
 
 		e.preventDefault();
 
-		let the_pseudo = $(this).find('input[name=pseudo]').val();
-		let password = $(this).find('input[name=password]').val();
-		let what_form = $(this).attr('class');
+		let the_pseudo = $(this).find('input[name=pseudo]').val(),
+			password = $(this).find('input[name=password]').val(),
+			what_form = $(this).attr('class');
 
 		if(the_pseudo != null && the_pseudo != '') {
 
@@ -104,7 +104,7 @@ $(document).ready(function() {
 			checkConnection(data);			
 
 		} else {
-			alert('Veuillez entrer un pseudo et un mot de passe.');
+			popError('Veuillez entrer un pseudo et un mot de passe.');
 		}
 
 	});
@@ -171,8 +171,6 @@ $(document).ready(function() {
 	function checkConnection(data) {
 		makeAjax('POST', "battle/signLogIn", data, function() {
 
-			//console.log('log_sign_in', _this.response);
-
 			if(_this.response.check === 'OK') {
 
 				user = (_this.response.user[0] != undefined) ? _this.response.user[0] : _this.response.user;
@@ -183,9 +181,9 @@ $(document).ready(function() {
 
 				pseudo = user.pseudo;
 
-				let the_win = user.win;
-				let the_lost = user.lost;
-				let the_arcades = user.arcades;
+				let the_win = user.win,
+					the_lost = user.lost,
+					the_arcades = user.arcades;
 
 				var txt_pseudo = 
 					user.pseudo +
@@ -216,15 +214,12 @@ $(document).ready(function() {
 	/* 	  GET PERSOS AND USER  	 */
 	/*****************************/
 
-
 	// Fonction appellée quand la $_SESSION récupère un utilisateur connecté
 	function getConnectedUser() {
 
 		makeAjax('POST', 'battle/getConnectedUser', '', function() {
 
 			if(_this.response.check === 'OK') {
-
-				//console.log('connected user', _this.response);
 				user = (_this.response.user[0] != undefined) ? _this.response.user[0] : _this.response.user;
 				user.persos = {};
 				user.id_starter;

@@ -151,7 +151,6 @@ if(!isset($user)) { ?>
 			</ul>
 		</div>
 
-		
 	</div>
 
 </div>

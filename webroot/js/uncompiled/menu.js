@@ -7,6 +7,10 @@ menu.graphics;
 menu.cursor;
 menu.wait = 0;
 
+function fontSize() {
+	return { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 };
+}
+
 
 function openMenu() {
 	menu.open = true;
@@ -23,10 +27,10 @@ function openMenu() {
 
 	menu.choose = 'persos';
 
-	menu.txt.persos = game.add.text(550, 20, 'Personnages', { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
-	menu.txt.objects = game.add.text(550, 50, 'Objects', { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
-	menu.txt.retour = game.add.text(550, 80, 'Retour', { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
-	menu.txt.launch_battle = game.add.text(550, 110, 'Launch Battle', { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
+	menu.txt.persos = game.add.text(550, 20, 'Personnages', fontSize());
+	menu.txt.objects = game.add.text(550, 50, 'Objects', fontSize());
+	menu.txt.retour = game.add.text(550, 80, 'Retour', fontSize());
+	menu.txt.launch_battle = game.add.text(550, 110, 'Launch Battle', fontSize());
 
 	menu.shown = 'default';
 }
@@ -108,18 +112,18 @@ function showMenuPersos() {
 
 	menu.txt.userPerso = {};
 
-	for (userPerso in user.persos) {
+	for(let userPerso in user.persos) {
 		let this_text = user.persos[userPerso];
 
-		menu.txt.userPerso[userPerso] = game.add.text(550, tops, this_text, { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
+		menu.txt.userPerso[userPerso] = game.add.text(550, tops, this_text, fontSize());
 		tops = tops + 30;
 	}
 
-	menu.txt.retourPersos = game.add.text(550, tops, 'Retour', { fontSize: '16px', fill: '#000', wordWrap : true, wordWrapWidth : 300 });
+	menu.txt.retourPersos = game.add.text(550, tops, 'Retour', fontSize());
 }
 
 function hideMenuPersos() {
-	for (userPerso in user.persos) menu.txt.userPerso.text = '';
+	for(let userPerso in user.persos) menu.txt.userPerso.text = '';
 
 	menu.txt.retourPersos.text = '';
 
@@ -132,7 +136,7 @@ function hideMenuPersos() {
 
 	menu.choose = 'persos';
 
-	for(item in menu.txt.userPerso) {
+	for(let item in menu.txt.userPerso) {
 		menu.txt.userPerso[item].text = "";
 	}
 
@@ -166,6 +170,6 @@ function hideOnePerso() {
 	menu.choosed_perso.graphics.clear();
 	the_persos.removeAll(true, true);
 
-	for(item in menu.choosed_perso.txt) menu.choosed_perso.txt[item].text = "";
+	for(let item in menu.choosed_perso.txt) menu.choosed_perso.txt[item].text = "";
 	menu.choose = 'perso1';
 }

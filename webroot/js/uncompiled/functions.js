@@ -10,15 +10,24 @@ function addAssetPerso(the_asset) {
 	assetsPersosLength++;
 }
 
+function isNotUndefined(elem) {
+	if(typeof elem !== 'undefined') return true;
+	return false;
+}
+
+function harden(element) {
+	if(isNotUndefined(element.body)) element.body.immovable = true;
+}
+
 function getPersoIdByName(perso_name) {
 
 	switch(perso_name) {
 
-		case "Sangoku" :
+		case "Sangoku":
 			return 0;
 		break;
 
-		case "Luffy" :
+		case "Luffy":
 			return 1;
 		break;
 
@@ -34,8 +43,7 @@ function getPersoIdByName(perso_name) {
 
 // Fonction pour gérer la collision avec un autre personnage, appellée grâce à la gestion des collisions de Phaser
 function hitObject() {
-	//console.log(direction);
-	if(direction === 'up' || direction === 'up' || direction === 'up' || direction === 'up') collision = direction;
+	if(direction === 'up' || direction === 'down' || direction === 'left' || direction === 'right') collision = direction;
 }
 
 // Fonction pour déplacer le personnage
@@ -48,6 +56,7 @@ function movePerso(player, the_direction) {
 	if(collision != the_direction) {
 		collision = null;
 		enableTalk = false;
+		
 		if(the_direction === 'left') {
 			player.body.velocity.x = -speed;
 			updateScene('left');

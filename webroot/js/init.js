@@ -1,105 +1,98 @@
+"use strict";
+
 // Variables permettant de commencer par la Map ou non
 var canPassChapter = true;
 
 // Variable permettant de commencer par un certain chapitre
-var beginByChapter = false;
-var chapterBegin = 7;
+var beginByChapter = false,
+    chapterBegin = 7;
 
-
-var beginBattle;
-
-var game;
+var beginBattle = undefined,
+    game = undefined,
+    player = undefined;
 
 // Variable qui va contenir le User global
 var user = {};
 user.persos = {};
 user.id_starter;
 
-
 // Tableaux pour les assets à charger
-var assets = {};
-var assetsLength = 0;
+var assets = {},
+    assetsLength = 0,
+    assetsPersos = {},
+    assetsPersosLength = 0;
 
-var assetsPersos = {};
-var assetsPersosLength = 0;
+// Textes
+var enableTalk = false,
+    newText = null,
+    passText = null;
 
-// Texts apparition
+var spoken = {},
+    stepTalk = 1;
 
-var enableTalk = false;
-var newText = null;
-var passText = null;
+// Mouvements
+var direction = undefined,
+    collision = undefined,
+    speed = 150,
+    canMove = true;
 
-var spoken = {};
-var stepTalk = 1;
-
-// Movements
-var direction;
-var collision;
-var speed = 150;
-var canMove = true;
-
-
-
-var pseudo;
-
-var currentResult = 'win';
+var pseudo = undefined,
+    currentResult = 'win';
 
 // Items
-var balls;
-var people;
+var balls = undefined,
+    people = undefined;
 
-var enableChoice = true;
-var standby;
-var gameLaunched = false;
+var enableChoice = true,
+    standby = undefined,
+    gameLaunched = false;
 
 // Variables qui gère les assets persos
-var the_persos;
+var the_persos = undefined,
+    cursors = undefined;
 
 // Variables pour la fonction newChapter ainsi que les chapitres
-var newChapter;
-var currentChapter = 1;
+var newChapter = undefined,
+    currentChapter = 1,
+    scene = {};
 
-var scene = {};
+var ball1 = undefined,
+    ball2 = undefined,
+    ball3 = undefined;
 
 // Initialisation du framework Phaser et de la map de jeu
 game = new Phaser.Game(700, 500, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 // All assets for Map
-addAsset("ball");
-addAsset("korosensei");
-addAsset("piccolo");
-addAsset("rukia");
-addAsset("yugi");
-addAsset("aladdin");
-addAsset('ichigo');
-addAsset('tsubasa');
-addAsset('gon');
-addAsset('kenichi');
-addAsset('kenshin');
-addAsset('toriko');
-addAsset('yusuke');
-addAsset('naruto');
-addAsset('goku');
-addAsset('luffy');
-addAsset('saitama');
+var tab_asset = ['ball', 'korosensei', 'piccolo', 'rukia', 'yugi', 'aladdin', 'ichigo', 'tsubasa', 'gon', 'kenichi', 'kenshin', 'toriko', 'yusuke', 'naruto', 'goku', 'luffy', 'saitama'];
+for (var i = 0; i < tab_asset.length; i++) addAsset(tab_asset[i]);
 
 // All assets for start menu
-addAssetPerso("luffy_front");
-addAssetPerso("goku_front");
-addAssetPerso("sangoku_front");
-addAssetPerso("naruto_front");
+var tab_assetPerso = ['luffy_front', 'goku_front', 'sangoku_front', 'naruto_front'];
+for (var i = 0; i < tab_assetPerso.length; i++) addAssetPerso(tab_assetPerso[i]);
+
+function isNotUndefined(elem) {
+	if (typeof elem !== 'undefined') {
+		return true;
+	}
+	return false;
+}
+
+function harden(element) {
+	if (isNotUndefined(element.body)) {
+		element.body.immovable = true;
+	}
+}
 
 function preload() {
 
 	// On va charger tous les assets pour la Map
-	game.load.spritesheet('perso', WEB_URL+'img/assets/perso.png', 32, 48);
+	game.load.spritesheet('perso', WEB_URL + 'img/assets/perso.png', 32, 48);
 
-	for(asset in assets) {
-		game.load.image(assets[asset], WEB_URL+'img/assets/'+assets[asset]+'.png');
-	}
-
-	for(assetPerso in assetsPersos) {
-		game.load.image(assetsPersos[assetPerso], WEB_URL+'img/persos/'+assetsPersos[assetPerso]+'.png');
+	for (var asset in assets) {
+		game.load.image(assets[asset], WEB_URL + 'img/assets/' + assets[asset] + '.png');
+	}for (var assetPerso in assetsPersos) {
+		game.load.image(assetsPersos[assetPerso], WEB_URL + 'img/persos/' + assetsPersos[assetPerso] + '.png');
 	}
 }
 
@@ -113,6 +106,7 @@ function create() {
 	game.physics.arcade.enable(player);
 	player.body.collideWorldBounds = true;
 
+	// On positionne le player au centre de l'écran
 	player.position.x = game.world.width / 2;
 	player.position.y = game.world.height / 2;
 
@@ -125,28 +119,28 @@ function create() {
 	balls = game.add.group();
 
 	balls.enableBody = true;
-	
+
 	// Création des manga balls de départ pour le choix du starter
-    var ball1 = balls.create(200, 350, 'ball');
-    ball1.body.immovable = true;
+	ball1 = balls.create(200, 350, 'ball');
+	harden(ball1);
 
-    var ball2 = balls.create(300, 350, 'ball');
-    ball2.body.immovable = true;
+	ball2 = balls.create(300, 350, 'ball');
+	harden(ball2);
 
-    var ball3 = balls.create(400, 350, 'ball');
-    ball3.body.immovable = true;
+	ball3 = balls.create(400, 350, 'ball');
+	harden(ball3);
 
-    // Création du tableau pour l'ajout des personnages movibles
-    people = game.add.group();
+	// Création du tableau pour l'ajout des personnages movibles
+	people = game.add.group();
 	people.enableBody = true;
 
-    newText = game.add.text(player.position.x, (player.position.y - 50), '', { fontSize: '16px', fill: '#fff', wordWrap : true, wordWrapWidth : 300 });
-    passText = game.add.text(player.position.x, (player.position.y - 50), '', { fontSize: '12px', fill: '#fff', wordWrap : true, wordWrapWidth : 300 });
+	newText = game.add.text(player.position.x, player.position.y - 50, '', { fontSize: '16px', fill: '#fff', wordWrap: true, wordWrapWidth: 300 });
+	passText = game.add.text(player.position.x, player.position.y - 50, '', { fontSize: '12px', fill: '#fff', wordWrap: true, wordWrapWidth: 300 });
 
-    // Si jamais l'utilisateur n'est pas authentifié, on cache le jeu
-    if($('.launch_direct').length == 0 || !showCanvasFromBeginning) {
-    	$('canvas').hide();
-    }
+	// Si jamais l'utilisateur n'est pas authentifié, on cache le jeu
+	if ($('.launch_direct').length == 0 || !showCanvasFromBeginning) {
+		$('canvas').hide();
+	}
 }
 
 function update() {
@@ -163,30 +157,24 @@ function update() {
 
 	// Gestion des mouvements en fonction de la touche pressée
 
-	if(!menu.open) {
-		if(cursors.left.isDown) {
-	    	movePerso(player, 'left');
-
-	    } else if(cursors.right.isDown) {
-	        movePerso(player, 'right');
-
-	    } else if(cursors.up.isDown) {
-	        movePerso(player, 'up');
-
-	    } else if(cursors.down.isDown) {
-	        movePerso(player, 'down');
-
-	    } else {
-	        player.animations.stop();
-	        //player.frame = 4;
-	    }
-
+	if (!menu.open) {
+		if (cursors.left.isDown) {
+			movePerso(player, 'left');
+		} else if (cursors.right.isDown) {
+			movePerso(player, 'right');
+		} else if (cursors.up.isDown) {
+			movePerso(player, 'up');
+		} else if (cursors.down.isDown) {
+			movePerso(player, 'down');
+		} else {
+			player.animations.stop();
+			//player.frame = 4;
+		}
 	} else {
-		if(cursors.up.isDown) {
-			upMenu();
-
-	    } else if(cursors.down.isDown) {
-	    	downMenu();
-	    }
-	}
+			if (cursors.up.isDown) {
+				upMenu();
+			} else if (cursors.down.isDown) {
+				downMenu();
+			}
+		}
 }

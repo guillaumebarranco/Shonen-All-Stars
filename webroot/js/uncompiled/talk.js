@@ -33,7 +33,6 @@ function talk() {
 		break;
 
 
-
 		/*
 		*	PERSONNAGES RECURRENTS
 		*/
