@@ -155,7 +155,7 @@ const hidePass = function() {
 	stepTalk = 1;
 }
 
-const finishTalking = function() {
+const finishTalking = () => {
 	hidePass();
 	newText.text = "";
 }
